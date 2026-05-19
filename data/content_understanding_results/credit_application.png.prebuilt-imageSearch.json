@@ -1,0 +1,67 @@
+{
+  "document_id": "9ad7eb74-c7f1-4aeb-aacf-3be220fa0ad8",
+  "filename": "credit_application.png",
+  "content_type": "image/png",
+  "analyzer_id": "prebuilt-imageSearch",
+  "api_version": "2025-11-01",
+  "markdown": "![image](pages/1)\n",
+  "summary": "The image is a document titled 'Personal Credit Application' which is a synthetic demo with no real personal data. It details a branch note from the Madrid consumer lending desk about Elena Ruiz, client CUST-1001, who visited on 18 May 2026 to request a personal loan. She stated she needed twelve thousand euros and preferred to repay it over two years. Her payslip shows a monthly income of roughly EUR 3,300. The file includes a scanned identity document and an income statement. The purpose of the loan discussed with the clerk was for household equipment and minor home repairs. The document is signed by E. Ruiz at the counter.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "The image is a document titled 'Personal Credit Application' which is a synthetic demo with no real personal data. It details a branch note from the Madrid consumer lending desk about Elena Ruiz, client CUST-1001, who visited on 18 May 2026 to request a personal loan. She stated she needed twelve thousand euros and preferred to repay it over two years. Her payslip shows a monthly income of roughly EUR 3,300. The file includes a scanned identity document and an income statement. The purpose of the loan discussed with the clerk was for household equipment and minor home repairs. The document is signed by E. Ruiz at the counter."
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "spans": []
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 1; completion latency: 3.37s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "![image](pages/1)\n"
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-imageSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:52:32Z",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 1; completion latency: 3.37s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "![image](pages/1)\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "The image is a document titled 'Personal Credit Application' which is a synthetic demo with no real personal data. It details a branch note from the Madrid consumer lending desk about Elena Ruiz, client CUST-1001, who visited on 18 May 2026 to request a personal loan. She stated she needed twelve thousand euros and preferred to repay it over two years. Her payslip shows a monthly income of roughly EUR 3,300. The file includes a scanned identity document and an income statement. The purpose of the loan discussed with the clerk was for household equipment and minor home repairs. The document is signed by E. Ruiz at the counter."
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "pixel",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "spans": []
+          }
+        ],
+        "analyzerId": "prebuilt-imageSearch",
+        "mimeType": "image/png"
+      }
+    ]
+  }
+}

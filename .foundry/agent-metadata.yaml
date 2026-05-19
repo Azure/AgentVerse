@@ -1,0 +1,8 @@
+defaultEnvironment: dev
+environments:
+  dev:
+    projectEndpoint: https://agent-verse-resource.services.ai.azure.com/api/projects/agent-verse-project
+    agentName: AgentVerseIntakeAgent
+    observability:
+      applicationInsightsResourceId: /subscriptions/72dc9a1e-135b-49cb-86e6-80630340cade/resourceGroups/rg-agent-verse/providers/microsoft.insights/components/appi-agent-verse-resource
+      applicationInsightsConnectionString: InstrumentationKey=e4f12ca2-9f7b-4e31-be22-e5ab83a15438;IngestionEndpoint=https://swedencentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://swedencentral.livediagnostics.monitor.azure.com/;ApplicationId=66df1d55-08ec-47b4-80d8-2bab9aa78c26

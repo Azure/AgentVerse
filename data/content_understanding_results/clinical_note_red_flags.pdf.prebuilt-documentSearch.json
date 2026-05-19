@@ -1,0 +1,1782 @@
+{
+  "document_id": "ad59ac27-ed52-45f3-989e-47588d8e98c6",
+  "filename": "clinical_note_red_flags.pdf",
+  "content_type": "application/pdf",
+  "analyzer_id": "prebuilt-documentSearch",
+  "api_version": "2025-11-01",
+  "markdown": "# Walk-In Nursing Note\n\nSynthetic demo document - no real personal data\n\nTriage narrative for Ana Santos (PAT-3001), 18 May 2026.\n\nThe patient reports chest pressure, shortness of breath, and pain radiating into the\nleft arm since earlier today.\n\nRecorded blood pressure was 168/102 with heart rate 96. The triage nurse\nrequested urgent medical review and cardiology follow-up because acute coronary\nsyndrome must be ruled out.\n",
+  "summary": "This document is a walk-in nursing note dated 18 May 2026 for patient Ana Santos (PAT-3001). It records the patient's symptoms of chest pressure, shortness of breath, and pain radiating into the left arm. Vital signs include a blood pressure of 168/102 and a heart rate of 96. The triage nurse has requested urgent medical review and cardiology follow-up to rule out acute coronary syndrome.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "This document is a walk-in nursing note dated 18 May 2026 for patient Ana Santos (PAT-3001). It records the patient's symptoms of chest pressure, shortness of breath, and pain radiating into the left arm. Vital signs include a blood pressure of 168/102 and a heart rate of 96. The triage nurse has requested urgent medical review and cardiology follow-up to rule out acute coronary syndrome.",
+      "spans": [
+        {
+          "offset": 2,
+          "length": 20
+        },
+        {
+          "offset": 73,
+          "length": 56
+        },
+        {
+          "offset": 131,
+          "length": 84
+        },
+        {
+          "offset": 216,
+          "length": 29
+        },
+        {
+          "offset": 247,
+          "length": 55
+        },
+        {
+          "offset": 320,
+          "length": 79
+        },
+        {
+          "offset": 400,
+          "length": 27
+        }
+      ],
+      "confidence": 0.183,
+      "source": "D(1,0.9805,1.0027,3.8120,1.0096,3.8112,1.3224,0.9798,1.3155);D(1,0.9871,1.9929,5.3223,1.9910,5.3224,2.2005,0.9872,2.2024);D(1,0.9861,2.3430,7.0735,2.3430,7.0735,2.5517,0.9861,2.5517);D(1,0.9831,2.5906,2.9964,2.5938,2.9961,2.7957,0.9828,2.7926);D(1,0.9886,2.9271,5.2258,2.9267,5.2258,3.1368,0.9886,3.1372);D(1,0.9831,3.1831,7.0816,3.1817,7.0816,3.4010,0.9831,3.4024);D(1,0.9825,3.4432,3.1070,3.4325,3.1080,3.6354,0.9835,3.6461)"
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "angle": 0.01616646,
+      "width": 8.2639,
+      "height": 11.6806,
+      "spans": [
+        {
+          "offset": 0,
+          "length": 428
+        }
+      ],
+      "words": [
+        {
+          "content": "Walk",
+          "span": {
+            "offset": 2,
+            "length": 4
+          },
+          "confidence": 0.986,
+          "source": "D(1,0.9805,1.0069,1.6418,1.0055,1.6442,1.3098,0.9825,1.3056)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 6,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.6418,1.0055,1.7276,1.0054,1.7301,1.3103,1.6442,1.3098)"
+        },
+        {
+          "content": "In",
+          "span": {
+            "offset": 7,
+            "length": 2
+          },
+          "confidence": 0.946,
+          "source": "D(1,1.7276,1.0054,1.9547,1.0051,1.9574,1.3117,1.7301,1.3103)"
+        },
+        {
+          "content": "Nursing",
+          "span": {
+            "offset": 10,
+            "length": 7
+          },
+          "confidence": 0.99,
+          "source": "D(1,2.0506,1.0054,3.0904,1.0101,3.0939,1.3184,2.0534,1.3123)"
+        },
+        {
+          "content": "Note",
+          "span": {
+            "offset": 18,
+            "length": 4
+          },
+          "confidence": 0.997,
+          "source": "D(1,3.1812,1.0108,3.8071,1.0162,3.8112,1.3224,3.1848,1.3189)"
+        },
+        {
+          "content": "Synthetic",
+          "span": {
+            "offset": 24,
+            "length": 9
+          },
+          "confidence": 0.997,
+          "source": "D(1,0.9861,1.4159,1.5581,1.4153,1.559,1.5945,0.9871,1.5943)"
+        },
+        {
+          "content": "demo",
+          "span": {
+            "offset": 34,
+            "length": 4
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.5969,1.4153,1.9425,1.415,1.9432,1.5947,1.5977,1.5946)"
+        },
+        {
+          "content": "document",
+          "span": {
+            "offset": 39,
+            "length": 8
+          },
+          "confidence": 0.996,
+          "source": "D(1,1.9812,1.4149,2.604,1.4147,2.6044,1.5947,1.9819,1.5947)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 48,
+            "length": 1
+          },
+          "confidence": 0.989,
+          "source": "D(1,2.6367,1.4147,2.6844,1.4147,2.6849,1.5947,2.6372,1.5947)"
+        },
+        {
+          "content": "no",
+          "span": {
+            "offset": 50,
+            "length": 2
+          },
+          "confidence": 0.994,
+          "source": "D(1,2.7202,1.4147,2.8721,1.4146,2.8725,1.5947,2.7206,1.5947)"
+        },
+        {
+          "content": "real",
+          "span": {
+            "offset": 53,
+            "length": 4
+          },
+          "confidence": 0.99,
+          "source": "D(1,2.9168,1.4146,3.1403,1.4146,3.1406,1.5946,2.9172,1.5947)"
+        },
+        {
+          "content": "personal",
+          "span": {
+            "offset": 58,
+            "length": 8
+          },
+          "confidence": 0.995,
+          "source": "D(1,3.185,1.4146,3.7124,1.4147,3.7125,1.5944,3.1853,1.5946)"
+        },
+        {
+          "content": "data",
+          "span": {
+            "offset": 67,
+            "length": 4
+          },
+          "confidence": 0.997,
+          "source": "D(1,3.7541,1.4147,4.0371,1.4148,4.0371,1.5942,3.7542,1.5944)"
+        },
+        {
+          "content": "Triage",
+          "span": {
+            "offset": 73,
+            "length": 6
+          },
+          "confidence": 0.996,
+          "source": "D(1,0.9871,1.9959,1.4526,1.995,1.4535,2.2014,0.9881,2.2014)"
+        },
+        {
+          "content": "narrative",
+          "span": {
+            "offset": 80,
+            "length": 9
+          },
+          "confidence": 0.996,
+          "source": "D(1,1.5081,1.9949,2.1473,1.9936,2.1481,2.2015,1.509,2.2015)"
+        },
+        {
+          "content": "for",
+          "span": {
+            "offset": 90,
+            "length": 3
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.1994,1.9934,2.4009,1.993,2.4016,2.2016,2.2001,2.2015)"
+        },
+        {
+          "content": "Ana",
+          "span": {
+            "offset": 94,
+            "length": 3
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.4356,1.993,2.7344,1.9927,2.735,2.2015,2.4363,2.2016)"
+        },
+        {
+          "content": "Santos",
+          "span": {
+            "offset": 98,
+            "length": 6
+          },
+          "confidence": 0.996,
+          "source": "D(1,2.79,1.9926,3.3041,1.9921,3.3045,2.2013,2.7905,2.2015)"
+        },
+        {
+          "content": "(",
+          "span": {
+            "offset": 105,
+            "length": 1
+          },
+          "confidence": 0.999,
+          "source": "D(1,3.3527,1.9921,3.4083,1.992,3.4087,2.2013,3.3532,2.2013)"
+        },
+        {
+          "content": "PAT",
+          "span": {
+            "offset": 106,
+            "length": 3
+          },
+          "confidence": 0.996,
+          "source": "D(1,3.4187,1.992,3.7313,1.9917,3.7317,2.2012,3.4191,2.2013)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 109,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,3.7279,1.9917,3.7834,1.9917,3.7838,2.2012,3.7282,2.2012)"
+        },
+        {
+          "content": "3001",
+          "span": {
+            "offset": 110,
+            "length": 4
+          },
+          "confidence": 0.988,
+          "source": "D(1,3.7869,1.9917,4.1343,1.9916,4.1346,2.201,3.7873,2.2012)"
+        },
+        {
+          "content": ")",
+          "span": {
+            "offset": 114,
+            "length": 1
+          },
+          "confidence": 0.999,
+          "source": "D(1,4.1586,1.9916,4.2038,1.9916,4.204,2.201,4.1589,2.201)"
+        },
+        {
+          "content": ",",
+          "span": {
+            "offset": 115,
+            "length": 1
+          },
+          "confidence": 0.994,
+          "source": "D(1,4.2177,1.9916,4.2524,1.9916,4.2526,2.201,4.2179,2.201)"
+        },
+        {
+          "content": "18",
+          "span": {
+            "offset": 117,
+            "length": 2
+          },
+          "confidence": 0.523,
+          "source": "D(1,4.3149,1.9917,4.4851,1.9917,4.4853,2.2008,4.3152,2.2009)"
+        },
+        {
+          "content": "May",
+          "span": {
+            "offset": 120,
+            "length": 3
+          },
+          "confidence": 0.207,
+          "source": "D(1,4.5407,1.9917,4.8568,1.9917,4.8569,2.2006,4.5409,2.2008)"
+        },
+        {
+          "content": "2026",
+          "span": {
+            "offset": 124,
+            "length": 4
+          },
+          "confidence": 0.504,
+          "source": "D(1,4.8985,1.9917,5.2667,1.9918,5.2667,2.2004,4.8986,2.2006)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 128,
+            "length": 1
+          },
+          "confidence": 0.99,
+          "source": "D(1,5.2771,1.9918,5.3223,1.9918,5.3223,2.2003,5.2772,2.2003)"
+        },
+        {
+          "content": "The",
+          "span": {
+            "offset": 131,
+            "length": 3
+          },
+          "confidence": 0.995,
+          "source": "D(1,0.9861,2.343,1.2732,2.3431,1.2741,2.5504,0.9871,2.5502)"
+        },
+        {
+          "content": "patient",
+          "span": {
+            "offset": 135,
+            "length": 7
+          },
+          "confidence": 0.987,
+          "source": "D(1,1.3285,2.3431,1.8266,2.3432,1.8274,2.5509,1.3294,2.5505)"
+        },
+        {
+          "content": "reports",
+          "span": {
+            "offset": 143,
+            "length": 7
+          },
+          "confidence": 0.991,
+          "source": "D(1,1.8715,2.3432,2.3869,2.3433,2.3877,2.5513,1.8724,2.5509)"
+        },
+        {
+          "content": "chest",
+          "span": {
+            "offset": 151,
+            "length": 5
+          },
+          "confidence": 0.993,
+          "source": "D(1,2.4318,2.3433,2.8434,2.3433,2.8441,2.5516,2.4326,2.5513)"
+        },
+        {
+          "content": "pressure",
+          "span": {
+            "offset": 157,
+            "length": 8
+          },
+          "confidence": 0.991,
+          "source": "D(1,2.8884,2.3433,3.5179,2.3434,3.5185,2.5517,2.8891,2.5516)"
+        },
+        {
+          "content": ",",
+          "span": {
+            "offset": 165,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,3.5248,2.3434,3.5594,2.3434,3.56,2.5517,3.5254,2.5517)"
+        },
+        {
+          "content": "shortness",
+          "span": {
+            "offset": 167,
+            "length": 9
+          },
+          "confidence": 0.986,
+          "source": "D(1,3.6148,2.3434,4.3446,2.3434,4.345,2.5517,3.6153,2.5517)"
+        },
+        {
+          "content": "of",
+          "span": {
+            "offset": 177,
+            "length": 2
+          },
+          "confidence": 0.961,
+          "source": "D(1,4.393,2.3434,4.5452,2.3434,4.5456,2.5517,4.3934,2.5517)"
+        },
+        {
+          "content": "breath",
+          "span": {
+            "offset": 180,
+            "length": 6
+          },
+          "confidence": 0.91,
+          "source": "D(1,4.5832,2.3434,5.0398,2.3435,5.0401,2.5517,4.5836,2.5517)"
+        },
+        {
+          "content": ",",
+          "span": {
+            "offset": 186,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,5.0467,2.3435,5.0813,2.3434,5.0816,2.5516,5.047,2.5517)"
+        },
+        {
+          "content": "and",
+          "span": {
+            "offset": 188,
+            "length": 3
+          },
+          "confidence": 0.985,
+          "source": "D(1,5.1332,2.3434,5.4064,2.3434,5.4067,2.5514,5.1335,2.5516)"
+        },
+        {
+          "content": "pain",
+          "span": {
+            "offset": 192,
+            "length": 4
+          },
+          "confidence": 0.9,
+          "source": "D(1,5.4652,2.3434,5.773,2.3434,5.7732,2.5511,5.4655,2.5513)"
+        },
+        {
+          "content": "radiating",
+          "span": {
+            "offset": 197,
+            "length": 9
+          },
+          "confidence": 0.8,
+          "source": "D(1,5.8353,2.3434,6.4579,2.3434,6.458,2.5505,5.8355,2.551)"
+        },
+        {
+          "content": "into",
+          "span": {
+            "offset": 207,
+            "length": 4
+          },
+          "confidence": 0.581,
+          "source": "D(1,6.5063,2.3434,6.7761,2.3433,6.7761,2.5503,6.5064,2.5505)"
+        },
+        {
+          "content": "the",
+          "span": {
+            "offset": 212,
+            "length": 3
+          },
+          "confidence": 0.787,
+          "source": "D(1,6.8176,2.3433,7.0735,2.3433,7.0735,2.55,6.8176,2.5502)"
+        },
+        {
+          "content": "left",
+          "span": {
+            "offset": 216,
+            "length": 4
+          },
+          "confidence": 0.991,
+          "source": "D(1,0.9831,2.5922,1.2181,2.5921,1.219,2.7915,0.9841,2.7905)"
+        },
+        {
+          "content": "arm",
+          "span": {
+            "offset": 221,
+            "length": 3
+          },
+          "confidence": 0.994,
+          "source": "D(1,1.2645,2.5921,1.5393,2.592,1.54,2.793,1.2653,2.7917)"
+        },
+        {
+          "content": "since",
+          "span": {
+            "offset": 225,
+            "length": 5
+          },
+          "confidence": 0.995,
+          "source": "D(1,1.5989,2.592,1.9829,2.5923,1.9834,2.7941,1.5996,2.7932)"
+        },
+        {
+          "content": "earlier",
+          "span": {
+            "offset": 231,
+            "length": 7
+          },
+          "confidence": 0.982,
+          "source": "D(1,2.0293,2.5924,2.4928,2.593,2.4931,2.7947,2.0298,2.7942)"
+        },
+        {
+          "content": "today",
+          "span": {
+            "offset": 239,
+            "length": 5
+          },
+          "confidence": 0.99,
+          "source": "D(1,2.5292,2.5931,2.9497,2.594,2.9497,2.7944,2.5295,2.7947)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 244,
+            "length": 1
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.953,2.594,2.9961,2.5941,2.9961,2.7944,2.953,2.7944)"
+        },
+        {
+          "content": "Recorded",
+          "span": {
+            "offset": 247,
+            "length": 8
+          },
+          "confidence": 0.996,
+          "source": "D(1,0.9886,2.9335,1.7022,2.9313,1.7031,3.1358,0.9896,3.1372)"
+        },
+        {
+          "content": "blood",
+          "span": {
+            "offset": 256,
+            "length": 5
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.7608,2.9311,2.1607,2.9299,2.1615,3.1349,1.7617,3.1357)"
+        },
+        {
+          "content": "pressure",
+          "span": {
+            "offset": 262,
+            "length": 8
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.2159,2.9297,2.8606,2.9278,2.8613,3.1335,2.2167,3.1348)"
+        },
+        {
+          "content": "was",
+          "span": {
+            "offset": 271,
+            "length": 3
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.902,2.9278,3.1984,2.9276,3.199,3.1337,2.9026,3.1336)"
+        },
+        {
+          "content": "168/102",
+          "span": {
+            "offset": 275,
+            "length": 7
+          },
+          "confidence": 0.951,
+          "source": "D(1,3.2605,2.9276,3.8535,2.9272,3.854,3.1341,3.2611,3.1338)"
+        },
+        {
+          "content": "with",
+          "span": {
+            "offset": 283,
+            "length": 4
+          },
+          "confidence": 0.993,
+          "source": "D(1,3.8914,2.9272,4.1948,2.927,4.1952,3.1343,3.8919,3.1342)"
+        },
+        {
+          "content": "heart",
+          "span": {
+            "offset": 288,
+            "length": 5
+          },
+          "confidence": 0.994,
+          "source": "D(1,4.2499,2.927,4.6291,2.9268,4.6295,3.1346,4.2503,3.1344)"
+        },
+        {
+          "content": "rate",
+          "span": {
+            "offset": 294,
+            "length": 4
+          },
+          "confidence": 0.979,
+          "source": "D(1,4.674,2.9268,4.9567,2.9273,4.9569,3.1356,4.6743,3.1346)"
+        },
+        {
+          "content": "96",
+          "span": {
+            "offset": 299,
+            "length": 2
+          },
+          "confidence": 0.909,
+          "source": "D(1,5.0015,2.9274,5.1842,2.9278,5.1844,3.1363,5.0018,3.1357)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 301,
+            "length": 1
+          },
+          "confidence": 0.961,
+          "source": "D(1,5.1911,2.9278,5.2256,2.9279,5.2258,3.1364,5.1913,3.1363)"
+        },
+        {
+          "content": "The",
+          "span": {
+            "offset": 303,
+            "length": 3
+          },
+          "confidence": 0.946,
+          "source": "D(1,5.2738,2.928,5.5634,2.9285,5.5636,3.1375,5.2741,3.1366)"
+        },
+        {
+          "content": "triage",
+          "span": {
+            "offset": 307,
+            "length": 6
+          },
+          "confidence": 0.974,
+          "source": "D(1,5.6048,2.9286,6.0254,2.9294,6.0255,3.139,5.605,3.1376)"
+        },
+        {
+          "content": "nurse",
+          "span": {
+            "offset": 314,
+            "length": 5
+          },
+          "confidence": 0.981,
+          "source": "D(1,6.0737,2.9295,6.5046,2.9304,6.5046,3.1405,6.0737,3.1392)"
+        },
+        {
+          "content": "requested",
+          "span": {
+            "offset": 320,
+            "length": 9
+          },
+          "confidence": 0.994,
+          "source": "D(1,0.9831,3.1931,1.7207,3.1897,1.7216,3.3977,0.9841,3.3993)"
+        },
+        {
+          "content": "urgent",
+          "span": {
+            "offset": 330,
+            "length": 6
+          },
+          "confidence": 0.992,
+          "source": "D(1,1.7771,3.1895,2.2571,3.1873,2.2579,3.3966,1.778,3.3976)"
+        },
+        {
+          "content": "medical",
+          "span": {
+            "offset": 337,
+            "length": 7
+          },
+          "confidence": 0.986,
+          "source": "D(1,2.303,3.187,2.8641,3.1845,2.8648,3.3953,2.3038,3.3965)"
+        },
+        {
+          "content": "review",
+          "span": {
+            "offset": 345,
+            "length": 6
+          },
+          "confidence": 0.953,
+          "source": "D(1,2.9206,3.1842,3.4076,3.1835,3.4083,3.3951,2.9213,3.3952)"
+        },
+        {
+          "content": "and",
+          "span": {
+            "offset": 352,
+            "length": 3
+          },
+          "confidence": 0.978,
+          "source": "D(1,3.4465,3.1835,3.7147,3.1832,3.7153,3.3952,3.4471,3.3951)"
+        },
+        {
+          "content": "cardiology",
+          "span": {
+            "offset": 356,
+            "length": 10
+          },
+          "confidence": 0.981,
+          "source": "D(1,3.7676,3.1832,4.5264,3.1826,4.5268,3.3954,3.7682,3.3952)"
+        },
+        {
+          "content": "follow",
+          "span": {
+            "offset": 367,
+            "length": 6
+          },
+          "confidence": 0.974,
+          "source": "D(1,4.5652,3.1826,4.9993,3.1823,4.9997,3.3955,4.5657,3.3954)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 373,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,5.0029,3.1823,5.0558,3.1822,5.0562,3.3956,5.0032,3.3955)"
+        },
+        {
+          "content": "up",
+          "span": {
+            "offset": 374,
+            "length": 2
+          },
+          "confidence": 0.972,
+          "source": "D(1,5.0629,3.1823,5.2429,3.1828,5.2432,3.3961,5.0632,3.3956)"
+        },
+        {
+          "content": "because",
+          "span": {
+            "offset": 377,
+            "length": 7
+          },
+          "confidence": 0.797,
+          "source": "D(1,5.2958,3.183,5.9134,3.1848,5.9136,3.3979,5.2961,3.3962)"
+        },
+        {
+          "content": "acute",
+          "span": {
+            "offset": 385,
+            "length": 5
+          },
+          "confidence": 0.829,
+          "source": "D(1,5.9628,3.185,6.3758,3.1862,6.3759,3.3991,5.963,3.398)"
+        },
+        {
+          "content": "coronary",
+          "span": {
+            "offset": 391,
+            "length": 8
+          },
+          "confidence": 0.859,
+          "source": "D(1,6.4216,3.1864,7.0816,3.1884,7.0816,3.401,6.4217,3.3993)"
+        },
+        {
+          "content": "syndrome",
+          "span": {
+            "offset": 400,
+            "length": 8
+          },
+          "confidence": 0.996,
+          "source": "D(1,0.9825,3.4467,1.7128,3.4404,1.7142,3.6401,0.9846,3.6461)"
+        },
+        {
+          "content": "must",
+          "span": {
+            "offset": 409,
+            "length": 4
+          },
+          "confidence": 0.976,
+          "source": "D(1,1.7659,3.44,2.1311,3.4377,2.132,3.6371,1.7672,3.6397)"
+        },
+        {
+          "content": "be",
+          "span": {
+            "offset": 414,
+            "length": 2
+          },
+          "confidence": 0.985,
+          "source": "D(1,2.1809,3.4374,2.3601,3.4363,2.3608,3.6355,2.1818,3.6368)"
+        },
+        {
+          "content": "ruled",
+          "span": {
+            "offset": 417,
+            "length": 5
+          },
+          "confidence": 0.944,
+          "source": "D(1,2.4166,3.436,2.7718,3.4346,2.7721,3.6331,2.4172,3.6352)"
+        },
+        {
+          "content": "out",
+          "span": {
+            "offset": 423,
+            "length": 3
+          },
+          "confidence": 0.992,
+          "source": "D(1,2.8249,3.4344,3.0639,3.4334,3.0639,3.6314,2.8251,3.6328)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 426,
+            "length": 1
+          },
+          "confidence": 0.997,
+          "source": "D(1,3.0672,3.4334,3.107,3.4333,3.107,3.6311,3.0672,3.6314)"
+        }
+      ],
+      "lines": [
+        {
+          "content": "Walk-In Nursing Note",
+          "source": "D(1,0.9806,1.0038,3.8123,1.0134,3.8112,1.3224,0.9789,1.3066)",
+          "span": {
+            "offset": 2,
+            "length": 20
+          }
+        },
+        {
+          "content": "Synthetic demo document - no real personal data",
+          "source": "D(1,0.9861,1.4146,4.0371,1.4145,4.0371,1.5947,0.9861,1.5947)",
+          "span": {
+            "offset": 24,
+            "length": 47
+          }
+        },
+        {
+          "content": "Triage narrative for Ana Santos (PAT-3001), 18 May 2026.",
+          "source": "D(1,0.9871,1.9923,5.3223,1.9912,5.3224,2.2008,0.9871,2.2019)",
+          "span": {
+            "offset": 73,
+            "length": 56
+          }
+        },
+        {
+          "content": "The patient reports chest pressure, shortness of breath, and pain radiating into the",
+          "source": "D(1,0.9861,2.343,7.0735,2.3433,7.0735,2.5519,0.9861,2.5516)",
+          "span": {
+            "offset": 131,
+            "length": 84
+          }
+        },
+        {
+          "content": "left arm since earlier today.",
+          "source": "D(1,0.9831,2.5914,2.9962,2.5933,2.9961,2.7954,0.9829,2.7935)",
+          "span": {
+            "offset": 216,
+            "length": 29
+          }
+        },
+        {
+          "content": "Recorded blood pressure was 168/102 with heart rate 96. The triage nurse",
+          "source": "D(1,0.9886,2.9258,6.5047,2.9279,6.5046,3.1405,0.9885,3.1372)",
+          "span": {
+            "offset": 247,
+            "length": 72
+          }
+        },
+        {
+          "content": "requested urgent medical review and cardiology follow-up because acute coronary",
+          "source": "D(1,0.9831,3.1811,7.0817,3.1828,7.0816,3.401,0.983,3.3993)",
+          "span": {
+            "offset": 320,
+            "length": 79
+          }
+        },
+        {
+          "content": "syndrome must be ruled out.",
+          "source": "D(1,0.9825,3.4455,3.107,3.4305,3.1084,3.6311,0.984,3.6461)",
+          "span": {
+            "offset": 400,
+            "length": 27
+          }
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 2; completion latency: 2.93s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "Walk-In Nursing Note Synthetic demo document - no real personal data Triage narrative for Ana Santos (PAT-3001), 18 May 2026."
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-documentSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:51:58Z",
+    "stringEncoding": "codePoint",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 2; completion latency: 2.93s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "# Walk-In Nursing Note\n\nSynthetic demo document - no real personal data\n\nTriage narrative for Ana Santos (PAT-3001), 18 May 2026.\n\nThe patient reports chest pressure, shortness of breath, and pain radiating into the\nleft arm since earlier today.\n\nRecorded blood pressure was 168/102 with heart rate 96. The triage nurse\nrequested urgent medical review and cardiology follow-up because acute coronary\nsyndrome must be ruled out.\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "This document is a walk-in nursing note dated 18 May 2026 for patient Ana Santos (PAT-3001). It records the patient's symptoms of chest pressure, shortness of breath, and pain radiating into the left arm. Vital signs include a blood pressure of 168/102 and a heart rate of 96. The triage nurse has requested urgent medical review and cardiology follow-up to rule out acute coronary syndrome.",
+            "spans": [
+              {
+                "offset": 2,
+                "length": 20
+              },
+              {
+                "offset": 73,
+                "length": 56
+              },
+              {
+                "offset": 131,
+                "length": 84
+              },
+              {
+                "offset": 216,
+                "length": 29
+              },
+              {
+                "offset": 247,
+                "length": 55
+              },
+              {
+                "offset": 320,
+                "length": 79
+              },
+              {
+                "offset": 400,
+                "length": 27
+              }
+            ],
+            "confidence": 0.183,
+            "source": "D(1,0.9805,1.0027,3.8120,1.0096,3.8112,1.3224,0.9798,1.3155);D(1,0.9871,1.9929,5.3223,1.9910,5.3224,2.2005,0.9872,2.2024);D(1,0.9861,2.3430,7.0735,2.3430,7.0735,2.5517,0.9861,2.5517);D(1,0.9831,2.5906,2.9964,2.5938,2.9961,2.7957,0.9828,2.7926);D(1,0.9886,2.9271,5.2258,2.9267,5.2258,3.1368,0.9886,3.1372);D(1,0.9831,3.1831,7.0816,3.1817,7.0816,3.4010,0.9831,3.4024);D(1,0.9825,3.4432,3.1070,3.4325,3.1080,3.6354,0.9835,3.6461)"
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "inch",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "angle": 0.01616646,
+            "width": 8.2639,
+            "height": 11.6806,
+            "spans": [
+              {
+                "offset": 0,
+                "length": 428
+              }
+            ],
+            "words": [
+              {
+                "content": "Walk",
+                "span": {
+                  "offset": 2,
+                  "length": 4
+                },
+                "confidence": 0.986,
+                "source": "D(1,0.9805,1.0069,1.6418,1.0055,1.6442,1.3098,0.9825,1.3056)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 6,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.6418,1.0055,1.7276,1.0054,1.7301,1.3103,1.6442,1.3098)"
+              },
+              {
+                "content": "In",
+                "span": {
+                  "offset": 7,
+                  "length": 2
+                },
+                "confidence": 0.946,
+                "source": "D(1,1.7276,1.0054,1.9547,1.0051,1.9574,1.3117,1.7301,1.3103)"
+              },
+              {
+                "content": "Nursing",
+                "span": {
+                  "offset": 10,
+                  "length": 7
+                },
+                "confidence": 0.99,
+                "source": "D(1,2.0506,1.0054,3.0904,1.0101,3.0939,1.3184,2.0534,1.3123)"
+              },
+              {
+                "content": "Note",
+                "span": {
+                  "offset": 18,
+                  "length": 4
+                },
+                "confidence": 0.997,
+                "source": "D(1,3.1812,1.0108,3.8071,1.0162,3.8112,1.3224,3.1848,1.3189)"
+              },
+              {
+                "content": "Synthetic",
+                "span": {
+                  "offset": 24,
+                  "length": 9
+                },
+                "confidence": 0.997,
+                "source": "D(1,0.9861,1.4159,1.5581,1.4153,1.559,1.5945,0.9871,1.5943)"
+              },
+              {
+                "content": "demo",
+                "span": {
+                  "offset": 34,
+                  "length": 4
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.5969,1.4153,1.9425,1.415,1.9432,1.5947,1.5977,1.5946)"
+              },
+              {
+                "content": "document",
+                "span": {
+                  "offset": 39,
+                  "length": 8
+                },
+                "confidence": 0.996,
+                "source": "D(1,1.9812,1.4149,2.604,1.4147,2.6044,1.5947,1.9819,1.5947)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 48,
+                  "length": 1
+                },
+                "confidence": 0.989,
+                "source": "D(1,2.6367,1.4147,2.6844,1.4147,2.6849,1.5947,2.6372,1.5947)"
+              },
+              {
+                "content": "no",
+                "span": {
+                  "offset": 50,
+                  "length": 2
+                },
+                "confidence": 0.994,
+                "source": "D(1,2.7202,1.4147,2.8721,1.4146,2.8725,1.5947,2.7206,1.5947)"
+              },
+              {
+                "content": "real",
+                "span": {
+                  "offset": 53,
+                  "length": 4
+                },
+                "confidence": 0.99,
+                "source": "D(1,2.9168,1.4146,3.1403,1.4146,3.1406,1.5946,2.9172,1.5947)"
+              },
+              {
+                "content": "personal",
+                "span": {
+                  "offset": 58,
+                  "length": 8
+                },
+                "confidence": 0.995,
+                "source": "D(1,3.185,1.4146,3.7124,1.4147,3.7125,1.5944,3.1853,1.5946)"
+              },
+              {
+                "content": "data",
+                "span": {
+                  "offset": 67,
+                  "length": 4
+                },
+                "confidence": 0.997,
+                "source": "D(1,3.7541,1.4147,4.0371,1.4148,4.0371,1.5942,3.7542,1.5944)"
+              },
+              {
+                "content": "Triage",
+                "span": {
+                  "offset": 73,
+                  "length": 6
+                },
+                "confidence": 0.996,
+                "source": "D(1,0.9871,1.9959,1.4526,1.995,1.4535,2.2014,0.9881,2.2014)"
+              },
+              {
+                "content": "narrative",
+                "span": {
+                  "offset": 80,
+                  "length": 9
+                },
+                "confidence": 0.996,
+                "source": "D(1,1.5081,1.9949,2.1473,1.9936,2.1481,2.2015,1.509,2.2015)"
+              },
+              {
+                "content": "for",
+                "span": {
+                  "offset": 90,
+                  "length": 3
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.1994,1.9934,2.4009,1.993,2.4016,2.2016,2.2001,2.2015)"
+              },
+              {
+                "content": "Ana",
+                "span": {
+                  "offset": 94,
+                  "length": 3
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.4356,1.993,2.7344,1.9927,2.735,2.2015,2.4363,2.2016)"
+              },
+              {
+                "content": "Santos",
+                "span": {
+                  "offset": 98,
+                  "length": 6
+                },
+                "confidence": 0.996,
+                "source": "D(1,2.79,1.9926,3.3041,1.9921,3.3045,2.2013,2.7905,2.2015)"
+              },
+              {
+                "content": "(",
+                "span": {
+                  "offset": 105,
+                  "length": 1
+                },
+                "confidence": 0.999,
+                "source": "D(1,3.3527,1.9921,3.4083,1.992,3.4087,2.2013,3.3532,2.2013)"
+              },
+              {
+                "content": "PAT",
+                "span": {
+                  "offset": 106,
+                  "length": 3
+                },
+                "confidence": 0.996,
+                "source": "D(1,3.4187,1.992,3.7313,1.9917,3.7317,2.2012,3.4191,2.2013)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 109,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,3.7279,1.9917,3.7834,1.9917,3.7838,2.2012,3.7282,2.2012)"
+              },
+              {
+                "content": "3001",
+                "span": {
+                  "offset": 110,
+                  "length": 4
+                },
+                "confidence": 0.988,
+                "source": "D(1,3.7869,1.9917,4.1343,1.9916,4.1346,2.201,3.7873,2.2012)"
+              },
+              {
+                "content": ")",
+                "span": {
+                  "offset": 114,
+                  "length": 1
+                },
+                "confidence": 0.999,
+                "source": "D(1,4.1586,1.9916,4.2038,1.9916,4.204,2.201,4.1589,2.201)"
+              },
+              {
+                "content": ",",
+                "span": {
+                  "offset": 115,
+                  "length": 1
+                },
+                "confidence": 0.994,
+                "source": "D(1,4.2177,1.9916,4.2524,1.9916,4.2526,2.201,4.2179,2.201)"
+              },
+              {
+                "content": "18",
+                "span": {
+                  "offset": 117,
+                  "length": 2
+                },
+                "confidence": 0.523,
+                "source": "D(1,4.3149,1.9917,4.4851,1.9917,4.4853,2.2008,4.3152,2.2009)"
+              },
+              {
+                "content": "May",
+                "span": {
+                  "offset": 120,
+                  "length": 3
+                },
+                "confidence": 0.207,
+                "source": "D(1,4.5407,1.9917,4.8568,1.9917,4.8569,2.2006,4.5409,2.2008)"
+              },
+              {
+                "content": "2026",
+                "span": {
+                  "offset": 124,
+                  "length": 4
+                },
+                "confidence": 0.504,
+                "source": "D(1,4.8985,1.9917,5.2667,1.9918,5.2667,2.2004,4.8986,2.2006)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 128,
+                  "length": 1
+                },
+                "confidence": 0.99,
+                "source": "D(1,5.2771,1.9918,5.3223,1.9918,5.3223,2.2003,5.2772,2.2003)"
+              },
+              {
+                "content": "The",
+                "span": {
+                  "offset": 131,
+                  "length": 3
+                },
+                "confidence": 0.995,
+                "source": "D(1,0.9861,2.343,1.2732,2.3431,1.2741,2.5504,0.9871,2.5502)"
+              },
+              {
+                "content": "patient",
+                "span": {
+                  "offset": 135,
+                  "length": 7
+                },
+                "confidence": 0.987,
+                "source": "D(1,1.3285,2.3431,1.8266,2.3432,1.8274,2.5509,1.3294,2.5505)"
+              },
+              {
+                "content": "reports",
+                "span": {
+                  "offset": 143,
+                  "length": 7
+                },
+                "confidence": 0.991,
+                "source": "D(1,1.8715,2.3432,2.3869,2.3433,2.3877,2.5513,1.8724,2.5509)"
+              },
+              {
+                "content": "chest",
+                "span": {
+                  "offset": 151,
+                  "length": 5
+                },
+                "confidence": 0.993,
+                "source": "D(1,2.4318,2.3433,2.8434,2.3433,2.8441,2.5516,2.4326,2.5513)"
+              },
+              {
+                "content": "pressure",
+                "span": {
+                  "offset": 157,
+                  "length": 8
+                },
+                "confidence": 0.991,
+                "source": "D(1,2.8884,2.3433,3.5179,2.3434,3.5185,2.5517,2.8891,2.5516)"
+              },
+              {
+                "content": ",",
+                "span": {
+                  "offset": 165,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,3.5248,2.3434,3.5594,2.3434,3.56,2.5517,3.5254,2.5517)"
+              },
+              {
+                "content": "shortness",
+                "span": {
+                  "offset": 167,
+                  "length": 9
+                },
+                "confidence": 0.986,
+                "source": "D(1,3.6148,2.3434,4.3446,2.3434,4.345,2.5517,3.6153,2.5517)"
+              },
+              {
+                "content": "of",
+                "span": {
+                  "offset": 177,
+                  "length": 2
+                },
+                "confidence": 0.961,
+                "source": "D(1,4.393,2.3434,4.5452,2.3434,4.5456,2.5517,4.3934,2.5517)"
+              },
+              {
+                "content": "breath",
+                "span": {
+                  "offset": 180,
+                  "length": 6
+                },
+                "confidence": 0.91,
+                "source": "D(1,4.5832,2.3434,5.0398,2.3435,5.0401,2.5517,4.5836,2.5517)"
+              },
+              {
+                "content": ",",
+                "span": {
+                  "offset": 186,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,5.0467,2.3435,5.0813,2.3434,5.0816,2.5516,5.047,2.5517)"
+              },
+              {
+                "content": "and",
+                "span": {
+                  "offset": 188,
+                  "length": 3
+                },
+                "confidence": 0.985,
+                "source": "D(1,5.1332,2.3434,5.4064,2.3434,5.4067,2.5514,5.1335,2.5516)"
+              },
+              {
+                "content": "pain",
+                "span": {
+                  "offset": 192,
+                  "length": 4
+                },
+                "confidence": 0.9,
+                "source": "D(1,5.4652,2.3434,5.773,2.3434,5.7732,2.5511,5.4655,2.5513)"
+              },
+              {
+                "content": "radiating",
+                "span": {
+                  "offset": 197,
+                  "length": 9
+                },
+                "confidence": 0.8,
+                "source": "D(1,5.8353,2.3434,6.4579,2.3434,6.458,2.5505,5.8355,2.551)"
+              },
+              {
+                "content": "into",
+                "span": {
+                  "offset": 207,
+                  "length": 4
+                },
+                "confidence": 0.581,
+                "source": "D(1,6.5063,2.3434,6.7761,2.3433,6.7761,2.5503,6.5064,2.5505)"
+              },
+              {
+                "content": "the",
+                "span": {
+                  "offset": 212,
+                  "length": 3
+                },
+                "confidence": 0.787,
+                "source": "D(1,6.8176,2.3433,7.0735,2.3433,7.0735,2.55,6.8176,2.5502)"
+              },
+              {
+                "content": "left",
+                "span": {
+                  "offset": 216,
+                  "length": 4
+                },
+                "confidence": 0.991,
+                "source": "D(1,0.9831,2.5922,1.2181,2.5921,1.219,2.7915,0.9841,2.7905)"
+              },
+              {
+                "content": "arm",
+                "span": {
+                  "offset": 221,
+                  "length": 3
+                },
+                "confidence": 0.994,
+                "source": "D(1,1.2645,2.5921,1.5393,2.592,1.54,2.793,1.2653,2.7917)"
+              },
+              {
+                "content": "since",
+                "span": {
+                  "offset": 225,
+                  "length": 5
+                },
+                "confidence": 0.995,
+                "source": "D(1,1.5989,2.592,1.9829,2.5923,1.9834,2.7941,1.5996,2.7932)"
+              },
+              {
+                "content": "earlier",
+                "span": {
+                  "offset": 231,
+                  "length": 7
+                },
+                "confidence": 0.982,
+                "source": "D(1,2.0293,2.5924,2.4928,2.593,2.4931,2.7947,2.0298,2.7942)"
+              },
+              {
+                "content": "today",
+                "span": {
+                  "offset": 239,
+                  "length": 5
+                },
+                "confidence": 0.99,
+                "source": "D(1,2.5292,2.5931,2.9497,2.594,2.9497,2.7944,2.5295,2.7947)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 244,
+                  "length": 1
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.953,2.594,2.9961,2.5941,2.9961,2.7944,2.953,2.7944)"
+              },
+              {
+                "content": "Recorded",
+                "span": {
+                  "offset": 247,
+                  "length": 8
+                },
+                "confidence": 0.996,
+                "source": "D(1,0.9886,2.9335,1.7022,2.9313,1.7031,3.1358,0.9896,3.1372)"
+              },
+              {
+                "content": "blood",
+                "span": {
+                  "offset": 256,
+                  "length": 5
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.7608,2.9311,2.1607,2.9299,2.1615,3.1349,1.7617,3.1357)"
+              },
+              {
+                "content": "pressure",
+                "span": {
+                  "offset": 262,
+                  "length": 8
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.2159,2.9297,2.8606,2.9278,2.8613,3.1335,2.2167,3.1348)"
+              },
+              {
+                "content": "was",
+                "span": {
+                  "offset": 271,
+                  "length": 3
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.902,2.9278,3.1984,2.9276,3.199,3.1337,2.9026,3.1336)"
+              },
+              {
+                "content": "168/102",
+                "span": {
+                  "offset": 275,
+                  "length": 7
+                },
+                "confidence": 0.951,
+                "source": "D(1,3.2605,2.9276,3.8535,2.9272,3.854,3.1341,3.2611,3.1338)"
+              },
+              {
+                "content": "with",
+                "span": {
+                  "offset": 283,
+                  "length": 4
+                },
+                "confidence": 0.993,
+                "source": "D(1,3.8914,2.9272,4.1948,2.927,4.1952,3.1343,3.8919,3.1342)"
+              },
+              {
+                "content": "heart",
+                "span": {
+                  "offset": 288,
+                  "length": 5
+                },
+                "confidence": 0.994,
+                "source": "D(1,4.2499,2.927,4.6291,2.9268,4.6295,3.1346,4.2503,3.1344)"
+              },
+              {
+                "content": "rate",
+                "span": {
+                  "offset": 294,
+                  "length": 4
+                },
+                "confidence": 0.979,
+                "source": "D(1,4.674,2.9268,4.9567,2.9273,4.9569,3.1356,4.6743,3.1346)"
+              },
+              {
+                "content": "96",
+                "span": {
+                  "offset": 299,
+                  "length": 2
+                },
+                "confidence": 0.909,
+                "source": "D(1,5.0015,2.9274,5.1842,2.9278,5.1844,3.1363,5.0018,3.1357)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 301,
+                  "length": 1
+                },
+                "confidence": 0.961,
+                "source": "D(1,5.1911,2.9278,5.2256,2.9279,5.2258,3.1364,5.1913,3.1363)"
+              },
+              {
+                "content": "The",
+                "span": {
+                  "offset": 303,
+                  "length": 3
+                },
+                "confidence": 0.946,
+                "source": "D(1,5.2738,2.928,5.5634,2.9285,5.5636,3.1375,5.2741,3.1366)"
+              },
+              {
+                "content": "triage",
+                "span": {
+                  "offset": 307,
+                  "length": 6
+                },
+                "confidence": 0.974,
+                "source": "D(1,5.6048,2.9286,6.0254,2.9294,6.0255,3.139,5.605,3.1376)"
+              },
+              {
+                "content": "nurse",
+                "span": {
+                  "offset": 314,
+                  "length": 5
+                },
+                "confidence": 0.981,
+                "source": "D(1,6.0737,2.9295,6.5046,2.9304,6.5046,3.1405,6.0737,3.1392)"
+              },
+              {
+                "content": "requested",
+                "span": {
+                  "offset": 320,
+                  "length": 9
+                },
+                "confidence": 0.994,
+                "source": "D(1,0.9831,3.1931,1.7207,3.1897,1.7216,3.3977,0.9841,3.3993)"
+              },
+              {
+                "content": "urgent",
+                "span": {
+                  "offset": 330,
+                  "length": 6
+                },
+                "confidence": 0.992,
+                "source": "D(1,1.7771,3.1895,2.2571,3.1873,2.2579,3.3966,1.778,3.3976)"
+              },
+              {
+                "content": "medical",
+                "span": {
+                  "offset": 337,
+                  "length": 7
+                },
+                "confidence": 0.986,
+                "source": "D(1,2.303,3.187,2.8641,3.1845,2.8648,3.3953,2.3038,3.3965)"
+              },
+              {
+                "content": "review",
+                "span": {
+                  "offset": 345,
+                  "length": 6
+                },
+                "confidence": 0.953,
+                "source": "D(1,2.9206,3.1842,3.4076,3.1835,3.4083,3.3951,2.9213,3.3952)"
+              },
+              {
+                "content": "and",
+                "span": {
+                  "offset": 352,
+                  "length": 3
+                },
+                "confidence": 0.978,
+                "source": "D(1,3.4465,3.1835,3.7147,3.1832,3.7153,3.3952,3.4471,3.3951)"
+              },
+              {
+                "content": "cardiology",
+                "span": {
+                  "offset": 356,
+                  "length": 10
+                },
+                "confidence": 0.981,
+                "source": "D(1,3.7676,3.1832,4.5264,3.1826,4.5268,3.3954,3.7682,3.3952)"
+              },
+              {
+                "content": "follow",
+                "span": {
+                  "offset": 367,
+                  "length": 6
+                },
+                "confidence": 0.974,
+                "source": "D(1,4.5652,3.1826,4.9993,3.1823,4.9997,3.3955,4.5657,3.3954)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 373,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,5.0029,3.1823,5.0558,3.1822,5.0562,3.3956,5.0032,3.3955)"
+              },
+              {
+                "content": "up",
+                "span": {
+                  "offset": 374,
+                  "length": 2
+                },
+                "confidence": 0.972,
+                "source": "D(1,5.0629,3.1823,5.2429,3.1828,5.2432,3.3961,5.0632,3.3956)"
+              },
+              {
+                "content": "because",
+                "span": {
+                  "offset": 377,
+                  "length": 7
+                },
+                "confidence": 0.797,
+                "source": "D(1,5.2958,3.183,5.9134,3.1848,5.9136,3.3979,5.2961,3.3962)"
+              },
+              {
+                "content": "acute",
+                "span": {
+                  "offset": 385,
+                  "length": 5
+                },
+                "confidence": 0.829,
+                "source": "D(1,5.9628,3.185,6.3758,3.1862,6.3759,3.3991,5.963,3.398)"
+              },
+              {
+                "content": "coronary",
+                "span": {
+                  "offset": 391,
+                  "length": 8
+                },
+                "confidence": 0.859,
+                "source": "D(1,6.4216,3.1864,7.0816,3.1884,7.0816,3.401,6.4217,3.3993)"
+              },
+              {
+                "content": "syndrome",
+                "span": {
+                  "offset": 400,
+                  "length": 8
+                },
+                "confidence": 0.996,
+                "source": "D(1,0.9825,3.4467,1.7128,3.4404,1.7142,3.6401,0.9846,3.6461)"
+              },
+              {
+                "content": "must",
+                "span": {
+                  "offset": 409,
+                  "length": 4
+                },
+                "confidence": 0.976,
+                "source": "D(1,1.7659,3.44,2.1311,3.4377,2.132,3.6371,1.7672,3.6397)"
+              },
+              {
+                "content": "be",
+                "span": {
+                  "offset": 414,
+                  "length": 2
+                },
+                "confidence": 0.985,
+                "source": "D(1,2.1809,3.4374,2.3601,3.4363,2.3608,3.6355,2.1818,3.6368)"
+              },
+              {
+                "content": "ruled",
+                "span": {
+                  "offset": 417,
+                  "length": 5
+                },
+                "confidence": 0.944,
+                "source": "D(1,2.4166,3.436,2.7718,3.4346,2.7721,3.6331,2.4172,3.6352)"
+              },
+              {
+                "content": "out",
+                "span": {
+                  "offset": 423,
+                  "length": 3
+                },
+                "confidence": 0.992,
+                "source": "D(1,2.8249,3.4344,3.0639,3.4334,3.0639,3.6314,2.8251,3.6328)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 426,
+                  "length": 1
+                },
+                "confidence": 0.997,
+                "source": "D(1,3.0672,3.4334,3.107,3.4333,3.107,3.6311,3.0672,3.6314)"
+              }
+            ],
+            "lines": [
+              {
+                "content": "Walk-In Nursing Note",
+                "source": "D(1,0.9806,1.0038,3.8123,1.0134,3.8112,1.3224,0.9789,1.3066)",
+                "span": {
+                  "offset": 2,
+                  "length": 20
+                }
+              },
+              {
+                "content": "Synthetic demo document - no real personal data",
+                "source": "D(1,0.9861,1.4146,4.0371,1.4145,4.0371,1.5947,0.9861,1.5947)",
+                "span": {
+                  "offset": 24,
+                  "length": 47
+                }
+              },
+              {
+                "content": "Triage narrative for Ana Santos (PAT-3001), 18 May 2026.",
+                "source": "D(1,0.9871,1.9923,5.3223,1.9912,5.3224,2.2008,0.9871,2.2019)",
+                "span": {
+                  "offset": 73,
+                  "length": 56
+                }
+              },
+              {
+                "content": "The patient reports chest pressure, shortness of breath, and pain radiating into the",
+                "source": "D(1,0.9861,2.343,7.0735,2.3433,7.0735,2.5519,0.9861,2.5516)",
+                "span": {
+                  "offset": 131,
+                  "length": 84
+                }
+              },
+              {
+                "content": "left arm since earlier today.",
+                "source": "D(1,0.9831,2.5914,2.9962,2.5933,2.9961,2.7954,0.9829,2.7935)",
+                "span": {
+                  "offset": 216,
+                  "length": 29
+                }
+              },
+              {
+                "content": "Recorded blood pressure was 168/102 with heart rate 96. The triage nurse",
+                "source": "D(1,0.9886,2.9258,6.5047,2.9279,6.5046,3.1405,0.9885,3.1372)",
+                "span": {
+                  "offset": 247,
+                  "length": 72
+                }
+              },
+              {
+                "content": "requested urgent medical review and cardiology follow-up because acute coronary",
+                "source": "D(1,0.9831,3.1811,7.0817,3.1828,7.0816,3.401,0.983,3.3993)",
+                "span": {
+                  "offset": 320,
+                  "length": 79
+                }
+              },
+              {
+                "content": "syndrome must be ruled out.",
+                "source": "D(1,0.9825,3.4455,3.107,3.4305,3.1084,3.6311,0.984,3.6461)",
+                "span": {
+                  "offset": 400,
+                  "length": 27
+                }
+              }
+            ]
+          }
+        ],
+        "paragraphs": [
+          {
+            "role": "title",
+            "content": "Walk-In Nursing Note",
+            "source": "D(1,0.9806,0.9976,3.8129,1.0134,3.8112,1.3224,0.9789,1.3066)",
+            "span": {
+              "offset": 0,
+              "length": 22
+            }
+          },
+          {
+            "content": "Synthetic demo document - no real personal data",
+            "source": "D(1,0.9861,1.4146,4.0371,1.4145,4.0371,1.5947,0.9861,1.5947)",
+            "span": {
+              "offset": 24,
+              "length": 47
+            }
+          },
+          {
+            "content": "Triage narrative for Ana Santos (PAT-3001), 18 May 2026.",
+            "source": "D(1,0.9871,1.9923,5.3223,1.9912,5.3224,2.2009,0.9871,2.2019)",
+            "span": {
+              "offset": 73,
+              "length": 56
+            }
+          },
+          {
+            "content": "The patient reports chest pressure, shortness of breath, and pain radiating into the left arm since earlier today.",
+            "source": "D(1,0.9829,2.343,7.0735,2.3433,7.0735,2.7956,0.9829,2.7953)",
+            "span": {
+              "offset": 131,
+              "length": 114
+            }
+          },
+          {
+            "content": "Recorded blood pressure was 168/102 with heart rate 96. The triage nurse requested urgent medical review and cardiology follow-up because acute coronary syndrome must be ruled out.",
+            "source": "D(1,0.9827,2.9258,7.0818,2.9281,7.0815,3.6483,0.9825,3.6461)",
+            "span": {
+              "offset": 247,
+              "length": 180
+            }
+          }
+        ],
+        "sections": [
+          {
+            "span": {
+              "offset": 0,
+              "length": 427
+            },
+            "elements": [
+              "/paragraphs/0",
+              "/paragraphs/1",
+              "/paragraphs/2",
+              "/paragraphs/3",
+              "/paragraphs/4"
+            ]
+          }
+        ],
+        "analyzerId": "prebuilt-documentSearch",
+        "mimeType": "application/pdf"
+      }
+    ]
+  }
+}

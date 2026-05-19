@@ -1,0 +1,969 @@
+{
+  "financial_clients": [
+    {
+      "customer_id": "CUST-1001",
+      "name": "Elena Ruiz",
+      "risk_status": "standard",
+      "account_id": "ACCT-1001",
+      "balance_eur": 12800.0,
+      "usual_withdrawal_avg_eur": 420.0,
+      "usual_withdrawal_max_eur": 1200.0,
+      "usual_locations": [
+        "Madrid Central Branch",
+        "Madrid ATM 4"
+      ],
+      "transaction_patterns": [
+        {
+          "type": "deposit",
+          "avg_amount": 3132.34,
+          "max_amount": 3264.0,
+          "count": 29
+        },
+        {
+          "type": "withdrawal",
+          "avg_amount": 423.57,
+          "max_amount": 644.0,
+          "count": 87
+        }
+      ],
+      "common_locations": [
+        {
+          "location": "Madrid ATM 4",
+          "count": 46
+        },
+        {
+          "location": "Madrid Central Branch",
+          "count": 41
+        },
+        {
+          "location": "Payroll Transfer",
+          "count": 29
+        }
+      ],
+      "recent_events": [
+        {
+          "type": "withdrawal",
+          "amount_eur": 447.0,
+          "timestamp": "2026-05-11T22:00:00",
+          "location": "Madrid Central Branch",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 385.0,
+          "timestamp": "2026-05-04T20:00:00",
+          "location": "Madrid ATM 4",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 388.0,
+          "timestamp": "2026-04-28T02:00:00",
+          "location": "Madrid ATM 4",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "deposit",
+          "amount_eur": 3201.0,
+          "timestamp": "2026-04-24T12:00:00",
+          "location": "Payroll Transfer",
+          "description": "monthly salary deposit"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 449.0,
+          "timestamp": "2026-04-12T01:00:00",
+          "location": "Madrid ATM 4",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 409.0,
+          "timestamp": "2026-04-04T21:00:00",
+          "location": "Madrid ATM 4",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 458.0,
+          "timestamp": "2026-03-29T02:00:00",
+          "location": "Madrid ATM 4",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "deposit",
+          "amount_eur": 3019.0,
+          "timestamp": "2026-03-25T13:00:00",
+          "location": "Payroll Transfer",
+          "description": "monthly salary deposit"
+        }
+      ]
+    },
+    {
+      "customer_id": "CUST-1002",
+      "name": "Pedro Alonso",
+      "risk_status": "enhanced_monitoring",
+      "account_id": "ACCT-2002",
+      "balance_eur": 11800.0,
+      "usual_withdrawal_avg_eur": 350.0,
+      "usual_withdrawal_max_eur": 900.0,
+      "usual_locations": [
+        "Vigo Centro Branch",
+        "Vigo Industrial Estate ATM",
+        "Vigo Port Branch"
+      ],
+      "transaction_patterns": [
+        {
+          "type": "deposit",
+          "avg_amount": 4059.93,
+          "max_amount": 8000.0,
+          "count": 30
+        },
+        {
+          "type": "withdrawal",
+          "avg_amount": 332.59,
+          "max_amount": 545.0,
+          "count": 88
+        }
+      ],
+      "common_locations": [
+        {
+          "location": "Vigo Centro Branch",
+          "count": 43
+        },
+        {
+          "location": "Vigo Port Branch",
+          "count": 39
+        },
+        {
+          "location": "Vigo Industrial Estate ATM",
+          "count": 35
+        },
+        {
+          "location": "Online Transfer",
+          "count": 1
+        }
+      ],
+      "recent_events": [
+        {
+          "type": "deposit",
+          "amount_eur": 8000.0,
+          "timestamp": "2026-05-18T09:10:00",
+          "location": "Online Transfer",
+          "description": "large same-day incoming transfer"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 420.0,
+          "timestamp": "2026-05-12T11:20:00",
+          "location": "Vigo Centro Branch",
+          "description": "recent routine cash withdrawal in usual location"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 412.0,
+          "timestamp": "2026-05-12T00:00:00",
+          "location": "Vigo Port Branch",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 359.0,
+          "timestamp": "2026-05-04T17:00:00",
+          "location": "Vigo Centro Branch",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 226.0,
+          "timestamp": "2026-04-27T19:00:00",
+          "location": "Vigo Centro Branch",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "deposit",
+          "amount_eur": 3949.0,
+          "timestamp": "2026-04-24T09:00:00",
+          "location": "Vigo Industrial Estate ATM",
+          "description": "monthly salary deposit in usual Vigo network"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 260.0,
+          "timestamp": "2026-04-11T22:00:00",
+          "location": "Vigo Industrial Estate ATM",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 443.0,
+          "timestamp": "2026-04-04T23:00:00",
+          "location": "Vigo Centro Branch",
+          "description": "routine cash withdrawal"
+        }
+      ]
+    },
+    {
+      "customer_id": "CUST-1003",
+      "name": "Sofia Moreira",
+      "risk_status": "standard",
+      "account_id": "ACCT-3003",
+      "balance_eur": 22600.0,
+      "usual_withdrawal_avg_eur": 680.0,
+      "usual_withdrawal_max_eur": 1800.0,
+      "usual_locations": [
+        "Lisbon Business Branch",
+        "Lisbon Airport ATM"
+      ],
+      "transaction_patterns": [
+        {
+          "type": "deposit",
+          "avg_amount": 5120.1,
+          "max_amount": 5270.0,
+          "count": 29
+        },
+        {
+          "type": "withdrawal",
+          "avg_amount": 658.06,
+          "max_amount": 1109.0,
+          "count": 87
+        }
+      ],
+      "common_locations": [
+        {
+          "location": "Lisbon Business Branch",
+          "count": 45
+        },
+        {
+          "location": "Lisbon Airport ATM",
+          "count": 42
+        },
+        {
+          "location": "Payroll Transfer",
+          "count": 29
+        }
+      ],
+      "recent_events": [
+        {
+          "type": "withdrawal",
+          "amount_eur": 681.0,
+          "timestamp": "2026-05-11T18:00:00",
+          "location": "Lisbon Business Branch",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 353.0,
+          "timestamp": "2026-05-04T19:00:00",
+          "location": "Lisbon Airport ATM",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 440.0,
+          "timestamp": "2026-04-27T20:00:00",
+          "location": "Lisbon Airport ATM",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "deposit",
+          "amount_eur": 5017.0,
+          "timestamp": "2026-04-24T10:00:00",
+          "location": "Payroll Transfer",
+          "description": "monthly salary deposit"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 717.0,
+          "timestamp": "2026-04-12T00:00:00",
+          "location": "Lisbon Airport ATM",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 904.0,
+          "timestamp": "2026-04-04T20:00:00",
+          "location": "Lisbon Airport ATM",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "withdrawal",
+          "amount_eur": 533.0,
+          "timestamp": "2026-03-28T18:00:00",
+          "location": "Lisbon Airport ATM",
+          "description": "routine cash withdrawal"
+        },
+        {
+          "type": "deposit",
+          "amount_eur": 5008.0,
+          "timestamp": "2026-03-25T09:00:00",
+          "location": "Payroll Transfer",
+          "description": "monthly salary deposit"
+        }
+      ]
+    }
+  ],
+  "patients": [
+    {
+      "patient_id": "PAT-3001",
+      "name": "Ana Santos",
+      "primary_doctor": "Dr. Valente",
+      "conditions": [
+        {
+          "condition_name": "hyperlipidemia",
+          "status": "active"
+        },
+        {
+          "condition_name": "hypertension",
+          "status": "active"
+        }
+      ],
+      "allergies": [
+        {
+          "allergy": "penicillin",
+          "reaction": "rash"
+        }
+      ],
+      "medications": [
+        {
+          "medication_name": "lisinopril",
+          "dosage": "10 mg daily",
+          "status": "active"
+        },
+        {
+          "medication_name": "atorvastatin",
+          "dosage": "20 mg nightly",
+          "status": "active"
+        }
+      ],
+      "recent_events": [
+        {
+          "event_date": "2025-09-01",
+          "event_type": "visit",
+          "summary": "lipid panel review",
+          "vitals": "{\"blood_pressure\": \"122/83\", \"heart_rate\": 80}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-07-28",
+          "event_type": "visit",
+          "summary": "chest discomfort triage",
+          "vitals": "{\"blood_pressure\": \"147/80\", \"heart_rate\": 68}",
+          "follow_up": "review in 2 weeks if symptoms persist"
+        },
+        {
+          "event_date": "2025-06-23",
+          "event_type": "lab_review",
+          "summary": "chest discomfort triage",
+          "vitals": "{\"blood_pressure\": \"153/85\", \"heart_rate\": 72}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-05-19",
+          "event_type": "visit",
+          "summary": "lipid panel review",
+          "vitals": "{\"blood_pressure\": \"159/93\", \"heart_rate\": 89}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-04-14",
+          "event_type": "visit",
+          "summary": "lipid panel review",
+          "vitals": "{\"blood_pressure\": \"118/89\", \"heart_rate\": 70}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-03-10",
+          "event_type": "lab_review",
+          "summary": "chest discomfort triage",
+          "vitals": "{\"blood_pressure\": \"148/93\", \"heart_rate\": 82}",
+          "follow_up": "review in 2 weeks if symptoms persist"
+        }
+      ]
+    },
+    {
+      "patient_id": "PAT-3002",
+      "name": "Luis Paredes",
+      "primary_doctor": "Dr. Chen",
+      "conditions": [
+        {
+          "condition_name": "asthma",
+          "status": "active"
+        }
+      ],
+      "allergies": [
+        {
+          "allergy": "penicillin",
+          "reaction": "wheezing and rash"
+        }
+      ],
+      "medications": [
+        {
+          "medication_name": "salbutamol",
+          "dosage": "as needed",
+          "status": "active"
+        }
+      ],
+      "recent_events": [
+        {
+          "event_date": "2025-09-01",
+          "event_type": "visit",
+          "summary": "allergy counseling",
+          "vitals": "{\"blood_pressure\": \"132/85\", \"heart_rate\": 63}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-07-28",
+          "event_type": "visit",
+          "summary": "allergy counseling",
+          "vitals": "{\"blood_pressure\": \"118/74\", \"heart_rate\": 69}",
+          "follow_up": "review in 2 weeks if symptoms persist"
+        },
+        {
+          "event_date": "2025-06-23",
+          "event_type": "lab_review",
+          "summary": "asthma control review",
+          "vitals": "{\"blood_pressure\": \"121/84\", \"heart_rate\": 71}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-05-19",
+          "event_type": "visit",
+          "summary": "allergy counseling",
+          "vitals": "{\"blood_pressure\": \"119/77\", \"heart_rate\": 85}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-04-14",
+          "event_type": "visit",
+          "summary": "allergy counseling",
+          "vitals": "{\"blood_pressure\": \"129/81\", \"heart_rate\": 64}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-03-10",
+          "event_type": "lab_review",
+          "summary": "respiratory infection",
+          "vitals": "{\"blood_pressure\": \"118/74\", \"heart_rate\": 85}",
+          "follow_up": "review in 2 weeks if symptoms persist"
+        }
+      ]
+    },
+    {
+      "patient_id": "PAT-3003",
+      "name": "Marta Nunes",
+      "primary_doctor": "Dr. Valente",
+      "conditions": [
+        {
+          "condition_name": "type 2 diabetes",
+          "status": "active"
+        }
+      ],
+      "allergies": [
+        {
+          "allergy": "sulfonamides",
+          "reaction": "hives"
+        }
+      ],
+      "medications": [
+        {
+          "medication_name": "metformin",
+          "dosage": "850 mg twice daily",
+          "status": "active"
+        }
+      ],
+      "recent_events": [
+        {
+          "event_date": "2025-09-01",
+          "event_type": "visit",
+          "summary": "A1C review",
+          "vitals": "{\"blood_pressure\": \"136/85\", \"heart_rate\": 90}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-07-28",
+          "event_type": "visit",
+          "summary": "A1C review",
+          "vitals": "{\"blood_pressure\": \"123/80\", \"heart_rate\": 62}",
+          "follow_up": "review in 2 weeks if symptoms persist"
+        },
+        {
+          "event_date": "2025-06-23",
+          "event_type": "lab_review",
+          "summary": "A1C review",
+          "vitals": "{\"blood_pressure\": \"121/77\", \"heart_rate\": 66}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-05-19",
+          "event_type": "visit",
+          "summary": "nutrition counseling",
+          "vitals": "{\"blood_pressure\": \"133/76\", \"heart_rate\": 89}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-04-14",
+          "event_type": "visit",
+          "summary": "nutrition counseling",
+          "vitals": "{\"blood_pressure\": \"121/97\", \"heart_rate\": 65}",
+          "follow_up": "routine follow-up"
+        },
+        {
+          "event_date": "2025-03-10",
+          "event_type": "lab_review",
+          "summary": "A1C review",
+          "vitals": "{\"blood_pressure\": \"124/92\", \"heart_rate\": 65}",
+          "follow_up": "review in 2 weeks if symptoms persist"
+        }
+      ]
+    }
+  ],
+  "suppliers": [
+    {
+      "supplier_id": "SUP-5001",
+      "name": "MedSupply Iberia",
+      "reliability_score": 0.91,
+      "average_lead_time_days": 3,
+      "on_time_rate": 0.92,
+      "recent_orders": [
+        {
+          "purchase_order_id": "PO-1013",
+          "expected_delivery_date": "2025-07-12",
+          "status": "closed",
+          "product_id": "SYRINGE_5ML",
+          "quantity": 500,
+          "unit_price_eur": 0.08,
+          "delivery_date": "2025-07-13",
+          "quantity_received": 500,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-1012",
+          "expected_delivery_date": "2025-05-31",
+          "status": "closed",
+          "product_id": "MASK_N95",
+          "quantity": 1000,
+          "unit_price_eur": 0.62,
+          "delivery_date": "2025-05-31",
+          "quantity_received": 950,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-1011",
+          "expected_delivery_date": "2025-04-19",
+          "status": "closed",
+          "product_id": "GLOVES_NITRILE",
+          "quantity": 750,
+          "unit_price_eur": 0.05,
+          "delivery_date": "2025-04-21",
+          "quantity_received": 750,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-1010",
+          "expected_delivery_date": "2025-03-08",
+          "status": "closed",
+          "product_id": "SALINE_500ML",
+          "quantity": 500,
+          "unit_price_eur": 1.35,
+          "delivery_date": "2025-03-08",
+          "quantity_received": 500,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-1009",
+          "expected_delivery_date": "2025-01-25",
+          "status": "closed",
+          "product_id": "SYRINGE_5ML",
+          "quantity": 500,
+          "unit_price_eur": 0.08,
+          "delivery_date": "2025-01-24",
+          "quantity_received": 500,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-1008",
+          "expected_delivery_date": "2024-12-14",
+          "status": "closed",
+          "product_id": "MASK_N95",
+          "quantity": 500,
+          "unit_price_eur": 0.62,
+          "delivery_date": "2024-12-16",
+          "quantity_received": 500,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-1007",
+          "expected_delivery_date": "2024-11-02",
+          "status": "closed",
+          "product_id": "GLOVES_NITRILE",
+          "quantity": 1000,
+          "unit_price_eur": 0.05,
+          "delivery_date": "2024-11-02",
+          "quantity_received": 1000,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-1006",
+          "expected_delivery_date": "2024-09-21",
+          "status": "closed",
+          "product_id": "SALINE_500ML",
+          "quantity": 1200,
+          "unit_price_eur": 1.35,
+          "delivery_date": "2024-09-20",
+          "quantity_received": 1200,
+          "condition_status": "accepted"
+        }
+      ],
+      "disputed_or_exception_invoices": []
+    },
+    {
+      "supplier_id": "SUP-5002",
+      "name": "Northwind Medical",
+      "reliability_score": 0.78,
+      "average_lead_time_days": 6,
+      "on_time_rate": 0.81,
+      "recent_orders": [
+        {
+          "purchase_order_id": "PO-7001",
+          "expected_delivery_date": "2026-05-15",
+          "status": "received_with_discrepancy",
+          "product_id": "SYRINGE_5ML",
+          "quantity": 1000,
+          "unit_price_eur": 0.08,
+          "delivery_date": "2026-05-17",
+          "quantity_received": 950,
+          "condition_status": "accepted_with_shortage"
+        },
+        {
+          "purchase_order_id": "PO-2013",
+          "expected_delivery_date": "2025-07-15",
+          "status": "closed",
+          "product_id": "SALINE_500ML",
+          "quantity": 1200,
+          "unit_price_eur": 1.35,
+          "delivery_date": "2025-07-15",
+          "quantity_received": 1175,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-2012",
+          "expected_delivery_date": "2025-06-03",
+          "status": "closed",
+          "product_id": "SYRINGE_5ML",
+          "quantity": 750,
+          "unit_price_eur": 0.08,
+          "delivery_date": "2025-06-04",
+          "quantity_received": 750,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-2011",
+          "expected_delivery_date": "2025-04-22",
+          "status": "closed",
+          "product_id": "MASK_N95",
+          "quantity": 1000,
+          "unit_price_eur": 0.62,
+          "delivery_date": "2025-04-22",
+          "quantity_received": 1000,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-2010",
+          "expected_delivery_date": "2025-03-11",
+          "status": "closed",
+          "product_id": "GLOVES_NITRILE",
+          "quantity": 1200,
+          "unit_price_eur": 0.05,
+          "delivery_date": "2025-03-10",
+          "quantity_received": 1175,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-2009",
+          "expected_delivery_date": "2025-01-28",
+          "status": "closed",
+          "product_id": "SALINE_500ML",
+          "quantity": 1000,
+          "unit_price_eur": 1.35,
+          "delivery_date": "2025-01-30",
+          "quantity_received": 1000,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-2008",
+          "expected_delivery_date": "2024-12-17",
+          "status": "closed",
+          "product_id": "SYRINGE_5ML",
+          "quantity": 1200,
+          "unit_price_eur": 0.08,
+          "delivery_date": "2024-12-19",
+          "quantity_received": 1200,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-2007",
+          "expected_delivery_date": "2024-11-05",
+          "status": "closed",
+          "product_id": "MASK_N95",
+          "quantity": 750,
+          "unit_price_eur": 0.62,
+          "delivery_date": "2024-11-04",
+          "quantity_received": 725,
+          "condition_status": "accepted"
+        }
+      ],
+      "disputed_or_exception_invoices": [
+        {
+          "invoice_id": "INV-8101",
+          "purchase_order_id": "PO-7001",
+          "status": "pending_dispute",
+          "product_id": "SYRINGE_5ML",
+          "quantity": 1200,
+          "unit_price_eur": 0.1
+        }
+      ]
+    },
+    {
+      "supplier_id": "SUP-5003",
+      "name": "Atlantic Pharma Logistics",
+      "reliability_score": 0.86,
+      "average_lead_time_days": 5,
+      "on_time_rate": 0.88,
+      "recent_orders": [
+        {
+          "purchase_order_id": "PO-3013",
+          "expected_delivery_date": "2025-07-14",
+          "status": "closed",
+          "product_id": "GLOVES_NITRILE",
+          "quantity": 1000,
+          "unit_price_eur": 0.05,
+          "delivery_date": "2025-07-16",
+          "quantity_received": 975,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-3012",
+          "expected_delivery_date": "2025-06-02",
+          "status": "closed",
+          "product_id": "SALINE_500ML",
+          "quantity": 1000,
+          "unit_price_eur": 1.35,
+          "delivery_date": "2025-06-03",
+          "quantity_received": 1000,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-3011",
+          "expected_delivery_date": "2025-04-21",
+          "status": "closed",
+          "product_id": "SYRINGE_5ML",
+          "quantity": 500,
+          "unit_price_eur": 0.08,
+          "delivery_date": "2025-04-22",
+          "quantity_received": 450,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-3010",
+          "expected_delivery_date": "2025-03-10",
+          "status": "closed",
+          "product_id": "MASK_N95",
+          "quantity": 1500,
+          "unit_price_eur": 0.62,
+          "delivery_date": "2025-03-12",
+          "quantity_received": 1475,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-3009",
+          "expected_delivery_date": "2025-01-27",
+          "status": "closed",
+          "product_id": "GLOVES_NITRILE",
+          "quantity": 1000,
+          "unit_price_eur": 0.05,
+          "delivery_date": "2025-01-27",
+          "quantity_received": 1000,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-3008",
+          "expected_delivery_date": "2024-12-16",
+          "status": "closed",
+          "product_id": "SALINE_500ML",
+          "quantity": 750,
+          "unit_price_eur": 1.35,
+          "delivery_date": "2024-12-17",
+          "quantity_received": 725,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-3007",
+          "expected_delivery_date": "2024-11-04",
+          "status": "closed",
+          "product_id": "SYRINGE_5ML",
+          "quantity": 1000,
+          "unit_price_eur": 0.08,
+          "delivery_date": "2024-11-06",
+          "quantity_received": 1000,
+          "condition_status": "accepted"
+        },
+        {
+          "purchase_order_id": "PO-3006",
+          "expected_delivery_date": "2024-09-23",
+          "status": "closed",
+          "product_id": "MASK_N95",
+          "quantity": 1200,
+          "unit_price_eur": 0.62,
+          "delivery_date": "2024-09-25",
+          "quantity_received": 1175,
+          "condition_status": "accepted"
+        }
+      ],
+      "disputed_or_exception_invoices": []
+    }
+  ],
+  "inventory_demand": [
+    {
+      "product_id": "GLOVES_NITRILE",
+      "description": "Nitrile examination gloves",
+      "available": 600,
+      "safety_stock": 200,
+      "average_period_demand": 377.06,
+      "peak_period_demand": 482,
+      "total_recent_demand": 6787,
+      "periods_observed": 18
+    },
+    {
+      "product_id": "MASK_N95",
+      "description": "N95 respiratory masks",
+      "available": 300,
+      "safety_stock": 100,
+      "average_period_demand": 166.5,
+      "peak_period_demand": 293,
+      "total_recent_demand": 2997,
+      "periods_observed": 18
+    },
+    {
+      "product_id": "SALINE_500ML",
+      "description": "500 ml saline bags",
+      "available": 760,
+      "safety_stock": 250,
+      "average_period_demand": 242.33,
+      "peak_period_demand": 306,
+      "total_recent_demand": 4362,
+      "periods_observed": 18
+    },
+    {
+      "product_id": "SYRINGE_5ML",
+      "description": "5 ml sterile syringes",
+      "available": 2000,
+      "safety_stock": 300,
+      "average_period_demand": 824.67,
+      "peak_period_demand": 910,
+      "total_recent_demand": 14844,
+      "periods_observed": 18
+    }
+  ],
+  "to_send_orders": [
+    {
+      "order_id": "SEND-9001",
+      "client_name": "Lisbon Clinic",
+      "product_id": "GLOVES_NITRILE",
+      "quantity_requested": 320,
+      "order_date": "2026-05-14",
+      "needed_by": "2026-05-22",
+      "urgency": "medium",
+      "order_frequency_per_month": 2.0,
+      "consolidation_window_days": 7
+    },
+    {
+      "order_id": "SEND-9002",
+      "client_name": "Lisbon Clinic",
+      "product_id": "MASK_N95",
+      "quantity_requested": 120,
+      "order_date": "2026-05-16",
+      "needed_by": "2026-05-22",
+      "urgency": "medium",
+      "order_frequency_per_month": 2.0,
+      "consolidation_window_days": 7
+    },
+    {
+      "order_id": "SEND-9200",
+      "client_name": "Outreach Program",
+      "product_id": "MASK_N95",
+      "quantity_requested": 80,
+      "order_date": "2026-05-13",
+      "needed_by": "2026-05-27",
+      "urgency": "low",
+      "order_frequency_per_month": 1.0,
+      "consolidation_window_days": 10
+    },
+    {
+      "order_id": "SEND-9003",
+      "client_name": "Lisbon Clinic",
+      "product_id": "SALINE_500ML",
+      "quantity_requested": 180,
+      "order_date": "2026-05-18",
+      "needed_by": "2026-05-29",
+      "urgency": "low",
+      "order_frequency_per_month": 2.0,
+      "consolidation_window_days": 7
+    },
+    {
+      "order_id": "SEND-9300",
+      "client_name": "Training Clinic",
+      "product_id": "GLOVES_NITRILE",
+      "quantity_requested": 300,
+      "order_date": "2026-05-10",
+      "needed_by": "2026-05-30",
+      "urgency": "low",
+      "order_frequency_per_month": 0.5,
+      "consolidation_window_days": 14
+    },
+    {
+      "order_id": "SEND-9301",
+      "client_name": "Training Clinic",
+      "product_id": "SYRINGE_5ML",
+      "quantity_requested": 350,
+      "order_date": "2026-05-12",
+      "needed_by": "2026-05-31",
+      "urgency": "low",
+      "order_frequency_per_month": 0.5,
+      "consolidation_window_days": 14
+    },
+    {
+      "order_id": "SEND-9100",
+      "client_name": "Emergency Ward",
+      "product_id": "GLOVES_NITRILE",
+      "quantity_requested": 150,
+      "order_date": "2026-05-18",
+      "needed_by": "2026-05-19",
+      "urgency": "critical",
+      "order_frequency_per_month": 4.0,
+      "consolidation_window_days": 1
+    },
+    {
+      "order_id": "SEND-9101",
+      "client_name": "Emergency Ward",
+      "product_id": "MASK_N95",
+      "quantity_requested": 100,
+      "order_date": "2026-05-18",
+      "needed_by": "2026-05-19",
+      "urgency": "critical",
+      "order_frequency_per_month": 4.0,
+      "consolidation_window_days": 1
+    },
+    {
+      "order_id": "SEND-9102",
+      "client_name": "Emergency Ward",
+      "product_id": "SYRINGE_5ML",
+      "quantity_requested": 700,
+      "order_date": "2026-05-18",
+      "needed_by": "2026-05-20",
+      "urgency": "critical",
+      "order_frequency_per_month": 4.0,
+      "consolidation_window_days": 1
+    }
+  ]
+}

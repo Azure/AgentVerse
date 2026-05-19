@@ -1,0 +1,67 @@
+{
+  "document_id": "106851f8-63c8-4148-8ed8-6cbc5d4a4a4e",
+  "filename": "withdrawal_order_high_risk.png",
+  "content_type": "image/png",
+  "analyzer_id": "prebuilt-imageSearch",
+  "api_version": "2025-11-01",
+  "markdown": "![image](pages/1)\n",
+  "summary": "The image is a synthetic demo document titled 'Cash Withdrawal Order' with no real personal data. It details a late counter service note from Valencia Centro, where a customer identifying as Pedro Alonso requested the branch to prepare EUR 10,000 in cash. The account on the slip is ACCT-2002, and the request was logged at 22:45 on 18 May 2026. Pedro mentioned the cash was urgently needed for a private settlement. The clerk noted that the account usually appears in the Vigo branch network, not Valencia. The customer mark is P. Alonso.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "The image is a synthetic demo document titled 'Cash Withdrawal Order' with no real personal data. It details a late counter service note from Valencia Centro, where a customer identifying as Pedro Alonso requested the branch to prepare EUR 10,000 in cash. The account on the slip is ACCT-2002, and the request was logged at 22:45 on 18 May 2026. Pedro mentioned the cash was urgently needed for a private settlement. The clerk noted that the account usually appears in the Vigo branch network, not Valencia. The customer mark is P. Alonso."
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "spans": []
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 1; completion latency: 3.38s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "![image](pages/1)\n"
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-imageSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:54:12Z",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 1; completion latency: 3.38s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "![image](pages/1)\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "The image is a synthetic demo document titled 'Cash Withdrawal Order' with no real personal data. It details a late counter service note from Valencia Centro, where a customer identifying as Pedro Alonso requested the branch to prepare EUR 10,000 in cash. The account on the slip is ACCT-2002, and the request was logged at 22:45 on 18 May 2026. Pedro mentioned the cash was urgently needed for a private settlement. The clerk noted that the account usually appears in the Vigo branch network, not Valencia. The customer mark is P. Alonso."
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "pixel",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "spans": []
+          }
+        ],
+        "analyzerId": "prebuilt-imageSearch",
+        "mimeType": "image/png"
+      }
+    ]
+  }
+}

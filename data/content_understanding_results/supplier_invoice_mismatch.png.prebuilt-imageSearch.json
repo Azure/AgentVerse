@@ -1,0 +1,67 @@
+{
+  "document_id": "7dc567d8-28b8-454a-a55a-8de6ee2f266b",
+  "filename": "supplier_invoice_mismatch.png",
+  "content_type": "image/png",
+  "analyzer_id": "prebuilt-imageSearch",
+  "api_version": "2025-11-01",
+  "markdown": "![image](pages/1)\n",
+  "summary": "The image shows a document titled 'Sterile Supplies Arrival Sheet' which is a synthetic demo document with no real personal data. It details the receiving balance for BSH-2026-0519-B, with a dock B / sterile storage count on 19 May 2026 at 09:15. The supplier is Northwind Medical with references PO-7001 and delivery DEL-7001. It lists Line 01 as SYRINGE_5ML with 950 units physically counted, lot SYR5-2605-N. An invoice packet INV-8101 is attached, billing 1,200 units at EUR 0.10 each, with the invoice check pending. The physical count accepted for inventory intake is 950 units, and the destination field is left blank. The put-away status indicates the stock is ready for allocation review but not yet assigned to a ward or client.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "The image shows a document titled 'Sterile Supplies Arrival Sheet' which is a synthetic demo document with no real personal data. It details the receiving balance for BSH-2026-0519-B, with a dock B / sterile storage count on 19 May 2026 at 09:15. The supplier is Northwind Medical with references PO-7001 and delivery DEL-7001. It lists Line 01 as SYRINGE_5ML with 950 units physically counted, lot SYR5-2605-N. An invoice packet INV-8101 is attached, billing 1,200 units at EUR 0.10 each, with the invoice check pending. The physical count accepted for inventory intake is 950 units, and the destination field is left blank. The put-away status indicates the stock is ready for allocation review but not yet assigned to a ward or client."
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "spans": []
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 1; completion latency: 3.41s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "![image](pages/1)\n"
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-imageSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:53:49Z",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 1; completion latency: 3.41s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "![image](pages/1)\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "The image shows a document titled 'Sterile Supplies Arrival Sheet' which is a synthetic demo document with no real personal data. It details the receiving balance for BSH-2026-0519-B, with a dock B / sterile storage count on 19 May 2026 at 09:15. The supplier is Northwind Medical with references PO-7001 and delivery DEL-7001. It lists Line 01 as SYRINGE_5ML with 950 units physically counted, lot SYR5-2605-N. An invoice packet INV-8101 is attached, billing 1,200 units at EUR 0.10 each, with the invoice check pending. The physical count accepted for inventory intake is 950 units, and the destination field is left blank. The put-away status indicates the stock is ready for allocation review but not yet assigned to a ward or client."
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "pixel",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "spans": []
+          }
+        ],
+        "analyzerId": "prebuilt-imageSearch",
+        "mimeType": "image/png"
+      }
+    ]
+  }
+}

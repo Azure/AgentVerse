@@ -1,0 +1,1649 @@
+{
+  "document_id": "c440f062-6431-4150-9d51-b1177dee1670",
+  "filename": "withdrawal_order_high_risk.pdf",
+  "content_type": "application/pdf",
+  "analyzer_id": "prebuilt-documentSearch",
+  "api_version": "2025-11-01",
+  "markdown": "# Cash Withdrawal Order\n\nSynthetic demo document - no real personal data\n\nCash desk exception memo.\n\nAt Valencia Centro Branch, Pedro Alonso requested a cash withdrawal of EUR\n10,000 from account ACCT-2002.\n\nThe request time was 18 May 2026 at 22:45. The customer described the purpose\nas an urgent private settlement.\n\nStaff note: this request is outside the customer's usual Vigo branch network.\n",
+  "summary": "A cash withdrawal order document describing a request made by Pedro Alonso at Valencia Centro Branch for EUR 10,000 from account ACCT-2002 on 18 May 2026 at 22:45, noted as an urgent private settlement and outside the customer's usual Vigo branch network.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "A cash withdrawal order document describing a request made by Pedro Alonso at Valencia Centro Branch for EUR 10,000 from account ACCT-2002 on 18 May 2026 at 22:45, noted as an urgent private settlement and outside the customer's usual Vigo branch network.",
+      "spans": [
+        {
+          "offset": 101,
+          "length": 74
+        },
+        {
+          "offset": 176,
+          "length": 30
+        },
+        {
+          "offset": 208,
+          "length": 77
+        },
+        {
+          "offset": 286,
+          "length": 32
+        },
+        {
+          "offset": 320,
+          "length": 77
+        }
+      ],
+      "confidence": 0.183,
+      "source": "D(1,0.9810,2.3361,6.8032,2.3348,6.8032,2.5460,0.9810,2.5473);D(1,0.9972,2.5895,3.4863,2.5849,3.4867,2.7855,0.9976,2.7901);D(1,0.9831,2.9251,7.0614,2.9251,7.0614,3.1441,0.9831,3.1441);D(1,0.9790,3.1944,3.3310,3.1838,3.3319,3.3896,0.9799,3.4002);D(1,0.9846,3.5280,6.5975,3.5306,6.5974,3.7471,0.9845,3.7445)"
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "angle": 0.007770171,
+      "width": 8.2639,
+      "height": 11.6806,
+      "spans": [
+        {
+          "offset": 0,
+          "length": 398
+        }
+      ],
+      "words": [
+        {
+          "content": "Cash",
+          "span": {
+            "offset": 2,
+            "length": 4
+          },
+          "confidence": 0.998,
+          "source": "D(1,0.9886,1.0078,1.656,1.0076,1.6568,1.2825,0.9896,1.28)"
+        },
+        {
+          "content": "Withdrawal",
+          "span": {
+            "offset": 7,
+            "length": 10
+          },
+          "confidence": 0.994,
+          "source": "D(1,1.7296,1.0075,3.2162,1.0092,3.2165,1.2848,1.7304,1.2828)"
+        },
+        {
+          "content": "Order",
+          "span": {
+            "offset": 18,
+            "length": 5
+          },
+          "confidence": 0.998,
+          "source": "D(1,3.2991,1.0095,4.0815,1.0117,4.0815,1.2836,3.2993,1.2847)"
+        },
+        {
+          "content": "Synthetic",
+          "span": {
+            "offset": 25,
+            "length": 9
+          },
+          "confidence": 0.997,
+          "source": "D(1,0.9856,1.4154,1.5608,1.4148,1.5616,1.5951,0.9866,1.5954)"
+        },
+        {
+          "content": "demo",
+          "span": {
+            "offset": 35,
+            "length": 4
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.5971,1.4148,1.9452,1.4145,1.9459,1.5949,1.5979,1.5951)"
+        },
+        {
+          "content": "document",
+          "span": {
+            "offset": 40,
+            "length": 8
+          },
+          "confidence": 0.994,
+          "source": "D(1,1.9846,1.4144,2.6052,1.4141,2.6057,1.5947,1.9853,1.5949)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 49,
+            "length": 1
+          },
+          "confidence": 0.987,
+          "source": "D(1,2.6385,1.4141,2.6839,1.414,2.6844,1.5947,2.639,1.5947)"
+        },
+        {
+          "content": "no",
+          "span": {
+            "offset": 51,
+            "length": 2
+          },
+          "confidence": 0.99,
+          "source": "D(1,2.7233,1.414,2.8716,1.4139,2.872,1.5946,2.7237,1.5947)"
+        },
+        {
+          "content": "real",
+          "span": {
+            "offset": 54,
+            "length": 4
+          },
+          "confidence": 0.973,
+          "source": "D(1,2.917,1.4139,3.141,1.4138,3.1413,1.5945,2.9174,1.5946)"
+        },
+        {
+          "content": "personal",
+          "span": {
+            "offset": 59,
+            "length": 8
+          },
+          "confidence": 0.988,
+          "source": "D(1,3.1895,1.4138,3.7132,1.4137,3.7133,1.5944,3.1897,1.5945)"
+        },
+        {
+          "content": "data",
+          "span": {
+            "offset": 68,
+            "length": 4
+          },
+          "confidence": 0.997,
+          "source": "D(1,3.7526,1.4137,4.0371,1.4136,4.0371,1.5943,3.7526,1.5944)"
+        },
+        {
+          "content": "Cash",
+          "span": {
+            "offset": 74,
+            "length": 4
+          },
+          "confidence": 0.998,
+          "source": "D(1,0.9871,1.9962,1.3733,1.9962,1.3741,2.1985,0.9881,2.199)"
+        },
+        {
+          "content": "desk",
+          "span": {
+            "offset": 79,
+            "length": 4
+          },
+          "confidence": 0.996,
+          "source": "D(1,1.4241,1.9962,1.7832,1.9963,1.7838,2.1981,1.4249,2.1985)"
+        },
+        {
+          "content": "exception",
+          "span": {
+            "offset": 84,
+            "length": 9
+          },
+          "confidence": 0.996,
+          "source": "D(1,1.8238,1.9963,2.5319,1.9973,2.5321,2.1984,1.8244,2.1981)"
+        },
+        {
+          "content": "memo",
+          "span": {
+            "offset": 94,
+            "length": 4
+          },
+          "confidence": 0.998,
+          "source": "D(1,2.5827,1.9975,3.0468,1.9986,3.0468,2.1992,2.5829,2.1985)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 98,
+            "length": 1
+          },
+          "confidence": 0.999,
+          "source": "D(1,3.0502,1.9986,3.101,1.9987,3.101,2.1993,3.0502,2.1992)"
+        },
+        {
+          "content": "At",
+          "span": {
+            "offset": 101,
+            "length": 2
+          },
+          "confidence": 0.976,
+          "source": "D(1,0.981,2.3379,1.1561,2.3379,1.1571,2.5413,0.982,2.5408)"
+        },
+        {
+          "content": "Valencia",
+          "span": {
+            "offset": 104,
+            "length": 8
+          },
+          "confidence": 0.964,
+          "source": "D(1,1.1904,2.3379,1.8358,2.338,1.8367,2.5432,1.1914,2.5414)"
+        },
+        {
+          "content": "Centro",
+          "span": {
+            "offset": 113,
+            "length": 6
+          },
+          "confidence": 0.995,
+          "source": "D(1,1.8804,2.338,2.3816,2.3381,2.3824,2.5447,1.8813,2.5433)"
+        },
+        {
+          "content": "Branch",
+          "span": {
+            "offset": 120,
+            "length": 6
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.4331,2.3381,2.9515,2.3382,2.9522,2.5462,2.4339,2.5448)"
+        },
+        {
+          "content": ",",
+          "span": {
+            "offset": 126,
+            "length": 1
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.9584,2.3382,2.9996,2.3381,3.0002,2.5462,2.959,2.5462)"
+        },
+        {
+          "content": "Pedro",
+          "span": {
+            "offset": 128,
+            "length": 5
+          },
+          "confidence": 0.993,
+          "source": "D(1,3.0511,2.3381,3.487,2.3379,3.4876,2.5462,3.0517,2.5462)"
+        },
+        {
+          "content": "Alonso",
+          "span": {
+            "offset": 134,
+            "length": 6
+          },
+          "confidence": 0.987,
+          "source": "D(1,3.5282,2.3378,4.0466,2.3376,4.0471,2.5463,3.5288,2.5462)"
+        },
+        {
+          "content": "requested",
+          "span": {
+            "offset": 141,
+            "length": 9
+          },
+          "confidence": 0.962,
+          "source": "D(1,4.0981,2.3375,4.8293,2.3371,4.8296,2.5464,4.0985,2.5463)"
+        },
+        {
+          "content": "a",
+          "span": {
+            "offset": 151,
+            "length": 1
+          },
+          "confidence": 0.959,
+          "source": "D(1,4.8808,2.3371,4.9666,2.337,4.9669,2.5462,4.8811,2.5464)"
+        },
+        {
+          "content": "cash",
+          "span": {
+            "offset": 153,
+            "length": 4
+          },
+          "confidence": 0.841,
+          "source": "D(1,5.0215,2.3369,5.3682,2.3365,5.3685,2.5452,5.0218,2.546)"
+        },
+        {
+          "content": "withdrawal",
+          "span": {
+            "offset": 158,
+            "length": 10
+          },
+          "confidence": 0.778,
+          "source": "D(1,5.4129,2.3365,6.2024,2.3355,6.2025,2.5431,5.4131,2.5451)"
+        },
+        {
+          "content": "of",
+          "span": {
+            "offset": 169,
+            "length": 2
+          },
+          "confidence": 0.716,
+          "source": "D(1,6.2505,2.3354,6.4015,2.3353,6.4016,2.5427,6.2506,2.543)"
+        },
+        {
+          "content": "EUR",
+          "span": {
+            "offset": 172,
+            "length": 3
+          },
+          "confidence": 0.738,
+          "source": "D(1,6.4393,2.3352,6.8032,2.3348,6.8032,2.5417,6.4394,2.5426)"
+        },
+        {
+          "content": "10,000",
+          "span": {
+            "offset": 176,
+            "length": 6
+          },
+          "confidence": 0.95,
+          "source": "D(1,0.9972,2.5899,1.4937,2.5887,1.4945,2.7888,0.9982,2.7901)"
+        },
+        {
+          "content": "from",
+          "span": {
+            "offset": 183,
+            "length": 4
+          },
+          "confidence": 0.943,
+          "source": "D(1,1.54,2.5886,1.871,2.5879,1.8717,2.7878,1.5408,2.7886)"
+        },
+        {
+          "content": "account",
+          "span": {
+            "offset": 188,
+            "length": 7
+          },
+          "confidence": 0.988,
+          "source": "D(1,1.9207,2.5878,2.5198,2.587,2.5202,2.7858,1.9213,2.7876)"
+        },
+        {
+          "content": "ACCT",
+          "span": {
+            "offset": 196,
+            "length": 4
+          },
+          "confidence": 0.995,
+          "source": "D(1,2.5562,2.5869,3.0064,2.5867,3.0066,2.7843,2.5566,2.7857)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 200,
+            "length": 1
+          },
+          "confidence": 0.999,
+          "source": "D(1,3.0064,2.5867,3.0626,2.5867,3.0628,2.7841,3.0066,2.7843)"
+        },
+        {
+          "content": "2002",
+          "span": {
+            "offset": 201,
+            "length": 4
+          },
+          "confidence": 0.993,
+          "source": "D(1,3.066,2.5867,3.4433,2.5865,3.4433,2.7829,3.0661,2.7841)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 205,
+            "length": 1
+          },
+          "confidence": 0.996,
+          "source": "D(1,3.4433,2.5865,3.4863,2.5865,3.4863,2.7828,3.4433,2.7829)"
+        },
+        {
+          "content": "The",
+          "span": {
+            "offset": 208,
+            "length": 3
+          },
+          "confidence": 0.997,
+          "source": "D(1,0.9831,2.9325,1.2715,2.9314,1.2725,3.1421,0.9841,3.1429)"
+        },
+        {
+          "content": "request",
+          "span": {
+            "offset": 212,
+            "length": 7
+          },
+          "confidence": 0.99,
+          "source": "D(1,1.3278,2.9312,1.8836,2.9292,1.8844,3.1404,1.3287,3.142)"
+        },
+        {
+          "content": "time",
+          "span": {
+            "offset": 220,
+            "length": 4
+          },
+          "confidence": 0.993,
+          "source": "D(1,1.9222,2.9291,2.2353,2.9279,2.2361,3.1395,1.9231,3.1403)"
+        },
+        {
+          "content": "was",
+          "span": {
+            "offset": 225,
+            "length": 3
+          },
+          "confidence": 0.968,
+          "source": "D(1,2.281,2.9277,2.5765,2.9267,2.5773,3.1385,2.2818,3.1393)"
+        },
+        {
+          "content": "18",
+          "span": {
+            "offset": 229,
+            "length": 2
+          },
+          "confidence": 0.876,
+          "source": "D(1,2.6363,2.9264,2.8087,2.9258,2.8094,3.1379,2.637,3.1384)"
+        },
+        {
+          "content": "May",
+          "span": {
+            "offset": 232,
+            "length": 3
+          },
+          "confidence": 0.813,
+          "source": "D(1,2.865,2.9256,3.1815,2.9251,3.1822,3.1374,2.8657,3.1377)"
+        },
+        {
+          "content": "2026",
+          "span": {
+            "offset": 236,
+            "length": 4
+          },
+          "confidence": 0.788,
+          "source": "D(1,3.2237,2.9251,3.5931,2.9252,3.5937,3.1375,3.2244,3.1374)"
+        },
+        {
+          "content": "at",
+          "span": {
+            "offset": 241,
+            "length": 2
+          },
+          "confidence": 0.911,
+          "source": "D(1,3.6388,2.9252,3.7866,2.9253,3.7871,3.1375,3.6394,3.1375)"
+        },
+        {
+          "content": "22",
+          "span": {
+            "offset": 244,
+            "length": 2
+          },
+          "confidence": 0.878,
+          "source": "D(1,3.8217,2.9253,4.0082,2.9253,4.0087,3.1375,3.8223,3.1375)"
+        },
+        {
+          "content": ":",
+          "span": {
+            "offset": 246,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,4.0187,2.9253,4.0574,2.9253,4.0579,3.1375,4.0192,3.1375)"
+        },
+        {
+          "content": "45",
+          "span": {
+            "offset": 247,
+            "length": 2
+          },
+          "confidence": 0.853,
+          "source": "D(1,4.0504,2.9253,4.2439,2.9254,4.2443,3.1376,4.0509,3.1375)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 249,
+            "length": 1
+          },
+          "confidence": 0.974,
+          "source": "D(1,4.2439,2.9254,4.279,2.9254,4.2795,3.1376,4.2443,3.1376)"
+        },
+        {
+          "content": "The",
+          "span": {
+            "offset": 251,
+            "length": 3
+          },
+          "confidence": 0.935,
+          "source": "D(1,4.3283,2.9254,4.6132,2.9255,4.6136,3.1376,4.3287,3.1376)"
+        },
+        {
+          "content": "customer",
+          "span": {
+            "offset": 255,
+            "length": 8
+          },
+          "confidence": 0.955,
+          "source": "D(1,4.6589,2.9255,5.3589,2.9269,5.3592,3.1387,4.6593,3.1377)"
+        },
+        {
+          "content": "described",
+          "span": {
+            "offset": 264,
+            "length": 9
+          },
+          "confidence": 0.977,
+          "source": "D(1,5.3941,2.9271,6.1117,2.9301,6.1118,3.1411,5.3944,3.1388)"
+        },
+        {
+          "content": "the",
+          "span": {
+            "offset": 274,
+            "length": 3
+          },
+          "confidence": 0.995,
+          "source": "D(1,6.1609,2.9303,6.3966,2.9313,6.3967,3.142,6.1611,3.1412)"
+        },
+        {
+          "content": "purpose",
+          "span": {
+            "offset": 278,
+            "length": 7
+          },
+          "confidence": 0.985,
+          "source": "D(1,6.4423,2.9315,7.0614,2.9341,7.0614,3.1441,6.4424,3.1421)"
+        },
+        {
+          "content": "as",
+          "span": {
+            "offset": 286,
+            "length": 2
+          },
+          "confidence": 0.983,
+          "source": "D(1,0.979,3.1949,1.1636,3.1941,1.165,3.3992,0.9805,3.3998)"
+        },
+        {
+          "content": "an",
+          "span": {
+            "offset": 289,
+            "length": 2
+          },
+          "confidence": 0.907,
+          "source": "D(1,1.2149,3.1939,1.3927,3.1931,1.3939,3.3983,1.2163,3.399)"
+        },
+        {
+          "content": "urgent",
+          "span": {
+            "offset": 292,
+            "length": 6
+          },
+          "confidence": 0.932,
+          "source": "D(1,1.4508,3.1928,1.9157,3.1907,1.9166,3.396,1.452,3.3981)"
+        },
+        {
+          "content": "private",
+          "span": {
+            "offset": 299,
+            "length": 7
+          },
+          "confidence": 0.982,
+          "source": "D(1,1.9636,3.1905,2.4695,3.1881,2.4701,3.3923,1.9645,3.3956)"
+        },
+        {
+          "content": "settlement",
+          "span": {
+            "offset": 307,
+            "length": 10
+          },
+          "confidence": 0.986,
+          "source": "D(1,2.5139,3.1879,3.2865,3.184,3.2866,3.3849,2.5145,3.392)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 317,
+            "length": 1
+          },
+          "confidence": 0.996,
+          "source": "D(1,3.2831,3.184,3.331,3.1838,3.331,3.3844,3.2831,3.3849)"
+        },
+        {
+          "content": "Staff",
+          "span": {
+            "offset": 320,
+            "length": 5
+          },
+          "confidence": 0.942,
+          "source": "D(1,0.9846,3.5303,1.3389,3.5301,1.3399,3.7417,0.9856,3.7409)"
+        },
+        {
+          "content": "note",
+          "span": {
+            "offset": 326,
+            "length": 4
+          },
+          "confidence": 0.96,
+          "source": "D(1,1.3747,3.5301,1.6897,3.5299,1.6906,3.7426,1.3757,3.7418)"
+        },
+        {
+          "content": ":",
+          "span": {
+            "offset": 330,
+            "length": 1
+          },
+          "confidence": 0.996,
+          "source": "D(1,1.7005,3.5299,1.7363,3.5299,1.7372,3.7427,1.7014,3.7426)"
+        },
+        {
+          "content": "this",
+          "span": {
+            "offset": 332,
+            "length": 4
+          },
+          "confidence": 0.979,
+          "source": "D(1,1.7828,3.5298,2.0405,3.5297,2.0414,3.7434,1.7837,3.7428)"
+        },
+        {
+          "content": "request",
+          "span": {
+            "offset": 337,
+            "length": 7
+          },
+          "confidence": 0.99,
+          "source": "D(1,2.0978,3.5296,2.6706,3.5293,2.6713,3.7449,2.0986,3.7435)"
+        },
+        {
+          "content": "is",
+          "span": {
+            "offset": 345,
+            "length": 2
+          },
+          "confidence": 0.995,
+          "source": "D(1,2.7171,3.5293,2.8281,3.5292,2.8287,3.7453,2.7178,3.745)"
+        },
+        {
+          "content": "outside",
+          "span": {
+            "offset": 348,
+            "length": 7
+          },
+          "confidence": 0.981,
+          "source": "D(1,2.8746,3.5292,3.408,3.5294,3.4085,3.7456,2.8753,3.7453)"
+        },
+        {
+          "content": "the",
+          "span": {
+            "offset": 356,
+            "length": 3
+          },
+          "confidence": 0.99,
+          "source": "D(1,3.4545,3.5294,3.6836,3.5295,3.6841,3.7457,3.4551,3.7456)"
+        },
+        {
+          "content": "customer's",
+          "span": {
+            "offset": 360,
+            "length": 10
+          },
+          "confidence": 0.926,
+          "source": "D(1,3.7301,3.5295,4.5212,3.5297,4.5216,3.7461,3.7306,3.7457)"
+        },
+        {
+          "content": "usual",
+          "span": {
+            "offset": 371,
+            "length": 5
+          },
+          "confidence": 0.854,
+          "source": "D(1,4.5713,3.5297,4.9651,3.5301,4.9654,3.7458,4.5717,3.7461)"
+        },
+        {
+          "content": "Vigo",
+          "span": {
+            "offset": 377,
+            "length": 4
+          },
+          "confidence": 0.772,
+          "source": "D(1,5.0116,3.5302,5.3517,3.5306,5.3519,3.7453,5.0119,3.7458)"
+        },
+        {
+          "content": "branch",
+          "span": {
+            "offset": 382,
+            "length": 6
+          },
+          "confidence": 0.705,
+          "source": "D(1,5.4054,3.5307,5.9173,3.5313,5.9174,3.7444,5.4056,3.7452)"
+        },
+        {
+          "content": "network",
+          "span": {
+            "offset": 389,
+            "length": 7
+          },
+          "confidence": 0.876,
+          "source": "D(1,5.9674,3.5314,6.5544,3.5321,6.5544,3.7435,5.9675,3.7444)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 396,
+            "length": 1
+          },
+          "confidence": 0.995,
+          "source": "D(1,6.5509,3.5321,6.5974,3.5322,6.5974,3.7434,6.5509,3.7435)"
+        }
+      ],
+      "lines": [
+        {
+          "content": "Cash Withdrawal Order",
+          "source": "D(1,0.9886,1.0063,4.0818,1.0098,4.0815,1.2862,0.9883,1.2827)",
+          "span": {
+            "offset": 2,
+            "length": 21
+          }
+        },
+        {
+          "content": "Synthetic demo document - no real personal data",
+          "source": "D(1,0.9856,1.4146,4.0371,1.4135,4.0372,1.5943,0.9856,1.5954)",
+          "span": {
+            "offset": 25,
+            "length": 47
+          }
+        },
+        {
+          "content": "Cash desk exception memo.",
+          "source": "D(1,0.9871,1.9961,3.101,1.9964,3.101,2.1993,0.9871,2.199)",
+          "span": {
+            "offset": 74,
+            "length": 25
+          }
+        },
+        {
+          "content": "At Valencia Centro Branch, Pedro Alonso requested a cash withdrawal of EUR",
+          "source": "D(1,0.981,2.3379,6.8032,2.3348,6.8033,2.5454,0.9811,2.5485)",
+          "span": {
+            "offset": 101,
+            "length": 74
+          }
+        },
+        {
+          "content": "10,000 from account ACCT-2002.",
+          "source": "D(1,0.9972,2.5899,3.4863,2.584,3.4868,2.7841,0.9977,2.7901)",
+          "span": {
+            "offset": 176,
+            "length": 30
+          }
+        },
+        {
+          "content": "The request time was 18 May 2026 at 22:45. The customer described the purpose",
+          "source": "D(1,0.9831,2.9247,7.0615,2.9258,7.0614,3.1441,0.983,3.1429)",
+          "span": {
+            "offset": 208,
+            "length": 77
+          }
+        },
+        {
+          "content": "as an urgent private settlement.",
+          "source": "D(1,0.979,3.1949,3.331,3.1838,3.3319,3.3896,0.98,3.4007)",
+          "span": {
+            "offset": 286,
+            "length": 32
+          }
+        },
+        {
+          "content": "Staff note: this request is outside the customer's usual Vigo branch network.",
+          "source": "D(1,0.9846,3.5286,6.5974,3.5304,6.5974,3.7468,0.9845,3.7449)",
+          "span": {
+            "offset": 320,
+            "length": 77
+          }
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 2; completion latency: 3.46s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "Cash Withdrawal Order Synthetic demo document - no real personal data Cash desk exception memo."
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-documentSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:53:58Z",
+    "stringEncoding": "codePoint",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 2; completion latency: 3.46s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "# Cash Withdrawal Order\n\nSynthetic demo document - no real personal data\n\nCash desk exception memo.\n\nAt Valencia Centro Branch, Pedro Alonso requested a cash withdrawal of EUR\n10,000 from account ACCT-2002.\n\nThe request time was 18 May 2026 at 22:45. The customer described the purpose\nas an urgent private settlement.\n\nStaff note: this request is outside the customer's usual Vigo branch network.\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "A cash withdrawal order document describing a request made by Pedro Alonso at Valencia Centro Branch for EUR 10,000 from account ACCT-2002 on 18 May 2026 at 22:45, noted as an urgent private settlement and outside the customer's usual Vigo branch network.",
+            "spans": [
+              {
+                "offset": 101,
+                "length": 74
+              },
+              {
+                "offset": 176,
+                "length": 30
+              },
+              {
+                "offset": 208,
+                "length": 77
+              },
+              {
+                "offset": 286,
+                "length": 32
+              },
+              {
+                "offset": 320,
+                "length": 77
+              }
+            ],
+            "confidence": 0.183,
+            "source": "D(1,0.9810,2.3361,6.8032,2.3348,6.8032,2.5460,0.9810,2.5473);D(1,0.9972,2.5895,3.4863,2.5849,3.4867,2.7855,0.9976,2.7901);D(1,0.9831,2.9251,7.0614,2.9251,7.0614,3.1441,0.9831,3.1441);D(1,0.9790,3.1944,3.3310,3.1838,3.3319,3.3896,0.9799,3.4002);D(1,0.9846,3.5280,6.5975,3.5306,6.5974,3.7471,0.9845,3.7445)"
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "inch",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "angle": 0.007770171,
+            "width": 8.2639,
+            "height": 11.6806,
+            "spans": [
+              {
+                "offset": 0,
+                "length": 398
+              }
+            ],
+            "words": [
+              {
+                "content": "Cash",
+                "span": {
+                  "offset": 2,
+                  "length": 4
+                },
+                "confidence": 0.998,
+                "source": "D(1,0.9886,1.0078,1.656,1.0076,1.6568,1.2825,0.9896,1.28)"
+              },
+              {
+                "content": "Withdrawal",
+                "span": {
+                  "offset": 7,
+                  "length": 10
+                },
+                "confidence": 0.994,
+                "source": "D(1,1.7296,1.0075,3.2162,1.0092,3.2165,1.2848,1.7304,1.2828)"
+              },
+              {
+                "content": "Order",
+                "span": {
+                  "offset": 18,
+                  "length": 5
+                },
+                "confidence": 0.998,
+                "source": "D(1,3.2991,1.0095,4.0815,1.0117,4.0815,1.2836,3.2993,1.2847)"
+              },
+              {
+                "content": "Synthetic",
+                "span": {
+                  "offset": 25,
+                  "length": 9
+                },
+                "confidence": 0.997,
+                "source": "D(1,0.9856,1.4154,1.5608,1.4148,1.5616,1.5951,0.9866,1.5954)"
+              },
+              {
+                "content": "demo",
+                "span": {
+                  "offset": 35,
+                  "length": 4
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.5971,1.4148,1.9452,1.4145,1.9459,1.5949,1.5979,1.5951)"
+              },
+              {
+                "content": "document",
+                "span": {
+                  "offset": 40,
+                  "length": 8
+                },
+                "confidence": 0.994,
+                "source": "D(1,1.9846,1.4144,2.6052,1.4141,2.6057,1.5947,1.9853,1.5949)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 49,
+                  "length": 1
+                },
+                "confidence": 0.987,
+                "source": "D(1,2.6385,1.4141,2.6839,1.414,2.6844,1.5947,2.639,1.5947)"
+              },
+              {
+                "content": "no",
+                "span": {
+                  "offset": 51,
+                  "length": 2
+                },
+                "confidence": 0.99,
+                "source": "D(1,2.7233,1.414,2.8716,1.4139,2.872,1.5946,2.7237,1.5947)"
+              },
+              {
+                "content": "real",
+                "span": {
+                  "offset": 54,
+                  "length": 4
+                },
+                "confidence": 0.973,
+                "source": "D(1,2.917,1.4139,3.141,1.4138,3.1413,1.5945,2.9174,1.5946)"
+              },
+              {
+                "content": "personal",
+                "span": {
+                  "offset": 59,
+                  "length": 8
+                },
+                "confidence": 0.988,
+                "source": "D(1,3.1895,1.4138,3.7132,1.4137,3.7133,1.5944,3.1897,1.5945)"
+              },
+              {
+                "content": "data",
+                "span": {
+                  "offset": 68,
+                  "length": 4
+                },
+                "confidence": 0.997,
+                "source": "D(1,3.7526,1.4137,4.0371,1.4136,4.0371,1.5943,3.7526,1.5944)"
+              },
+              {
+                "content": "Cash",
+                "span": {
+                  "offset": 74,
+                  "length": 4
+                },
+                "confidence": 0.998,
+                "source": "D(1,0.9871,1.9962,1.3733,1.9962,1.3741,2.1985,0.9881,2.199)"
+              },
+              {
+                "content": "desk",
+                "span": {
+                  "offset": 79,
+                  "length": 4
+                },
+                "confidence": 0.996,
+                "source": "D(1,1.4241,1.9962,1.7832,1.9963,1.7838,2.1981,1.4249,2.1985)"
+              },
+              {
+                "content": "exception",
+                "span": {
+                  "offset": 84,
+                  "length": 9
+                },
+                "confidence": 0.996,
+                "source": "D(1,1.8238,1.9963,2.5319,1.9973,2.5321,2.1984,1.8244,2.1981)"
+              },
+              {
+                "content": "memo",
+                "span": {
+                  "offset": 94,
+                  "length": 4
+                },
+                "confidence": 0.998,
+                "source": "D(1,2.5827,1.9975,3.0468,1.9986,3.0468,2.1992,2.5829,2.1985)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 98,
+                  "length": 1
+                },
+                "confidence": 0.999,
+                "source": "D(1,3.0502,1.9986,3.101,1.9987,3.101,2.1993,3.0502,2.1992)"
+              },
+              {
+                "content": "At",
+                "span": {
+                  "offset": 101,
+                  "length": 2
+                },
+                "confidence": 0.976,
+                "source": "D(1,0.981,2.3379,1.1561,2.3379,1.1571,2.5413,0.982,2.5408)"
+              },
+              {
+                "content": "Valencia",
+                "span": {
+                  "offset": 104,
+                  "length": 8
+                },
+                "confidence": 0.964,
+                "source": "D(1,1.1904,2.3379,1.8358,2.338,1.8367,2.5432,1.1914,2.5414)"
+              },
+              {
+                "content": "Centro",
+                "span": {
+                  "offset": 113,
+                  "length": 6
+                },
+                "confidence": 0.995,
+                "source": "D(1,1.8804,2.338,2.3816,2.3381,2.3824,2.5447,1.8813,2.5433)"
+              },
+              {
+                "content": "Branch",
+                "span": {
+                  "offset": 120,
+                  "length": 6
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.4331,2.3381,2.9515,2.3382,2.9522,2.5462,2.4339,2.5448)"
+              },
+              {
+                "content": ",",
+                "span": {
+                  "offset": 126,
+                  "length": 1
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.9584,2.3382,2.9996,2.3381,3.0002,2.5462,2.959,2.5462)"
+              },
+              {
+                "content": "Pedro",
+                "span": {
+                  "offset": 128,
+                  "length": 5
+                },
+                "confidence": 0.993,
+                "source": "D(1,3.0511,2.3381,3.487,2.3379,3.4876,2.5462,3.0517,2.5462)"
+              },
+              {
+                "content": "Alonso",
+                "span": {
+                  "offset": 134,
+                  "length": 6
+                },
+                "confidence": 0.987,
+                "source": "D(1,3.5282,2.3378,4.0466,2.3376,4.0471,2.5463,3.5288,2.5462)"
+              },
+              {
+                "content": "requested",
+                "span": {
+                  "offset": 141,
+                  "length": 9
+                },
+                "confidence": 0.962,
+                "source": "D(1,4.0981,2.3375,4.8293,2.3371,4.8296,2.5464,4.0985,2.5463)"
+              },
+              {
+                "content": "a",
+                "span": {
+                  "offset": 151,
+                  "length": 1
+                },
+                "confidence": 0.959,
+                "source": "D(1,4.8808,2.3371,4.9666,2.337,4.9669,2.5462,4.8811,2.5464)"
+              },
+              {
+                "content": "cash",
+                "span": {
+                  "offset": 153,
+                  "length": 4
+                },
+                "confidence": 0.841,
+                "source": "D(1,5.0215,2.3369,5.3682,2.3365,5.3685,2.5452,5.0218,2.546)"
+              },
+              {
+                "content": "withdrawal",
+                "span": {
+                  "offset": 158,
+                  "length": 10
+                },
+                "confidence": 0.778,
+                "source": "D(1,5.4129,2.3365,6.2024,2.3355,6.2025,2.5431,5.4131,2.5451)"
+              },
+              {
+                "content": "of",
+                "span": {
+                  "offset": 169,
+                  "length": 2
+                },
+                "confidence": 0.716,
+                "source": "D(1,6.2505,2.3354,6.4015,2.3353,6.4016,2.5427,6.2506,2.543)"
+              },
+              {
+                "content": "EUR",
+                "span": {
+                  "offset": 172,
+                  "length": 3
+                },
+                "confidence": 0.738,
+                "source": "D(1,6.4393,2.3352,6.8032,2.3348,6.8032,2.5417,6.4394,2.5426)"
+              },
+              {
+                "content": "10,000",
+                "span": {
+                  "offset": 176,
+                  "length": 6
+                },
+                "confidence": 0.95,
+                "source": "D(1,0.9972,2.5899,1.4937,2.5887,1.4945,2.7888,0.9982,2.7901)"
+              },
+              {
+                "content": "from",
+                "span": {
+                  "offset": 183,
+                  "length": 4
+                },
+                "confidence": 0.943,
+                "source": "D(1,1.54,2.5886,1.871,2.5879,1.8717,2.7878,1.5408,2.7886)"
+              },
+              {
+                "content": "account",
+                "span": {
+                  "offset": 188,
+                  "length": 7
+                },
+                "confidence": 0.988,
+                "source": "D(1,1.9207,2.5878,2.5198,2.587,2.5202,2.7858,1.9213,2.7876)"
+              },
+              {
+                "content": "ACCT",
+                "span": {
+                  "offset": 196,
+                  "length": 4
+                },
+                "confidence": 0.995,
+                "source": "D(1,2.5562,2.5869,3.0064,2.5867,3.0066,2.7843,2.5566,2.7857)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 200,
+                  "length": 1
+                },
+                "confidence": 0.999,
+                "source": "D(1,3.0064,2.5867,3.0626,2.5867,3.0628,2.7841,3.0066,2.7843)"
+              },
+              {
+                "content": "2002",
+                "span": {
+                  "offset": 201,
+                  "length": 4
+                },
+                "confidence": 0.993,
+                "source": "D(1,3.066,2.5867,3.4433,2.5865,3.4433,2.7829,3.0661,2.7841)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 205,
+                  "length": 1
+                },
+                "confidence": 0.996,
+                "source": "D(1,3.4433,2.5865,3.4863,2.5865,3.4863,2.7828,3.4433,2.7829)"
+              },
+              {
+                "content": "The",
+                "span": {
+                  "offset": 208,
+                  "length": 3
+                },
+                "confidence": 0.997,
+                "source": "D(1,0.9831,2.9325,1.2715,2.9314,1.2725,3.1421,0.9841,3.1429)"
+              },
+              {
+                "content": "request",
+                "span": {
+                  "offset": 212,
+                  "length": 7
+                },
+                "confidence": 0.99,
+                "source": "D(1,1.3278,2.9312,1.8836,2.9292,1.8844,3.1404,1.3287,3.142)"
+              },
+              {
+                "content": "time",
+                "span": {
+                  "offset": 220,
+                  "length": 4
+                },
+                "confidence": 0.993,
+                "source": "D(1,1.9222,2.9291,2.2353,2.9279,2.2361,3.1395,1.9231,3.1403)"
+              },
+              {
+                "content": "was",
+                "span": {
+                  "offset": 225,
+                  "length": 3
+                },
+                "confidence": 0.968,
+                "source": "D(1,2.281,2.9277,2.5765,2.9267,2.5773,3.1385,2.2818,3.1393)"
+              },
+              {
+                "content": "18",
+                "span": {
+                  "offset": 229,
+                  "length": 2
+                },
+                "confidence": 0.876,
+                "source": "D(1,2.6363,2.9264,2.8087,2.9258,2.8094,3.1379,2.637,3.1384)"
+              },
+              {
+                "content": "May",
+                "span": {
+                  "offset": 232,
+                  "length": 3
+                },
+                "confidence": 0.813,
+                "source": "D(1,2.865,2.9256,3.1815,2.9251,3.1822,3.1374,2.8657,3.1377)"
+              },
+              {
+                "content": "2026",
+                "span": {
+                  "offset": 236,
+                  "length": 4
+                },
+                "confidence": 0.788,
+                "source": "D(1,3.2237,2.9251,3.5931,2.9252,3.5937,3.1375,3.2244,3.1374)"
+              },
+              {
+                "content": "at",
+                "span": {
+                  "offset": 241,
+                  "length": 2
+                },
+                "confidence": 0.911,
+                "source": "D(1,3.6388,2.9252,3.7866,2.9253,3.7871,3.1375,3.6394,3.1375)"
+              },
+              {
+                "content": "22",
+                "span": {
+                  "offset": 244,
+                  "length": 2
+                },
+                "confidence": 0.878,
+                "source": "D(1,3.8217,2.9253,4.0082,2.9253,4.0087,3.1375,3.8223,3.1375)"
+              },
+              {
+                "content": ":",
+                "span": {
+                  "offset": 246,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,4.0187,2.9253,4.0574,2.9253,4.0579,3.1375,4.0192,3.1375)"
+              },
+              {
+                "content": "45",
+                "span": {
+                  "offset": 247,
+                  "length": 2
+                },
+                "confidence": 0.853,
+                "source": "D(1,4.0504,2.9253,4.2439,2.9254,4.2443,3.1376,4.0509,3.1375)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 249,
+                  "length": 1
+                },
+                "confidence": 0.974,
+                "source": "D(1,4.2439,2.9254,4.279,2.9254,4.2795,3.1376,4.2443,3.1376)"
+              },
+              {
+                "content": "The",
+                "span": {
+                  "offset": 251,
+                  "length": 3
+                },
+                "confidence": 0.935,
+                "source": "D(1,4.3283,2.9254,4.6132,2.9255,4.6136,3.1376,4.3287,3.1376)"
+              },
+              {
+                "content": "customer",
+                "span": {
+                  "offset": 255,
+                  "length": 8
+                },
+                "confidence": 0.955,
+                "source": "D(1,4.6589,2.9255,5.3589,2.9269,5.3592,3.1387,4.6593,3.1377)"
+              },
+              {
+                "content": "described",
+                "span": {
+                  "offset": 264,
+                  "length": 9
+                },
+                "confidence": 0.977,
+                "source": "D(1,5.3941,2.9271,6.1117,2.9301,6.1118,3.1411,5.3944,3.1388)"
+              },
+              {
+                "content": "the",
+                "span": {
+                  "offset": 274,
+                  "length": 3
+                },
+                "confidence": 0.995,
+                "source": "D(1,6.1609,2.9303,6.3966,2.9313,6.3967,3.142,6.1611,3.1412)"
+              },
+              {
+                "content": "purpose",
+                "span": {
+                  "offset": 278,
+                  "length": 7
+                },
+                "confidence": 0.985,
+                "source": "D(1,6.4423,2.9315,7.0614,2.9341,7.0614,3.1441,6.4424,3.1421)"
+              },
+              {
+                "content": "as",
+                "span": {
+                  "offset": 286,
+                  "length": 2
+                },
+                "confidence": 0.983,
+                "source": "D(1,0.979,3.1949,1.1636,3.1941,1.165,3.3992,0.9805,3.3998)"
+              },
+              {
+                "content": "an",
+                "span": {
+                  "offset": 289,
+                  "length": 2
+                },
+                "confidence": 0.907,
+                "source": "D(1,1.2149,3.1939,1.3927,3.1931,1.3939,3.3983,1.2163,3.399)"
+              },
+              {
+                "content": "urgent",
+                "span": {
+                  "offset": 292,
+                  "length": 6
+                },
+                "confidence": 0.932,
+                "source": "D(1,1.4508,3.1928,1.9157,3.1907,1.9166,3.396,1.452,3.3981)"
+              },
+              {
+                "content": "private",
+                "span": {
+                  "offset": 299,
+                  "length": 7
+                },
+                "confidence": 0.982,
+                "source": "D(1,1.9636,3.1905,2.4695,3.1881,2.4701,3.3923,1.9645,3.3956)"
+              },
+              {
+                "content": "settlement",
+                "span": {
+                  "offset": 307,
+                  "length": 10
+                },
+                "confidence": 0.986,
+                "source": "D(1,2.5139,3.1879,3.2865,3.184,3.2866,3.3849,2.5145,3.392)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 317,
+                  "length": 1
+                },
+                "confidence": 0.996,
+                "source": "D(1,3.2831,3.184,3.331,3.1838,3.331,3.3844,3.2831,3.3849)"
+              },
+              {
+                "content": "Staff",
+                "span": {
+                  "offset": 320,
+                  "length": 5
+                },
+                "confidence": 0.942,
+                "source": "D(1,0.9846,3.5303,1.3389,3.5301,1.3399,3.7417,0.9856,3.7409)"
+              },
+              {
+                "content": "note",
+                "span": {
+                  "offset": 326,
+                  "length": 4
+                },
+                "confidence": 0.96,
+                "source": "D(1,1.3747,3.5301,1.6897,3.5299,1.6906,3.7426,1.3757,3.7418)"
+              },
+              {
+                "content": ":",
+                "span": {
+                  "offset": 330,
+                  "length": 1
+                },
+                "confidence": 0.996,
+                "source": "D(1,1.7005,3.5299,1.7363,3.5299,1.7372,3.7427,1.7014,3.7426)"
+              },
+              {
+                "content": "this",
+                "span": {
+                  "offset": 332,
+                  "length": 4
+                },
+                "confidence": 0.979,
+                "source": "D(1,1.7828,3.5298,2.0405,3.5297,2.0414,3.7434,1.7837,3.7428)"
+              },
+              {
+                "content": "request",
+                "span": {
+                  "offset": 337,
+                  "length": 7
+                },
+                "confidence": 0.99,
+                "source": "D(1,2.0978,3.5296,2.6706,3.5293,2.6713,3.7449,2.0986,3.7435)"
+              },
+              {
+                "content": "is",
+                "span": {
+                  "offset": 345,
+                  "length": 2
+                },
+                "confidence": 0.995,
+                "source": "D(1,2.7171,3.5293,2.8281,3.5292,2.8287,3.7453,2.7178,3.745)"
+              },
+              {
+                "content": "outside",
+                "span": {
+                  "offset": 348,
+                  "length": 7
+                },
+                "confidence": 0.981,
+                "source": "D(1,2.8746,3.5292,3.408,3.5294,3.4085,3.7456,2.8753,3.7453)"
+              },
+              {
+                "content": "the",
+                "span": {
+                  "offset": 356,
+                  "length": 3
+                },
+                "confidence": 0.99,
+                "source": "D(1,3.4545,3.5294,3.6836,3.5295,3.6841,3.7457,3.4551,3.7456)"
+              },
+              {
+                "content": "customer's",
+                "span": {
+                  "offset": 360,
+                  "length": 10
+                },
+                "confidence": 0.926,
+                "source": "D(1,3.7301,3.5295,4.5212,3.5297,4.5216,3.7461,3.7306,3.7457)"
+              },
+              {
+                "content": "usual",
+                "span": {
+                  "offset": 371,
+                  "length": 5
+                },
+                "confidence": 0.854,
+                "source": "D(1,4.5713,3.5297,4.9651,3.5301,4.9654,3.7458,4.5717,3.7461)"
+              },
+              {
+                "content": "Vigo",
+                "span": {
+                  "offset": 377,
+                  "length": 4
+                },
+                "confidence": 0.772,
+                "source": "D(1,5.0116,3.5302,5.3517,3.5306,5.3519,3.7453,5.0119,3.7458)"
+              },
+              {
+                "content": "branch",
+                "span": {
+                  "offset": 382,
+                  "length": 6
+                },
+                "confidence": 0.705,
+                "source": "D(1,5.4054,3.5307,5.9173,3.5313,5.9174,3.7444,5.4056,3.7452)"
+              },
+              {
+                "content": "network",
+                "span": {
+                  "offset": 389,
+                  "length": 7
+                },
+                "confidence": 0.876,
+                "source": "D(1,5.9674,3.5314,6.5544,3.5321,6.5544,3.7435,5.9675,3.7444)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 396,
+                  "length": 1
+                },
+                "confidence": 0.995,
+                "source": "D(1,6.5509,3.5321,6.5974,3.5322,6.5974,3.7434,6.5509,3.7435)"
+              }
+            ],
+            "lines": [
+              {
+                "content": "Cash Withdrawal Order",
+                "source": "D(1,0.9886,1.0063,4.0818,1.0098,4.0815,1.2862,0.9883,1.2827)",
+                "span": {
+                  "offset": 2,
+                  "length": 21
+                }
+              },
+              {
+                "content": "Synthetic demo document - no real personal data",
+                "source": "D(1,0.9856,1.4146,4.0371,1.4135,4.0372,1.5943,0.9856,1.5954)",
+                "span": {
+                  "offset": 25,
+                  "length": 47
+                }
+              },
+              {
+                "content": "Cash desk exception memo.",
+                "source": "D(1,0.9871,1.9961,3.101,1.9964,3.101,2.1993,0.9871,2.199)",
+                "span": {
+                  "offset": 74,
+                  "length": 25
+                }
+              },
+              {
+                "content": "At Valencia Centro Branch, Pedro Alonso requested a cash withdrawal of EUR",
+                "source": "D(1,0.981,2.3379,6.8032,2.3348,6.8033,2.5454,0.9811,2.5485)",
+                "span": {
+                  "offset": 101,
+                  "length": 74
+                }
+              },
+              {
+                "content": "10,000 from account ACCT-2002.",
+                "source": "D(1,0.9972,2.5899,3.4863,2.584,3.4868,2.7841,0.9977,2.7901)",
+                "span": {
+                  "offset": 176,
+                  "length": 30
+                }
+              },
+              {
+                "content": "The request time was 18 May 2026 at 22:45. The customer described the purpose",
+                "source": "D(1,0.9831,2.9247,7.0615,2.9258,7.0614,3.1441,0.983,3.1429)",
+                "span": {
+                  "offset": 208,
+                  "length": 77
+                }
+              },
+              {
+                "content": "as an urgent private settlement.",
+                "source": "D(1,0.979,3.1949,3.331,3.1838,3.3319,3.3896,0.98,3.4007)",
+                "span": {
+                  "offset": 286,
+                  "length": 32
+                }
+              },
+              {
+                "content": "Staff note: this request is outside the customer's usual Vigo branch network.",
+                "source": "D(1,0.9846,3.5286,6.5974,3.5304,6.5974,3.7468,0.9845,3.7449)",
+                "span": {
+                  "offset": 320,
+                  "length": 77
+                }
+              }
+            ]
+          }
+        ],
+        "paragraphs": [
+          {
+            "role": "title",
+            "content": "Cash Withdrawal Order",
+            "source": "D(1,0.9886,1.0063,4.0818,1.0098,4.0815,1.2862,0.9883,1.2827)",
+            "span": {
+              "offset": 0,
+              "length": 23
+            }
+          },
+          {
+            "content": "Synthetic demo document - no real personal data",
+            "source": "D(1,0.9856,1.4146,4.0371,1.4135,4.0372,1.5943,0.9856,1.5954)",
+            "span": {
+              "offset": 25,
+              "length": 47
+            }
+          },
+          {
+            "content": "Cash desk exception memo.",
+            "source": "D(1,0.9871,1.9961,3.101,1.9964,3.101,2.1993,0.9871,2.199)",
+            "span": {
+              "offset": 74,
+              "length": 25
+            }
+          },
+          {
+            "content": "At Valencia Centro Branch, Pedro Alonso requested a cash withdrawal of EUR 10,000 from account ACCT-2002.",
+            "source": "D(1,0.981,2.3379,6.8032,2.3348,6.8034,2.787,0.9813,2.7901)",
+            "span": {
+              "offset": 101,
+              "length": 105
+            }
+          },
+          {
+            "content": "The request time was 18 May 2026 at 22:45. The customer described the purpose as an urgent private settlement.",
+            "source": "D(1,0.9791,2.9247,7.0615,2.9258,7.0614,3.4018,0.979,3.4007)",
+            "span": {
+              "offset": 208,
+              "length": 110
+            }
+          },
+          {
+            "content": "Staff note: this request is outside the customer's usual Vigo branch network.",
+            "source": "D(1,0.9846,3.5286,6.5975,3.5304,6.5974,3.7468,0.9845,3.7449)",
+            "span": {
+              "offset": 320,
+              "length": 77
+            }
+          }
+        ],
+        "sections": [
+          {
+            "span": {
+              "offset": 0,
+              "length": 397
+            },
+            "elements": [
+              "/paragraphs/0",
+              "/paragraphs/1",
+              "/paragraphs/2",
+              "/paragraphs/3",
+              "/paragraphs/4",
+              "/paragraphs/5"
+            ]
+          }
+        ],
+        "analyzerId": "prebuilt-documentSearch",
+        "mimeType": "application/pdf"
+      }
+    ]
+  }
+}

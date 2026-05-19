@@ -1,0 +1,67 @@
+{
+  "document_id": "3816c0da-dabc-4dd2-b8d1-303d9279be74",
+  "filename": "clinical_note_red_flags.png",
+  "content_type": "image/png",
+  "analyzer_id": "prebuilt-imageSearch",
+  "api_version": "2025-11-01",
+  "markdown": "![image](pages/1)\n",
+  "summary": "The image is a walk-in nursing note from AgentVerse Demo Clinic for a patient named Ana Santos, who arrived on 18 May 2026 reporting pressure across her chest. She experienced shortness of breath and pain moving toward her left arm. The episode began earlier that day and had not fully settled by arrival. Observed vital signs include blood pressure of 168 over 102 and a pulse of 96. The note advises ruling out acute coronary syndrome and requests an urgent doctor review. The note is initialed by JV.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "The image is a walk-in nursing note from AgentVerse Demo Clinic for a patient named Ana Santos, who arrived on 18 May 2026 reporting pressure across her chest. She experienced shortness of breath and pain moving toward her left arm. The episode began earlier that day and had not fully settled by arrival. Observed vital signs include blood pressure of 168 over 102 and a pulse of 96. The note advises ruling out acute coronary syndrome and requests an urgent doctor review. The note is initialed by JV."
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "spans": []
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 1; completion latency: 2.35s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "![image](pages/1)\n"
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-imageSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:52:11Z",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 1; completion latency: 2.35s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "![image](pages/1)\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "The image is a walk-in nursing note from AgentVerse Demo Clinic for a patient named Ana Santos, who arrived on 18 May 2026 reporting pressure across her chest. She experienced shortness of breath and pain moving toward her left arm. The episode began earlier that day and had not fully settled by arrival. Observed vital signs include blood pressure of 168 over 102 and a pulse of 96. The note advises ruling out acute coronary syndrome and requests an urgent doctor review. The note is initialed by JV."
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "pixel",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "spans": []
+          }
+        ],
+        "analyzerId": "prebuilt-imageSearch",
+        "mimeType": "image/png"
+      }
+    ]
+  }
+}

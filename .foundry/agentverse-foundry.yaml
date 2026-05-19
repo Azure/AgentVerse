@@ -1,0 +1,34 @@
+project:
+  resourceGroup: rg-agent-verse
+  location: swedencentral
+  foundryResourceName: agent-verse-resource
+  foundryProjectName: agent-verse-project
+  projectEndpoint: https://agent-verse-resource.services.ai.azure.com/api/projects/agent-verse-project
+  modelDeploymentName: gpt-4o
+
+contentUnderstanding:
+  endpoint: https://agent-verse-resource.cognitiveservices.azure.com/
+  documentAnalyzer: prebuilt-documentSearch
+  imageAnalyzer: prebuilt-imageSearch
+  defaults:
+    gpt-4.1-mini: gpt-4.1-mini
+    text-embedding-3-large: text-embedding-3-large
+
+observability:
+  logAnalyticsWorkspaceName: law-agent-verse-resource
+  logAnalyticsWorkspaceId: /subscriptions/72dc9a1e-135b-49cb-86e6-80630340cade/resourceGroups/rg-agent-verse/providers/Microsoft.OperationalInsights/workspaces/law-agent-verse-resource
+  applicationInsightsName: appi-agent-verse-resource
+  applicationInsightsResourceId: /subscriptions/72dc9a1e-135b-49cb-86e6-80630340cade/resourceGroups/rg-agent-verse/providers/microsoft.insights/components/appi-agent-verse-resource
+  foundryConnectionName: agent-verse-resource-appinsights
+
+agents:
+  intake: AgentVerseIntakeAgent
+  financial: AgentVerseFinancialAgent
+  medical: AgentVerseMedicalAgent
+  supply: AgentVerseSupplyAgent
+  manualReview: AgentVerseManualReviewAgent
+
+localData:
+  database: data/agentverse_simulated.db
+  fabricatedDocuments: data/fabricated_documents
+  contentUnderstandingResults: data/content_understanding_results

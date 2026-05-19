@@ -1,0 +1,67 @@
+{
+  "document_id": "feb43a96-7479-4301-a759-011be7b8cf62",
+  "filename": "low_quality_unknown.png",
+  "content_type": "image/png",
+  "analyzer_id": "prebuilt-imageSearch",
+  "api_version": "2025-11-01",
+  "markdown": "![image](pages/1)\n",
+  "summary": "The image shows a cropped scan fragment of a synthetic demo document with no real personal data. It contains placeholder text fields labeled as total, signature, ref, date, and amount, each followed by ellipses indicating missing or redacted information.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "The image shows a cropped scan fragment of a synthetic demo document with no real personal data. It contains placeholder text fields labeled as total, signature, ref, date, and amount, each followed by ellipses indicating missing or redacted information."
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "spans": []
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 1; completion latency: 1.56s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "![image](pages/1)\n"
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-imageSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:52:48Z",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 1; completion latency: 1.56s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "![image](pages/1)\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "The image shows a cropped scan fragment of a synthetic demo document with no real personal data. It contains placeholder text fields labeled as total, signature, ref, date, and amount, each followed by ellipses indicating missing or redacted information."
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "pixel",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "spans": []
+          }
+        ],
+        "analyzerId": "prebuilt-imageSearch",
+        "mimeType": "image/png"
+      }
+    ]
+  }
+}

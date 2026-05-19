@@ -1,0 +1,37 @@
+[
+  {
+    "name": "AgentVerseIntakeAgent",
+    "id": "AgentVerseIntakeAgent:6",
+    "version": "6",
+    "model": "gpt-4o",
+    "projectEndpoint": "https://agent-verse-resource.services.ai.azure.com/api/projects/agent-verse-project"
+  },
+  {
+    "name": "AgentVerseFinancialAgent",
+    "id": "AgentVerseFinancialAgent:5",
+    "version": "5",
+    "model": "gpt-4o",
+    "projectEndpoint": "https://agent-verse-resource.services.ai.azure.com/api/projects/agent-verse-project"
+  },
+  {
+    "name": "AgentVerseMedicalAgent",
+    "id": "AgentVerseMedicalAgent:4",
+    "version": "4",
+    "model": "gpt-4o",
+    "projectEndpoint": "https://agent-verse-resource.services.ai.azure.com/api/projects/agent-verse-project"
+  },
+  {
+    "name": "AgentVerseSupplyAgent",
+    "id": "AgentVerseSupplyAgent:6",
+    "version": "6",
+    "model": "gpt-4o",
+    "projectEndpoint": "https://agent-verse-resource.services.ai.azure.com/api/projects/agent-verse-project"
+  },
+  {
+    "name": "AgentVerseManualReviewAgent",
+    "id": "AgentVerseManualReviewAgent:2",
+    "version": "2",
+    "model": "gpt-4o",
+    "projectEndpoint": "https://agent-verse-resource.services.ai.azure.com/api/projects/agent-verse-project"
+  }
+]

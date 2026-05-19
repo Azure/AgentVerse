@@ -1,0 +1,2654 @@
+{
+  "document_id": "df72b796-0d03-42a8-bc65-c9d1c10f5271",
+  "filename": "supplier_invoice_mismatch.pdf",
+  "content_type": "application/pdf",
+  "analyzer_id": "prebuilt-documentSearch",
+  "api_version": "2025-11-01",
+  "markdown": "# Sterile Supplies Arrival Sheet\n\nSynthetic demo document - no real personal data\n\nReceiving balance BSH-2026-0519-B.\n\nDock B / Sterile storage / counted 19 May 2026 at 09:15.\n\nSupplier label: Northwind Medical. References PO-7001 and delivery DEL-7001.\n\nLine 01: SYRINGE_5ML - 950 units physically counted - lot SYR5-2605-N.\n\nInvoice packet INV-8101 attached: billed quantity 1,200 units at EUR 0.10; invoice\ncheck pending.\n\nPhysical count accepted for inventory intake: 950 units. Destination field left blank.\n\nPut-away status: ready for allocation review; stock not assigned to a ward or client\nyet.\n",
+  "summary": "This document is a sterile supplies arrival sheet detailing the receipt of synthetic medical supplies, including a physical count of syringes, supplier information, invoice details, and the current status of the inventory intake and put-away process.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "This document is a sterile supplies arrival sheet detailing the receipt of synthetic medical supplies, including a physical count of syringes, supplier information, invoice details, and the current status of the inventory intake and put-away process.",
+      "spans": [
+        {
+          "offset": 2,
+          "length": 30
+        },
+        {
+          "offset": 34,
+          "length": 47
+        },
+        {
+          "offset": 83,
+          "length": 34
+        },
+        {
+          "offset": 119,
+          "length": 56
+        },
+        {
+          "offset": 177,
+          "length": 76
+        },
+        {
+          "offset": 255,
+          "length": 70
+        },
+        {
+          "offset": 327,
+          "length": 82
+        },
+        {
+          "offset": 410,
+          "length": 14
+        },
+        {
+          "offset": 426,
+          "length": 86
+        },
+        {
+          "offset": 514,
+          "length": 84
+        },
+        {
+          "offset": 599,
+          "length": 4
+        }
+      ],
+      "confidence": 0.176,
+      "source": "D(1,0.9921,1.0107,4.8865,1.0009,4.8873,1.3046,0.9929,1.3144);D(1,0.9881,1.4164,4.0371,1.4152,4.0372,1.5926,0.9882,1.5938);D(1,0.9896,1.9958,3.8091,1.9917,3.8094,2.1858,0.9899,2.1899);D(1,0.9921,2.3407,5.1811,2.3407,5.1811,2.5433,0.9921,2.5433);D(1,0.9886,2.6894,6.9162,2.6863,6.9163,2.8884,0.9887,2.8915);D(1,0.9886,3.0308,6.4884,3.0196,6.4888,3.2333,0.9890,3.2445);D(1,0.9886,3.3781,7.0453,3.3771,7.0453,3.5845,0.9886,3.5855);D(1,0.9861,3.6382,2.1144,3.6350,2.1150,3.8396,0.9867,3.8428);D(1,0.9881,3.9806,7.0493,3.9689,7.0497,4.1772,0.9885,4.1890);D(1,0.9861,4.3213,7.0614,4.3189,7.0615,4.5275,0.9862,4.5298);D(1,0.9800,4.5950,1.2660,4.5935,1.2670,4.7786,0.9810,4.7801)"
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "angle": -0.0159,
+      "width": 8.2639,
+      "height": 11.6806,
+      "spans": [
+        {
+          "offset": 0,
+          "length": 604
+        }
+      ],
+      "words": [
+        {
+          "content": "Sterile",
+          "span": {
+            "offset": 2,
+            "length": 7
+          },
+          "confidence": 0.997,
+          "source": "D(1,0.9921,1.0108,1.8316,1.0086,1.8324,1.3123,0.9931,1.3142)"
+        },
+        {
+          "content": "Supplies",
+          "span": {
+            "offset": 10,
+            "length": 8
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.9161,1.0084,3.0635,1.0063,3.064,1.3084,1.9168,1.3121)"
+        },
+        {
+          "content": "Arrival",
+          "span": {
+            "offset": 19,
+            "length": 7
+          },
+          "confidence": 0.998,
+          "source": "D(1,3.143,1.0062,4.0172,1.0054,4.0175,1.3042,3.1434,1.3081)"
+        },
+        {
+          "content": "Sheet",
+          "span": {
+            "offset": 27,
+            "length": 5
+          },
+          "confidence": 0.998,
+          "source": "D(1,4.1017,1.0054,4.8865,1.0052,4.8865,1.2996,4.1019,1.3037)"
+        },
+        {
+          "content": "Synthetic",
+          "span": {
+            "offset": 34,
+            "length": 9
+          },
+          "confidence": 0.996,
+          "source": "D(1,0.9881,1.4164,1.5627,1.4164,1.5635,1.5934,0.9891,1.5935)"
+        },
+        {
+          "content": "demo",
+          "span": {
+            "offset": 44,
+            "length": 4
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.6008,1.4164,1.9468,1.4165,1.9475,1.5934,1.6016,1.5934)"
+        },
+        {
+          "content": "document",
+          "span": {
+            "offset": 49,
+            "length": 8
+          },
+          "confidence": 0.995,
+          "source": "D(1,1.9849,1.4165,2.6064,1.4165,2.6069,1.5928,1.9856,1.5933)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 58,
+            "length": 1
+          },
+          "confidence": 0.99,
+          "source": "D(1,2.6387,1.4165,2.6856,1.4165,2.686,1.5927,2.6391,1.5928)"
+        },
+        {
+          "content": "no",
+          "span": {
+            "offset": 60,
+            "length": 2
+          },
+          "confidence": 0.988,
+          "source": "D(1,2.7237,1.4165,2.8761,1.4166,2.8765,1.5926,2.7241,1.5927)"
+        },
+        {
+          "content": "real",
+          "span": {
+            "offset": 63,
+            "length": 4
+          },
+          "confidence": 0.96,
+          "source": "D(1,2.9201,1.4166,3.1429,1.4166,3.1432,1.5922,2.9205,1.5925)"
+        },
+        {
+          "content": "personal",
+          "span": {
+            "offset": 68,
+            "length": 8
+          },
+          "confidence": 0.988,
+          "source": "D(1,3.1898,1.4166,3.7146,1.4167,3.7147,1.5913,3.1901,1.5922)"
+        },
+        {
+          "content": "data",
+          "span": {
+            "offset": 77,
+            "length": 4
+          },
+          "confidence": 0.995,
+          "source": "D(1,3.7557,1.4167,4.0371,1.4167,4.0371,1.5908,3.7558,1.5913)"
+        },
+        {
+          "content": "Receiving",
+          "span": {
+            "offset": 83,
+            "length": 9
+          },
+          "confidence": 0.996,
+          "source": "D(1,0.9896,1.9958,1.7137,1.9949,1.7145,2.1885,0.9906,2.1899)"
+        },
+        {
+          "content": "balance",
+          "span": {
+            "offset": 93,
+            "length": 7
+          },
+          "confidence": 0.977,
+          "source": "D(1,1.7682,1.9948,2.3513,1.9942,2.3518,2.1873,1.7689,2.1884)"
+        },
+        {
+          "content": "BSH",
+          "span": {
+            "offset": 101,
+            "length": 3
+          },
+          "confidence": 0.995,
+          "source": "D(1,2.4026,1.9941,2.7294,1.9938,2.7298,2.1866,2.4031,2.1872)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 104,
+            "length": 1
+          },
+          "confidence": 0.999,
+          "source": "D(1,2.7422,1.9938,2.7935,1.9937,2.7938,2.1865,2.7426,2.1866)"
+        },
+        {
+          "content": "2026-0519",
+          "span": {
+            "offset": 105,
+            "length": 9
+          },
+          "confidence": 0.982,
+          "source": "D(1,2.7935,1.9937,3.5849,1.993,3.5849,2.1851,2.7938,2.1865)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 114,
+            "length": 1
+          },
+          "confidence": 0.997,
+          "source": "D(1,3.5913,1.993,3.6425,1.993,3.6426,2.185,3.5913,2.1851)"
+        },
+        {
+          "content": "B",
+          "span": {
+            "offset": 115,
+            "length": 1
+          },
+          "confidence": 0.985,
+          "source": "D(1,3.6521,1.993,3.7547,1.9929,3.7547,2.1848,3.6522,2.185)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 116,
+            "length": 1
+          },
+          "confidence": 0.996,
+          "source": "D(1,3.7643,1.9929,3.8091,1.9928,3.8091,2.1847,3.7643,2.1848)"
+        },
+        {
+          "content": "Dock",
+          "span": {
+            "offset": 119,
+            "length": 4
+          },
+          "confidence": 0.99,
+          "source": "D(1,0.9921,2.341,1.3732,2.3417,1.3742,2.5382,0.9931,2.5365)"
+        },
+        {
+          "content": "B",
+          "span": {
+            "offset": 124,
+            "length": 1
+          },
+          "confidence": 0.988,
+          "source": "D(1,1.4263,2.3418,1.5257,2.342,1.5266,2.5389,1.4272,2.5385)"
+        },
+        {
+          "content": "/",
+          "span": {
+            "offset": 126,
+            "length": 1
+          },
+          "confidence": 0.999,
+          "source": "D(1,1.5621,2.3421,1.6284,2.3423,1.6293,2.5394,1.563,2.5391)"
+        },
+        {
+          "content": "Sterile",
+          "span": {
+            "offset": 128,
+            "length": 7
+          },
+          "confidence": 0.996,
+          "source": "D(1,1.6649,2.3423,2.1388,2.3433,2.1395,2.5417,1.6657,2.5396)"
+        },
+        {
+          "content": "storage",
+          "span": {
+            "offset": 136,
+            "length": 7
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.1885,2.3434,2.7386,2.3438,2.7392,2.543,2.1892,2.5419)"
+        },
+        {
+          "content": "/",
+          "span": {
+            "offset": 144,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,2.7718,2.3438,2.838,2.3438,2.8386,2.543,2.7723,2.543)"
+        },
+        {
+          "content": "counted",
+          "span": {
+            "offset": 146,
+            "length": 7
+          },
+          "confidence": 0.992,
+          "source": "D(1,2.8745,2.3438,3.4644,2.3437,3.4648,2.5432,2.8751,2.543)"
+        },
+        {
+          "content": "19",
+          "span": {
+            "offset": 154,
+            "length": 2
+          },
+          "confidence": 0.992,
+          "source": "D(1,3.5274,2.3437,3.6931,2.3437,3.6934,2.5432,3.5278,2.5432)"
+        },
+        {
+          "content": "May",
+          "span": {
+            "offset": 157,
+            "length": 3
+          },
+          "confidence": 0.961,
+          "source": "D(1,3.7527,2.3437,4.0642,2.3431,4.0645,2.5422,3.7531,2.5433)"
+        },
+        {
+          "content": "2026",
+          "span": {
+            "offset": 161,
+            "length": 4
+          },
+          "confidence": 0.977,
+          "source": "D(1,4.1073,2.343,4.4818,2.3422,4.482,2.5405,4.1076,2.542)"
+        },
+        {
+          "content": "at",
+          "span": {
+            "offset": 166,
+            "length": 2
+          },
+          "confidence": 0.992,
+          "source": "D(1,4.5282,2.3421,4.674,2.3418,4.6741,2.5397,4.5284,2.5403)"
+        },
+        {
+          "content": "09",
+          "span": {
+            "offset": 169,
+            "length": 2
+          },
+          "confidence": 0.991,
+          "source": "D(1,4.7138,2.3417,4.8961,2.3413,4.8961,2.5388,4.7139,2.5396)"
+        },
+        {
+          "content": ":",
+          "span": {
+            "offset": 171,
+            "length": 1
+          },
+          "confidence": 0.999,
+          "source": "D(1,4.9093,2.3413,4.9458,2.3412,4.9458,2.5386,4.9094,2.5388)"
+        },
+        {
+          "content": "15",
+          "span": {
+            "offset": 172,
+            "length": 2
+          },
+          "confidence": 0.997,
+          "source": "D(1,4.959,2.3412,5.1347,2.3408,5.1347,2.5379,4.9591,2.5386)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 174,
+            "length": 1
+          },
+          "confidence": 0.99,
+          "source": "D(1,5.1413,2.3408,5.1811,2.3407,5.1811,2.5377,5.1413,2.5379)"
+        },
+        {
+          "content": "Supplier",
+          "span": {
+            "offset": 177,
+            "length": 8
+          },
+          "confidence": 0.996,
+          "source": "D(1,0.9886,2.6909,1.6061,2.6902,1.607,2.8898,0.9896,2.8897)"
+        },
+        {
+          "content": "label",
+          "span": {
+            "offset": 186,
+            "length": 5
+          },
+          "confidence": 0.995,
+          "source": "D(1,1.6528,2.6902,1.9966,2.6898,1.9974,2.8898,1.6537,2.8898)"
+        },
+        {
+          "content": ":",
+          "span": {
+            "offset": 191,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,2.0032,2.6898,2.0366,2.6897,2.0374,2.8898,2.0041,2.8898)"
+        },
+        {
+          "content": "Northwind",
+          "span": {
+            "offset": 193,
+            "length": 9
+          },
+          "confidence": 0.997,
+          "source": "D(1,2.0933,2.6897,2.8343,2.6888,2.835,2.8899,2.0942,2.8898)"
+        },
+        {
+          "content": "Medical",
+          "span": {
+            "offset": 203,
+            "length": 7
+          },
+          "confidence": 0.982,
+          "source": "D(1,2.891,2.6887,3.4551,2.6883,3.4557,2.8898,2.8917,2.89)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 210,
+            "length": 1
+          },
+          "confidence": 0.991,
+          "source": "D(1,3.4684,2.6883,3.5018,2.6883,3.5024,2.8898,3.469,2.8898)"
+        },
+        {
+          "content": "References",
+          "span": {
+            "offset": 212,
+            "length": 10
+          },
+          "confidence": 0.985,
+          "source": "D(1,3.5619,2.6883,4.3996,2.6877,4.4,2.8896,3.5625,2.8898)"
+        },
+        {
+          "content": "PO",
+          "span": {
+            "offset": 223,
+            "length": 2
+          },
+          "confidence": 0.995,
+          "source": "D(1,4.4497,2.6877,4.6867,2.6875,4.687,2.8895,4.4501,2.8896)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 225,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,4.69,2.6875,4.7467,2.6875,4.7471,2.8895,4.6904,2.8895)"
+        },
+        {
+          "content": "7001",
+          "span": {
+            "offset": 226,
+            "length": 4
+          },
+          "confidence": 0.8,
+          "source": "D(1,4.7434,2.6875,5.0972,2.6873,5.0975,2.8893,4.7438,2.8895)"
+        },
+        {
+          "content": "and",
+          "span": {
+            "offset": 231,
+            "length": 3
+          },
+          "confidence": 0.935,
+          "source": "D(1,5.1606,2.6873,5.4343,2.6873,5.4345,2.8891,5.1609,2.8893)"
+        },
+        {
+          "content": "delivery",
+          "span": {
+            "offset": 235,
+            "length": 8
+          },
+          "confidence": 0.923,
+          "source": "D(1,5.491,2.6873,6.0718,2.6871,6.0719,2.8886,5.4913,2.889)"
+        },
+        {
+          "content": "DEL",
+          "span": {
+            "offset": 244,
+            "length": 3
+          },
+          "confidence": 0.941,
+          "source": "D(1,6.1151,2.6871,6.4255,2.6871,6.4256,2.8884,6.1153,2.8886)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 247,
+            "length": 1
+          },
+          "confidence": 0.997,
+          "source": "D(1,6.4322,2.6871,6.4856,2.6871,6.4857,2.8883,6.4323,2.8884)"
+        },
+        {
+          "content": "7001",
+          "span": {
+            "offset": 248,
+            "length": 4
+          },
+          "confidence": 0.98,
+          "source": "D(1,6.489,2.6871,6.8427,2.687,6.8428,2.8881,6.489,2.8883)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 252,
+            "length": 1
+          },
+          "confidence": 0.991,
+          "source": "D(1,6.8661,2.687,6.9162,2.687,6.9162,2.888,6.8661,2.8881)"
+        },
+        {
+          "content": "Line",
+          "span": {
+            "offset": 255,
+            "length": 4
+          },
+          "confidence": 0.984,
+          "source": "D(1,0.9886,3.0308,1.296,3.0318,1.2969,3.2287,0.9896,3.227)"
+        },
+        {
+          "content": "01",
+          "span": {
+            "offset": 260,
+            "length": 2
+          },
+          "confidence": 0.993,
+          "source": "D(1,1.3456,3.032,1.5075,3.0325,1.5084,3.2299,1.3465,3.229)"
+        },
+        {
+          "content": ":",
+          "span": {
+            "offset": 262,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.534,3.0326,1.5736,3.0328,1.5745,3.2303,1.5349,3.23)"
+        },
+        {
+          "content": "SYRINGE_5ML",
+          "span": {
+            "offset": 264,
+            "length": 11
+          },
+          "confidence": 0.863,
+          "source": "D(1,1.6232,3.0329,2.8031,3.037,2.8038,3.2371,1.6241,3.2305)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 276,
+            "length": 1
+          },
+          "confidence": 0.994,
+          "source": "D(1,2.8362,3.037,2.9023,3.0371,2.903,3.2373,2.8369,3.2372)"
+        },
+        {
+          "content": "950",
+          "span": {
+            "offset": 278,
+            "length": 3
+          },
+          "confidence": 0.961,
+          "source": "D(1,2.942,3.0371,3.2196,3.0373,3.2202,3.2373,2.9426,3.2373)"
+        },
+        {
+          "content": "units",
+          "span": {
+            "offset": 282,
+            "length": 5
+          },
+          "confidence": 0.991,
+          "source": "D(1,3.2692,3.0373,3.6261,3.0376,3.6267,3.2374,3.2698,3.2373)"
+        },
+        {
+          "content": "physically",
+          "span": {
+            "offset": 288,
+            "length": 10
+          },
+          "confidence": 0.992,
+          "source": "D(1,3.6724,3.0376,4.3929,3.0381,4.3933,3.2375,3.6729,3.2374)"
+        },
+        {
+          "content": "counted",
+          "span": {
+            "offset": 299,
+            "length": 7
+          },
+          "confidence": 0.989,
+          "source": "D(1,4.4326,3.0381,5.0209,3.0375,5.0212,3.2357,4.433,3.2375)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 307,
+            "length": 1
+          },
+          "confidence": 0.993,
+          "source": "D(1,5.0738,3.0374,5.1366,3.0373,5.1369,3.2351,5.0741,3.2354)"
+        },
+        {
+          "content": "lot",
+          "span": {
+            "offset": 309,
+            "length": 3
+          },
+          "confidence": 0.987,
+          "source": "D(1,5.1829,3.0372,5.3581,3.0368,5.3583,3.2339,5.1831,3.2348)"
+        },
+        {
+          "content": "SYR5",
+          "span": {
+            "offset": 313,
+            "length": 4
+          },
+          "confidence": 0.927,
+          "source": "D(1,5.3977,3.0367,5.8307,3.0358,5.8308,3.2314,5.3979,3.2337)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 317,
+            "length": 1
+          },
+          "confidence": 0.985,
+          "source": "D(1,5.834,3.0358,5.8836,3.0357,5.8837,3.2312,5.8341,3.2314)"
+        },
+        {
+          "content": "2605",
+          "span": {
+            "offset": 318,
+            "length": 4
+          },
+          "confidence": 0.933,
+          "source": "D(1,5.8869,3.0357,6.2637,3.0349,6.2637,3.2292,5.887,3.2312)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 322,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,6.2637,3.0349,6.3166,3.0348,6.3166,3.2289,6.2637,3.2292)"
+        },
+        {
+          "content": "N",
+          "span": {
+            "offset": 323,
+            "length": 1
+          },
+          "confidence": 0.985,
+          "source": "D(1,6.3232,3.0348,6.429,3.0346,6.429,3.2283,6.3232,3.2289)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 324,
+            "length": 1
+          },
+          "confidence": 0.992,
+          "source": "D(1,6.4389,3.0346,6.4884,3.0345,6.4884,3.228,6.4389,3.2283)"
+        },
+        {
+          "content": "Invoice",
+          "span": {
+            "offset": 327,
+            "length": 7
+          },
+          "confidence": 0.98,
+          "source": "D(1,0.9886,3.3813,1.5104,3.3806,1.5113,3.5822,0.9896,3.5813)"
+        },
+        {
+          "content": "packet",
+          "span": {
+            "offset": 335,
+            "length": 6
+          },
+          "confidence": 0.997,
+          "source": "D(1,1.5649,3.3805,2.056,3.3798,2.0569,3.5831,1.5659,3.5823)"
+        },
+        {
+          "content": "INV",
+          "span": {
+            "offset": 342,
+            "length": 3
+          },
+          "confidence": 0.99,
+          "source": "D(1,2.114,3.3797,2.38,3.3794,2.3808,3.5836,2.1148,3.5832)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 345,
+            "length": 1
+          },
+          "confidence": 0.996,
+          "source": "D(1,2.3766,3.3794,2.4312,3.3793,2.4319,3.5837,2.3774,3.5836)"
+        },
+        {
+          "content": "8101",
+          "span": {
+            "offset": 346,
+            "length": 4
+          },
+          "confidence": 0.95,
+          "source": "D(1,2.4312,3.3793,2.7824,3.3788,2.7831,3.5843,2.4319,3.5837)"
+        },
+        {
+          "content": "attached",
+          "span": {
+            "offset": 351,
+            "length": 8
+          },
+          "confidence": 0.98,
+          "source": "D(1,2.8472,3.3787,3.4781,3.3782,3.4787,3.5848,2.8479,3.5844)"
+        },
+        {
+          "content": ":",
+          "span": {
+            "offset": 359,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,3.4918,3.3782,3.5259,3.3782,3.5264,3.5848,3.4923,3.5848)"
+        },
+        {
+          "content": "billed",
+          "span": {
+            "offset": 361,
+            "length": 6
+          },
+          "confidence": 0.997,
+          "source": "D(1,3.5838,3.3782,3.9624,3.378,3.9629,3.5848,3.5844,3.5848)"
+        },
+        {
+          "content": "quantity",
+          "span": {
+            "offset": 368,
+            "length": 8
+          },
+          "confidence": 0.97,
+          "source": "D(1,4.0135,3.3779,4.6035,3.3776,4.6039,3.5849,4.014,3.5848)"
+        },
+        {
+          "content": "1,200",
+          "span": {
+            "offset": 377,
+            "length": 5
+          },
+          "confidence": 0.597,
+          "source": "D(1,4.6581,3.3776,5.0639,3.3774,5.0642,3.5848,4.6585,3.5849)"
+        },
+        {
+          "content": "units",
+          "span": {
+            "offset": 383,
+            "length": 5
+          },
+          "confidence": 0.93,
+          "source": "D(1,5.1185,3.3775,5.4629,3.3776,5.4632,3.5842,5.1188,3.5848)"
+        },
+        {
+          "content": "at",
+          "span": {
+            "offset": 389,
+            "length": 2
+          },
+          "confidence": 0.966,
+          "source": "D(1,5.5107,3.3776,5.6539,3.3777,5.6541,3.584,5.5109,3.5842)"
+        },
+        {
+          "content": "EUR",
+          "span": {
+            "offset": 392,
+            "length": 3
+          },
+          "confidence": 0.716,
+          "source": "D(1,5.705,3.3777,6.0529,3.3778,6.0531,3.5834,5.7053,3.5839)"
+        },
+        {
+          "content": "0.10",
+          "span": {
+            "offset": 396,
+            "length": 4
+          },
+          "confidence": 0.876,
+          "source": "D(1,6.0938,3.3778,6.4144,3.378,6.4145,3.5828,6.094,3.5833)"
+        },
+        {
+          "content": ";",
+          "span": {
+            "offset": 400,
+            "length": 1
+          },
+          "confidence": 0.996,
+          "source": "D(1,6.4212,3.378,6.4553,3.378,6.4554,3.5827,6.4213,3.5828)"
+        },
+        {
+          "content": "invoice",
+          "span": {
+            "offset": 402,
+            "length": 7
+          },
+          "confidence": 0.969,
+          "source": "D(1,6.5167,3.378,7.0453,3.3782,7.0453,3.5819,6.5168,3.5827)"
+        },
+        {
+          "content": "check",
+          "span": {
+            "offset": 410,
+            "length": 5
+          },
+          "confidence": 0.998,
+          "source": "D(1,0.9861,3.6382,1.4327,3.6415,1.4333,3.8402,0.9871,3.8385)"
+        },
+        {
+          "content": "pending",
+          "span": {
+            "offset": 416,
+            "length": 7
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.473,3.6415,2.064,3.6386,2.0641,3.8397,1.4736,3.8402)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 423,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,2.0741,3.6386,2.1144,3.6382,2.1144,3.8396,2.0741,3.8397)"
+        },
+        {
+          "content": "Physical",
+          "span": {
+            "offset": 426,
+            "length": 8
+          },
+          "confidence": 0.994,
+          "source": "D(1,0.9881,3.9806,1.599,3.98,1.5999,4.1851,0.9891,4.1852)"
+        },
+        {
+          "content": "count",
+          "span": {
+            "offset": 435,
+            "length": 5
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.6502,3.98,2.0666,3.9796,2.0674,4.1851,1.6511,4.1851)"
+        },
+        {
+          "content": "accepted",
+          "span": {
+            "offset": 441,
+            "length": 8
+          },
+          "confidence": 0.995,
+          "source": "D(1,2.1143,3.9796,2.7833,3.979,2.784,4.1851,2.1152,4.1851)"
+        },
+        {
+          "content": "for",
+          "span": {
+            "offset": 450,
+            "length": 3
+          },
+          "confidence": 0.995,
+          "source": "D(1,2.8345,3.9789,3.0358,3.9787,3.0365,4.185,2.8352,4.1851)"
+        },
+        {
+          "content": "inventory",
+          "span": {
+            "offset": 454,
+            "length": 9
+          },
+          "confidence": 0.984,
+          "source": "D(1,3.0768,3.9786,3.7491,3.9776,3.7497,4.1833,3.0774,4.1849)"
+        },
+        {
+          "content": "intake",
+          "span": {
+            "offset": 464,
+            "length": 6
+          },
+          "confidence": 0.989,
+          "source": "D(1,3.7935,3.9775,4.2405,3.9768,4.241,4.1822,3.794,4.1832)"
+        },
+        {
+          "content": ":",
+          "span": {
+            "offset": 470,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,4.2508,3.9768,4.2883,3.9768,4.2888,4.1821,4.2513,4.1822)"
+        },
+        {
+          "content": "950",
+          "span": {
+            "offset": 472,
+            "length": 3
+          },
+          "confidence": 0.91,
+          "source": "D(1,4.3429,3.9767,4.616,3.9763,4.6164,4.1813,4.3434,4.182)"
+        },
+        {
+          "content": "units",
+          "span": {
+            "offset": 476,
+            "length": 5
+          },
+          "confidence": 0.135,
+          "source": "D(1,4.6672,3.9762,5.0153,3.9756,5.0156,4.1804,4.6676,4.1812)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 481,
+            "length": 1
+          },
+          "confidence": 0.921,
+          "source": "D(1,5.0187,3.9756,5.0528,3.9756,5.0531,4.1803,5.019,4.1804)"
+        },
+        {
+          "content": "Destination",
+          "span": {
+            "offset": 483,
+            "length": 11
+          },
+          "confidence": 0.523,
+          "source": "D(1,5.1142,3.9754,5.9197,3.9737,5.9199,4.1763,5.1146,4.18)"
+        },
+        {
+          "content": "field",
+          "span": {
+            "offset": 495,
+            "length": 5
+          },
+          "confidence": 0.998,
+          "source": "D(1,5.9709,3.9735,6.2883,3.9728,6.2884,4.1747,5.971,4.1761)"
+        },
+        {
+          "content": "left",
+          "span": {
+            "offset": 501,
+            "length": 4
+          },
+          "confidence": 0.992,
+          "source": "D(1,6.3463,3.9727,6.5681,3.9722,6.5682,4.1734,6.3464,4.1744)"
+        },
+        {
+          "content": "blank",
+          "span": {
+            "offset": 506,
+            "length": 5
+          },
+          "confidence": 0.992,
+          "source": "D(1,6.6125,3.9721,7.0152,3.9712,7.0152,4.1714,6.6126,4.1732)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 511,
+            "length": 1
+          },
+          "confidence": 0.992,
+          "source": "D(1,7.0084,3.9713,7.0493,3.9712,7.0493,4.1712,7.0084,4.1714)"
+        },
+        {
+          "content": "Put",
+          "span": {
+            "offset": 514,
+            "length": 3
+          },
+          "confidence": 0.989,
+          "source": "D(1,0.9861,4.3254,1.2461,4.3248,1.247,4.5294,0.9871,4.5298)"
+        },
+        {
+          "content": "-",
+          "span": {
+            "offset": 517,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.2461,4.3248,1.2974,4.3246,1.2983,4.5294,1.247,4.5294)"
+        },
+        {
+          "content": "away",
+          "span": {
+            "offset": 518,
+            "length": 4
+          },
+          "confidence": 0.995,
+          "source": "D(1,1.2974,4.3246,1.6839,4.3237,1.6848,4.5288,1.2983,4.5294)"
+        },
+        {
+          "content": "status",
+          "span": {
+            "offset": 523,
+            "length": 6
+          },
+          "confidence": 0.987,
+          "source": "D(1,1.7318,4.3236,2.1765,4.3225,2.1773,4.5282,1.7327,4.5288)"
+        },
+        {
+          "content": ":",
+          "span": {
+            "offset": 529,
+            "length": 1
+          },
+          "confidence": 0.996,
+          "source": "D(1,2.1868,4.3225,2.221,4.3224,2.2218,4.5281,2.1876,4.5282)"
+        },
+        {
+          "content": "ready",
+          "span": {
+            "offset": 531,
+            "length": 5
+          },
+          "confidence": 0.971,
+          "source": "D(1,2.2791,4.3222,2.6896,4.3212,2.6904,4.5275,2.2799,4.528)"
+        },
+        {
+          "content": "for",
+          "span": {
+            "offset": 537,
+            "length": 3
+          },
+          "confidence": 0.988,
+          "source": "D(1,2.7307,4.3211,2.9291,4.3207,2.9298,4.5272,2.7314,4.5274)"
+        },
+        {
+          "content": "allocation",
+          "span": {
+            "offset": 541,
+            "length": 10
+          },
+          "confidence": 0.988,
+          "source": "D(1,2.9701,4.3206,3.6714,4.3203,3.672,4.5268,2.9708,4.5271)"
+        },
+        {
+          "content": "review",
+          "span": {
+            "offset": 552,
+            "length": 6
+          },
+          "confidence": 0.997,
+          "source": "D(1,3.7296,4.3202,4.1982,4.3201,4.1987,4.5265,3.7301,4.5268)"
+        },
+        {
+          "content": ";",
+          "span": {
+            "offset": 558,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,4.2085,4.3201,4.2461,4.3201,4.2466,4.5265,4.209,4.5265)"
+        },
+        {
+          "content": "stock",
+          "span": {
+            "offset": 560,
+            "length": 5
+          },
+          "confidence": 0.994,
+          "source": "D(1,4.2974,4.3201,4.6874,4.32,4.6878,4.5263,4.2979,4.5265)"
+        },
+        {
+          "content": "not",
+          "span": {
+            "offset": 566,
+            "length": 3
+          },
+          "confidence": 0.992,
+          "source": "D(1,4.7319,4.3199,4.9645,4.3199,4.9648,4.5262,4.7322,4.5263)"
+        },
+        {
+          "content": "assigned",
+          "span": {
+            "offset": 570,
+            "length": 8
+          },
+          "confidence": 0.812,
+          "source": "D(1,5.0124,4.3199,5.6692,4.321,5.6694,4.5264,5.0127,4.5262)"
+        },
+        {
+          "content": "to",
+          "span": {
+            "offset": 579,
+            "length": 2
+          },
+          "confidence": 0.523,
+          "source": "D(1,5.7239,4.3211,5.8641,4.3214,5.8643,4.5265,5.7241,4.5265)"
+        },
+        {
+          "content": "a",
+          "span": {
+            "offset": 582,
+            "length": 1
+          },
+          "confidence": 0.527,
+          "source": "D(1,5.912,4.3214,6.001,4.3216,6.0012,4.5266,5.9122,4.5266)"
+        },
+        {
+          "content": "ward",
+          "span": {
+            "offset": 584,
+            "length": 4
+          },
+          "confidence": 0.247,
+          "source": "D(1,6.0386,4.3217,6.4012,4.3223,6.4013,4.5268,6.0388,4.5266)"
+        },
+        {
+          "content": "or",
+          "span": {
+            "offset": 589,
+            "length": 2
+          },
+          "confidence": 0.636,
+          "source": "D(1,6.4525,4.3224,6.6133,4.3227,6.6134,4.5269,6.4526,4.5268)"
+        },
+        {
+          "content": "client",
+          "span": {
+            "offset": 592,
+            "length": 6
+          },
+          "confidence": 0.696,
+          "source": "D(1,6.6509,4.3228,7.0614,4.3235,7.0614,4.5271,6.651,4.5269)"
+        },
+        {
+          "content": "yet",
+          "span": {
+            "offset": 599,
+            "length": 3
+          },
+          "confidence": 0.997,
+          "source": "D(1,0.98,4.5967,1.2235,4.5946,1.2256,4.7788,0.9831,4.7793)"
+        },
+        {
+          "content": ".",
+          "span": {
+            "offset": 602,
+            "length": 1
+          },
+          "confidence": 0.998,
+          "source": "D(1,1.2205,4.5947,1.265,4.5935,1.267,4.7785,1.2227,4.7788)"
+        }
+      ],
+      "lines": [
+        {
+          "content": "Sterile Supplies Arrival Sheet",
+          "source": "D(1,0.9921,1.0108,4.8865,1.0038,4.8873,1.3045,0.9929,1.3147)",
+          "span": {
+            "offset": 2,
+            "length": 30
+          }
+        },
+        {
+          "content": "Synthetic demo document - no real personal data",
+          "source": "D(1,0.9881,1.4164,4.0371,1.4164,4.0371,1.5935,0.9881,1.5935)",
+          "span": {
+            "offset": 34,
+            "length": 47
+          }
+        },
+        {
+          "content": "Receiving balance BSH-2026-0519-B.",
+          "source": "D(1,0.9896,1.9958,3.8091,1.9922,3.8094,2.1863,0.9899,2.1899)",
+          "span": {
+            "offset": 83,
+            "length": 34
+          }
+        },
+        {
+          "content": "Dock B / Sterile storage / counted 19 May 2026 at 09:15.",
+          "source": "D(1,0.9921,2.341,5.1811,2.3407,5.1811,2.5432,0.9921,2.5434)",
+          "span": {
+            "offset": 119,
+            "length": 56
+          }
+        },
+        {
+          "content": "Supplier label: Northwind Medical. References PO-7001 and delivery DEL-7001.",
+          "source": "D(1,0.9886,2.6885,6.9162,2.6868,6.9162,2.8889,0.9887,2.8905)",
+          "span": {
+            "offset": 177,
+            "length": 76
+          }
+        },
+        {
+          "content": "Line 01: SYRINGE_5ML - 950 units physically counted - lot SYR5-2605-N.",
+          "source": "D(1,0.9886,3.0308,6.4886,3.0345,6.4884,3.2395,0.9885,3.236)",
+          "span": {
+            "offset": 255,
+            "length": 70
+          }
+        },
+        {
+          "content": "Invoice packet INV-8101 attached: billed quantity 1,200 units at EUR 0.10; invoice",
+          "source": "D(1,0.9886,3.3774,7.0453,3.3774,7.0453,3.5849,0.9886,3.5849)",
+          "span": {
+            "offset": 327,
+            "length": 82
+          }
+        },
+        {
+          "content": "check pending.",
+          "source": "D(1,0.9861,3.6382,2.1144,3.6382,2.1144,3.8405,0.9861,3.8405)",
+          "span": {
+            "offset": 410,
+            "length": 14
+          }
+        },
+        {
+          "content": "Physical count accepted for inventory intake: 950 units. Destination field left blank.",
+          "source": "D(1,0.9881,3.9806,7.0493,3.9712,7.0496,4.1788,0.9884,4.1863)",
+          "span": {
+            "offset": 426,
+            "length": 86
+          }
+        },
+        {
+          "content": "Put-away status: ready for allocation review; stock not assigned to a ward or client",
+          "source": "D(1,0.9861,4.3214,7.0614,4.3187,7.0615,4.5271,0.9862,4.5298)",
+          "span": {
+            "offset": 514,
+            "length": 84
+          }
+        },
+        {
+          "content": "yet.",
+          "source": "D(1,0.98,4.5966,1.265,4.5935,1.267,4.7785,0.982,4.7816)",
+          "span": {
+            "offset": 599,
+            "length": 4
+          }
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 2; completion latency: 1.90s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "Sterile Supplies Arrival Sheet Synthetic demo document - no real personal data Receiving balance BSH-2026-0519-B."
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-documentSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:53:37Z",
+    "stringEncoding": "codePoint",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 2; completion latency: 1.90s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "# Sterile Supplies Arrival Sheet\n\nSynthetic demo document - no real personal data\n\nReceiving balance BSH-2026-0519-B.\n\nDock B / Sterile storage / counted 19 May 2026 at 09:15.\n\nSupplier label: Northwind Medical. References PO-7001 and delivery DEL-7001.\n\nLine 01: SYRINGE_5ML - 950 units physically counted - lot SYR5-2605-N.\n\nInvoice packet INV-8101 attached: billed quantity 1,200 units at EUR 0.10; invoice\ncheck pending.\n\nPhysical count accepted for inventory intake: 950 units. Destination field left blank.\n\nPut-away status: ready for allocation review; stock not assigned to a ward or client\nyet.\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "This document is a sterile supplies arrival sheet detailing the receipt of synthetic medical supplies, including a physical count of syringes, supplier information, invoice details, and the current status of the inventory intake and put-away process.",
+            "spans": [
+              {
+                "offset": 2,
+                "length": 30
+              },
+              {
+                "offset": 34,
+                "length": 47
+              },
+              {
+                "offset": 83,
+                "length": 34
+              },
+              {
+                "offset": 119,
+                "length": 56
+              },
+              {
+                "offset": 177,
+                "length": 76
+              },
+              {
+                "offset": 255,
+                "length": 70
+              },
+              {
+                "offset": 327,
+                "length": 82
+              },
+              {
+                "offset": 410,
+                "length": 14
+              },
+              {
+                "offset": 426,
+                "length": 86
+              },
+              {
+                "offset": 514,
+                "length": 84
+              },
+              {
+                "offset": 599,
+                "length": 4
+              }
+            ],
+            "confidence": 0.176,
+            "source": "D(1,0.9921,1.0107,4.8865,1.0009,4.8873,1.3046,0.9929,1.3144);D(1,0.9881,1.4164,4.0371,1.4152,4.0372,1.5926,0.9882,1.5938);D(1,0.9896,1.9958,3.8091,1.9917,3.8094,2.1858,0.9899,2.1899);D(1,0.9921,2.3407,5.1811,2.3407,5.1811,2.5433,0.9921,2.5433);D(1,0.9886,2.6894,6.9162,2.6863,6.9163,2.8884,0.9887,2.8915);D(1,0.9886,3.0308,6.4884,3.0196,6.4888,3.2333,0.9890,3.2445);D(1,0.9886,3.3781,7.0453,3.3771,7.0453,3.5845,0.9886,3.5855);D(1,0.9861,3.6382,2.1144,3.6350,2.1150,3.8396,0.9867,3.8428);D(1,0.9881,3.9806,7.0493,3.9689,7.0497,4.1772,0.9885,4.1890);D(1,0.9861,4.3213,7.0614,4.3189,7.0615,4.5275,0.9862,4.5298);D(1,0.9800,4.5950,1.2660,4.5935,1.2670,4.7786,0.9810,4.7801)"
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "inch",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "angle": -0.0159,
+            "width": 8.2639,
+            "height": 11.6806,
+            "spans": [
+              {
+                "offset": 0,
+                "length": 604
+              }
+            ],
+            "words": [
+              {
+                "content": "Sterile",
+                "span": {
+                  "offset": 2,
+                  "length": 7
+                },
+                "confidence": 0.997,
+                "source": "D(1,0.9921,1.0108,1.8316,1.0086,1.8324,1.3123,0.9931,1.3142)"
+              },
+              {
+                "content": "Supplies",
+                "span": {
+                  "offset": 10,
+                  "length": 8
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.9161,1.0084,3.0635,1.0063,3.064,1.3084,1.9168,1.3121)"
+              },
+              {
+                "content": "Arrival",
+                "span": {
+                  "offset": 19,
+                  "length": 7
+                },
+                "confidence": 0.998,
+                "source": "D(1,3.143,1.0062,4.0172,1.0054,4.0175,1.3042,3.1434,1.3081)"
+              },
+              {
+                "content": "Sheet",
+                "span": {
+                  "offset": 27,
+                  "length": 5
+                },
+                "confidence": 0.998,
+                "source": "D(1,4.1017,1.0054,4.8865,1.0052,4.8865,1.2996,4.1019,1.3037)"
+              },
+              {
+                "content": "Synthetic",
+                "span": {
+                  "offset": 34,
+                  "length": 9
+                },
+                "confidence": 0.996,
+                "source": "D(1,0.9881,1.4164,1.5627,1.4164,1.5635,1.5934,0.9891,1.5935)"
+              },
+              {
+                "content": "demo",
+                "span": {
+                  "offset": 44,
+                  "length": 4
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.6008,1.4164,1.9468,1.4165,1.9475,1.5934,1.6016,1.5934)"
+              },
+              {
+                "content": "document",
+                "span": {
+                  "offset": 49,
+                  "length": 8
+                },
+                "confidence": 0.995,
+                "source": "D(1,1.9849,1.4165,2.6064,1.4165,2.6069,1.5928,1.9856,1.5933)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 58,
+                  "length": 1
+                },
+                "confidence": 0.99,
+                "source": "D(1,2.6387,1.4165,2.6856,1.4165,2.686,1.5927,2.6391,1.5928)"
+              },
+              {
+                "content": "no",
+                "span": {
+                  "offset": 60,
+                  "length": 2
+                },
+                "confidence": 0.988,
+                "source": "D(1,2.7237,1.4165,2.8761,1.4166,2.8765,1.5926,2.7241,1.5927)"
+              },
+              {
+                "content": "real",
+                "span": {
+                  "offset": 63,
+                  "length": 4
+                },
+                "confidence": 0.96,
+                "source": "D(1,2.9201,1.4166,3.1429,1.4166,3.1432,1.5922,2.9205,1.5925)"
+              },
+              {
+                "content": "personal",
+                "span": {
+                  "offset": 68,
+                  "length": 8
+                },
+                "confidence": 0.988,
+                "source": "D(1,3.1898,1.4166,3.7146,1.4167,3.7147,1.5913,3.1901,1.5922)"
+              },
+              {
+                "content": "data",
+                "span": {
+                  "offset": 77,
+                  "length": 4
+                },
+                "confidence": 0.995,
+                "source": "D(1,3.7557,1.4167,4.0371,1.4167,4.0371,1.5908,3.7558,1.5913)"
+              },
+              {
+                "content": "Receiving",
+                "span": {
+                  "offset": 83,
+                  "length": 9
+                },
+                "confidence": 0.996,
+                "source": "D(1,0.9896,1.9958,1.7137,1.9949,1.7145,2.1885,0.9906,2.1899)"
+              },
+              {
+                "content": "balance",
+                "span": {
+                  "offset": 93,
+                  "length": 7
+                },
+                "confidence": 0.977,
+                "source": "D(1,1.7682,1.9948,2.3513,1.9942,2.3518,2.1873,1.7689,2.1884)"
+              },
+              {
+                "content": "BSH",
+                "span": {
+                  "offset": 101,
+                  "length": 3
+                },
+                "confidence": 0.995,
+                "source": "D(1,2.4026,1.9941,2.7294,1.9938,2.7298,2.1866,2.4031,2.1872)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 104,
+                  "length": 1
+                },
+                "confidence": 0.999,
+                "source": "D(1,2.7422,1.9938,2.7935,1.9937,2.7938,2.1865,2.7426,2.1866)"
+              },
+              {
+                "content": "2026-0519",
+                "span": {
+                  "offset": 105,
+                  "length": 9
+                },
+                "confidence": 0.982,
+                "source": "D(1,2.7935,1.9937,3.5849,1.993,3.5849,2.1851,2.7938,2.1865)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 114,
+                  "length": 1
+                },
+                "confidence": 0.997,
+                "source": "D(1,3.5913,1.993,3.6425,1.993,3.6426,2.185,3.5913,2.1851)"
+              },
+              {
+                "content": "B",
+                "span": {
+                  "offset": 115,
+                  "length": 1
+                },
+                "confidence": 0.985,
+                "source": "D(1,3.6521,1.993,3.7547,1.9929,3.7547,2.1848,3.6522,2.185)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 116,
+                  "length": 1
+                },
+                "confidence": 0.996,
+                "source": "D(1,3.7643,1.9929,3.8091,1.9928,3.8091,2.1847,3.7643,2.1848)"
+              },
+              {
+                "content": "Dock",
+                "span": {
+                  "offset": 119,
+                  "length": 4
+                },
+                "confidence": 0.99,
+                "source": "D(1,0.9921,2.341,1.3732,2.3417,1.3742,2.5382,0.9931,2.5365)"
+              },
+              {
+                "content": "B",
+                "span": {
+                  "offset": 124,
+                  "length": 1
+                },
+                "confidence": 0.988,
+                "source": "D(1,1.4263,2.3418,1.5257,2.342,1.5266,2.5389,1.4272,2.5385)"
+              },
+              {
+                "content": "/",
+                "span": {
+                  "offset": 126,
+                  "length": 1
+                },
+                "confidence": 0.999,
+                "source": "D(1,1.5621,2.3421,1.6284,2.3423,1.6293,2.5394,1.563,2.5391)"
+              },
+              {
+                "content": "Sterile",
+                "span": {
+                  "offset": 128,
+                  "length": 7
+                },
+                "confidence": 0.996,
+                "source": "D(1,1.6649,2.3423,2.1388,2.3433,2.1395,2.5417,1.6657,2.5396)"
+              },
+              {
+                "content": "storage",
+                "span": {
+                  "offset": 136,
+                  "length": 7
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.1885,2.3434,2.7386,2.3438,2.7392,2.543,2.1892,2.5419)"
+              },
+              {
+                "content": "/",
+                "span": {
+                  "offset": 144,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,2.7718,2.3438,2.838,2.3438,2.8386,2.543,2.7723,2.543)"
+              },
+              {
+                "content": "counted",
+                "span": {
+                  "offset": 146,
+                  "length": 7
+                },
+                "confidence": 0.992,
+                "source": "D(1,2.8745,2.3438,3.4644,2.3437,3.4648,2.5432,2.8751,2.543)"
+              },
+              {
+                "content": "19",
+                "span": {
+                  "offset": 154,
+                  "length": 2
+                },
+                "confidence": 0.992,
+                "source": "D(1,3.5274,2.3437,3.6931,2.3437,3.6934,2.5432,3.5278,2.5432)"
+              },
+              {
+                "content": "May",
+                "span": {
+                  "offset": 157,
+                  "length": 3
+                },
+                "confidence": 0.961,
+                "source": "D(1,3.7527,2.3437,4.0642,2.3431,4.0645,2.5422,3.7531,2.5433)"
+              },
+              {
+                "content": "2026",
+                "span": {
+                  "offset": 161,
+                  "length": 4
+                },
+                "confidence": 0.977,
+                "source": "D(1,4.1073,2.343,4.4818,2.3422,4.482,2.5405,4.1076,2.542)"
+              },
+              {
+                "content": "at",
+                "span": {
+                  "offset": 166,
+                  "length": 2
+                },
+                "confidence": 0.992,
+                "source": "D(1,4.5282,2.3421,4.674,2.3418,4.6741,2.5397,4.5284,2.5403)"
+              },
+              {
+                "content": "09",
+                "span": {
+                  "offset": 169,
+                  "length": 2
+                },
+                "confidence": 0.991,
+                "source": "D(1,4.7138,2.3417,4.8961,2.3413,4.8961,2.5388,4.7139,2.5396)"
+              },
+              {
+                "content": ":",
+                "span": {
+                  "offset": 171,
+                  "length": 1
+                },
+                "confidence": 0.999,
+                "source": "D(1,4.9093,2.3413,4.9458,2.3412,4.9458,2.5386,4.9094,2.5388)"
+              },
+              {
+                "content": "15",
+                "span": {
+                  "offset": 172,
+                  "length": 2
+                },
+                "confidence": 0.997,
+                "source": "D(1,4.959,2.3412,5.1347,2.3408,5.1347,2.5379,4.9591,2.5386)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 174,
+                  "length": 1
+                },
+                "confidence": 0.99,
+                "source": "D(1,5.1413,2.3408,5.1811,2.3407,5.1811,2.5377,5.1413,2.5379)"
+              },
+              {
+                "content": "Supplier",
+                "span": {
+                  "offset": 177,
+                  "length": 8
+                },
+                "confidence": 0.996,
+                "source": "D(1,0.9886,2.6909,1.6061,2.6902,1.607,2.8898,0.9896,2.8897)"
+              },
+              {
+                "content": "label",
+                "span": {
+                  "offset": 186,
+                  "length": 5
+                },
+                "confidence": 0.995,
+                "source": "D(1,1.6528,2.6902,1.9966,2.6898,1.9974,2.8898,1.6537,2.8898)"
+              },
+              {
+                "content": ":",
+                "span": {
+                  "offset": 191,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,2.0032,2.6898,2.0366,2.6897,2.0374,2.8898,2.0041,2.8898)"
+              },
+              {
+                "content": "Northwind",
+                "span": {
+                  "offset": 193,
+                  "length": 9
+                },
+                "confidence": 0.997,
+                "source": "D(1,2.0933,2.6897,2.8343,2.6888,2.835,2.8899,2.0942,2.8898)"
+              },
+              {
+                "content": "Medical",
+                "span": {
+                  "offset": 203,
+                  "length": 7
+                },
+                "confidence": 0.982,
+                "source": "D(1,2.891,2.6887,3.4551,2.6883,3.4557,2.8898,2.8917,2.89)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 210,
+                  "length": 1
+                },
+                "confidence": 0.991,
+                "source": "D(1,3.4684,2.6883,3.5018,2.6883,3.5024,2.8898,3.469,2.8898)"
+              },
+              {
+                "content": "References",
+                "span": {
+                  "offset": 212,
+                  "length": 10
+                },
+                "confidence": 0.985,
+                "source": "D(1,3.5619,2.6883,4.3996,2.6877,4.4,2.8896,3.5625,2.8898)"
+              },
+              {
+                "content": "PO",
+                "span": {
+                  "offset": 223,
+                  "length": 2
+                },
+                "confidence": 0.995,
+                "source": "D(1,4.4497,2.6877,4.6867,2.6875,4.687,2.8895,4.4501,2.8896)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 225,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,4.69,2.6875,4.7467,2.6875,4.7471,2.8895,4.6904,2.8895)"
+              },
+              {
+                "content": "7001",
+                "span": {
+                  "offset": 226,
+                  "length": 4
+                },
+                "confidence": 0.8,
+                "source": "D(1,4.7434,2.6875,5.0972,2.6873,5.0975,2.8893,4.7438,2.8895)"
+              },
+              {
+                "content": "and",
+                "span": {
+                  "offset": 231,
+                  "length": 3
+                },
+                "confidence": 0.935,
+                "source": "D(1,5.1606,2.6873,5.4343,2.6873,5.4345,2.8891,5.1609,2.8893)"
+              },
+              {
+                "content": "delivery",
+                "span": {
+                  "offset": 235,
+                  "length": 8
+                },
+                "confidence": 0.923,
+                "source": "D(1,5.491,2.6873,6.0718,2.6871,6.0719,2.8886,5.4913,2.889)"
+              },
+              {
+                "content": "DEL",
+                "span": {
+                  "offset": 244,
+                  "length": 3
+                },
+                "confidence": 0.941,
+                "source": "D(1,6.1151,2.6871,6.4255,2.6871,6.4256,2.8884,6.1153,2.8886)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 247,
+                  "length": 1
+                },
+                "confidence": 0.997,
+                "source": "D(1,6.4322,2.6871,6.4856,2.6871,6.4857,2.8883,6.4323,2.8884)"
+              },
+              {
+                "content": "7001",
+                "span": {
+                  "offset": 248,
+                  "length": 4
+                },
+                "confidence": 0.98,
+                "source": "D(1,6.489,2.6871,6.8427,2.687,6.8428,2.8881,6.489,2.8883)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 252,
+                  "length": 1
+                },
+                "confidence": 0.991,
+                "source": "D(1,6.8661,2.687,6.9162,2.687,6.9162,2.888,6.8661,2.8881)"
+              },
+              {
+                "content": "Line",
+                "span": {
+                  "offset": 255,
+                  "length": 4
+                },
+                "confidence": 0.984,
+                "source": "D(1,0.9886,3.0308,1.296,3.0318,1.2969,3.2287,0.9896,3.227)"
+              },
+              {
+                "content": "01",
+                "span": {
+                  "offset": 260,
+                  "length": 2
+                },
+                "confidence": 0.993,
+                "source": "D(1,1.3456,3.032,1.5075,3.0325,1.5084,3.2299,1.3465,3.229)"
+              },
+              {
+                "content": ":",
+                "span": {
+                  "offset": 262,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.534,3.0326,1.5736,3.0328,1.5745,3.2303,1.5349,3.23)"
+              },
+              {
+                "content": "SYRINGE_5ML",
+                "span": {
+                  "offset": 264,
+                  "length": 11
+                },
+                "confidence": 0.863,
+                "source": "D(1,1.6232,3.0329,2.8031,3.037,2.8038,3.2371,1.6241,3.2305)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 276,
+                  "length": 1
+                },
+                "confidence": 0.994,
+                "source": "D(1,2.8362,3.037,2.9023,3.0371,2.903,3.2373,2.8369,3.2372)"
+              },
+              {
+                "content": "950",
+                "span": {
+                  "offset": 278,
+                  "length": 3
+                },
+                "confidence": 0.961,
+                "source": "D(1,2.942,3.0371,3.2196,3.0373,3.2202,3.2373,2.9426,3.2373)"
+              },
+              {
+                "content": "units",
+                "span": {
+                  "offset": 282,
+                  "length": 5
+                },
+                "confidence": 0.991,
+                "source": "D(1,3.2692,3.0373,3.6261,3.0376,3.6267,3.2374,3.2698,3.2373)"
+              },
+              {
+                "content": "physically",
+                "span": {
+                  "offset": 288,
+                  "length": 10
+                },
+                "confidence": 0.992,
+                "source": "D(1,3.6724,3.0376,4.3929,3.0381,4.3933,3.2375,3.6729,3.2374)"
+              },
+              {
+                "content": "counted",
+                "span": {
+                  "offset": 299,
+                  "length": 7
+                },
+                "confidence": 0.989,
+                "source": "D(1,4.4326,3.0381,5.0209,3.0375,5.0212,3.2357,4.433,3.2375)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 307,
+                  "length": 1
+                },
+                "confidence": 0.993,
+                "source": "D(1,5.0738,3.0374,5.1366,3.0373,5.1369,3.2351,5.0741,3.2354)"
+              },
+              {
+                "content": "lot",
+                "span": {
+                  "offset": 309,
+                  "length": 3
+                },
+                "confidence": 0.987,
+                "source": "D(1,5.1829,3.0372,5.3581,3.0368,5.3583,3.2339,5.1831,3.2348)"
+              },
+              {
+                "content": "SYR5",
+                "span": {
+                  "offset": 313,
+                  "length": 4
+                },
+                "confidence": 0.927,
+                "source": "D(1,5.3977,3.0367,5.8307,3.0358,5.8308,3.2314,5.3979,3.2337)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 317,
+                  "length": 1
+                },
+                "confidence": 0.985,
+                "source": "D(1,5.834,3.0358,5.8836,3.0357,5.8837,3.2312,5.8341,3.2314)"
+              },
+              {
+                "content": "2605",
+                "span": {
+                  "offset": 318,
+                  "length": 4
+                },
+                "confidence": 0.933,
+                "source": "D(1,5.8869,3.0357,6.2637,3.0349,6.2637,3.2292,5.887,3.2312)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 322,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,6.2637,3.0349,6.3166,3.0348,6.3166,3.2289,6.2637,3.2292)"
+              },
+              {
+                "content": "N",
+                "span": {
+                  "offset": 323,
+                  "length": 1
+                },
+                "confidence": 0.985,
+                "source": "D(1,6.3232,3.0348,6.429,3.0346,6.429,3.2283,6.3232,3.2289)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 324,
+                  "length": 1
+                },
+                "confidence": 0.992,
+                "source": "D(1,6.4389,3.0346,6.4884,3.0345,6.4884,3.228,6.4389,3.2283)"
+              },
+              {
+                "content": "Invoice",
+                "span": {
+                  "offset": 327,
+                  "length": 7
+                },
+                "confidence": 0.98,
+                "source": "D(1,0.9886,3.3813,1.5104,3.3806,1.5113,3.5822,0.9896,3.5813)"
+              },
+              {
+                "content": "packet",
+                "span": {
+                  "offset": 335,
+                  "length": 6
+                },
+                "confidence": 0.997,
+                "source": "D(1,1.5649,3.3805,2.056,3.3798,2.0569,3.5831,1.5659,3.5823)"
+              },
+              {
+                "content": "INV",
+                "span": {
+                  "offset": 342,
+                  "length": 3
+                },
+                "confidence": 0.99,
+                "source": "D(1,2.114,3.3797,2.38,3.3794,2.3808,3.5836,2.1148,3.5832)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 345,
+                  "length": 1
+                },
+                "confidence": 0.996,
+                "source": "D(1,2.3766,3.3794,2.4312,3.3793,2.4319,3.5837,2.3774,3.5836)"
+              },
+              {
+                "content": "8101",
+                "span": {
+                  "offset": 346,
+                  "length": 4
+                },
+                "confidence": 0.95,
+                "source": "D(1,2.4312,3.3793,2.7824,3.3788,2.7831,3.5843,2.4319,3.5837)"
+              },
+              {
+                "content": "attached",
+                "span": {
+                  "offset": 351,
+                  "length": 8
+                },
+                "confidence": 0.98,
+                "source": "D(1,2.8472,3.3787,3.4781,3.3782,3.4787,3.5848,2.8479,3.5844)"
+              },
+              {
+                "content": ":",
+                "span": {
+                  "offset": 359,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,3.4918,3.3782,3.5259,3.3782,3.5264,3.5848,3.4923,3.5848)"
+              },
+              {
+                "content": "billed",
+                "span": {
+                  "offset": 361,
+                  "length": 6
+                },
+                "confidence": 0.997,
+                "source": "D(1,3.5838,3.3782,3.9624,3.378,3.9629,3.5848,3.5844,3.5848)"
+              },
+              {
+                "content": "quantity",
+                "span": {
+                  "offset": 368,
+                  "length": 8
+                },
+                "confidence": 0.97,
+                "source": "D(1,4.0135,3.3779,4.6035,3.3776,4.6039,3.5849,4.014,3.5848)"
+              },
+              {
+                "content": "1,200",
+                "span": {
+                  "offset": 377,
+                  "length": 5
+                },
+                "confidence": 0.597,
+                "source": "D(1,4.6581,3.3776,5.0639,3.3774,5.0642,3.5848,4.6585,3.5849)"
+              },
+              {
+                "content": "units",
+                "span": {
+                  "offset": 383,
+                  "length": 5
+                },
+                "confidence": 0.93,
+                "source": "D(1,5.1185,3.3775,5.4629,3.3776,5.4632,3.5842,5.1188,3.5848)"
+              },
+              {
+                "content": "at",
+                "span": {
+                  "offset": 389,
+                  "length": 2
+                },
+                "confidence": 0.966,
+                "source": "D(1,5.5107,3.3776,5.6539,3.3777,5.6541,3.584,5.5109,3.5842)"
+              },
+              {
+                "content": "EUR",
+                "span": {
+                  "offset": 392,
+                  "length": 3
+                },
+                "confidence": 0.716,
+                "source": "D(1,5.705,3.3777,6.0529,3.3778,6.0531,3.5834,5.7053,3.5839)"
+              },
+              {
+                "content": "0.10",
+                "span": {
+                  "offset": 396,
+                  "length": 4
+                },
+                "confidence": 0.876,
+                "source": "D(1,6.0938,3.3778,6.4144,3.378,6.4145,3.5828,6.094,3.5833)"
+              },
+              {
+                "content": ";",
+                "span": {
+                  "offset": 400,
+                  "length": 1
+                },
+                "confidence": 0.996,
+                "source": "D(1,6.4212,3.378,6.4553,3.378,6.4554,3.5827,6.4213,3.5828)"
+              },
+              {
+                "content": "invoice",
+                "span": {
+                  "offset": 402,
+                  "length": 7
+                },
+                "confidence": 0.969,
+                "source": "D(1,6.5167,3.378,7.0453,3.3782,7.0453,3.5819,6.5168,3.5827)"
+              },
+              {
+                "content": "check",
+                "span": {
+                  "offset": 410,
+                  "length": 5
+                },
+                "confidence": 0.998,
+                "source": "D(1,0.9861,3.6382,1.4327,3.6415,1.4333,3.8402,0.9871,3.8385)"
+              },
+              {
+                "content": "pending",
+                "span": {
+                  "offset": 416,
+                  "length": 7
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.473,3.6415,2.064,3.6386,2.0641,3.8397,1.4736,3.8402)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 423,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,2.0741,3.6386,2.1144,3.6382,2.1144,3.8396,2.0741,3.8397)"
+              },
+              {
+                "content": "Physical",
+                "span": {
+                  "offset": 426,
+                  "length": 8
+                },
+                "confidence": 0.994,
+                "source": "D(1,0.9881,3.9806,1.599,3.98,1.5999,4.1851,0.9891,4.1852)"
+              },
+              {
+                "content": "count",
+                "span": {
+                  "offset": 435,
+                  "length": 5
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.6502,3.98,2.0666,3.9796,2.0674,4.1851,1.6511,4.1851)"
+              },
+              {
+                "content": "accepted",
+                "span": {
+                  "offset": 441,
+                  "length": 8
+                },
+                "confidence": 0.995,
+                "source": "D(1,2.1143,3.9796,2.7833,3.979,2.784,4.1851,2.1152,4.1851)"
+              },
+              {
+                "content": "for",
+                "span": {
+                  "offset": 450,
+                  "length": 3
+                },
+                "confidence": 0.995,
+                "source": "D(1,2.8345,3.9789,3.0358,3.9787,3.0365,4.185,2.8352,4.1851)"
+              },
+              {
+                "content": "inventory",
+                "span": {
+                  "offset": 454,
+                  "length": 9
+                },
+                "confidence": 0.984,
+                "source": "D(1,3.0768,3.9786,3.7491,3.9776,3.7497,4.1833,3.0774,4.1849)"
+              },
+              {
+                "content": "intake",
+                "span": {
+                  "offset": 464,
+                  "length": 6
+                },
+                "confidence": 0.989,
+                "source": "D(1,3.7935,3.9775,4.2405,3.9768,4.241,4.1822,3.794,4.1832)"
+              },
+              {
+                "content": ":",
+                "span": {
+                  "offset": 470,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,4.2508,3.9768,4.2883,3.9768,4.2888,4.1821,4.2513,4.1822)"
+              },
+              {
+                "content": "950",
+                "span": {
+                  "offset": 472,
+                  "length": 3
+                },
+                "confidence": 0.91,
+                "source": "D(1,4.3429,3.9767,4.616,3.9763,4.6164,4.1813,4.3434,4.182)"
+              },
+              {
+                "content": "units",
+                "span": {
+                  "offset": 476,
+                  "length": 5
+                },
+                "confidence": 0.135,
+                "source": "D(1,4.6672,3.9762,5.0153,3.9756,5.0156,4.1804,4.6676,4.1812)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 481,
+                  "length": 1
+                },
+                "confidence": 0.921,
+                "source": "D(1,5.0187,3.9756,5.0528,3.9756,5.0531,4.1803,5.019,4.1804)"
+              },
+              {
+                "content": "Destination",
+                "span": {
+                  "offset": 483,
+                  "length": 11
+                },
+                "confidence": 0.523,
+                "source": "D(1,5.1142,3.9754,5.9197,3.9737,5.9199,4.1763,5.1146,4.18)"
+              },
+              {
+                "content": "field",
+                "span": {
+                  "offset": 495,
+                  "length": 5
+                },
+                "confidence": 0.998,
+                "source": "D(1,5.9709,3.9735,6.2883,3.9728,6.2884,4.1747,5.971,4.1761)"
+              },
+              {
+                "content": "left",
+                "span": {
+                  "offset": 501,
+                  "length": 4
+                },
+                "confidence": 0.992,
+                "source": "D(1,6.3463,3.9727,6.5681,3.9722,6.5682,4.1734,6.3464,4.1744)"
+              },
+              {
+                "content": "blank",
+                "span": {
+                  "offset": 506,
+                  "length": 5
+                },
+                "confidence": 0.992,
+                "source": "D(1,6.6125,3.9721,7.0152,3.9712,7.0152,4.1714,6.6126,4.1732)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 511,
+                  "length": 1
+                },
+                "confidence": 0.992,
+                "source": "D(1,7.0084,3.9713,7.0493,3.9712,7.0493,4.1712,7.0084,4.1714)"
+              },
+              {
+                "content": "Put",
+                "span": {
+                  "offset": 514,
+                  "length": 3
+                },
+                "confidence": 0.989,
+                "source": "D(1,0.9861,4.3254,1.2461,4.3248,1.247,4.5294,0.9871,4.5298)"
+              },
+              {
+                "content": "-",
+                "span": {
+                  "offset": 517,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.2461,4.3248,1.2974,4.3246,1.2983,4.5294,1.247,4.5294)"
+              },
+              {
+                "content": "away",
+                "span": {
+                  "offset": 518,
+                  "length": 4
+                },
+                "confidence": 0.995,
+                "source": "D(1,1.2974,4.3246,1.6839,4.3237,1.6848,4.5288,1.2983,4.5294)"
+              },
+              {
+                "content": "status",
+                "span": {
+                  "offset": 523,
+                  "length": 6
+                },
+                "confidence": 0.987,
+                "source": "D(1,1.7318,4.3236,2.1765,4.3225,2.1773,4.5282,1.7327,4.5288)"
+              },
+              {
+                "content": ":",
+                "span": {
+                  "offset": 529,
+                  "length": 1
+                },
+                "confidence": 0.996,
+                "source": "D(1,2.1868,4.3225,2.221,4.3224,2.2218,4.5281,2.1876,4.5282)"
+              },
+              {
+                "content": "ready",
+                "span": {
+                  "offset": 531,
+                  "length": 5
+                },
+                "confidence": 0.971,
+                "source": "D(1,2.2791,4.3222,2.6896,4.3212,2.6904,4.5275,2.2799,4.528)"
+              },
+              {
+                "content": "for",
+                "span": {
+                  "offset": 537,
+                  "length": 3
+                },
+                "confidence": 0.988,
+                "source": "D(1,2.7307,4.3211,2.9291,4.3207,2.9298,4.5272,2.7314,4.5274)"
+              },
+              {
+                "content": "allocation",
+                "span": {
+                  "offset": 541,
+                  "length": 10
+                },
+                "confidence": 0.988,
+                "source": "D(1,2.9701,4.3206,3.6714,4.3203,3.672,4.5268,2.9708,4.5271)"
+              },
+              {
+                "content": "review",
+                "span": {
+                  "offset": 552,
+                  "length": 6
+                },
+                "confidence": 0.997,
+                "source": "D(1,3.7296,4.3202,4.1982,4.3201,4.1987,4.5265,3.7301,4.5268)"
+              },
+              {
+                "content": ";",
+                "span": {
+                  "offset": 558,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,4.2085,4.3201,4.2461,4.3201,4.2466,4.5265,4.209,4.5265)"
+              },
+              {
+                "content": "stock",
+                "span": {
+                  "offset": 560,
+                  "length": 5
+                },
+                "confidence": 0.994,
+                "source": "D(1,4.2974,4.3201,4.6874,4.32,4.6878,4.5263,4.2979,4.5265)"
+              },
+              {
+                "content": "not",
+                "span": {
+                  "offset": 566,
+                  "length": 3
+                },
+                "confidence": 0.992,
+                "source": "D(1,4.7319,4.3199,4.9645,4.3199,4.9648,4.5262,4.7322,4.5263)"
+              },
+              {
+                "content": "assigned",
+                "span": {
+                  "offset": 570,
+                  "length": 8
+                },
+                "confidence": 0.812,
+                "source": "D(1,5.0124,4.3199,5.6692,4.321,5.6694,4.5264,5.0127,4.5262)"
+              },
+              {
+                "content": "to",
+                "span": {
+                  "offset": 579,
+                  "length": 2
+                },
+                "confidence": 0.523,
+                "source": "D(1,5.7239,4.3211,5.8641,4.3214,5.8643,4.5265,5.7241,4.5265)"
+              },
+              {
+                "content": "a",
+                "span": {
+                  "offset": 582,
+                  "length": 1
+                },
+                "confidence": 0.527,
+                "source": "D(1,5.912,4.3214,6.001,4.3216,6.0012,4.5266,5.9122,4.5266)"
+              },
+              {
+                "content": "ward",
+                "span": {
+                  "offset": 584,
+                  "length": 4
+                },
+                "confidence": 0.247,
+                "source": "D(1,6.0386,4.3217,6.4012,4.3223,6.4013,4.5268,6.0388,4.5266)"
+              },
+              {
+                "content": "or",
+                "span": {
+                  "offset": 589,
+                  "length": 2
+                },
+                "confidence": 0.636,
+                "source": "D(1,6.4525,4.3224,6.6133,4.3227,6.6134,4.5269,6.4526,4.5268)"
+              },
+              {
+                "content": "client",
+                "span": {
+                  "offset": 592,
+                  "length": 6
+                },
+                "confidence": 0.696,
+                "source": "D(1,6.6509,4.3228,7.0614,4.3235,7.0614,4.5271,6.651,4.5269)"
+              },
+              {
+                "content": "yet",
+                "span": {
+                  "offset": 599,
+                  "length": 3
+                },
+                "confidence": 0.997,
+                "source": "D(1,0.98,4.5967,1.2235,4.5946,1.2256,4.7788,0.9831,4.7793)"
+              },
+              {
+                "content": ".",
+                "span": {
+                  "offset": 602,
+                  "length": 1
+                },
+                "confidence": 0.998,
+                "source": "D(1,1.2205,4.5947,1.265,4.5935,1.267,4.7785,1.2227,4.7788)"
+              }
+            ],
+            "lines": [
+              {
+                "content": "Sterile Supplies Arrival Sheet",
+                "source": "D(1,0.9921,1.0108,4.8865,1.0038,4.8873,1.3045,0.9929,1.3147)",
+                "span": {
+                  "offset": 2,
+                  "length": 30
+                }
+              },
+              {
+                "content": "Synthetic demo document - no real personal data",
+                "source": "D(1,0.9881,1.4164,4.0371,1.4164,4.0371,1.5935,0.9881,1.5935)",
+                "span": {
+                  "offset": 34,
+                  "length": 47
+                }
+              },
+              {
+                "content": "Receiving balance BSH-2026-0519-B.",
+                "source": "D(1,0.9896,1.9958,3.8091,1.9922,3.8094,2.1863,0.9899,2.1899)",
+                "span": {
+                  "offset": 83,
+                  "length": 34
+                }
+              },
+              {
+                "content": "Dock B / Sterile storage / counted 19 May 2026 at 09:15.",
+                "source": "D(1,0.9921,2.341,5.1811,2.3407,5.1811,2.5432,0.9921,2.5434)",
+                "span": {
+                  "offset": 119,
+                  "length": 56
+                }
+              },
+              {
+                "content": "Supplier label: Northwind Medical. References PO-7001 and delivery DEL-7001.",
+                "source": "D(1,0.9886,2.6885,6.9162,2.6868,6.9162,2.8889,0.9887,2.8905)",
+                "span": {
+                  "offset": 177,
+                  "length": 76
+                }
+              },
+              {
+                "content": "Line 01: SYRINGE_5ML - 950 units physically counted - lot SYR5-2605-N.",
+                "source": "D(1,0.9886,3.0308,6.4886,3.0345,6.4884,3.2395,0.9885,3.236)",
+                "span": {
+                  "offset": 255,
+                  "length": 70
+                }
+              },
+              {
+                "content": "Invoice packet INV-8101 attached: billed quantity 1,200 units at EUR 0.10; invoice",
+                "source": "D(1,0.9886,3.3774,7.0453,3.3774,7.0453,3.5849,0.9886,3.5849)",
+                "span": {
+                  "offset": 327,
+                  "length": 82
+                }
+              },
+              {
+                "content": "check pending.",
+                "source": "D(1,0.9861,3.6382,2.1144,3.6382,2.1144,3.8405,0.9861,3.8405)",
+                "span": {
+                  "offset": 410,
+                  "length": 14
+                }
+              },
+              {
+                "content": "Physical count accepted for inventory intake: 950 units. Destination field left blank.",
+                "source": "D(1,0.9881,3.9806,7.0493,3.9712,7.0496,4.1788,0.9884,4.1863)",
+                "span": {
+                  "offset": 426,
+                  "length": 86
+                }
+              },
+              {
+                "content": "Put-away status: ready for allocation review; stock not assigned to a ward or client",
+                "source": "D(1,0.9861,4.3214,7.0614,4.3187,7.0615,4.5271,0.9862,4.5298)",
+                "span": {
+                  "offset": 514,
+                  "length": 84
+                }
+              },
+              {
+                "content": "yet.",
+                "source": "D(1,0.98,4.5966,1.265,4.5935,1.267,4.7785,0.982,4.7816)",
+                "span": {
+                  "offset": 599,
+                  "length": 4
+                }
+              }
+            ]
+          }
+        ],
+        "paragraphs": [
+          {
+            "role": "title",
+            "content": "Sterile Supplies Arrival Sheet",
+            "source": "D(1,0.9921,1.0108,4.8865,1.0006,4.8873,1.3045,0.9929,1.3147)",
+            "span": {
+              "offset": 0,
+              "length": 32
+            }
+          },
+          {
+            "content": "Synthetic demo document - no real personal data",
+            "source": "D(1,0.9881,1.4164,4.0371,1.4164,4.0371,1.5935,0.9881,1.5935)",
+            "span": {
+              "offset": 34,
+              "length": 47
+            }
+          },
+          {
+            "content": "Receiving balance BSH-2026-0519-B.",
+            "source": "D(1,0.9896,1.9958,3.8091,1.9922,3.8094,2.1863,0.9899,2.1899)",
+            "span": {
+              "offset": 83,
+              "length": 34
+            }
+          },
+          {
+            "content": "Dock B / Sterile storage / counted 19 May 2026 at 09:15.",
+            "source": "D(1,0.9921,2.341,5.1811,2.3407,5.1811,2.5432,0.9921,2.5434)",
+            "span": {
+              "offset": 119,
+              "length": 56
+            }
+          },
+          {
+            "content": "Supplier label: Northwind Medical. References PO-7001 and delivery DEL-7001.",
+            "source": "D(1,0.9886,2.6885,6.9162,2.6868,6.9162,2.8889,0.9887,2.8905)",
+            "span": {
+              "offset": 177,
+              "length": 76
+            }
+          },
+          {
+            "content": "Line 01: SYRINGE_5ML - 950 units physically counted - lot SYR5-2605-N.",
+            "source": "D(1,0.9886,3.0308,6.4886,3.0345,6.4884,3.2397,0.9885,3.236)",
+            "span": {
+              "offset": 255,
+              "length": 70
+            }
+          },
+          {
+            "content": "Invoice packet INV-8101 attached: billed quantity 1,200 units at EUR 0.10; invoice check pending.",
+            "source": "D(1,0.9861,3.3774,7.0453,3.3774,7.0453,3.8405,0.9861,3.8405)",
+            "span": {
+              "offset": 327,
+              "length": 97
+            }
+          },
+          {
+            "content": "Physical count accepted for inventory intake: 950 units. Destination field left blank.",
+            "source": "D(1,0.9881,3.9806,7.0493,3.9712,7.0496,4.1788,0.9884,4.1882)",
+            "span": {
+              "offset": 426,
+              "length": 86
+            }
+          },
+          {
+            "content": "Put-away status: ready for allocation review; stock not assigned to a ward or client yet.",
+            "source": "D(1,0.9799,4.3214,7.0614,4.3187,7.0616,4.7789,0.9801,4.7816)",
+            "span": {
+              "offset": 514,
+              "length": 89
+            }
+          }
+        ],
+        "sections": [
+          {
+            "span": {
+              "offset": 0,
+              "length": 603
+            },
+            "elements": [
+              "/paragraphs/0",
+              "/paragraphs/1",
+              "/paragraphs/2",
+              "/paragraphs/3",
+              "/paragraphs/4",
+              "/paragraphs/5",
+              "/paragraphs/6",
+              "/paragraphs/7",
+              "/paragraphs/8"
+            ]
+          }
+        ],
+        "analyzerId": "prebuilt-documentSearch",
+        "mimeType": "application/pdf"
+      }
+    ]
+  }
+}

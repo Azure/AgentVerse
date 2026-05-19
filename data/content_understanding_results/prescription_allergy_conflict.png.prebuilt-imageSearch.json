@@ -1,0 +1,67 @@
+{
+  "document_id": "d8182a9d-6ba9-4c09-80de-a11354c636cd",
+  "filename": "prescription_allergy_conflict.png",
+  "content_type": "image/png",
+  "analyzer_id": "prebuilt-imageSearch",
+  "api_version": "2025-11-01",
+  "markdown": "![image](pages/1)\n",
+  "summary": "The image is a synthetic demo document titled 'Prescription' with no real personal data. It contains a medication note from Dr. Chen for Luis Paredes, PAT-3002, dated 18 May 2026. The prescription is for amoxicillin 500 mg tablets, with a dosage instruction of one tablet every eight hours for seven days. It also includes return precautions mentioning rash, fever, wheezing, or breathing issues. The document is signed by Chen.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "The image is a synthetic demo document titled 'Prescription' with no real personal data. It contains a medication note from Dr. Chen for Luis Paredes, PAT-3002, dated 18 May 2026. The prescription is for amoxicillin 500 mg tablets, with a dosage instruction of one tablet every eight hours for seven days. It also includes return precautions mentioning rash, fever, wheezing, or breathing issues. The document is signed by Chen."
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "spans": []
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 1; completion latency: 2.70s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "![image](pages/1)\n"
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-imageSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:53:04Z",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 1; completion latency: 2.70s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "![image](pages/1)\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "The image is a synthetic demo document titled 'Prescription' with no real personal data. It contains a medication note from Dr. Chen for Luis Paredes, PAT-3002, dated 18 May 2026. The prescription is for amoxicillin 500 mg tablets, with a dosage instruction of one tablet every eight hours for seven days. It also includes return precautions mentioning rash, fever, wheezing, or breathing issues. The document is signed by Chen."
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "pixel",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "spans": []
+          }
+        ],
+        "analyzerId": "prebuilt-imageSearch",
+        "mimeType": "image/png"
+      }
+    ]
+  }
+}

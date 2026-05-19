@@ -1,0 +1,67 @@
+{
+  "document_id": "102baa53-a474-42fd-aff7-c63a3b39acbb",
+  "filename": "shipment_request.png",
+  "content_type": "image/png",
+  "analyzer_id": "prebuilt-imageSearch",
+  "api_version": "2025-11-01",
+  "markdown": "![image](pages/1)\n",
+  "summary": "The image shows a Warehouse Arrival Balance Sheet for receiving balance BSH-2026-0519-A, counted on 19 May 2026 at 07:40 at Dock C / Central storage. It lists three inventory lines: 500 boxes of GLOVES_NITRILE (sealed cartons, batch GN-2605-A), 180 packs of MASK_N95 (intact outer cases, batch M95-2605-B), and 300 bags of SALINE_500ML (dry outer cases, lot S500-2605-C). The pallet slip destination is central stock only, with no ward, clinic, or outbound client written. The put-away status is waiting for inventory desk allocation.",
+  "fields": {
+    "Summary": {
+      "type": "string",
+      "valueString": "The image shows a Warehouse Arrival Balance Sheet for receiving balance BSH-2026-0519-A, counted on 19 May 2026 at 07:40 at Dock C / Central storage. It lists three inventory lines: 500 boxes of GLOVES_NITRILE (sealed cartons, batch GN-2605-A), 180 packs of MASK_N95 (intact outer cases, batch M95-2605-B), and 300 bags of SALINE_500ML (dry outer cases, lot S500-2605-C). The pallet slip destination is central stock only, with no ward, clinic, or outbound client written. The put-away status is waiting for inventory desk allocation."
+    }
+  },
+  "tables": [],
+  "pages": [
+    {
+      "pageNumber": 1,
+      "spans": []
+    }
+  ],
+  "warnings": [
+    "LLMStats: completion calls: 1; completion latency: 3.94s"
+  ],
+  "source_citations": [
+    {
+      "page": 1,
+      "region": "content_understanding_page",
+      "text": "![image](pages/1)\n"
+    }
+  ],
+  "raw_result": {
+    "analyzerId": "prebuilt-imageSearch",
+    "apiVersion": "2025-11-01",
+    "createdAt": "2026-05-19T15:53:28Z",
+    "warnings": [
+      {
+        "code": "LLMStats",
+        "message": "completion calls: 1; completion latency: 3.94s"
+      }
+    ],
+    "contents": [
+      {
+        "path": "input1",
+        "markdown": "![image](pages/1)\n",
+        "fields": {
+          "Summary": {
+            "type": "string",
+            "valueString": "The image shows a Warehouse Arrival Balance Sheet for receiving balance BSH-2026-0519-A, counted on 19 May 2026 at 07:40 at Dock C / Central storage. It lists three inventory lines: 500 boxes of GLOVES_NITRILE (sealed cartons, batch GN-2605-A), 180 packs of MASK_N95 (intact outer cases, batch M95-2605-B), and 300 bags of SALINE_500ML (dry outer cases, lot S500-2605-C). The pallet slip destination is central stock only, with no ward, clinic, or outbound client written. The put-away status is waiting for inventory desk allocation."
+          }
+        },
+        "kind": "document",
+        "startPageNumber": 1,
+        "endPageNumber": 1,
+        "unit": "pixel",
+        "pages": [
+          {
+            "pageNumber": 1,
+            "spans": []
+          }
+        ],
+        "analyzerId": "prebuilt-imageSearch",
+        "mimeType": "image/png"
+      }
+    ]
+  }
+}
