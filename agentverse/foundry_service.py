@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from azure.ai.projects import AIProjectClient
-from azure.identity import AzureCliCredential
+from azure.core.credentials import TokenCredential
 from json_repair import repair_json
 
 from agentverse.audit import AuditLogger
@@ -24,6 +24,7 @@ from agentverse.contracts import (
     TriageResult,
     UploadedDocumentRequest,
 )
+from agentverse.credentials import default_agentverse_credential
 from agentverse.foundry_definitions import AGENT_NAMES, MODEL_DEPLOYMENT_NAME, PROJECT_ENDPOINT
 from agentverse.history_snapshots import HistorySnapshotBuilder
 
@@ -36,12 +37,14 @@ class FoundryTriageService:
         project_endpoint: str | None = None,
         model_deployment_name: str | None = None,
         content_client: ContentUnderstandingClient | None = None,
+        credential: TokenCredential | None = None,
     ) -> None:
         self._project_endpoint = project_endpoint or os.environ.get("AZURE_AI_PROJECT_ENDPOINT", PROJECT_ENDPOINT)
         self._model = model_deployment_name or os.environ.get("AZURE_AI_MODEL_DEPLOYMENT_NAME", MODEL_DEPLOYMENT_NAME)
-        self._client = AIProjectClient(endpoint=self._project_endpoint, credential=AzureCliCredential())
+        self._credential = credential or _default_credential()
+        self._client = AIProjectClient(endpoint=self._project_endpoint, credential=self._credential)
         self._openai_client = self._client.get_openai_client()
-        self._content_client = content_client or ContentUnderstandingClient()
+        self._content_client = content_client or ContentUnderstandingClient(credential=self._credential)
         self._snapshots = HistorySnapshotBuilder()
 
     def run(self, request: DocumentTriageRequest) -> TriageResult:
@@ -290,3 +293,7 @@ def _extract_json(text: str) -> dict[str, Any]:
     if last_error:
         raise last_error
     raise ValueError("Agent response did not contain a JSON object.")
+
+
+def _default_credential() -> TokenCredential:
+    return default_agentverse_credential()

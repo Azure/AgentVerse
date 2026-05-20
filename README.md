@@ -45,6 +45,28 @@ DevUI cannot upload a browser file directly, so use a local path:
 }
 ```
 
+## Upload to the hosted Foundry workflow
+
+The Foundry portal chat may not show a file attachment control for hosted agents. Use the helper script to place a local file in the hosted session filesystem and optionally run the workflow in the same session:
+
+```powershell
+python hostedagent\scripts\upload_to_hosted_workflow.py data\fabricated_documents\shipment_request.png --invoke
+```
+
+Without `--invoke`, the script uploads the file to `/uploads/<filename>` and prints the exact `agent_session_id` plus prompt to use with the responses API:
+
+```powershell
+python hostedagent\scripts\upload_to_hosted_workflow.py data\fabricated_documents\shipment_request.png
+```
+
+The prompt format is:
+
+```text
+Analyze /uploads/shipment_request.png and run the full AgentVerse workflow.
+```
+
+The current hosted workflow version is `AgentVerseWorkflowAgent:6`.
+
 ## How Content Understanding is linked
 
 In this local playground, Content Understanding is not attached to the intake prompt agent as a Foundry tool. The local app orchestrates the workflow: it receives the upload, calls Content Understanding, then passes a concise analyzer summary plus bounded evidence excerpts to `AgentVerseIntakeAgent`. The intake agent normalizes the route, subtype, and fields, and the selected specialist also receives the analyzer context for grounding.
@@ -84,6 +106,7 @@ Generated assets are stored in:
 | `data\fabricated_history_summary.json` | Generated summary of client, patient, and supplier histories for review |
 | `data\content_understanding_results\` | Optional saved Content Understanding smoke-test results for PNG and PDF samples |
 | `.foundry\created-agents.json` | Foundry prompt agent names and versions |
+| `hostedagent\.foundry\workflow-agent.json` | Hosted workflow agent name/version for Foundry portal and responses API use |
 
 ## Azure resources
 
@@ -107,4 +130,4 @@ The default test suite is offline and does not call Azure.
 
 ## Current boundary
 
-This is still a local playground, not a hosted Foundry agent. The local app handles file upload, Content Understanding calls, SQLite snapshot retrieval, dashboard rendering, and Foundry prompt-agent invocation. The deterministic Python routing/specialist files were removed from the active codebase. If you later move to a hosted/tool-calling design, Content Understanding can be exposed as an agent tool or run inside the hosted agent application.
+The local dashboard remains available, and the same upload-driven orchestration is also packaged as the hosted `AgentVerseWorkflowAgent`. Foundry portal chat does not currently expose a direct file attachment control for this hosted agent, so local files are uploaded to hosted session storage with `hostedagent\scripts\upload_to_hosted_workflow.py` before invoking the workflow.

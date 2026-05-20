@@ -1,0 +1,16 @@
+.git
+.venv
+__pycache__
+.pytest_cache
+*.pyc
+data/content_understanding_results
+data/fabricated_documents
+tests
+IMPLEMENTATION_ANALYSIS.md
+HOSTED_WORKFLOW_EXPLAINED.md
+hostedagent/.foundry
+hostedagent/scripts
+hostedagent/agent.yaml
+hostedagent/agent.manifest.yaml
+hostedagent/Dockerfile
+agentverse-server*.log

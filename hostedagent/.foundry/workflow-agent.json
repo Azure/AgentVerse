@@ -1,0 +1,7 @@
+{
+  "name": "AgentVerseWorkflowAgent",
+  "id": "AgentVerseWorkflowAgent:6",
+  "version": "6",
+  "image": "acragentverse814702.azurecr.io/agentverse-workflow:20260520121818",
+  "projectEndpoint": "https://agent-verse-resource.services.ai.azure.com/api/projects/agent-verse-project"
+}

@@ -1,0 +1,8 @@
+agent-framework-core==1.4.0
+agent-framework-foundry==1.4.0
+agent-framework-foundry-hosting>=1.0.0a260514
+azure-ai-projects>=2.1.0,<3
+azure-identity>=1.25.1
+json-repair>=0.59
+pydantic>=2.7
+python-dotenv>=1.0

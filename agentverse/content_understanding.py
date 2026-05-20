@@ -12,8 +12,9 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from azure.identity import AzureCliCredential
+from azure.core.credentials import TokenCredential
 
+from agentverse.credentials import default_agentverse_credential
 from agentverse.contracts import AnalyzerKind, ContentUnderstandingResult, SourceCitation, UploadedDocumentRequest
 
 
@@ -51,12 +52,12 @@ class ContentUnderstandingClient:
     def __init__(
         self,
         endpoint: str | None = None,
-        credential: AzureCliCredential | None = None,
+        credential: TokenCredential | None = None,
         timeout_seconds: int = 180,
         poll_interval_seconds: float = 2.0,
     ) -> None:
         self._endpoint = (endpoint or os.environ.get("CONTENT_UNDERSTANDING_ENDPOINT") or DEFAULT_CONTENT_UNDERSTANDING_ENDPOINT).rstrip("/")
-        self._credential = credential or AzureCliCredential()
+        self._credential = credential or _default_credential()
         self._timeout_seconds = timeout_seconds
         self._poll_interval_seconds = poll_interval_seconds
 
@@ -242,3 +243,7 @@ def _format_warning(warning: dict[str, Any]) -> str:
 
 def _guess_mime_type(filename: str) -> str:
     return mimetypes.guess_type(filename)[0] or "application/octet-stream"
+
+
+def _default_credential() -> TokenCredential:
+    return default_agentverse_credential()
