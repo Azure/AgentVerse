@@ -7,3 +7,17 @@ __pycache__/
 .coverage
 htmlcov/
 agentverse-server*.log
+
+# Local IDE/build artifacts
+.vs/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
