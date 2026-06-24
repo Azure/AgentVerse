@@ -1,14 +1,10 @@
-# Project
+# AgentVerse
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+## Introduction
 
-As the maintainer of this project, please make a few updates:
+AgentVerse is a curated collection of agentic use cases developed within Microsoft and packaged for direct execution and deployment in your own Azure subscription. Each scenario demonstrates how autonomous, AI-driven agents can be applied to solve real-world problems, providing ready-to-run reference implementations that you can explore, adapt, and operationalize in your own environment.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+This initiative is the result of collaboration across multiple Microsoft teams, bringing together diverse expertise to showcase the breadth of agentic patterns and best practices. The goal is to offer a practical, production-oriented starting point that accelerates the adoption of agentic solutions while remaining flexible enough to fit your specific needs.
 
 ## Contributing
 

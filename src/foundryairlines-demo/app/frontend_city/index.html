@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoundryAirlines — City Activities Poster</title>
+    <link rel="stylesheet" href="/static_city/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>🏙️ City Activities Poster</h1>
+        <p class="subtitle">Enter a city to discover activities and generate a travel poster</p>
+    </header>
+
+    <main>
+        <section class="input-section">
+            <form id="city-form">
+                <input type="text" id="city-input" placeholder="Enter a city name (e.g. Barcelona)" value="Barcelona"
+                    required>
+                <button type="submit" id="run-btn">Generate Poster</button>
+            </form>
+        </section>
+
+        <section class="progress-section" id="progress-section" style="display:none;">
+            <h2>Progress</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <p class="progress-text" id="progress-text">Starting…</p>
+            <div id="log-container"></div>
+        </section>
+
+        <section class="activities-section" id="activities-section" style="display:none;">
+            <h2>Activities Found</h2>
+            <div id="activities-container"></div>
+        </section>
+
+        <section class="poster-section" id="poster-section" style="display:none;">
+            <h2>Generated Poster</h2>
+            <div id="poster-container"></div>
+        </section>
+    </main>
+
+    <script src="/static_city/app.js"></script>
+</body>
+
+</html>

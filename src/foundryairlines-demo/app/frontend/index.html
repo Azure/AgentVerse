@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoundryAirlines AI Demo · Multi-Agent Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">FoundryAirlines</h1>
+            <p class="subtitle">AI Demo · Multi-Agent Showcase</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="pipeline-section">
+            <h2 class="section-title">Agent Pipeline</h2>
+            
+            <div class="pipeline">
+                <div class="agent-card" data-agent="flights">
+                    <div class="agent-header">
+                        <div class="agent-icon">✈️</div>
+                        <div class="agent-info">
+                            <h3 class="agent-title">1. Flight DB Agent</h3>
+                            <div class="agent-status">
+                                <span class="status-dot" data-status="idle"></span>
+                                <span class="status-text">Idle</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-log"></div>
+                </div>
+
+                <div class="agent-card" data-agent="events">
+                    <div class="agent-header">
+                        <div class="agent-icon">🔍</div>
+                        <div class="agent-info">
+                            <h3 class="agent-title">2. Events Agent (Bing Grounded)</h3>
+                            <div class="agent-status">
+                                <span class="status-dot" data-status="idle"></span>
+                                <span class="status-text">Idle</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-log"></div>
+                </div>
+
+                <div class="agent-card" data-agent="banners">
+                    <div class="agent-header">
+                        <div class="agent-icon">🎨</div>
+                        <div class="agent-info">
+                            <h3 class="agent-title">3. Banner Agent (gpt-image-2)</h3>
+                            <div class="agent-status">
+                                <span class="status-dot" data-status="idle"></span>
+                                <span class="status-text">Idle</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-log"></div>
+                </div>
+            </div>
+
+            <div class="run-controls">
+                <button id="runButton" class="run-button">
+                    <span class="button-icon">▶</span>
+                    Run Demo
+                </button>
+                <label class="cached-toggle">
+                    <input type="checkbox" id="cachedToggle" checked>
+                    <span>Fast demo mode (use pre-generated banners)</span>
+                </label>
+            </div>
+        </section>
+
+        <section class="results-section">
+            <h2 class="section-title">Generated Campaign Banners</h2>
+            <div id="resultsGrid" class="results-grid"></div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

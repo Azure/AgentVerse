@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+azure-ai-projects>=2.0.0b4
+azure-ai-agents>=1.2.0b5
+azure-identity
+agent-framework>=1.0.0rc3
+httpx
+pydantic
