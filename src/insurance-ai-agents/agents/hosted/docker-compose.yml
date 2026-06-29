@@ -1,0 +1,13 @@
+# Local dev for the Foundry hosted agent. Build context is the repo root.
+#   docker compose -f agents/hosted/docker-compose.yml up --build
+services:
+  insurance-claims-orchestrator:
+    build:
+      context: ../..
+      dockerfile: agents/hosted/Dockerfile
+    ports:
+      - "8088:8088"
+    env_file:
+      - .env
+    environment:
+      - PORT=8088

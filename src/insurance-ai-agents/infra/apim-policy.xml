@@ -1,0 +1,135 @@
+<!--
+    APIM AI Gateway Policy - Insurance Claims
+    This XML policy is applied to the Azure OpenAI API in APIM.
+    It implements the full financial services governance stack:
+      1. Authentication (Managed Identity)
+      2. Audit Logging (trace)
+      3. Content Safety (zero tolerance)
+      4. Token Rate Limiting
+      5. Token Metrics (observability)
+-->
+<policies>
+    <inbound>
+        <base />
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- 1. AUTHENTICATION — Managed Identity to Azure OpenAI      -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <authentication-managed-identity resource="https://cognitiveservices.azure.com" />
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- 2. AUDIT LOGGING — Full traceability for regulators       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <trace source="insurance-ai-gateway" severity="information">
+            @{
+                return new JObject(
+                    new JProperty("event", "request_received"),
+                    new JProperty("timestamp", DateTime.UtcNow.ToString("o")),
+                    new JProperty("subscriptionId", context.Subscription.Id),
+                    new JProperty("agentId", context.Request.Headers.GetValueOrDefault("X-Agent-Id", "unknown")),
+                    new JProperty("claimId", context.Request.Headers.GetValueOrDefault("X-Claim-Id", "unknown")),
+                    new JProperty("operation", context.Operation.Name),
+                    new JProperty("sourceIp", context.Request.IpAddress),
+                    new JProperty("correlationId", context.RequestId.ToString())
+                ).ToString();
+            }
+        </trace>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- 3. CONTENT SAFETY — Zero tolerance for financial services -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <llm-content-safety backend-id="contentsafety-backend">
+            <categories>
+                <category name="Hate" threshold="2" />
+                <category name="Sexual" threshold="2" />
+                <category name="SelfHarm" threshold="2" />
+                <category name="Violence" threshold="2" />
+            </categories>
+        </llm-content-safety>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- 4. TOKEN RATE LIMITING — Cost control per agent           -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <azure-openai-token-limit
+            tokens-per-minute="50000"
+            counter-key="@(context.Request.Headers.GetValueOrDefault("X-Agent-Id", context.Subscription.Id))"
+            estimate-prompt-tokens="true"
+            tokens-consumed-header-name="x-tokens-consumed"
+            remaining-tokens-header-name="x-tokens-remaining" />
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- 5. BACKEND SELECTION                                       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <set-backend-service backend-id="openai-backend" />
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- 6. TOKEN METRICS — Observability + chargeback             -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <azure-openai-emit-token-metric namespace="insurance-ai-gateway">
+            <dimension name="Agent" value="@(context.Request.Headers.GetValueOrDefault("X-Agent-Id", "unknown"))" />
+            <dimension name="ClaimId" value="@(context.Request.Headers.GetValueOrDefault("X-Claim-Id", "unknown"))" />
+            <dimension name="Subscription" value="@(context.Subscription.Id)" />
+            <dimension name="Model" value="@(context.Request.Headers.GetValueOrDefault("x-model", "gpt-5.4-mini"))" />
+        </azure-openai-emit-token-metric>
+    </inbound>
+
+    <backend>
+        <forward-request timeout="120" />
+    </backend>
+
+    <outbound>
+        <base />
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- RESPONSE AUDIT — Log completion metadata                  -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <trace source="insurance-ai-gateway" severity="information">
+            @{
+                return new JObject(
+                    new JProperty("event", "response_sent"),
+                    new JProperty("timestamp", DateTime.UtcNow.ToString("o")),
+                    new JProperty("statusCode", context.Response.StatusCode),
+                    new JProperty("durationMs", context.Elapsed.TotalMilliseconds),
+                    new JProperty("tokensConsumed", context.Response.Headers.GetValueOrDefault("x-tokens-consumed", "0")),
+                    new JProperty("correlationId", context.RequestId.ToString()),
+                    new JProperty("agentId", context.Request.Headers.GetValueOrDefault("X-Agent-Id", "unknown"))
+                ).ToString();
+            }
+        </trace>
+    </outbound>
+
+    <on-error>
+        <base />
+        <choose>
+            <!-- Token limit exceeded -->
+            <when condition="@(context.LastError.Source == "azure-openai-token-limit")">
+                <return-response>
+                    <set-status code="429" reason="Token Limit Exceeded" />
+                    <set-header name="Retry-After" exists-action="override">
+                        <value>60</value>
+                    </set-header>
+                    <set-body>@{
+                        return new JObject(
+                            new JProperty("error", "Token rate limit exceeded"),
+                            new JProperty("message", "El agente ha excedido su límite de tokens. Reintente en 60 segundos."),
+                            new JProperty("correlationId", context.RequestId.ToString())
+                        ).ToString();
+                    }</set-body>
+                </return-response>
+            </when>
+            <!-- Content safety blocked -->
+            <when condition="@(context.LastError.Source == "llm-content-safety")">
+                <return-response>
+                    <set-status code="400" reason="Content Filtered" />
+                    <set-body>@{
+                        return new JObject(
+                            new JProperty("error", "Content blocked by safety policy"),
+                            new JProperty("message", "La solicitud fue bloqueada por las políticas de seguridad de contenido."),
+                            new JProperty("correlationId", context.RequestId.ToString())
+                        ).ToString();
+                    }</set-body>
+                </return-response>
+            </when>
+        </choose>
+    </on-error>
+</policies>

@@ -1,0 +1,26 @@
+# Avoid sending massive trees to the Docker daemon during build context.
+# The backend image only needs ./agents and ./backend.
+.git/
+.github/
+.venv/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+
+# Frontend tree is irrelevant for the backend image.
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.vite/
+
+# Infra, scripts, docs — not needed in the runtime container.
+infra/
+scripts/
+docs/
+video/
+**/.venv*/
+*.md
+LICENSE
+.env
+.env.local
+.env.*.local
+*.log

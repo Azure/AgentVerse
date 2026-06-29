@@ -1,0 +1,21 @@
+.env
+dashboard/.env
+dashboard/.env.local
+dashboard/.env.*.local
+__pycache__/
+*.pyc
+.venv/
+.venv-*/
+agents/hosted/.foundry/direct-code/*.zip
+node_modules/
+dist/
+.azure/
+*.tfstate
+*.tfstate.backup
+.DS_Store
+Thumbs.db
+video/
+
+# Eval reports — generated per CI run, uploaded as artifact
+evals/last_report.json
+

@@ -1,0 +1,30 @@
+# Foundry hosted-agent manifest — insurance claims orchestrator.
+#
+# Scaffold for the deploy workflow. The container image URL is produced at deploy
+# time by `az acr build` and supplied to the hosted-agent definition (see README.md,
+# Phase 2). Confirm the exact protocol version against the deploy schema before
+# the final `agent_update`.
+name: insurance-claims-orchestrator
+description: >-
+  Governed multi-agent insurance claims pipeline (Intake -> Risk & Fraud ->
+  Compliance -> Decision) built on Microsoft Agent Framework and exposed over the
+  Foundry invocations protocol. Reuses the existing orchestrator, compliance rules,
+  Pydantic response schemas and deterministic prompt-injection guard.
+
+template:
+  kind: hosted
+  protocols:
+    - invocations
+  # Environment variables the container reads at runtime (see .env.example).
+  environment_variables:
+    - USE_MAF_ORCHESTRATOR
+    - USE_APIM_GATEWAY
+    - AZURE_OPENAI_ENDPOINT
+    - AZURE_OPENAI_DEPLOYMENT
+    - AZURE_OPENAI_API_VERSION
+    - OPENAI_REASONING_EFFORT
+    - AGENT_ID
+    - APIM_GATEWAY_URL
+    - APIM_SUBSCRIPTION_KEY
+    - APPLICATIONINSIGHTS_CONNECTION_STRING
+    - PORT

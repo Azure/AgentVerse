@@ -1,0 +1,25 @@
+{
+  "description": "Governed multi-agent insurance claims orchestrator (Intake -> Risk & Fraud -> Compliance -> Decision) on Microsoft Agent Framework, invocations protocol.",
+  "definition": {
+    "kind": "hosted",
+    "protocol_versions": [
+      { "protocol": "invocations", "version": "1.0.0" }
+    ],
+    "cpu": "1",
+    "memory": "2Gi",
+    "environment_variables": {
+      "USE_MAF_ORCHESTRATOR": "true",
+      "USE_APIM_GATEWAY": "false",
+      "AZURE_OPENAI_ENDPOINT": "https://ins-ai-demo-aoai-jii435hjlwyyc.openai.azure.com/",
+      "AZURE_OPENAI_DEPLOYMENT": "gpt-5.4-mini",
+      "AZURE_OPENAI_API_VERSION": "2025-04-01-preview",
+      "OPENAI_REASONING_EFFORT": "low",
+      "AGENT_ID": "insurance-claims-orchestrator"
+    },
+    "code_configuration": {
+      "runtime": "python_3_14",
+      "entry_point": ["python", "main.py"],
+      "dependency_resolution": "remote_build"
+    }
+  }
+}
