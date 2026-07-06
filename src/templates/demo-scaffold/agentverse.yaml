@@ -1,0 +1,44 @@
+# AgentVerse catalog manifest for this demo.
+# Validate: python ../templates/catalog/build_catalog.py --validate agentverse.yaml
+# Full field reference: ../templates/catalog/README.md and agentverse.schema.json
+
+apiVersion: agentverse/v1
+
+name: {{demo-name}}                    # kebab-case, matches this folder's name
+title: {{Demo Title}}
+tagline: {{One sentence describing what this demo shows}}
+description: >-
+  {{A longer paragraph: the scenario, the audience, and what it demonstrates.}}
+
+status: experimental                  # experimental | beta | stable | archived
+difficulty: beginner                  # beginner | intermediate | advanced
+tags: [{{industry}}, {{capability}}]
+owners: ["@{{your-handle}}"]
+
+stack:
+  framework: Microsoft Agent Framework
+  backend: FastAPI
+  frontend: {{Vanilla HTML/JS}}       # React + Vite | Vanilla HTML/JS | none
+  iac: Terraform
+  language: [Python]
+
+orchestration: sequential             # see ../templates/agentic-framework/PATTERNS.md
+
+agents:
+  - name: {{agent-one}}
+    role: {{one line: what this agent does}}
+    model: {{gpt-4.1}}
+    tools: []
+
+models: [{{gpt-4.1}}]
+azureServices: [Azure AI Foundry]
+capabilities: [tools, guardrails, evals, observability]
+
+entrypoints:
+  quickstart: README.md#quick-start
+  backend: {{uvicorn app.backend.main:app --port 8765}}
+  frontend: {{app/frontend/index.html}}
+  deploy: {{scripts/deploy.ps1}}
+
+media: []
+links: {}

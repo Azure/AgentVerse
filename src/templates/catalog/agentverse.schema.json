@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentverse/catalog/agentverse.schema.json",
+  "title": "AgentVerse demo manifest",
+  "description": "Every AgentVerse demo ships one agentverse.yaml at its root, validated against this schema. The catalog index is generated from these manifests, so demos stay independent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "name", "title", "tagline", "status", "stack", "agents"],
+  "properties": {
+    "apiVersion": {
+      "description": "Manifest schema version. Use 'agentverse/v1'.",
+      "type": "string",
+      "const": "agentverse/v1"
+    },
+    "name": {
+      "description": "Unique, short, kebab-case id for the demo. Matches the folder name.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 3,
+      "maxLength": 40
+    },
+    "title": {
+      "description": "Human-readable demo title.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 80
+    },
+    "tagline": {
+      "description": "One-sentence pitch shown in the catalog card.",
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 160
+    },
+    "description": {
+      "description": "Longer paragraph describing the scenario and what it demonstrates.",
+      "type": "string"
+    },
+    "status": {
+      "description": "Lifecycle stage of the demo.",
+      "type": "string",
+      "enum": ["experimental", "beta", "stable", "archived"]
+    },
+    "difficulty": {
+      "description": "Rough effort to run/understand the demo.",
+      "type": "string",
+      "enum": ["beginner", "intermediate", "advanced"]
+    },
+    "tags": {
+      "description": "Free-form discovery tags (industry, capability, etc.).",
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "owners": {
+      "description": "GitHub handles or team slugs responsible for the demo.",
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "stack": {
+      "description": "Technology stack of the demo.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["framework"],
+      "properties": {
+        "framework": {
+          "description": "Agent orchestration framework.",
+          "type": "string",
+          "examples": ["Microsoft Agent Framework"]
+        },
+        "backend": { "type": "string", "examples": ["FastAPI"] },
+        "frontend": { "type": "string", "examples": ["React + Vite", "Vanilla HTML/JS", "none"] },
+        "iac": { "type": "string", "examples": ["Bicep", "Terraform", "none"] },
+        "language": {
+          "type": "array",
+          "items": { "type": "string" },
+          "examples": [["Python", "TypeScript"]]
+        }
+      }
+    },
+    "orchestration": {
+      "description": "Primary orchestration pattern used (see agentic-framework/PATTERNS.md).",
+      "type": "string",
+      "enum": [
+        "single-agent",
+        "sequential",
+        "routing",
+        "parallel",
+        "orchestrator-workers",
+        "evaluator-optimizer",
+        "group-chat",
+        "handoff",
+        "human-in-the-loop"
+      ]
+    },
+    "agents": {
+      "description": "The agents that make up this demo.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "role"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "role": { "type": "string", "description": "One line: what this agent does." },
+          "model": { "type": "string", "examples": ["gpt-4.1", "gpt-5.4-mini"] },
+          "tools": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Tool names the agent can call (function, MCP, or hosted)."
+          }
+        }
+      }
+    },
+    "models": {
+      "description": "Model deployments the demo needs.",
+      "type": "array",
+      "items": { "type": "string" },
+      "examples": [["gpt-4.1", "gpt-image-2"]]
+    },
+    "azureServices": {
+      "description": "Azure services the demo provisions or depends on.",
+      "type": "array",
+      "items": { "type": "string" },
+      "examples": [["Azure AI Foundry", "APIM", "Cosmos DB"]]
+    },
+    "capabilities": {
+      "description": "Notable capabilities showcased.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "tools",
+          "mcp",
+          "web-grounding",
+          "voice",
+          "vision",
+          "image-generation",
+          "guardrails",
+          "content-safety",
+          "evals",
+          "observability",
+          "human-in-the-loop",
+          "governance",
+          "whitelabel",
+          "auth"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "entrypoints": {
+      "description": "How to run the demo.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "quickstart": { "type": "string", "description": "Relative path to the quick-start section/README." },
+        "backend": { "type": "string", "description": "Command or path to start the backend." },
+        "frontend": { "type": "string", "description": "Command or path to start the frontend." },
+        "deploy": { "type": "string", "description": "Command or path to the deploy script." }
+      }
+    },
+    "media": {
+      "description": "Screenshots / diagrams for the catalog card (relative paths or URLs).",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "links": {
+      "description": "Related external links.",
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

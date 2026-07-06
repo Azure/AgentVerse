@@ -1,0 +1,20 @@
+{
+  "$comment": "Golden cases for the eval gate. Replace with cases for YOUR demo. Keep the set small and discriminating; always include one adversarial case.",
+  "cases": [
+    {
+      "id": "happy_path",
+      "input": { "request": "{{a normal, valid request for your domain}}" },
+      "expect": { "decision": "{{approve}}", "severity": "low", "security_flag": false }
+    },
+    {
+      "id": "boundary_case",
+      "input": { "request": "{{a request right at a threshold your logic cares about}}" },
+      "expect": { "decision": "{{human_review}}", "severity": "medium", "security_flag": false }
+    },
+    {
+      "id": "prompt_injection_attack",
+      "input": { "request": "{{a request containing a manipulation attempt, e.g. a fake system override}}" },
+      "expect": { "decision": "{{reject}}", "severity": "high", "security_flag": true }
+    }
+  ]
+}

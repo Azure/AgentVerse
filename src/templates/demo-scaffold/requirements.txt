@@ -1,0 +1,28 @@
+# {{Demo Title}} — Python dependencies.
+# Pin versions once your demo stabilizes. This baseline matches the AgentVerse stack.
+
+# ---- Agent framework & Azure AI ----------------------------------------------
+agent-framework>=1.0.0rc3          # Microsoft Agent Framework (orchestration)
+azure-ai-projects>=2.0.0b4         # Foundry project client (connections, agents)
+azure-ai-agents>=1.2.0b5           # Foundry Agent SDK
+azure-identity                     # DefaultAzureCredential (managed identity / az login)
+
+# ---- Backend -----------------------------------------------------------------
+fastapi
+uvicorn[standard]
+httpx                              # async HTTP for tools / model calls
+pydantic                           # typed I/O contracts (schemas.py)
+python-dotenv
+
+# ---- Observability -----------------------------------------------------------
+azure-monitor-opentelemetry        # traces + metrics to Application Insights
+opentelemetry-api
+
+# ---- Optional (uncomment as needed) ------------------------------------------
+# azure-cosmos                     # long-term memory
+# openai                           # direct Azure OpenAI (e.g. image models)
+# pyjwt                            # Entra ID JWT validation
+
+# ---- Catalog tooling (dev) ---------------------------------------------------
+# pyyaml
+# jsonschema

@@ -1,0 +1,60 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Agent spec — the declarative contract for ONE agent.
+#
+# This is building block #1. An agent is defined by DATA, not scattered code:
+#   this file (identity, model, tools) + instructions.md (prompt) + schemas.py (I/O).
+#
+# The shape mirrors Foundry's own agent.yaml manifest, so a local prompt agent and a
+# hosted Foundry agent share one contract. Copy this file into your demo at
+#   agents/<your-agent>/agent.yaml
+# and replace every {{PLACEHOLDER}}.
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: {{agent-name}}                 # kebab-case, unique within the demo
+description: >-
+  {{One or two sentences: what this agent does and what it returns.}}
+
+# The model deployment name (as deployed in Foundry / behind the APIM gateway).
+# Pick the SMALLEST model that passes your evals — see CHECKLIST.md.
+model: {{gpt-4.1}}
+
+# Where the versioned system prompt lives. Keep the prompt OUT of code.
+instructions: instructions.md
+
+# The typed input/output contract (Pydantic models in schemas.py).
+io:
+  input: {{SampleInput}}
+  output: {{SampleOutput}}
+
+# Tools the agent may call. Remove the block if the agent needs no tools.
+# kind: function | mcp | hosted  (see ../tools/ for when to use each)
+tools:
+  - name: {{tool-name}}
+    kind: function
+    description: {{What the tool does, precisely — the model reads this.}}
+  # - name: bing-grounding
+  #   kind: hosted            # Foundry-managed tool, e.g. Grounding with Bing Search
+  #   connection: {{bing-grounding}}   # project connection name
+  # - name: {{external-tools}}
+  #   kind: mcp               # external tools over Model Context Protocol
+  #   server: {{https://your-mcp-server}}
+
+# Guardrails applied to this agent (see ../guardrails/).
+guardrails:
+  input_validation: true             # validate untrusted input before the model
+  output_schema_validation: true     # validate model output against io.output
+  prompt_injection_defense: true     # instructions must state the defense; test it
+  content_safety: gateway            # enforced centrally by the APIM policy
+
+# Budget controls (see CHECKLIST.md).
+budget:
+  token_limit_per_min: {{50000}}
+  reasoning_effort: {{low}}          # minimal | low | medium | high (reasoning models only)
+
+# Optional: hosted deployment settings, if this agent is deployed to Foundry as a
+# hosted agent (mirrors .foundry/metadata.json). Delete if running as a prompt agent.
+# hosted:
+#   protocol: invocations
+#   runtime: python_3_12
+#   cpu: "1"
+#   memory: 2Gi

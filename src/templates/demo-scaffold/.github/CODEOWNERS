@@ -1,0 +1,19 @@
+# Code ownership for {{Demo Title}}.
+# Each domain is owned by a team; a PR touching that path needs the team's approval.
+# Replace {{@org/team}} handles with real teams. For a solo demo, point them all at your
+# own handle to allow self-merge.
+#
+# Order matters: the LAST matching pattern wins.
+
+# Default owner for everything.
+*                       {{@your-handle}}
+
+# Per-domain ownership — the governance "wow": a change to compliance/rules needs the
+# compliance team, and can't merge without them.
+/agents/                {{@org/platform-team}}
+/agents/compliance/     {{@org/compliance-team}}
+/agents/risk-assessment/ {{@org/risk-team}}
+
+# Infra and evals often warrant tighter review.
+/infra/                 {{@org/platform-team}}
+/evals/                 {{@org/qa-team}}
