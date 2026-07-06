@@ -401,11 +401,11 @@ resource staticWebApp 'Microsoft.Web/staticSites@2023-12-01' = {
 }
 
 // ============================================================================
-// Cosmos DB (NoSQL) - persistencia de siniestros procesados
+// Cosmos DB (NoSQL) - persistence of processed claims
 // ============================================================================
-// Container particionado por /customer_id (alta cardinalidad, query pattern
-// dominante: "siniestros del cliente X"). Modo serverless para minimizar coste
-// en demo. AAD-only: deshabilitamos las claves locales y usamos data-plane RBAC.
+// Container partitioned by /customer_id (high cardinality, dominant query
+// pattern: "claims for customer X"). Serverless mode to minimize cost in the
+// demo. AAD-only: we disable local keys and use data-plane RBAC.
 
 resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2024-05-15' = {
   name: cosmosName

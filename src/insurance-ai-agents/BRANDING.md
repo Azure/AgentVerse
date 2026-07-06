@@ -21,8 +21,8 @@ export const BRAND: BrandConfig = {
   voiceAssistantName: 'Leo',               // Voice IVR character
   logoUrl: '/brand-logo.png',              // Header / hero / autoplay logo
   logoAlt: 'Helix Insurance',
-  tagline: 'Plataforma comercial …',
-  caseStudyDescription: 'Procesamiento de partes …',
+  tagline: 'Commercial platform …',
+  caseStudyDescription: 'Claims processing …',
   partnerBannerName: 'Helix Insurance',
 };
 ```
@@ -82,7 +82,7 @@ configuration) **before** importing the services:
 | `VOICE_ASSISTANT_NAME` | `Leo` | First name of the voice IVR character. |
 
 Source: `agents/shared/brand.py`. The `SYSTEM_PROMPT` (voice agent) and
-`PARTE_SINIESTRO_SCHEMA["description"]` (content understanding) both
+`ACCIDENT_REPORT_SCHEMA["description"]` (content understanding) both
 interpolate these values once, so changes require a **backend restart**.
 
 > ⚠️ **Content Understanding analyzer cache.** The CU analyzer is

@@ -44,9 +44,9 @@ export default function VoiceCallModal({
   const [holdMusic, setHoldMusic] = useState(false);
   const [lines, setLines] = useState<Line[]>([]);
   const [error, setError] = useState<string | null>(null);
-  // Sesión efectiva tras resolver la pre-allocated o generar una nueva.
-  // Se expone como estado para que el botón de "vista de operario" pueda
-  // abrir window.open con la id correcta.
+  // Effective session after resolving the pre-allocated one or generating
+  // a new one. Exposed as state so the "operator view" button can open
+  // window.open with the correct id.
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const operatorWindowRef = useRef<Window | null>(null);
   const clientRef = useRef<VoiceAudioClient | null>(null);
@@ -60,7 +60,7 @@ export default function VoiceCallModal({
     const client = new VoiceAudioClient(sessionId, buildWsBase());
     clientRef.current = client;
     assistantBufferRef.current = '';
-    setLines([{ who: 'system', text: 'Conectando con el asistente...', ts: Date.now() }]);
+    setLines([{ who: 'system', text: 'Connecting to the assistant...', ts: Date.now() }]);
     setStatus('connecting');
     setError(null);
     setActiveSessionId(sessionId);
@@ -71,7 +71,7 @@ export default function VoiceCallModal({
       switch (e.type) {
         case 'connected':
           setStatus('live');
-          setLines((p) => [...p, { who: 'system', text: 'Conectado. Puede empezar a hablar.', ts: Date.now() }]);
+          setLines((p) => [...p, { who: 'system', text: 'Connected. You can start speaking.', ts: Date.now() }]);
           break;
         case 'transcript.user':
           if (e.text.trim()) setLines((p) => [...p, { who: 'user', text: e.text, ts: Date.now() }]);
@@ -90,14 +90,14 @@ export default function VoiceCallModal({
             const r = e.result as { found?: boolean; name?: string };
             setLines((p) => [...p, {
               who: 'system',
-              text: r?.found ? `Cliente encontrado: ${r.name}` : 'DNI no encontrado',
+              text: r?.found ? `Customer found: ${r.name}` : 'ID not found',
               ts: Date.now(),
             }]);
           } else if (e.name === 'submit_claim') {
             const r = e.result as { decision?: string; claim_id?: string };
             setLines((p) => [...p, {
               who: 'system',
-              text: `Pipeline ejecutado: ${r?.decision ?? '?'} (${r?.claim_id ?? '?'})`,
+              text: `Pipeline executed: ${r?.decision ?? '?'} (${r?.claim_id ?? '?'})`,
               ts: Date.now(),
             }]);
           }
@@ -113,7 +113,7 @@ export default function VoiceCallModal({
           // hang up. Wait for the local playback queue to drain (the audio
           // server sends arrives in advance of being heard) before truly
           // closing, so the last sentence is never cut off.
-          setLines((p) => [...p, { who: 'system', text: 'Llamada finalizada por el asistente', ts: Date.now() }]);
+          setLines((p) => [...p, { who: 'system', text: 'Call ended by the assistant', ts: Date.now() }]);
           setStatus('closed');
           {
             const drainAndClose = () => {
@@ -152,9 +152,9 @@ export default function VoiceCallModal({
       client.stop().catch(() => undefined);
       clientRef.current = null;
       setActiveSessionId(null);
-      // Si la ventana del operador estaba abierta para esta sesión, la
-      // cerramos: la sesión ya no existe en el backend, así que dejarla
-      // viva sólo mostraría un error "sesión no encontrada".
+      // If the operator window was open for this session, we close it: the
+      // session no longer exists in the backend, so leaving it alive would
+      // only show a "session not found" error.
       if (operatorWindowRef.current && !operatorWindowRef.current.closed) {
         try {
           operatorWindowRef.current.close();
@@ -177,8 +177,8 @@ export default function VoiceCallModal({
 
   const openOperatorView = () => {
     if (!activeSessionId) return;
-    // Si ya hay una ventana de operador abierta para esta sesión,
-    // simplemente la enfocamos en vez de abrir un duplicado.
+    // If an operator window is already open for this session, simply focus
+    // it instead of opening a duplicate.
     if (operatorWindowRef.current && !operatorWindowRef.current.closed) {
       try {
         operatorWindowRef.current.focus();
@@ -219,11 +219,11 @@ export default function VoiceCallModal({
               <Phone className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-semibold">Asistente de voz · {BRAND.voiceAssistantName}</p>
+              <p className="text-sm font-semibold">Voice assistant · {BRAND.voiceAssistantName}</p>
               <p className="text-xs opacity-80">
-                {status === 'connecting' && 'Conectando...'}
-                {status === 'live' && 'En llamada'}
-                {status === 'closed' && 'Llamada finalizada'}
+                {status === 'connecting' && 'Connecting...'}
+                {status === 'live' && 'On call'}
+                {status === 'closed' && 'Call ended'}
                 {status === 'error' && 'Error'}
               </p>
             </div>
@@ -234,7 +234,7 @@ export default function VoiceCallModal({
             className="inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold hover:bg-red-600"
           >
             <PhoneOff className="h-4 w-4" />
-            Colgar
+            Hang up
           </button>
         </header>
 
@@ -248,8 +248,8 @@ export default function VoiceCallModal({
               <div className="flex items-center gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-4 py-3">
                 <Music className="h-5 w-5 animate-pulse text-primary-600" />
                 <div>
-                  <p className="text-sm font-semibold text-primary-700">Procesando su parte...</p>
-                  <p className="text-xs text-gray-600">Los agentes IA están evaluando su caso. Por favor espere.</p>
+                  <p className="text-sm font-semibold text-primary-700">Processing your report...</p>
+                  <p className="text-xs text-gray-600">The AI agents are evaluating your case. Please wait.</p>
                 </div>
                 <Loader2 className="ml-auto h-4 w-4 animate-spin text-primary-600" />
               </div>
@@ -269,32 +269,31 @@ export default function VoiceCallModal({
                 type="button"
                 onClick={toggleMute}
                 disabled={status !== 'live'}
-                className={`grid h-11 w-11 place-items-center rounded-full text-white transition-colors ${
-                  muted ? 'bg-red-500 hover:bg-red-600' : 'bg-primary-600 hover:bg-primary-700'
-                } disabled:opacity-50`}
-                title={muted ? 'Activar micrófono' : 'Silenciar'}
+                className={`grid h-11 w-11 place-items-center rounded-full text-white transition-colors ${muted ? 'bg-red-500 hover:bg-red-600' : 'bg-primary-600 hover:bg-primary-700'
+                  } disabled:opacity-50`}
+                title={muted ? 'Unmute microphone' : 'Mute'}
               >
                 {muted ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
               </button>
               <div className="text-xs text-gray-500">
                 {status === 'live' ? (
                   <span className="inline-flex items-center gap-1">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" /> Micrófono activo
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" /> Microphone active
                   </span>
                 ) : (
-                  <span>{status === 'connecting' ? 'Conectando…' : 'Sin conexión'}</span>
+                  <span>{status === 'connecting' ? 'Connecting…' : 'Not connected'}</span>
                 )}
               </div>
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-              <span>Cifrado · Azure OpenAI gpt-realtime-mini</span>
+              <span>Encrypted · Azure OpenAI gpt-realtime-mini</span>
               <button
                 type="button"
                 onClick={openOperatorView}
                 disabled={!activeSessionId || status === 'idle' || status === 'closed'}
-                title="Abrir vista de operario en una nueva ventana"
-                aria-label="Abrir vista de operario"
+                title="Open operator view in a new window"
+                aria-label="Open operator view"
                 className="ml-1 grid h-6 w-6 place-items-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-gray-400"
               >
                 <ScanEye className="h-3.5 w-3.5" />
@@ -319,11 +318,10 @@ function Bubble({ line }: { line: Line }) {
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
       <div
-        className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed shadow-sm ${
-          isUser
+        className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed shadow-sm ${isUser
             ? 'bg-primary-600 text-white'
             : 'bg-white text-gray-800 ring-1 ring-gray-200'
-        }`}
+          }`}
       >
         {!isUser && <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary-600">{BRAND.voiceAssistantName}</p>}
         {line.text}

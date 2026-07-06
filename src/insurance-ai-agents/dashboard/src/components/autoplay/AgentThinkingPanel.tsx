@@ -44,29 +44,29 @@ interface DetectedField {
 const AGENT_META: Record<AgentName, AgentMeta> = {
   intake: {
     icon: FileSearch,
-    title: 'Agente de Extracción',
-    role: 'Extrae y estructura datos del parte.',
+    title: 'Extraction Agent',
+    role: 'Extracts and structures data from the report.',
     accentClasses: 'text-primary-600',
     haloClasses: 'from-primary-500/25 via-primary-400/20 to-primary-600/25',
   },
   risk: {
     icon: ShieldAlert,
-    title: 'Agente de Riesgo',
-    role: 'Evalúa probabilidad de fraude y riesgo.',
+    title: 'Risk Agent',
+    role: 'Assesses fraud probability and risk.',
     accentClasses: 'text-primary-600',
     haloClasses: 'from-primary-600/25 via-primary-500/20 to-primary-700/25',
   },
   compliance: {
     icon: Scale,
-    title: 'Agente de Compliance',
-    role: 'Verifica cobertura, reglas y cumplimiento regulatorio.',
+    title: 'Compliance Agent',
+    role: 'Verifies coverage, rules and regulatory compliance.',
     accentClasses: 'text-primary-600',
     haloClasses: 'from-primary-500/22 via-primary-400/18 to-primary-600/22',
   },
   decision: {
     icon: CheckCircle2,
-    title: 'Decisión Final',
-    role: 'Consolida señales y emite la resolución final del caso.',
+    title: 'Final Decision',
+    role: 'Consolidates signals and issues the final case resolution.',
     accentClasses: 'text-primary-600',
     haloClasses: 'from-primary-400/25 via-primary-500/18 to-primary-600/25',
   },
@@ -80,9 +80,9 @@ const STATUS_CLASSES: Record<AgentStatus, string> = {
 };
 
 const EMPTY_THINKING_MESSAGES = [
-  'Consultando Azure OpenAI…',
-  'Cargando contexto del caso…',
-  'Razonando sobre el siniestro…',
+  'Querying Azure OpenAI…',
+  'Loading case context…',
+  'Reasoning about the claim…',
 ] as const;
 
 const EXPANDABLE_FIELDS = new Set(['extracted_data', 'rules_applied']);
@@ -90,32 +90,32 @@ const EXPANDABLE_FIELDS = new Set(['extracted_data', 'rules_applied']);
 const JSON_KEY_PATTERN = /"([a-z0-9_]+)"\s*:/i;
 
 const FIELD_LABELS: Record<string, string> = {
-  claim_id: 'ID de siniestro',
-  policy_valid: 'Póliza válida',
-  policy_number: 'Nº de póliza',
-  severity: 'Severidad',
-  extracted_data: 'Datos extraídos',
-  incident_type: 'Tipo de incidente',
-  vehicle: 'Vehículo',
-  date_of_incident: 'Fecha',
-  location: 'Ubicación',
-  damages_described: 'Daños',
-  estimated_amount: 'Monto estimado',
-  witnesses: 'Testigos',
+  claim_id: 'Claim ID',
+  policy_valid: 'Policy valid',
+  policy_number: 'Policy number',
+  severity: 'Severity',
+  extracted_data: 'Extracted data',
+  incident_type: 'Incident type',
+  vehicle: 'Vehicle',
+  date_of_incident: 'Date',
+  location: 'Location',
+  damages_described: 'Damages',
+  estimated_amount: 'Estimated amount',
+  witnesses: 'Witnesses',
   risk_score: 'Risk Score',
-  fraud_probability: 'Prob. de fraude',
-  risk_factors: 'Factores',
-  reasoning: 'Razonamiento',
-  compliant: 'Cumple normativa',
-  decision: 'Decisión',
-  regulations_checked: 'Regulaciones',
-  rules_applied: 'Reglas aplicadas',
-  coverage_status: 'Cobertura',
-  summary: 'Resumen',
-  confidence: 'Confianza',
-  payout_recommendation: 'Pago recomendado',
-  next_action: 'Siguiente acción',
-  claim_type: 'Tipo de reclamación',
+  fraud_probability: 'Fraud probability',
+  risk_factors: 'Factors',
+  reasoning: 'Reasoning',
+  compliant: 'Regulatory compliance',
+  decision: 'Decision',
+  regulations_checked: 'Regulations',
+  rules_applied: 'Rules applied',
+  coverage_status: 'Coverage',
+  summary: 'Summary',
+  confidence: 'Confidence',
+  payout_recommendation: 'Recommended payout',
+  next_action: 'Next action',
+  claim_type: 'Claim type',
 };
 
 function formatDuration(durationSeconds?: number) {
@@ -124,27 +124,27 @@ function formatDuration(durationSeconds?: number) {
 }
 
 function getStatusLabel(status: AgentStatus, durationSeconds?: number) {
-  if (status === 'thinking') return 'Pensando...';
+  if (status === 'thinking') return 'Thinking...';
   if (status === 'completed') {
     const durationLabel = formatDuration(durationSeconds);
-    return durationLabel ? `✓ Completado en ${durationLabel}` : '✓ Completado';
+    return durationLabel ? `✓ Completed in ${durationLabel}` : '✓ Completed';
   }
   if (status === 'failed') return '⚠ Error';
-  return 'Listo para arrancar';
+  return 'Ready to start';
 }
 
 function getPlaceholder(status: AgentStatus, agent: AgentName) {
-  if (status === 'failed') return 'El razonamiento del agente no pudo completarse.';
+  if (status === 'failed') return 'The agent reasoning could not be completed.';
   if (status === 'completed') {
     const completedByAgent: Record<AgentName, string> = {
-      intake: 'Extracción finalizada · campos consolidados a la derecha.',
-      risk: 'Evaluación de riesgo emitida · revisa el scoring y la señal de fraude.',
-      compliance: 'Validación regulatoria completada · checklist actualizado.',
-      decision: 'Decisión consolidada · veredicto disponible en la slide de decisión.',
+      intake: 'Extraction finished · fields consolidated on the right.',
+      risk: 'Risk assessment issued · review the scoring and the fraud signal.',
+      compliance: 'Regulatory validation completed · checklist updated.',
+      decision: 'Decision consolidated · verdict available on the decision slide.',
     };
     return completedByAgent[agent];
   }
-  return 'Esperando tokens del orquestador para comenzar el razonamiento.';
+  return 'Waiting for orchestrator tokens to begin reasoning.';
 }
 
 function humanizeKey(key: string) {
@@ -397,7 +397,7 @@ function formatDetectedValue(field: DetectedField) {
   if (typeof value === 'boolean') return value ? '✓' : '✗';
   if (value === null) return '—';
   if (Array.isArray(value)) return `${value.length} ${value.length === 1 ? 'item' : 'items'}`;
-  if (isRecord(value)) return `${Object.keys(value).length} campos`;
+  if (isRecord(value)) return `${Object.keys(value).length} fields`;
 
   const compact = rawValue.replace(/\s+/g, ' ').trim();
   return compact.length > 72 ? `${compact.slice(0, 69)}…` : compact;
@@ -430,7 +430,7 @@ function buildCompletedSummary(parsedJson: ParseResult, fields: DetectedField[])
   const compliant = getSummaryValue(parsedJson, fields, 'compliant');
 
   if (typeof decision === 'string' && decision.trim().length > 0) {
-    lines.push(`Decisión: ${decision}`);
+    lines.push(`Decision: ${decision}`);
   }
 
   const formattedRiskScore = formatRiskScore(riskScore);
@@ -439,7 +439,7 @@ function buildCompletedSummary(parsedJson: ParseResult, fields: DetectedField[])
   }
 
   if (typeof compliant === 'boolean') {
-    lines.push(`Cumple normativa ${compliant ? '✓' : '✗'}`);
+    lines.push(`Regulatory compliance ${compliant ? '✓' : '✗'}`);
   }
 
   return lines;
@@ -553,7 +553,7 @@ export default function AgentThinkingPanel({
             </div>
 
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-gray-500">Agente activo</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-gray-500">Active agent</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
                 {title}
               </h2>
@@ -563,15 +563,15 @@ export default function AgentThinkingPanel({
 
           {status === 'completed' ? (
             <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-800 lg:min-w-[260px]">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700">Resumen</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700">Summary</p>
               <div className="mt-2 space-y-1.5 text-sm font-medium leading-6">
                 {completedSummary.length > 0 ? (
                   completedSummary.map((line) => <p key={line}>{line}</p>)
                 ) : (
-                  <p>✓ Completado</p>
+                  <p>✓ Completed</p>
                 )}
               </div>
-              <p className="mt-3 text-xs text-emerald-700">{durationLabel ? `Completado en ${durationLabel}` : 'Completado'}</p>
+              <p className="mt-3 text-xs text-emerald-700">{durationLabel ? `Completed in ${durationLabel}` : 'Completed'}</p>
             </div>
           ) : (
             <div className={`inline-flex items-center self-start rounded-full border px-4 py-2 text-sm font-medium ${STATUS_CLASSES[status]}`}>
@@ -601,7 +601,7 @@ export default function AgentThinkingPanel({
                   </div>
                 </div>
                 <p className="max-w-xl text-sm leading-6 text-gray-600">
-                  Mostraremos la traza del agente en cuanto empiecen a llegar tokens útiles.
+                  We'll show the agent trace as soon as useful tokens start arriving.
                 </p>
               </div>
             ) : showJsonFields ? (
@@ -633,7 +633,7 @@ export default function AgentThinkingPanel({
                 {status === 'thinking' ? (
                   <div className="flex items-center gap-2 px-1 pt-1 text-xs font-medium text-primary-700">
                     <span className="h-2 w-2 rounded-full bg-primary-500 animate-pulse-soft" />
-                    Recibiendo más campos del análisis…
+                    Receiving more analysis fields…
                   </div>
                 ) : null}
               </div>
@@ -641,10 +641,10 @@ export default function AgentThinkingPanel({
               <div className="flex min-h-[132px] flex-col justify-center gap-3 text-primary-700">
                 <div className="flex items-center gap-3">
                   <span className="h-2.5 w-2.5 rounded-full bg-primary-500 animate-pulse-soft" />
-                  <span className="text-sm font-medium">Transformando salida estructurada en un resumen legible…</span>
+                  <span className="text-sm font-medium">Transforming structured output into a readable summary…</span>
                 </div>
                 <p className="max-w-xl text-sm leading-6 text-gray-600">
-                  Los tokens ya están entrando. Iremos mostrando cada campo cuando quede cerrado.
+                  Tokens are already coming in. We'll show each field as it gets closed.
                 </p>
               </div>
             ) : hasThoughts ? (

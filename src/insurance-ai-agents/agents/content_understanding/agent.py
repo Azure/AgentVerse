@@ -3,7 +3,7 @@
 Why this exists
 ---------------
 Until now the claims-intake agent did vision-OCR on the customer's attachment
-(PDF parte siniestro, photo of damage) by sending the bytes straight to a
+(PDF claim report, photo of damage) by sending the bytes straight to a
 chat-completion call with GPT-vision. That works but:
 
   * it is expensive (vision tokens are billed at a premium)
@@ -17,7 +17,7 @@ from unstructured documents" and is the right primary tool here.
 
 Design
 ------
-* A single custom analyzer ``parte-siniestro-es`` is created the first time
+* A single custom analyzer ``accident-report-en`` is created the first time
   ``ensure_analyzer()`` is called (idempotent — checks existence first).
 * ``extract_from_bytes(blob, mime_type)`` and ``extract_from_text(text)``
   return a dict with the schema below. They poll the long-running operation
@@ -55,33 +55,33 @@ logger = logging.getLogger(__name__)
 # (https://learn.microsoft.com/azure/ai-services/content-understanding/concepts/schema)
 # so the service can decide between extraction (transcribe) and generation
 # (infer/classify) per field.
-PARTE_SINIESTRO_SCHEMA: dict[str, Any] = {
-    "name": "ParteSiniestroEs",
+ACCIDENT_REPORT_SCHEMA: dict[str, Any] = {
+    "name": "AccidentReport",
     "description": (
-        "Datos estructurados extraidos de un parte de siniestro de auto "
-        f"presentado por un cliente de {BRAND_NAME}. Soporta PDFs "
-        "(formato europeo unificado), fotos del daño y notas de audio."
+        "Structured data extracted from a car claim report "
+        f"submitted by a customer of {BRAND_NAME}. Supports PDFs "
+        "(unified European format), damage photos and audio notes."
     ),
     "fields": {
         "incident_date": {
             "type": "date",
             "method": "extract",
-            "description": "Fecha en que ocurrio el siniestro (dd/mm/aaaa)",
+            "description": "Date on which the claim occurred (dd/mm/yyyy)",
         },
         "incident_time": {
             "type": "time",
             "method": "extract",
-            "description": "Hora aproximada del siniestro en formato 24h",
+            "description": "Approximate time of the claim in 24h format",
         },
         "incident_location": {
             "type": "string",
             "method": "extract",
-            "description": "Lugar del incidente (direccion, ciudad, provincia)",
+            "description": "Incident location (address, city, province)",
         },
         "incident_type": {
             "type": "string",
             "method": "classify",
-            "description": "Tipo de incidente detectado",
+            "description": "Detected incident type",
             "enum": [
                 "collision",
                 "theft",
@@ -95,53 +95,53 @@ PARTE_SINIESTRO_SCHEMA: dict[str, Any] = {
         "insured_vehicle_plate": {
             "type": "string",
             "method": "extract",
-            "description": "Matricula del vehiculo asegurado",
+            "description": "License plate of the insured vehicle",
         },
         "third_party_vehicle_plate": {
             "type": "string",
             "method": "extract",
-            "description": "Matricula del vehiculo del tercero implicado, si aplica",
+            "description": "License plate of the third-party vehicle involved, if applicable",
         },
         "damage_description": {
             "type": "string",
             "method": "generate",
             "description": (
-                "Resumen en una frase de los danos visibles, redactado en "
-                "espanol formal apto para informe."
+                "One-sentence summary of the visible damages, written in "
+                "formal English suitable for a report."
             ),
         },
         "damage_severity": {
             "type": "string",
             "method": "classify",
-            "description": "Severidad de los danos observados",
+            "description": "Severity of the observed damages",
             "enum": ["minor", "moderate", "severe", "total_loss"],
         },
         "estimated_amount_eur": {
             "type": "number",
             "method": "generate",
             "description": (
-                "Importe estimado de la reparacion en euros. Si la entrada no "
-                "lo indica, dejar 0."
+                "Estimated repair amount in euros. If the input does not "
+                "indicate it, leave 0."
             ),
         },
         "police_report_filed": {
             "type": "string",
             "method": "classify",
-            "description": "Si consta que se ha presentado denuncia policial",
+            "description": "Whether a police report has been filed",
             "enum": ["yes", "no", "unknown"],
         },
         "injuries_reported": {
             "type": "string",
             "method": "classify",
-            "description": "Si hay heridos declarados",
+            "description": "Whether any injuries are reported",
             "enum": ["yes", "no", "unknown"],
         },
         "summary": {
             "type": "string",
             "method": "generate",
             "description": (
-                "Resumen ejecutivo en una frase del siniestro, util para que "
-                "el operario humano lo lea de un vistazo."
+                "One-sentence executive summary of the claim, useful for "
+                "the human operator to read at a glance."
             ),
         },
     },
@@ -150,7 +150,7 @@ PARTE_SINIESTRO_SCHEMA: dict[str, Any] = {
 # ---------------------------------------------------------------------------
 # Module-level configuration
 # ---------------------------------------------------------------------------
-ANALYZER_ID = "parte-siniestro-es"
+ANALYZER_ID = "accident-report-en"
 API_VERSION = "2025-05-01-preview"
 BASE_ANALYZER_ID = "prebuilt-documentAnalyzer"  # Pro multimodal sibling: "prebuilt-multimodalAnalyzerPro"
 
@@ -246,10 +246,10 @@ async def ensure_analyzer() -> bool:
     # Create
     body = {
         "baseAnalyzerId": BASE_ANALYZER_ID,
-        "description": PARTE_SINIESTRO_SCHEMA["description"],
+        "description": ACCIDENT_REPORT_SCHEMA["description"],
         "fieldSchema": {
-            "name": PARTE_SINIESTRO_SCHEMA["name"],
-            "fields": PARTE_SINIESTRO_SCHEMA["fields"],
+            "name": ACCIDENT_REPORT_SCHEMA["name"],
+            "fields": ACCIDENT_REPORT_SCHEMA["fields"],
         },
         "config": {"returnDetails": True, "enableOcr": True, "enableLayout": True},
     }

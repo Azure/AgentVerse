@@ -1,16 +1,17 @@
-"""Validación de tokens JWT de Microsoft Entra ID.
+"""Microsoft Entra ID JWT token validation.
 
-Modo de uso:
-- AUTH_ENABLED=false (default): no se valida nada, todas las dependencias
-  devuelven un principal demo con ambos roles (Customer + Operator). De este
-  modo la demo "abierta" sigue funcionando exactamente como antes.
-- AUTH_ENABLED=true: cada request debe traer un `Authorization: Bearer <jwt>`.
-  La firma se valida contra los JWKS del tenant, y se exige
-  `aud=api://{AUTH_CLIENT_ID}` y `iss=https://login.microsoftonline.com/{tenant}/v2.0`.
+Usage:
+- AUTH_ENABLED=false (default): nothing is validated, all dependencies
+  return a demo principal with both roles (Customer + Operator). This way
+  the "open" demo keeps working exactly as before.
+- AUTH_ENABLED=true: every request must carry an `Authorization: Bearer <jwt>`.
+  The signature is validated against the tenant JWKS, and
+  `aud=api://{AUTH_CLIENT_ID}` and `iss=https://login.microsoftonline.com/{tenant}/v2.0`
+  are required.
 
-Roles esperados (claim `roles` del access token):
-- Customer.Submit  → puede crear y consultar sus propios siniestros
-- Operator.Review  → puede ver todos los siniestros, cola de revisión, etc.
+Expected roles (`roles` claim of the access token):
+- Customer.Submit  → can create and query their own claims
+- Operator.Review  → can view all claims, the review queue, etc.
 """
 
 from __future__ import annotations
@@ -52,8 +53,8 @@ class Principal:
         return ROLE_OPERATOR in self.roles
 
 
-# Principal usado cuando AUTH_ENABLED=false. Tiene ambos roles para que cualquier
-# endpoint protegido siga funcionando en modo demo abierto.
+# Principal used when AUTH_ENABLED=false. Has both roles so that any
+# protected endpoint keeps working in open demo mode.
 _DEMO_PRINCIPAL = Principal(
     sub="demo",
     upn="demo@local",
@@ -77,8 +78,8 @@ def _expected_issuer() -> str:
 
 
 def _expected_audience() -> list[str]:
-    # En tokens v2.0 emitidos por la propia app, el aud puede ser el GUID puro
-    # (`{CLIENT_ID}`) o el identifier URI (`api://{CLIENT_ID}`). Aceptamos ambos.
+    # In v2.0 tokens issued by the app itself, the aud may be the bare GUID
+    # (`{CLIENT_ID}`) or the identifier URI (`api://{CLIENT_ID}`). We accept both.
     return [f"api://{CLIENT_ID}", CLIENT_ID]
 
 
@@ -95,14 +96,14 @@ def _get_jwks(force_refresh: bool = False) -> dict:
 
 
 def _validate_token(token: str) -> Principal:
-    """Valida la firma + claims estándar del JWT y devuelve un Principal."""
+    """Validate the JWT signature + standard claims and return a Principal."""
     import jwt
     from jwt.algorithms import RSAAlgorithm
 
     try:
         header = jwt.get_unverified_header(token)
     except jwt.PyJWTError as e:
-        logger.warning("Token sin header válido: %s", e)
+        logger.warning("Token without a valid header: %s", e)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="invalid_token"
         ) from e
@@ -114,7 +115,7 @@ def _validate_token(token: str) -> Principal:
     jwks = _get_jwks()
     key_dict = next((k for k in jwks.get("keys", []) if k.get("kid") == kid), None)
     if key_dict is None:
-        # Refresca por si la clave se rotó
+        # Refresh in case the key was rotated
         jwks = _get_jwks(force_refresh=True)
         key_dict = next((k for k in jwks.get("keys", []) if k.get("kid") == kid), None)
     if key_dict is None:
@@ -132,7 +133,7 @@ def _validate_token(token: str) -> Principal:
             options={"require": ["exp", "iat"]},
         )
     except jwt.PyJWTError as e:
-        logger.warning("Token JWT inválido: %s", e)
+        logger.warning("Invalid JWT token: %s", e)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=f"invalid_token: {e}"
         ) from e
@@ -163,11 +164,11 @@ def _extract_bearer(request: Request) -> Optional[str]:
 # ── FastAPI dependencies ──────────────────────────────────────────────────────
 
 def get_principal(request: Request) -> Principal:
-    """Dependency base: extrae+valida el token o devuelve el demo principal."""
+    """Base dependency: extract+validate the token or return the demo principal."""
     if not AUTH_ENABLED:
         return _DEMO_PRINCIPAL
     if not TENANT_ID or not CLIENT_ID:
-        logger.error("AUTH_ENABLED=true pero AUTH_TENANT_ID/AUTH_CLIENT_ID vacíos")
+        logger.error("AUTH_ENABLED=true but AUTH_TENANT_ID/AUTH_CLIENT_ID empty")
         raise HTTPException(status_code=500, detail="auth_misconfigured")
     token = _extract_bearer(request)
     if not token:
@@ -214,13 +215,13 @@ def require_customer_or_operator(
 
 
 def enforce_self_or_operator(principal: Principal, customer_id: str) -> None:
-    """Si el principal es customer-puro, exige que `customer_id` coincida con su UPN."""
+    """If the principal is customer-only, require `customer_id` to match their UPN."""
     if not AUTH_ENABLED:
         return
     if principal.is_operator:
         return
-    # En la demo el frontend usa el UPN como customer_id, así que comparamos
-    # case-insensitive contra varios candidatos del token.
+    # In the demo the frontend uses the UPN as customer_id, so we compare
+    # case-insensitive against several candidates from the token.
     candidates = {
         principal.upn.lower(),
         str(principal.raw.get("preferred_username", "")).lower(),

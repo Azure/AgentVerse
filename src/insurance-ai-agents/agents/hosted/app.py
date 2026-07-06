@@ -155,7 +155,7 @@ _CLAIM_FIELDS = (
 
 
 def _json(payload: dict, status_code: int = 200) -> Response:
-    # default=str guards against any stray datetime and keeps Spanish text intact.
+    # default=str guards against any stray datetime and keeps non-ASCII text intact.
     return Response(
         json.dumps(payload, ensure_ascii=False, default=str),
         status_code=status_code,

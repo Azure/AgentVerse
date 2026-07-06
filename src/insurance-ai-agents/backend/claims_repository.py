@@ -1,14 +1,14 @@
-"""Persistencia de siniestros en Azure Cosmos DB.
+"""Claims persistence in Azure Cosmos DB.
 
-Diseño:
-- Container `claims` particionado por `/customer_id`
-- Acceso AAD con DefaultAzureCredential (sin claves)
-- Si las variables de entorno COSMOS_* no están configuradas, el repositorio
-  cae en modo no-op para que el backend siga funcionando en local sin Cosmos.
+Design:
+- Container `claims` partitioned by `/customer_id`
+- AAD access with DefaultAzureCredential (keyless)
+- If the COSMOS_* environment variables are not configured, the repository
+  falls back to no-op mode so the backend keeps working locally without Cosmos.
 
-Cuando Cosmos está activo, el backend persiste cada siniestro procesado para:
-- Vista de Cliente: listar "mis siniestros" (query por partition key)
-- Vista de Operario: cola de revisión humana (query cross-partition por decision)
+When Cosmos is active, the backend persists each processed claim for:
+- Customer view: list "my claims" (query by partition key)
+- Operator view: human review queue (cross-partition query by decision)
 """
 
 from __future__ import annotations
@@ -23,12 +23,12 @@ logger = logging.getLogger(__name__)
 
 
 def _ensure_azure_cli_on_path() -> None:
-    """Asegura que `az.cmd` está en PATH para que AzureCliCredential lo encuentre.
+    """Ensure `az.cmd` is on PATH so AzureCliCredential can find it.
 
-    En Windows, cuando uvicorn se arranca como proceso desligado, a veces el
-    PATH heredado no incluye el directorio de Azure CLI aunque el usuario lo
-    tenga instalado. azure-identity invoca `az` por subprocess, así que sin
-    el directorio en PATH, AzureCliCredential falla con
+    On Windows, when uvicorn is started as a detached process, sometimes the
+    inherited PATH does not include the Azure CLI directory even though the
+    user has it installed. azure-identity invokes `az` via subprocess, so
+    without the directory on PATH, AzureCliCredential fails with
     'Failed to invoke the Azure CLI'.
     """
     if sys.platform != "win32":
@@ -47,7 +47,7 @@ def _ensure_azure_cli_on_path() -> None:
 
 
 class ClaimsRepository:
-    """Wrapper sobre el container `claims` de Cosmos DB."""
+    """Wrapper over the Cosmos DB `claims` container."""
 
     def __init__(self) -> None:
         self.endpoint = os.environ.get("COSMOS_ENDPOINT", "").strip()
@@ -57,7 +57,7 @@ class ClaimsRepository:
         self._client = None
 
         if not self.endpoint:
-            logger.info("Cosmos DB no configurado (COSMOS_ENDPOINT vacío) → modo en-memoria.")
+            logger.info("Cosmos DB not configured (COSMOS_ENDPOINT empty) → in-memory mode.")
             return
 
         _ensure_azure_cli_on_path()
@@ -71,11 +71,11 @@ class ClaimsRepository:
             db = self._client.get_database_client(self.database_name)
             self._container = db.get_container_client(self.container_name)
             logger.info(
-                "Cosmos DB conectado: endpoint=%s db=%s container=%s",
+                "Cosmos DB connected: endpoint=%s db=%s container=%s",
                 self.endpoint, self.database_name, self.container_name,
             )
         except Exception as e:  # noqa: BLE001
-            logger.warning("No se pudo conectar a Cosmos DB (%s) → modo en-memoria.", e)
+            logger.warning("Could not connect to Cosmos DB (%s) → in-memory mode.", e)
             self._container = None
 
     @property
@@ -83,10 +83,10 @@ class ClaimsRepository:
         return self._container is not None
 
     def save(self, claim: dict[str, Any]) -> None:
-        """Persiste un siniestro procesado. No-op si Cosmos no está activo."""
+        """Persist a processed claim. No-op if Cosmos is not active."""
         if not self._container:
             return
-        # Cosmos requiere `id` como string y `customer_id` para el partition key
+        # Cosmos requires `id` as a string and `customer_id` for the partition key
         doc = dict(claim)
         doc["id"] = doc.get("claim_id") or doc["id"]
         if "customer_id" not in doc:
@@ -97,7 +97,7 @@ class ClaimsRepository:
             self._container.upsert_item(doc)
             logger.debug("Cosmos upsert ok: id=%s customer=%s", doc["id"], doc["customer_id"])
         except Exception as e:  # noqa: BLE001
-            logger.warning("Cosmos upsert falló (id=%s): %s", doc.get("id"), e)
+            logger.warning("Cosmos upsert failed (id=%s): %s", doc.get("id"), e)
 
     def get(self, claim_id: str, customer_id: str) -> Optional[dict[str, Any]]:
         if not self._container:
@@ -105,11 +105,11 @@ class ClaimsRepository:
         try:
             return self._container.read_item(item=claim_id, partition_key=customer_id)
         except Exception as e:  # noqa: BLE001
-            logger.debug("Cosmos read falló (id=%s): %s", claim_id, e)
+            logger.debug("Cosmos read failed (id=%s): %s", claim_id, e)
             return None
 
     def list_by_customer(self, customer_id: str, limit: int = 100) -> list[dict[str, Any]]:
-        """Query por partition key — eficiente, single-partition."""
+        """Query by partition key — efficient, single-partition."""
         if not self._container:
             return []
         try:
@@ -120,11 +120,11 @@ class ClaimsRepository:
             ))
             return items
         except Exception as e:  # noqa: BLE001
-            logger.warning("Cosmos query (by customer) falló: %s", e)
+            logger.warning("Cosmos query (by customer) failed: %s", e)
             return []
 
     def list_pending_review(self, limit: int = 100) -> list[dict[str, Any]]:
-        """Cola de revisión humana — cross-partition (uso operario)."""
+        """Human review queue — cross-partition (operator use)."""
         if not self._container:
             return []
         try:
@@ -135,11 +135,11 @@ class ClaimsRepository:
             ))
             return items
         except Exception as e:  # noqa: BLE001
-            logger.warning("Cosmos query (pending review) falló: %s", e)
+            logger.warning("Cosmos query (pending review) failed: %s", e)
             return []
 
     def list_all(self, limit: int = 200) -> list[dict[str, Any]]:
-        """Lista todos los siniestros — cross-partition (uso operario)."""
+        """List all claims — cross-partition (operator use)."""
         if not self._container:
             return []
         try:
@@ -150,11 +150,11 @@ class ClaimsRepository:
             ))
             return items
         except Exception as e:  # noqa: BLE001
-            logger.warning("Cosmos query (all) falló: %s", e)
+            logger.warning("Cosmos query (all) failed: %s", e)
             return []
 
 
-# Singleton — se instancia una sola vez al importar
+# Singleton — instantiated only once on import
 _repo: ClaimsRepository | None = None
 
 

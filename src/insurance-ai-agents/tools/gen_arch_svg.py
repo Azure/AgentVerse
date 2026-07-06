@@ -1,11 +1,11 @@
-"""Generate the architecture SVG diagrams in both Spanish and English.
+"""Generate the architecture SVG diagrams.
 
 Both share the same layout, gradients, icons and arrow routing. Only the text
 strings change. The brand mark is an inline SVG hexagon so the diagram is
 self-contained (no external image dependencies).
 
 Run from repo root:  python tools\\gen_arch_svg.py
-Outputs:             images/architecture.svg     (Spanish, default for the demo)
+Outputs:             images/architecture.svg     (English, default for the demo)
                      images/architecture-en.svg  (English, reference architecture)
 """
 from __future__ import annotations
@@ -28,101 +28,100 @@ BRAND_PRIMARY_DARK = "#1E40AF"   # dark brand color (blue-800), replaces former 
 # ----------------------------------------------------------------------------
 STRINGS = {
     "es": {
-        "title_attr": "Insurance AI Agents — Arquitectura de Referencia",
+        "title_attr": "Insurance AI Agents — Reference Architecture",
         "desc_attr": (
-            "Demo de procesamiento multi-agente de siniestros: dashboard React, "
-            "backend FastAPI sobre Azure Container Apps, Microsoft Agent Framework "
-            "orquestando los agentes Intake / Risk / Compliance, Azure OpenAI a "
-            "través del APIM AI Gateway, Cosmos DB y Blob Storage para estado, "
-            "Microsoft Entra ID para identidad, Application Insights para "
-            "observabilidad, GitHub Enterprise (CODEOWNERS, Eval Gate, Actions) "
-            "para gobernanza."
+            "Multi-agent claims processing demo: React dashboard, FastAPI backend "
+            "on Azure Container Apps, Microsoft Agent Framework orchestrating "
+            "Intake / Risk / Compliance agents, Azure OpenAI through APIM AI "
+            "Gateway, Cosmos DB and Blob Storage for state, Microsoft Entra ID "
+            "for identity, Application Insights for observability, GitHub "
+            "Enterprise (CODEOWNERS, Eval Gate, Actions) for governance."
         ),
-        "aria_label": "Arquitectura de referencia de Insurance AI Agents",
+        "aria_label": "Insurance AI Agents reference architecture",
         "subtitle": (
-            "GESTIÓN DE SINIESTROS MULTI-AGENTE GOBERNADA · ARQUITECTURA DE REFERENCIA"
+            "GOVERNED MULTI-AGENT CLAIMS PROCESSING · REFERENCE ARCHITECTURE"
         ),
-        "zone_edge": "BORDE · CAPA CLIENTE",
-        "zone_azure": "MICROSOFT AZURE · TENANT EMPRESARIAL",
+        "zone_edge": "EDGE · CLIENT TIER",
+        "zone_azure": "MICROSOFT AZURE · ENTERPRISE TENANT",
         "zone_governance": (
-            "GITHUB ENTERPRISE · CAPA DE GOBERNANZA  "
-            "(PROTEGE Y AUDITA TODO LO DE ARRIBA)"
+            "GITHUB ENTERPRISE · GOVERNANCE LANE  "
+            "(PROTECTS &amp; AUDITS ALL ABOVE)"
         ),
-        "users_header": "USUARIOS FINALES · NAVEGADOR",
-        "user_customer": "Cliente",
-        "user_operator": "Operario",
-        "role_customer": "rol: Customer.Submit",
-        "role_operator": "rol: Operator.Review",
-        "dashboard_bullet_1": "▸ Vistas por rol",
-        "dashboard_bullet_2": "▸ Cliente · Operario · Riesgo",
-        "dashboard_bullet_3": "▸ Compliance · Demo automática",
-        "dashboard_bullet_4": "▸ Streaming WebSocket en vivo",
-        "legend_title": "LEYENDA",
-        "legend_request": "Petición / identidad",
-        "legend_maf": "Flujo multi-agente (MAF)",
-        "legend_inference": "Inferencia LLM vía APIM",
-        "legend_persistence": "Persistencia (auditoría)",
-        "legend_observability": "Observabilidad",
-        "legend_governance": "Gobernanza (protege)",
-        "legend_steps_title": "PASOS DEL FLUJO",
-        "legend_steps_desc": "numerados en orden de ejecución (1→9)",
-        "legend_steps_hint": "leer arriba→abajo, izq→der",
-        "entra_subtitle": "Proveedor de identidad (OIDC)",
+        "users_header": "END USERS · BROWSER",
+        "user_customer": "Customer",
+        "user_operator": "Operator",
+        "role_customer": "role: Customer.Submit",
+        "role_operator": "role: Operator.Review",
+        "dashboard_bullet_1": "▸ Per-role views",
+        "dashboard_bullet_2": "▸ Customer · Operator · Risk",
+        "dashboard_bullet_3": "▸ Compliance · Auto-demo",
+        "dashboard_bullet_4": "▸ Live WebSocket streaming",
+        "legend_title": "LEGEND",
+        "legend_request": "Request / identity",
+        "legend_maf": "Multi-agent flow (MAF)",
+        "legend_inference": "LLM inference via APIM",
+        "legend_persistence": "Persistence (audit)",
+        "legend_observability": "Observability",
+        "legend_governance": "Governance (protects)",
+        "legend_steps_title": "FLOW STEPS",
+        "legend_steps_desc": "numbered in execution order (1→9)",
+        "legend_steps_hint": "read top→bottom, left→right",
+        "entra_subtitle": "Identity provider (OIDC)",
         "fastapi_bullet_1": "▸ /api/claims · WebSocket /ws",
-        "fastapi_bullet_2": "▸ Validación JWT (vs Entra)",
-        "fastapi_bullet_3": "▸ Protección anti prompt-injection",
+        "fastapi_bullet_2": "▸ JWT validation (vs Entra)",
+        "fastapi_bullet_3": "▸ Prompt-injection guard",
         "fastapi_bullet_4": "▸ Managed Identity → Azure",
-        "kv_subtitle": "Almacén de secretos · accedido vía MI",
-        "kv_desc": "Clave APIM · clave OpenAI · firma JWT",
-        "maf_zone_title": "MICROSOFT AGENT FRAMEWORK · GRAFO SECUENCIAL",
-        "orch_title": "Orquestador",
-        "orch_subtitle": "Plan · Stream · Fallback · Auditoría",
-        "agent_intake_title": "Agente Intake",
-        "agent_intake_desc_1": "Extrae datos estructurados del siniestro",
-        "agent_intake_desc_2": "multilingüe · structured-output (Pydantic)",
-        "agent_intake_desc_3": "consulta póliza + cliente",
-        "agent_risk_title": "Agente Risk",
-        "agent_risk_desc_1": "Puntuación de riesgo 0-100 + detección de fraude",
-        "agent_risk_desc_2": "cobertura póliza · historial cliente",
-        "agent_risk_desc_3": "señal de fraude · explicabilidad",
-        "agent_compliance_title": "Agente Compliance",
-        "agent_compliance_desc_1": "Reglas regulatorias + protección anti-injection",
-        "agent_compliance_desc_2": "regex determinista · veredicto LLM",
-        "agent_compliance_desc_3": "detección de override · modo DAN",
-        "apim_subtitle": "Punto único de política y auditoría",
-        "apim_bullet_1": "▸ Content Safety · detección jailbreak",
-        "apim_bullet_2": "▸ Límite tokens · rate-limit por agente",
-        "apim_bullet_3": "▸ Audit logs · cabecera X-Agent-Id",
+        "kv_subtitle": "Secret store · accessed via MI",
+        "kv_desc": "APIM key · OpenAI key · JWT signing",
+        "maf_zone_title": "MICROSOFT AGENT FRAMEWORK · SEQUENTIAL GRAPH",
+        "orch_title": "Orchestrator",
+        "orch_subtitle": "Plan · Stream · Fallback · Audit",
+        "agent_intake_title": "Intake Agent",
+        "agent_intake_desc_1": "Extracts structured claim data",
+        "agent_intake_desc_2": "multilingual · structured-output (Pydantic)",
+        "agent_intake_desc_3": "policy + customer lookup",
+        "agent_risk_title": "Risk Agent",
+        "agent_risk_desc_1": "Risk score 0-100 + fraud detection",
+        "agent_risk_desc_2": "policy coverage · customer history",
+        "agent_risk_desc_3": "fraud signal · explainability",
+        "agent_compliance_title": "Compliance Agent",
+        "agent_compliance_desc_1": "Regulatory rules + injection guard",
+        "agent_compliance_desc_2": "deterministic regex · LLM verdict",
+        "agent_compliance_desc_3": "supervisor override detection · DAN mode",
+        "apim_subtitle": "Single point of policy &amp; audit",
+        "apim_bullet_1": "▸ Content Safety · jailbreak detect",
+        "apim_bullet_2": "▸ Token-limit · rate-limit per agent",
+        "apim_bullet_3": "▸ Audit logs · X-Agent-Id header",
         "apim_bullet_4": "▸ Managed Identity → AOAI",
-        "aoai_desc_1": "endpoint privado · auth MI · streaming",
-        "aoai_desc_2": "DefaultAzureCredential / fallback az CLI",
+        "aoai_desc_1": "private endpoint · MI auth · streaming",
+        "aoai_desc_2": "DefaultAzureCredential / az CLI fallback",
         "cosmos_subtitle": "NoSQL · audit trail",
-        "cosmos_desc": "claims · trazas · log de gobernanza",
-        "blob_subtitle": "Evidencias (PDFs · fotos)",
-        "blob_desc": "partes · daños · documentación",
-        "appins_subtitle": "Telemetría de toda la pila",
-        "appins_desc": "trazas · latencia · coste tokens · alertas",
-        "thub_title": "Hub de telemetría",
-        "thub_subtitle": "APIM + agentes emiten trazas",
-        "thub_desc": "X-Agent-Id · métricas safety / coste",
-        "github_subtitle": "fuente de verdad · auditoría",
-        "codeowners_subtitle": "revisión por dominio",
+        "cosmos_desc": "claims · traces · governance log",
+        "blob_subtitle": "Evidence (PDFs · photos)",
+        "blob_desc": "reports · damage · documentation",
+        "appins_subtitle": "Telemetry across the stack",
+        "appins_desc": "trace · latency · token cost · alerts",
+        "thub_title": "Telemetry hub",
+        "thub_subtitle": "APIM + agents emit traces",
+        "thub_desc": "X-Agent-Id · safety / cost metrics",
+        "github_subtitle": "source of truth · audit",
+        "codeowners_subtitle": "per-domain review",
         "codeowners_desc": "agents · backend · evals · dashboard · infra",
-        "evalgate_subtitle": "golden dataset en cada PR",
-        "evalgate_desc": "bloquea merge si baja el pass-rate",
-        "actions_subtitle": "OIDC federado → Azure",
-        "actions_desc": "build · evals · azd up · aprovisionado",
-        "banco_title": "REGULATORIO NIVEL BANCO",
-        "banco_desc_1": "Mismo rigor que el software bancario crítico:",
-        "banco_desc_2": "peer review · evals · OIDC · auditoría · PRs firmados",
-        "banco_desc_3": "Ningún humano puede hacer merge sin pasar los checks de gobernanza",
-        "arr_inference": "inferencia",
-        "arr_audit": "auditoría",
-        "arr_evidence": "evidencias",
-        "arr_telemetry": "telemetría",
-        "arr_step_1": "paso 1",
-        "arr_step_2": "paso 2",
-        "arr_step_3": "paso 3",
+        "evalgate_subtitle": "golden dataset on every PR",
+        "evalgate_desc": "blocks merge if eval pass-rate drops",
+        "actions_subtitle": "federated OIDC → Azure",
+        "actions_desc": "build · evals · azd up · provision",
+        "banco_title": "BANK-GRADE REGULATORY",
+        "banco_desc_1": "Same rigor as critical banking software:",
+        "banco_desc_2": "peer review · evals · OIDC · audit · signed PRs",
+        "banco_desc_3": "No human can merge without governance checks passing",
+        "arr_inference": "inference",
+        "arr_audit": "audit write",
+        "arr_evidence": "evidence",
+        "arr_telemetry": "telemetry",
+        "arr_step_1": "step 1",
+        "arr_step_2": "step 2",
+        "arr_step_3": "step 3",
     },
     "en": {
         "title_attr": "Insurance AI Agents — Reference Architecture",

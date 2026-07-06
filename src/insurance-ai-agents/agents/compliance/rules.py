@@ -44,13 +44,13 @@ REGULATIONS = [
     },
     {
         "id": "REG-ES-DGS-2024-001",
-        "name": "DGS - Protección del Asegurado",
+        "name": "DGS - Policyholder Protection",
         "description": "Claims must be processed within 30 business days",
         "applies_to": "all_claims",
     },
     {
         "id": "REG-ES-DGS-2024-002",
-        "name": "DGS - Anti-Fraude",
+        "name": "DGS - Anti-Fraud",
         "description": "High-risk claims must undergo enhanced due diligence",
         "applies_to": "high_risk",
     },
@@ -96,7 +96,7 @@ def evaluate_compliance(
     if fraud_value >= RULES["fraud_auto_reject_threshold"]:
         decision = "reject"
         reasons.append(
-            f"Probabilidad de fraude ({fraud_probability}) supera el umbral de rechazo "
+            f"Fraud probability ({fraud_probability}) exceeds the rejection threshold "
             f"({RULES['fraud_auto_reject_threshold']})"
         )
 
@@ -106,8 +106,8 @@ def evaluate_compliance(
             if decision != "reject":
                 decision = "human_review"
             reasons.append(
-                f"El monto del siniestro ({claim_amount}€) supera el umbral de revisión humana "
-                f"obligatoria ({RULES['human_review_threshold']}€)"
+                f"The claim amount ({claim_amount}€) exceeds the mandatory human review "
+                f"threshold ({RULES['human_review_threshold']}€)"
             )
 
     # Check auto-approve limits
@@ -115,7 +115,7 @@ def evaluate_compliance(
         if decision == "approve":
             decision = "human_review"
         reasons.append(
-            f"El monto del siniestro ({claim_amount}€) supera el límite de aprobación automática "
+            f"The claim amount ({claim_amount}€) exceeds the automatic approval limit "
             f"({RULES['auto_approve_max_amount']}€)"
         )
 
@@ -124,12 +124,12 @@ def evaluate_compliance(
         if decision == "approve":
             decision = "human_review"
         reasons.append(
-            f"El score de riesgo ({risk_score}) supera el máximo permitido para aprobación automática "
+            f"The risk score ({risk_score}) exceeds the maximum allowed for automatic approval "
             f"({RULES['max_risk_score_auto_approve']})"
         )
 
     if not reasons:
-        reasons.append("Todos los controles superados · apto para aprobación automática")
+        reasons.append("All checks passed · eligible for automatic approval")
 
     return {
         "decision": decision,

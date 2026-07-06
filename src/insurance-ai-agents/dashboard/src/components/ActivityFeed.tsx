@@ -16,28 +16,28 @@ const stageConfig: Record<string, { label: string; icon: typeof Bot; thinkingMsg
   intake: {
     label: 'Claims Intake Agent',
     icon: Search,
-    thinkingMsg: 'Leyendo la descripción del siniestro, verificando la póliza en el sistema, extrayendo datos clave y clasificando la severidad...',
+    thinkingMsg: 'Reading the claim description, verifying the policy in the system, extracting key data and classifying severity...',
   },
   risk_assessment: {
     label: 'Risk & Fraud Agent',
     icon: ShieldAlert,
-    thinkingMsg: 'Consultando el historial de reclamaciones del cliente, comparando con patrones de fraude conocidos, calculando el score de riesgo...',
+    thinkingMsg: 'Reviewing the customer claim history, comparing against known fraud patterns, calculating the risk score...',
   },
   compliance: {
     label: 'Compliance Agent',
     icon: Scale,
-    thinkingMsg: 'Verificando contra la normativa vigente (EU Insurance Directive, DGS, EU AI Act), validando umbrales regulatorios...',
+    thinkingMsg: 'Checking against current regulations (EU Insurance Directive, DGS, EU AI Act), validating regulatory thresholds...',
   },
   decision: {
-    label: 'Decisión Final',
+    label: 'Final Decision',
     icon: Gavel,
-    thinkingMsg: 'Agregando el análisis de los tres agentes especializados y aplicando las reglas de negocio...',
+    thinkingMsg: 'Aggregating the analysis of the three specialized agents and applying the business rules...',
   },
 };
 
 function formatTime(ts: string) {
   try {
-    return new Date(ts).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    return new Date(ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   } catch {
     return '';
   }
@@ -48,11 +48,11 @@ function extractInsight(stage: string, data: Record<string, unknown>): { summary
 
   if (stage === 'intake') {
     const details: string[] = [];
-    if (data.policy_valid !== undefined) details.push(data.policy_valid ? '✓ Póliza verificada y activa' : '✗ Póliza no válida');
-    if (data.severity) details.push(`Severidad: ${data.severity === 'high' ? 'alta' : data.severity === 'medium' ? 'media' : 'baja'}`);
+    if (data.policy_valid !== undefined) details.push(data.policy_valid ? '✓ Policy verified and active' : '✗ Invalid policy');
+    if (data.severity) details.push(`Severity: ${data.severity === 'high' ? 'high' : data.severity === 'medium' ? 'medium' : 'low'}`);
     const extracted = data.extracted_data as Record<string, unknown> | undefined;
-    if (extracted?.incident_type) details.push(`Tipo: ${extracted.incident_type}`);
-    if (extracted?.estimated_amount) details.push(`Monto: ${Number(extracted.estimated_amount).toLocaleString('es-ES')}€`);
+    if (extracted?.incident_type) details.push(`Type: ${extracted.incident_type}`);
+    if (extracted?.estimated_amount) details.push(`Amount: ${Number(extracted.estimated_amount).toLocaleString('en-US')}€`);
     const summary = (data.summary as string) || '';
     return { summary, details };
   }
@@ -61,17 +61,17 @@ function extractInsight(stage: string, data: Record<string, unknown>): { summary
     const details: string[] = [];
     const score = data.risk_score as number;
     const fraud = data.fraud_probability as string;
-    if (score !== undefined) details.push(`Risk score: ${score}/10 ${score <= 4 ? '(bajo)' : score <= 7 ? '(medio)' : '(alto)'}`);
+    if (score !== undefined) details.push(`Risk score: ${score}/10 ${score <= 4 ? '(low)' : score <= 7 ? '(medium)' : '(high)'}`);
     if (fraud) {
-      const label = { low: 'baja', medium: 'media', high: 'alta' }[fraud] || fraud;
-      details.push(`Probabilidad de fraude: ${label}`);
+      const label = { low: 'low', medium: 'medium', high: 'high' }[fraud] || fraud;
+      details.push(`Fraud probability: ${label}`);
     }
     const factors = data.risk_factors as Array<Record<string, unknown>> | undefined;
     if (factors?.length) {
       const negatives = factors.filter((f) => f.impact === 'negative').map((f) => f.factor as string);
       const positives = factors.filter((f) => f.impact === 'positive').map((f) => f.factor as string);
-      if (positives.length) details.push(`Factores positivos: ${positives.join(', ')}`);
-      if (negatives.length) details.push(`Factores de riesgo: ${negatives.join(', ')}`);
+      if (positives.length) details.push(`Positive factors: ${positives.join(', ')}`);
+      if (negatives.length) details.push(`Risk factors: ${negatives.join(', ')}`);
     }
     const reasoning = (data.reasoning as string) || '';
     return { summary: reasoning, details };
@@ -81,11 +81,11 @@ function extractInsight(stage: string, data: Record<string, unknown>): { summary
     const details: string[] = [];
     const decision = data.decision as string;
     if (decision) {
-      const label = { approve: 'Aprobación automática', human_review: 'Revisión humana requerida', reject: 'Rechazo' }[decision] || decision;
-      details.push(`Recomendación: ${label}`);
+      const label = { approve: 'Automatic approval', human_review: 'Human review required', reject: 'Rejection' }[decision] || decision;
+      details.push(`Recommendation: ${label}`);
     }
     const regs = data.regulations_checked as string[] | undefined;
-    if (regs?.length) details.push(`Regulaciones verificadas: ${regs.join(', ')}`);
+    if (regs?.length) details.push(`Regulations checked: ${regs.join(', ')}`);
     const reasoning = (data.reasoning as string) || '';
     return { summary: reasoning, details };
   }
@@ -96,8 +96,8 @@ function extractInsight(stage: string, data: Record<string, unknown>): { summary
     const reasoning = (data.reasoning as string) || '';
     const details: string[] = [];
     if (decision) {
-      const label = { approve: '✅ APROBADO', human_review: '⚠️ REVISIÓN HUMANA', reject: '❌ RECHAZADO' }[decision] || decision;
-      details.push(`${label} · ${((confidence || 0) * 100).toFixed(0)}% confianza`);
+      const label = { approve: '✅ APPROVED', human_review: '⚠️ HUMAN REVIEW', reject: '❌ REJECTED' }[decision] || decision;
+      details.push(`${label} · ${((confidence || 0) * 100).toFixed(0)}% confidence`);
     }
     return { summary: reasoning, details };
   }
@@ -118,11 +118,11 @@ export default function ActivityFeed({ events }: Props) {
     <div className="animate-slide-in rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
       <div className="mb-4 flex items-center gap-2">
         <Brain className="h-4 w-4 text-primary-600" />
-        <h3 className="text-sm font-medium uppercase tracking-wider text-gray-700">Razonamiento de los Agentes</h3>
+        <h3 className="text-sm font-medium uppercase tracking-wider text-gray-700">Agent Reasoning</h3>
       </div>
       <div className="max-h-[500px] space-y-3 overflow-y-auto pr-1">
         {events.map((ev, i) => {
-          const config = stageConfig[ev.stage] || { label: ev.stage, icon: Bot, thinkingMsg: 'Procesando...' };
+          const config = stageConfig[ev.stage] || { label: ev.stage, icon: Bot, thinkingMsg: 'Processing...' };
           const StageIcon = config.icon;
           const isProcessing = ev.status === 'processing';
           const isCompleted = ev.status === 'completed';
@@ -170,7 +170,7 @@ export default function ActivityFeed({ events }: Props) {
                   </div>
                 )}
 
-                {!isProcessing && !isCompleted && <p className="text-sm text-red-700">Error en el procesamiento del agente</p>}
+                {!isProcessing && !isCompleted && <p className="text-sm text-red-700">Error during agent processing</p>}
               </div>
             </div>
           );

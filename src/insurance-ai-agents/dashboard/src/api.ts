@@ -3,8 +3,8 @@ import { acquireApiToken } from './auth/msalConfig';
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 /**
- * Helper que añade el Authorization header con el access token de MSAL
- * cuando VITE_AUTH_ENABLED='true'. Si no, hace fetch normal (modo demo abierto).
+ * Helper that adds the Authorization header with the MSAL access token
+ * when VITE_AUTH_ENABLED='true'. Otherwise it does a normal fetch (open demo mode).
  */
 async function apiFetch(path: string, init: RequestInit = {}): Promise<Response> {
   const headers = new Headers(init.headers || {});

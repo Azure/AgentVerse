@@ -50,12 +50,7 @@
         <!-- ═══════════════════════════════════════════════════════════ -->
         <!-- 4. TOKEN RATE LIMITING — Cost control per agent           -->
         <!-- ═══════════════════════════════════════════════════════════ -->
-        <azure-openai-token-limit
-            tokens-per-minute="50000"
-            counter-key="@(context.Request.Headers.GetValueOrDefault("X-Agent-Id", context.Subscription.Id))"
-            estimate-prompt-tokens="true"
-            tokens-consumed-header-name="x-tokens-consumed"
-            remaining-tokens-header-name="x-tokens-remaining" />
+        <azure-openai-token-limit tokens-per-minute="50000" counter-key="@(context.Request.Headers.GetValueOrDefault("X-Agent-Id", context.Subscription.Id))" estimate-prompt-tokens="true" tokens-consumed-header-name="x-tokens-consumed" remaining-tokens-header-name="x-tokens-remaining" />
 
         <!-- ═══════════════════════════════════════════════════════════ -->
         <!-- 5. BACKEND SELECTION                                       -->
@@ -111,7 +106,7 @@
                     <set-body>@{
                         return new JObject(
                             new JProperty("error", "Token rate limit exceeded"),
-                            new JProperty("message", "El agente ha excedido su límite de tokens. Reintente en 60 segundos."),
+                            new JProperty("message", "The agent has exceeded its token limit. Retry in 60 seconds."),
                             new JProperty("correlationId", context.RequestId.ToString())
                         ).ToString();
                     }</set-body>
@@ -124,7 +119,7 @@
                     <set-body>@{
                         return new JObject(
                             new JProperty("error", "Content blocked by safety policy"),
-                            new JProperty("message", "La solicitud fue bloqueada por las políticas de seguridad de contenido."),
+                            new JProperty("message", "The request was blocked by content safety policies."),
                             new JProperty("correlationId", context.RequestId.ToString())
                         ).ToString();
                     }</set-body>

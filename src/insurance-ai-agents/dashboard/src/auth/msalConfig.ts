@@ -1,11 +1,11 @@
 /**
- * Configuración MSAL para Entra ID.
+ * MSAL configuration for Entra ID.
  *
- * - Si VITE_AUTH_ENABLED !== 'true' el frontend funciona en modo "demo abierto"
- *   (sin login) y se asume rol Operator (compatibilidad con la demo previa).
- * - Roles esperados (App Roles del app registration):
- *     Customer.Submit  → tab "Cliente"
- *     Operator.Review  → tabs Operario / Estadísticas / Clientes / Pólizas / Seguridad / Gobernanza
+ * - If VITE_AUTH_ENABLED !== 'true' the frontend runs in "open demo" mode
+ *   (no login) and assumes the Operator role (compatible with the previous demo).
+ * - Expected roles (App Roles of the app registration):
+ *     Customer.Submit  → "Customer" tab
+ *     Operator.Review  → tabs Operator / Statistics / Customers / Policies / Security / Governance
  */
 import { Configuration, LogLevel, PublicClientApplication } from '@azure/msal-browser';
 
@@ -14,13 +14,13 @@ export const AUTH_ENABLED = import.meta.env.VITE_AUTH_ENABLED === 'true';
 const CLIENT_ID = import.meta.env.VITE_AUTH_CLIENT_ID || '4e593597-088c-404c-984c-203259ff7dbe';
 const TENANT_ID = import.meta.env.VITE_AUTH_TENANT_ID || '763b21d6-9a2e-4d90-88f9-d3c5cc8dba90';
 
-// Scope expuesto por la propia API (App reg con identifier URI api://{CLIENT_ID}).
-// Para flujos delegated en SPAs se usa el scope nominal `access_as_user`, no
-// `.default` (que está pensado para client-credentials / admin consent).
+// Scope exposed by the API itself (App reg with identifier URI api://{CLIENT_ID}).
+// For delegated flows in SPAs we use the nominal scope `access_as_user`, not
+// `.default` (which is meant for client-credentials / admin consent).
 export const API_SCOPES: string[] = [`api://${CLIENT_ID}/access_as_user`];
-// Login mínimo: solo OIDC (openid+profile). Esto no requiere consent extra ni
-// scopes de Graph, así que el primer login con un usuario nuevo es 1 click.
-// El access token de la API se pide perezosamente vía acquireApiToken().
+// Minimal login: only OIDC (openid+profile). This requires no extra consent nor
+// Graph scopes, so the first login for a new user is a single click.
+// The API access token is requested lazily via acquireApiToken().
 export const LOGIN_SCOPES: string[] = ['openid', 'profile'];
 
 export const ROLE_CUSTOMER = 'Customer.Submit';
@@ -50,26 +50,26 @@ export const msalConfig: Configuration = {
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
-// Inicialización requerida en MSAL v3+ antes de cualquier API call.
+// Initialization required in MSAL v3+ before any API call.
 export const msalReady: Promise<void> = msalInstance.initialize().then(() => {
-  // Procesar redirect (no-op si usamos popup)
+  // Process redirect (no-op if we use popup)
   return msalInstance.handleRedirectPromise().then(() => undefined);
 });
 
 /**
- * Adquiere un access token para llamar a la API. Definida aquí (no en
- * useAuth.ts) para evitar la indirección con React y garantizar que cualquier
- * import use la misma instancia singleton de MSAL.
+ * Acquires an access token to call the API. Defined here (not in
+ * useAuth.ts) to avoid the React indirection and guarantee that any
+ * import uses the same MSAL singleton instance.
  *
- * Devuelve null si auth está desactivado, no hay cuenta, o si MSAL no puede
- * obtener el token de forma silenciosa. NO abrimos popup desde aquí.
+ * Returns null if auth is disabled, there is no account, or if MSAL cannot
+ * obtain the token silently. We do NOT open a popup from here.
  */
 export async function acquireApiToken(): Promise<string | null> {
   if (!AUTH_ENABLED) return null;
   await msalReady;
   const accounts = msalInstance.getAllAccounts();
   if (accounts.length === 0) {
-    console.warn('[auth] acquireApiToken: getAllAccounts()=[] → sin Bearer');
+    console.warn('[auth] acquireApiToken: getAllAccounts()=[] → no Bearer');
     return null;
   }
   try {

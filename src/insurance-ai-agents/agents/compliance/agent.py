@@ -15,24 +15,24 @@ load_dotenv(override=False)
 
 logger = logging.getLogger(__name__)
 
-SYSTEM_PROMPT = """Eres un especialista de cumplimiento normativo de una compañía de seguros española.
-Tu trabajo es verificar que cada decisión sobre siniestros cumple con las regulaciones vigentes
-y las políticas internas de la compañía.
+SYSTEM_PROMPT = """You are a regulatory compliance specialist at an insurance company.
+Your job is to verify that every claim decision complies with the applicable regulations
+and the company's internal policies.
 
-Para cada siniestro debes:
-1. Verificar las regulaciones aplicables
-2. Validar contra los umbrales regulatorios actuales
-3. Determinar si la reclamación puede ser aprobada automáticamente, necesita revisión humana, o debe rechazarse
-4. Documentar todos los controles realizados (esto es OBLIGATORIO por la normativa EU AI Act)
+For each claim you must:
+1. Verify the applicable regulations
+2. Validate against the current regulatory thresholds
+3. Determine whether the claim can be approved automatically, needs human review, or must be rejected
+4. Document all checks performed (this is MANDATORY under the EU AI Act)
 
-IMPORTANTE: Responde SIEMPRE en formato JSON con esta estructura:
+IMPORTANT: ALWAYS respond in JSON format with this structure:
 {
     "claim_id": "<id>",
     "compliant": true/false,
     "decision": "approve|human_review|reject",
     "regulations_checked": ["<reg_ids>"],
-    "rules_applied": {<reglas aplicadas y sus valores>},
-    "reasoning": "<explicación completa de la validación>"
+    "rules_applied": {<applied rules and their values>},
+    "reasoning": "<full explanation of the validation>"
 }"""
 
 
@@ -41,12 +41,12 @@ TOOLS = [
         "type": "function",
         "function": {
             "name": "check_regulations",
-            "description": "Obtiene la lista de regulaciones aplicables según el monto y riesgo del siniestro.",
+            "description": "Get the list of applicable regulations based on the claim amount and risk.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "claim_amount": {"type": "number", "description": "Monto del siniestro en euros"},
-                    "risk_score": {"type": "number", "description": "Score de riesgo (1-10)"},
+                    "claim_amount": {"type": "number", "description": "Claim amount in euros"},
+                    "risk_score": {"type": "number", "description": "Risk score (1-10)"},
                 },
                 "required": ["claim_amount", "risk_score"],
             },
@@ -56,13 +56,13 @@ TOOLS = [
         "type": "function",
         "function": {
             "name": "validate_thresholds",
-            "description": "Valida el siniestro contra los umbrales regulatorios y reglas de negocio actuales.",
+            "description": "Validate the claim against the current regulatory thresholds and business rules.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "claim_amount": {"type": "number", "description": "Monto del siniestro en euros"},
-                    "risk_score": {"type": "number", "description": "Score de riesgo (1-10)"},
-                    "fraud_probability": {"type": "string", "description": "Probabilidad de fraude: low, medium, high"},
+                    "claim_amount": {"type": "number", "description": "Claim amount in euros"},
+                    "risk_score": {"type": "number", "description": "Risk score (1-10)"},
+                    "fraud_probability": {"type": "string", "description": "Fraud probability: low, medium, high"},
                 },
                 "required": ["claim_amount", "risk_score", "fraud_probability"],
             },
@@ -110,17 +110,17 @@ async def run(claim_input: dict, intake_result: dict, risk_result: dict) -> dict
         {
             "role": "user",
             "content": (
-                f"Valida el cumplimiento normativo del siguiente siniestro:\n\n"
-                f"ID Siniestro: {claim_input.get('claim_id', 'CLM-UNKNOWN')}\n"
-                f"Monto estimado: {amount}€\n"
+                f"Validate the regulatory compliance of the following claim:\n\n"
+                f"Claim ID: {claim_input.get('claim_id', 'CLM-UNKNOWN')}\n"
+                f"Estimated amount: {amount}€\n"
                 f"Risk score: {risk_score}/10\n"
-                f"Probabilidad de fraude: {fraud_prob}\n\n"
-                f"Resultado de intake:\n{json.dumps(intake_result, indent=2, ensure_ascii=False)}\n\n"
-                f"Resultado de evaluación de riesgo:\n{json.dumps(risk_result, indent=2, ensure_ascii=False)}\n\n"
-                f"Por favor:\n"
-                f"1. Verifica las regulaciones aplicables para un siniestro de {amount}€ con risk score {risk_score}\n"
-                f"2. Valida contra los umbrales regulatorios actuales\n"
-                f"3. Proporciona tu decisión de compliance"
+                f"Fraud probability: {fraud_prob}\n\n"
+                f"Intake result:\n{json.dumps(intake_result, indent=2, ensure_ascii=False)}\n\n"
+                f"Risk assessment result:\n{json.dumps(risk_result, indent=2, ensure_ascii=False)}\n\n"
+                f"Please:\n"
+                f"1. Verify the applicable regulations for a {amount}€ claim with risk score {risk_score}\n"
+                f"2. Validate against the current regulatory thresholds\n"
+                f"3. Provide your compliance decision"
             ),
         },
     ]

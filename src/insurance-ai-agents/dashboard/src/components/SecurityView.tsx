@@ -21,14 +21,14 @@ const TYPE_BADGE: Record<string, { label: string; classes: string }> = {
     classes: 'bg-red-50 border-red-200 text-red-700',
   },
   fraud_suspected: {
-    label: 'Posible fraude',
+    label: 'Possible fraud',
     classes: 'bg-amber-50 border-amber-200 text-amber-800',
   },
 };
 
 function formatDate(iso: string): string {
   try {
-    return new Date(iso).toLocaleString('es-ES', {
+    return new Date(iso).toLocaleString('en-US', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
@@ -56,7 +56,7 @@ export default function SecurityView() {
         setTotal(response.total);
         setOpen(response.open);
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => {
         setLoading(false);
         setLoaded(true);
@@ -78,8 +78,8 @@ export default function SecurityView() {
               <Shield className="h-5 w-5 text-red-600" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">Incidentes de Seguridad</h2>
-              <p className="text-sm text-gray-600">Intentos de manipulación del sistema detectados por los agentes.</p>
+              <h2 className="text-lg font-semibold text-gray-900">Security Incidents</h2>
+              <p className="text-sm text-gray-600">System manipulation attempts detected by the agents.</p>
             </div>
           </div>
           <button
@@ -88,21 +88,21 @@ export default function SecurityView() {
             className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 transition-colors hover:border-red-300 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
-            Actualizar
+            Refresh
           </button>
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-            <div className="mb-1 text-xs uppercase tracking-wide text-gray-500">Total detectados</div>
+            <div className="mb-1 text-xs uppercase tracking-wide text-gray-500">Total detected</div>
             <div className="text-2xl font-semibold text-gray-900">{total}</div>
           </div>
           <div className="rounded-xl border border-red-700 bg-red-600 p-4 text-white shadow-sm">
-            <div className="mb-1 text-xs uppercase tracking-wide text-red-100">Abiertos</div>
+            <div className="mb-1 text-xs uppercase tracking-wide text-red-100">Open</div>
             <div className="text-2xl font-semibold">{open}</div>
           </div>
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-            <div className="mb-1 text-xs uppercase tracking-wide text-gray-500">Cerrados</div>
+            <div className="mb-1 text-xs uppercase tracking-wide text-gray-500">Closed</div>
             <div className="text-2xl font-semibold text-gray-900">{total - open}</div>
           </div>
         </div>
@@ -111,13 +111,13 @@ export default function SecurityView() {
       {!loaded || (loading && incidents.length === 0) ? (
         <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white p-12 text-sm text-gray-500 shadow-sm">
           <Loader2 className="h-5 w-5 animate-spin text-red-500" />
-          Consultando incidentes de seguridad…
+          Checking security incidents…
         </div>
       ) : incidents.length === 0 ? (
         <div className="rounded-xl border border-gray-200 bg-white p-12 text-center shadow-sm">
           <Shield className="mx-auto mb-3 h-12 w-12 text-gray-300" />
-          <p className="text-sm text-gray-600">No se han detectado incidentes de seguridad.</p>
-          <p className="mt-1 text-xs text-gray-500">El sistema está monitorizando intentos de manipulación en tiempo real.</p>
+          <p className="text-sm text-gray-600">No security incidents have been detected.</p>
+          <p className="mt-1 text-xs text-gray-500">The system is monitoring manipulation attempts in real time.</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -137,7 +137,7 @@ export default function SecurityView() {
                       {incident.severity.toUpperCase()}
                     </span>
                     <span className={`rounded-full border px-2 py-0.5 text-[10px] font-medium ${STATUS_BADGE[incident.status] ?? STATUS_BADGE.open}`}>
-                      {incident.status === 'open' ? 'ABIERTO' : 'CERRADO'}
+                      {incident.status === 'open' ? 'OPEN' : 'CLOSED'}
                     </span>
                     <span className={`rounded-full border px-2 py-0.5 text-[10px] font-medium ${(TYPE_BADGE[incident.incident_type] ?? { classes: 'bg-gray-100 border-gray-200 text-gray-700' }).classes}`}>
                       {(TYPE_BADGE[incident.incident_type]?.label) ?? incident.incident_type}
@@ -149,11 +149,11 @@ export default function SecurityView() {
 
                   <div className="mb-3 grid grid-cols-1 gap-3 text-xs sm:grid-cols-2">
                     <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2">
-                      <div className="mb-0.5 text-[10px] uppercase tracking-wide text-gray-500">Póliza</div>
+                      <div className="mb-0.5 text-[10px] uppercase tracking-wide text-gray-500">Policy</div>
                       <div className="font-mono text-gray-800">{incident.policy_id}</div>
                     </div>
                     <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2">
-                      <div className="mb-0.5 text-[10px] uppercase tracking-wide text-gray-500">Cliente</div>
+                      <div className="mb-0.5 text-[10px] uppercase tracking-wide text-gray-500">Customer</div>
                       <div className="font-mono text-gray-800">{incident.customer_id}</div>
                     </div>
                   </div>
@@ -161,7 +161,7 @@ export default function SecurityView() {
                   <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
                     <div className="mb-1.5 flex items-center gap-1.5">
                       <FileWarning className="h-3.5 w-3.5 text-amber-600" />
-                      <span className="text-[10px] uppercase tracking-wide text-gray-500">Extracto de la carga maliciosa</span>
+                      <span className="text-[10px] uppercase tracking-wide text-gray-500">Malicious payload excerpt</span>
                     </div>
                     <pre className="max-h-40 overflow-y-auto whitespace-pre-wrap font-mono text-[11px] leading-relaxed text-gray-700">
                       {incident.raw_payload_excerpt}

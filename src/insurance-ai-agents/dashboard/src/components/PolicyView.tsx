@@ -6,7 +6,7 @@ import { getPolicies, registerPolicy, getPolicyDetail, getCustomers } from '../a
 const EMPTY_FORM: NewPolicyRequest = {
   customer_id: '',
   vehicle: '',
-  coverage_type: 'Todo Riesgo',
+  coverage_type: 'Comprehensive',
   max_coverage: 50000,
   start_date: '',
   end_date: '',
@@ -59,10 +59,10 @@ export default function PolicyView() {
       const newPolicy = await registerPolicy(form);
       setPolicies((previous) => [newPolicy, ...previous]);
       setForm({ ...EMPTY_FORM });
-      setSuccess(`Póliza ${newPolicy.policy_id} registrada correctamente.`);
+      setSuccess(`Policy ${newPolicy.policy_id} registered successfully.`);
       setTimeout(() => setSuccess(''), 4000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al registrar póliza');
+      setError(err instanceof Error ? err.message : 'Error registering policy');
     } finally {
       setSubmitting(false);
     }
@@ -94,22 +94,22 @@ export default function PolicyView() {
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-1 flex items-center gap-2">
           <Plus className="h-5 w-5 text-primary-600" />
-          <h2 className="text-lg font-semibold text-gray-900">Registrar Nueva Póliza</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Register New Policy</h2>
         </div>
         <p className="mb-6 text-sm text-gray-600">
-          La póliza se vincula a un cliente existente. Si el cliente no está dado de alta, créalo antes desde la pestaña Clientes.
+          The policy is linked to an existing customer. If the customer is not registered, create them first from the Customers tab.
         </p>
 
         {noCustomers && (
           <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
-            No hay clientes registrados. Crea uno primero en la pestaña <strong>Clientes</strong>.
+            No customers registered. Create one first in the <strong>Customers</strong> tab.
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <label className="block md:col-span-2">
-              <span className={labelClass}>Cliente *</span>
+              <span className={labelClass}>Customer *</span>
               <select
                 value={form.customer_id}
                 onChange={(e) => setForm((current) => ({ ...current, customer_id: e.target.value }))}
@@ -117,7 +117,7 @@ export default function PolicyView() {
                 required
                 disabled={noCustomers}
               >
-                <option value="">Selecciona un cliente</option>
+                <option value="">Select a customer</option>
                 {customers.map((customer) => (
                   <option key={customer.customer_id} value={customer.customer_id}>
                     {customer.customer_id} · {customer.name} ({customer.risk_profile})
@@ -126,7 +126,7 @@ export default function PolicyView() {
               </select>
             </label>
             <label className="block">
-              <span className={labelClass}>Vehículo *</span>
+              <span className={labelClass}>Vehicle *</span>
               <input
                 type="text"
                 value={form.vehicle}
@@ -137,19 +137,19 @@ export default function PolicyView() {
               />
             </label>
             <label className="block">
-              <span className={labelClass}>Tipo de cobertura</span>
+              <span className={labelClass}>Coverage type</span>
               <select
                 value={form.coverage_type}
                 onChange={(e) => setForm((current) => ({ ...current, coverage_type: e.target.value }))}
                 className={inputClass}
               >
-                <option value="Todo Riesgo">Todo Riesgo</option>
-                <option value="Terceros">Terceros</option>
-                <option value="Terceros Ampliado">Terceros Ampliado</option>
+                <option value="Comprehensive">Comprehensive</option>
+                <option value="Third-Party">Third-Party</option>
+                <option value="Extended Third-Party">Extended Third-Party</option>
               </select>
             </label>
             <label className="block">
-              <span className={labelClass}>Cobertura máxima (€) *</span>
+              <span className={labelClass}>Maximum coverage (€) *</span>
               <input
                 type="number"
                 value={form.max_coverage || ''}
@@ -161,7 +161,7 @@ export default function PolicyView() {
               />
             </label>
             <label className="block">
-              <span className={labelClass}>Fecha de inicio</span>
+              <span className={labelClass}>Start date</span>
               <input
                 type="date"
                 value={form.start_date}
@@ -170,7 +170,7 @@ export default function PolicyView() {
               />
             </label>
             <label className="block">
-              <span className={labelClass}>Fecha de vencimiento</span>
+              <span className={labelClass}>Expiry date</span>
               <input
                 type="date"
                 value={form.end_date}
@@ -187,11 +187,11 @@ export default function PolicyView() {
           >
             {submitting ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" /> Registrando…
+                <Loader2 className="h-4 w-4 animate-spin" /> Registering…
               </>
             ) : (
               <>
-                <Plus className="h-4 w-4" /> Registrar Póliza
+                <Plus className="h-4 w-4" /> Register Policy
               </>
             )}
           </button>
@@ -205,36 +205,36 @@ export default function PolicyView() {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-6 py-4">
           <div className="flex items-center gap-2">
             <ScrollText className="h-5 w-5 text-primary-600" />
-            <h2 className="text-lg font-semibold text-gray-900">Pólizas Registradas</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Registered Policies</h2>
           </div>
           <button
             onClick={refresh}
             disabled={listLoading}
             className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 transition-colors hover:border-primary-300 hover:bg-primary-50 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <RefreshCw className={`h-3.5 w-3.5 ${listLoading ? 'animate-spin' : ''}`} /> Actualizar
+            <RefreshCw className={`h-3.5 w-3.5 ${listLoading ? 'animate-spin' : ''}`} /> Refresh
           </button>
         </div>
 
         {!listLoaded || (listLoading && policies.length === 0) ? (
           <div className="flex flex-col items-center justify-center gap-2 px-6 py-10 text-sm text-gray-500">
             <Loader2 className="h-5 w-5 animate-spin text-primary-500" />
-            Cargando pólizas desde la base de datos…
+            Loading policies from the database…
           </div>
         ) : policies.length === 0 ? (
-          <p className="px-6 py-8 text-center text-sm text-gray-500">No hay pólizas registradas.</p>
+          <p className="px-6 py-8 text-center text-sm text-gray-500">No policies registered.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-[920px] w-full">
               <thead className="bg-gray-50 text-left text-xs font-medium uppercase tracking-wide text-gray-700">
                 <tr>
-                  <th className="px-4 py-3">Póliza ID</th>
-                  <th className="px-4 py-3">Titular</th>
-                  <th className="px-4 py-3">Vehículo</th>
-                  <th className="px-4 py-3">Cobertura</th>
-                  <th className="px-4 py-3">Máximo</th>
-                  <th className="px-4 py-3">Estado</th>
-                  <th className="px-4 py-3 text-right">Detalle</th>
+                  <th className="px-4 py-3">Policy ID</th>
+                  <th className="px-4 py-3">Holder</th>
+                  <th className="px-4 py-3">Vehicle</th>
+                  <th className="px-4 py-3">Coverage</th>
+                  <th className="px-4 py-3">Maximum</th>
+                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3 text-right">Detail</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -248,7 +248,7 @@ export default function PolicyView() {
                       <td className="px-4 py-3 text-sm text-gray-700">€{policy.max_coverage.toLocaleString('es-ES')}</td>
                       <td className="px-4 py-3">
                         <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700">
-                          {policy.status || 'Activa'}
+                          {policy.status || 'Active'}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right text-gray-400">
@@ -264,37 +264,37 @@ export default function PolicyView() {
                               <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
                                 <div className="mb-2 flex items-center gap-1.5">
                                   <FileText className="h-4 w-4 text-primary-600" />
-                                  <span className="text-sm font-semibold text-gray-900">Datos de la póliza</span>
+                                  <span className="text-sm font-semibold text-gray-900">Policy data</span>
                                 </div>
                                 <div className="space-y-1.5">
-                                  <Field label="ID póliza" value={detail.policy_id} />
-                                  <Field label="ID cliente" value={detail.customer_id} />
-                                  <Field label="Vehículo" value={detail.vehicle} />
-                                  <Field label="Cobertura" value={detail.coverage_type} />
-                                  <Field label="Máx. cubierto" value={`${detail.max_coverage.toLocaleString('es-ES')}€`} />
-                                  <Field label="Estado" value={detail.status} />
-                                  <Field label="Inicio" value={detail.start_date} />
-                                  <Field label="Vencimiento" value={detail.end_date} />
+                                  <Field label="Policy ID" value={detail.policy_id} />
+                                  <Field label="Customer ID" value={detail.customer_id} />
+                                  <Field label="Vehicle" value={detail.vehicle} />
+                                  <Field label="Coverage" value={detail.coverage_type} />
+                                  <Field label="Max. covered" value={`${detail.max_coverage.toLocaleString('es-ES')}€`} />
+                                  <Field label="Status" value={detail.status} />
+                                  <Field label="Start" value={detail.start_date} />
+                                  <Field label="Expiry" value={detail.end_date} />
                                 </div>
                               </div>
                               {detail.customer_history && (
                                 <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
                                   <div className="mb-2 flex items-center gap-1.5">
                                     <User className="h-4 w-4 text-primary-600" />
-                                    <span className="text-sm font-semibold text-gray-900">Cliente vinculado</span>
+                                    <span className="text-sm font-semibold text-gray-900">Linked customer</span>
                                   </div>
                                   <div className="space-y-1.5">
-                                    <Field label="Nombre" value={detail.customer_history.name} />
-                                    <Field label="Antigüedad" value={`${detail.customer_history.years_as_customer} años`} />
-                                    <Field label="Reclamaciones previas" value={detail.customer_history.previous_claims} />
-                                    <Field label="Perfil de riesgo" value={detail.customer_history.risk_profile} />
-                                    <Field label="Historial de pagos" value={detail.customer_history.payment_history} />
+                                    <Field label="Name" value={detail.customer_history.name} />
+                                    <Field label="Tenure" value={`${detail.customer_history.years_as_customer} years`} />
+                                    <Field label="Previous claims" value={detail.customer_history.previous_claims} />
+                                    <Field label="Risk profile" value={detail.customer_history.risk_profile} />
+                                    <Field label="Payment history" value={detail.customer_history.payment_history} />
                                   </div>
                                 </div>
                               )}
                             </div>
                           ) : (
-                            <p className="text-sm text-gray-500">Cargando detalle…</p>
+                            <p className="text-sm text-gray-500">Loading detail…</p>
                           )}
                         </td>
                       </tr>

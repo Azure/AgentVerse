@@ -17,9 +17,9 @@ export interface ComplianceChecklistPanelProps {
 }
 
 const COMPLIANCE_WARMING_MESSAGES = [
-  'Revisando reglas regulatorias...',
-  'Validando límites de cobertura...',
-  'Comprobando documentación...',
+  'Reviewing regulatory rules...',
+  'Validating coverage limits...',
+  'Checking documentation...',
 ] as const;
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -138,7 +138,7 @@ export default function ComplianceChecklistPanel({
         </div>
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gray-500">Compliance agent</p>
-          <h3 className="text-lg font-semibold text-gray-900">Validación de cumplimiento</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Compliance validation</h3>
           {phaseLabel ? <p className="mt-1 text-xs text-gray-500">{phaseLabel}</p> : null}
         </div>
       </div>

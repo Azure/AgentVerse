@@ -23,7 +23,7 @@ import { useAuth } from './auth/useAuth';
 
 type Stage = 'intake' | 'risk_assessment' | 'compliance' | 'decision';
 type StageStatus = 'pending' | 'processing' | 'completed' | 'failed';
-type Tab = 'inicio' | 'cliente' | 'operario' | 'estadisticas' | 'clientes' | 'polizas' | 'seguridad' | 'gobernanza';
+type Tab = 'home' | 'customer' | 'operator' | 'statistics' | 'customers' | 'policies' | 'security' | 'governance';
 
 const EMPTY_STAGE_STATUSES: Record<Stage, StageStatus> = {
   intake: 'pending',
@@ -51,26 +51,26 @@ function mapStreamingAgentToStage(agent: string): Stage | null {
 type TabDef = { id: Tab; label: string; icon: React.ElementType; role: 'customer' | 'operator' };
 
 const ALL_TABS: TabDef[] = [
-  { id: 'inicio',       label: 'Inicio',       icon: Sparkles,     role: 'operator' },
-  { id: 'cliente',      label: 'Cliente',      icon: UserCircle,   role: 'customer' },
-  { id: 'operario',     label: 'Operario',     icon: ClipboardList, role: 'operator' },
-  { id: 'estadisticas', label: 'Estadísticas', icon: BarChart3,    role: 'operator' },
-  { id: 'clientes',     label: 'Clientes',     icon: Users,        role: 'operator' },
-  { id: 'polizas',      label: 'Pólizas',      icon: ScrollText,   role: 'operator' },
-  { id: 'seguridad',    label: 'Seguridad',    icon: ShieldAlert,  role: 'operator' },
-  { id: 'gobernanza',   label: 'Gobernanza',   icon: Award,        role: 'operator' },
+  { id: 'home', label: 'Home', icon: Sparkles, role: 'operator' },
+  { id: 'customer', label: 'Customer', icon: UserCircle, role: 'customer' },
+  { id: 'operator', label: 'Operator', icon: ClipboardList, role: 'operator' },
+  { id: 'statistics', label: 'Statistics', icon: BarChart3, role: 'operator' },
+  { id: 'customers', label: 'Customers', icon: Users, role: 'operator' },
+  { id: 'policies', label: 'Policies', icon: ScrollText, role: 'operator' },
+  { id: 'security', label: 'Security', icon: ShieldAlert, role: 'operator' },
+  { id: 'governance', label: 'Governance', icon: Award, role: 'operator' },
 ];
 
 export default function App() {
   const auth = useAuth();
 
-  // Filtra tabs por viewMode (en modo customer sólo mostramos Cliente)
+  // Filter tabs by viewMode (in customer mode we only show Customer)
   const tabs = useMemo<TabDef[]>(
     () => ALL_TABS.filter(t => auth.viewMode === 'operator' ? true : t.role === 'customer'),
     [auth.viewMode]
   );
 
-  const defaultTab: Tab = auth.viewMode === 'operator' ? 'inicio' : 'cliente';
+  const defaultTab: Tab = auth.viewMode === 'operator' ? 'home' : 'customer';
   const [activeTab, setActiveTab] = useState<Tab>(defaultTab);
   const [autoplayOpen, setAutoplayOpen] = useState(false);
 
@@ -107,7 +107,7 @@ export default function App() {
   const incidentKey = (i: SecurityIncident) => `${i.claim_id}-${i.detected_at}`;
 
   useEffect(() => {
-    if (!auth.isOperator) return; // sólo el operario ve incidentes
+    if (!auth.isOperator) return; // only the operator sees incidents
     let cancelled = false;
     const poll = async () => {
       try {
@@ -147,7 +147,7 @@ export default function App() {
 
   // Mark all incidents as seen when the user enters the Security tab
   useEffect(() => {
-    if (activeTab === 'seguridad' && incidents.length > 0) {
+    if (activeTab === 'security' && incidents.length > 0) {
       const ids = incidents.map(incidentKey);
       const next = new Set(ids);
       setSeenIds(next);
@@ -271,7 +271,7 @@ export default function App() {
                   className="inline-flex items-center gap-1.5 rounded-md bg-primary-600 px-3 py-1.5 text-white shadow-sm shadow-primary-900/20 transition hover:bg-primary-700"
                 >
                   <PlayCircle size={14} />
-                  <span>Demo automática</span>
+                  <span>Automated demo</span>
                 </button>
               </>
             )}
@@ -284,16 +284,14 @@ export default function App() {
                       <div className="flex items-center gap-1 mr-2 rounded-md bg-gray-100 p-0.5 border border-gray-200">
                         <button
                           onClick={() => auth.setViewMode('customer')}
-                          className={`px-2 py-0.5 rounded text-[11px] transition-colors ${
-                            auth.viewMode === 'customer' ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'
-                          }`}
-                        >Cliente</button>
+                          className={`px-2 py-0.5 rounded text-[11px] transition-colors ${auth.viewMode === 'customer' ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'
+                            }`}
+                        >Customer</button>
                         <button
                           onClick={() => auth.setViewMode('operator')}
-                          className={`px-2 py-0.5 rounded text-[11px] transition-colors ${
-                            auth.viewMode === 'operator' ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'
-                          }`}
-                        >Operario</button>
+                          className={`px-2 py-0.5 rounded text-[11px] transition-colors ${auth.viewMode === 'operator' ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'
+                            }`}
+                        >Operator</button>
                       </div>
                     )}
                     <span className="text-gray-700 hidden sm:inline" title={auth.account.username}>
@@ -302,7 +300,7 @@ export default function App() {
                     <button
                       onClick={() => auth.logout()}
                       className="flex items-center gap-1 px-2 py-1 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-                      title="Cerrar sesión"
+                      title="Sign out"
                     >
                       <LogOut className="w-3.5 h-3.5" />
                     </button>
@@ -313,7 +311,7 @@ export default function App() {
                     className="flex items-center gap-1 px-3 py-1 rounded bg-primary-600 hover:bg-primary-700 text-white transition-colors"
                   >
                     <LogIn className="w-3.5 h-3.5" />
-                    <span>Iniciar sesión</span>
+                    <span>Sign in</span>
                   </button>
                 )}
               </>
@@ -328,15 +326,14 @@ export default function App() {
               <button
                 key={id}
                 onClick={() => setActiveTab(id)}
-                className={`relative flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
-                  activeTab === id
+                className={`relative flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${activeTab === id
                     ? 'border-primary-600 text-primary-600'
                     : 'border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-200'
-                }`}
+                  }`}
               >
                 <Icon className="w-4 h-4" />
                 {label}
-                {id === 'seguridad' && newIncidentCount > 0 && (
+                {id === 'security' && newIncidentCount > 0 && (
                   <span className="ml-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1.5 rounded-full text-[10px] font-bold bg-primary-600 text-white shadow-sm shadow-primary-600/30 animate-pulse">
                     {newIncidentCount > 99 ? '99+' : newIncidentCount}
                   </span>
@@ -348,18 +345,18 @@ export default function App() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
-        {/* Login gate cuando AUTH_ENABLED y no autenticado */}
+        {/* Login gate when AUTH_ENABLED and not authenticated */}
         {auth.enabled && !auth.authenticated && (
           <div className="max-w-md mx-auto mt-12 p-8 rounded-xl border border-gray-200 bg-white shadow-md text-center">
             <img src={BRAND.logoUrl} alt={BRAND.logoAlt} className="h-12 w-auto mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Acceso restringido</h2>
-            <p className="text-sm text-gray-600 mb-6">Inicia sesión con tu cuenta corporativa para acceder a la plataforma.</p>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Access restricted</h2>
+            <p className="text-sm text-gray-600 mb-6">Sign in with your corporate account to access the platform.</p>
             <button
               onClick={() => auth.login()}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-medium transition-colors"
             >
               <LogIn className="w-4 h-4" />
-              Iniciar sesión con Microsoft Entra
+              Sign in with Microsoft Entra
             </button>
           </div>
         )}
@@ -367,65 +364,65 @@ export default function App() {
         {auth.enabled && auth.authenticated && !auth.isCustomer && !auth.isOperator && (
           <div className="max-w-md mx-auto mt-12 p-8 rounded-xl border border-amber-300 bg-amber-50 text-center shadow-sm">
             <ShieldAlert className="w-12 h-12 mx-auto text-amber-600 mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Sin permisos</h2>
-            <p className="text-sm text-gray-700">Tu cuenta no tiene asignados los roles <code className="text-amber-700 font-mono">Customer.Submit</code> ni <code className="text-amber-700 font-mono">Operator.Review</code>. Solicita acceso al administrador del tenant.</p>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">No permissions</h2>
+            <p className="text-sm text-gray-700">Your account has not been assigned the <code className="text-amber-700 font-mono">Customer.Submit</code> or <code className="text-amber-700 font-mono">Operator.Review</code> roles. Request access from the tenant administrator.</p>
           </div>
         )}
 
         {(!auth.enabled || (auth.authenticated && (auth.isCustomer || auth.isOperator))) && <>
-        {activeTab === 'inicio' && <HeroView onCTAClick={() => setActiveTab('cliente')} />}
+          {activeTab === 'home' && <HeroView onCTAClick={() => setActiveTab('customer')} />}
 
-        {/* ── Cliente View ── */}
-        {activeTab === 'cliente' && (
-          <>
-            <section>
-              <ClaimForm onSubmit={handleSubmit} loading={loading} />
-            </section>
-
-            {(loading || result) && (
-              <section className="animate-slide-in">
-                <Pipeline statuses={stageStatuses} tokens={stageTokens} stageData={stageData} />
-              </section>
-            )}
-
-            {activityEvents.length > 0 && (
+          {/* ── Customer View ── */}
+          {activeTab === 'customer' && (
+            <>
               <section>
-                <ActivityFeed events={activityEvents} />
+                <ClaimForm onSubmit={handleSubmit} loading={loading} />
               </section>
-            )}
 
-            {error && (
-              <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-red-700">
-                <strong>Error:</strong> {error}
-              </div>
-            )}
+              {(loading || result) && (
+                <section className="animate-slide-in">
+                  <Pipeline statuses={stageStatuses} tokens={stageTokens} stageData={stageData} />
+                </section>
+              )}
 
-            {result && (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-slide-in">
-                <DecisionPanel result={result} />
-                <AuditTrail result={result} />
-              </div>
-            )}
-          </>
-        )}
+              {activityEvents.length > 0 && (
+                <section>
+                  <ActivityFeed events={activityEvents} />
+                </section>
+              )}
 
-        {/* ── Operario View ── */}
-        {activeTab === 'operario' && <OperatorView />}
+              {error && (
+                <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-red-700">
+                  <strong>Error:</strong> {error}
+                </div>
+              )}
 
-        {/* ── Estadísticas View ── */}
-        {activeTab === 'estadisticas' && <StatsView />}
+              {result && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-slide-in">
+                  <DecisionPanel result={result} />
+                  <AuditTrail result={result} />
+                </div>
+              )}
+            </>
+          )}
 
-        {/* ── Clientes View ── */}
-        {activeTab === 'clientes' && <CustomerView />}
+          {/* ── Operator View ── */}
+          {activeTab === 'operator' && <OperatorView />}
 
-        {/* ── Pólizas View ── */}
-        {activeTab === 'polizas' && <PolicyView />}
+          {/* ── Statistics View ── */}
+          {activeTab === 'statistics' && <StatsView />}
 
-        {/* ── Seguridad View ── */}
-        {activeTab === 'seguridad' && <SecurityView />}
+          {/* ── Customers View ── */}
+          {activeTab === 'customers' && <CustomerView />}
 
-        {/* ── Gobernanza View ── */}
-        {activeTab === 'gobernanza' && <GovernanceView />}
+          {/* ── Policies View ── */}
+          {activeTab === 'policies' && <PolicyView />}
+
+          {/* ── Security View ── */}
+          {activeTab === 'security' && <SecurityView />}
+
+          {/* ── Governance View ── */}
+          {activeTab === 'governance' && <GovernanceView />}
         </>}
       </main>
 
@@ -442,7 +439,7 @@ export default function App() {
               incident={t.incident}
               onClose={() => setToasts(prev => prev.filter(x => x.key !== t.key))}
               onClick={() => {
-                setActiveTab('seguridad');
+                setActiveTab('security');
                 setToasts(prev => prev.filter(x => x.key !== t.key));
               }}
             />

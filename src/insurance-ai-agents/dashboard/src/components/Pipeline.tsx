@@ -21,16 +21,16 @@ interface StageDefinition {
 }
 
 const stages: StageDefinition[] = [
-  { key: 'intake', label: 'INTAKE', helper: 'Lectura de documentos y extracción', icon: FileSearch },
-  { key: 'risk_assessment', label: 'RISK', helper: 'Scoring y señales de fraude', icon: ShieldAlert },
-  { key: 'compliance', label: 'COMPLIANCE', helper: 'Reglas, cobertura y normativa', icon: Scale },
-  { key: 'decision', label: 'DECISION', helper: 'Resolución final para el expediente', icon: CheckCircle2 },
+  { key: 'intake', label: 'INTAKE', helper: 'Document reading and extraction', icon: FileSearch },
+  { key: 'risk_assessment', label: 'RISK', helper: 'Scoring and fraud signals', icon: ShieldAlert },
+  { key: 'compliance', label: 'COMPLIANCE', helper: 'Rules, coverage and regulation', icon: Scale },
+  { key: 'decision', label: 'DECISION', helper: 'Final resolution for the case file', icon: CheckCircle2 },
 ];
 
 const cannedMessages: Record<StreamingStage, string> = {
-  intake: 'Leyendo descripción del siniestro... extrayendo policy_id, monto, tipo de incidente... validando estructura...',
-  risk_assessment: 'Calculando score de riesgo... comprobando histórico del cliente... análisis de fraude...',
-  compliance: 'Aplicando reglas de negocio... umbrales de revisión humana... validación regulatoria...',
+  intake: 'Reading claim description... extracting policy_id, amount, incident type... validating structure...',
+  risk_assessment: 'Calculating risk score... checking customer history... fraud analysis...',
+  compliance: 'Applying business rules... human review thresholds... regulatory validation...',
 };
 
 const TEXT_TAIL_LIMIT = 220;
@@ -99,13 +99,13 @@ function formatConfidence(confidence: number | null): string | null {
 function formatDecisionLabel(decision: string | null): string {
   switch (decision) {
     case 'approve':
-      return 'Aprobado';
+      return 'Approved';
     case 'human_review':
-      return 'Revisión humana';
+      return 'Human review';
     case 'reject':
-      return 'Rechazado';
+      return 'Rejected';
     default:
-      return 'Decisión generada';
+      return 'Decision generated';
   }
 }
 
@@ -223,7 +223,7 @@ ${reasoning}` : headline;
     return getVisibleTail(cannedMessage.slice(0, syntheticLength));
   })();
 
-  const bubbleTitle = isDecision ? 'Resolución final' : 'El sistema está pensando';
+  const bubbleTitle = isDecision ? 'Final resolution' : 'The system is thinking';
   const bubbleTone = status === 'failed'
     ? 'border-red-200 bg-red-50'
     : isDecision
@@ -233,15 +233,15 @@ ${reasoning}` : headline;
   const showCursor = status === 'processing' && !isDecision;
   const durationLabel = formatDuration(durationMs);
   const pillText = status === 'processing'
-    ? 'Procesando…'
+    ? 'Processing…'
     : status === 'completed'
-      ? `Completado${durationLabel ? ` · ${durationLabel}` : ''}`
+      ? `Completed${durationLabel ? ` · ${durationLabel}` : ''}`
       : status === 'failed'
         ? 'Error'
-        : 'Pendiente';
+        : 'Pending';
   const placeholderText = isDecision
-    ? 'La resolución aparecerá aquí al final del flujo.'
-    : 'El agente arrancará aquí cuando reciba el expediente.';
+    ? 'The resolution will appear here at the end of the flow.'
+    : 'The agent will start here when it receives the case file.';
 
   return (
     <div
@@ -296,7 +296,7 @@ ${reasoning}` : headline;
               </div>
               <div className="flex h-[5.75rem] flex-col justify-end overflow-hidden">
                 <p className="whitespace-pre-wrap break-words text-sm leading-6 text-gray-700">
-                  {bubbleText || (isDecision ? 'La decisión aparecerá aquí al final del flujo.' : 'Esperando respuesta del agente…')}
+                  {bubbleText || (isDecision ? 'The decision will appear here at the end of the flow.' : 'Waiting for the agent’s response…')}
                   {showCursor ? <span className="ml-0.5 inline-block animate-blink text-primary-500">▌</span> : null}
                 </p>
               </div>
@@ -361,9 +361,9 @@ export default function Pipeline({ statuses, tokens, stageData = {} }: Props) {
   return (
     <div className="overflow-hidden rounded-[32px] border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
       <div className="mb-6 flex flex-col gap-2 lg:mb-8">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.32em] text-primary-600">Pipeline multi-agente</h3>
+        <h3 className="text-sm font-semibold uppercase tracking-[0.32em] text-primary-600">Multi-agent pipeline</h3>
         <p className="max-w-3xl text-sm leading-6 text-gray-600">
-          Visualiza cada agente razonando en tiempo real, con señales de actividad, streaming y decisión final auditable.
+          Watch each agent reasoning in real time, with activity signals, streaming and an auditable final decision.
         </p>
       </div>
 

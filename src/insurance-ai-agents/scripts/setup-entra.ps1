@@ -1,29 +1,29 @@
-# Configura el app registration `insurance-ai-demo-spa` para la demo:
-# - Añade SPA platform con redirect URIs (localhost:5173 + Static Web App)
-# - Define los 2 App Roles (Customer.Submit, Operator.Review)
-# - Asigna AMBOS roles al usuario indicado (para que pueda alternar en la demo)
+# Configures the app registration `insurance-ai-demo-spa` for the demo:
+# - Adds SPA platform with redirect URIs (localhost:5173 + Static Web App)
+# - Defines the 2 App Roles (Customer.Submit, Operator.Review)
+# - Assigns BOTH roles to the specified user (so they can switch in the demo)
 #
-# REQUISITOS:
-#   az login --tenant <TU_TENANT> --scope https://graph.microsoft.com//.default
-#   $TENANT_ID, $APP_OBJECT_ID y $USER_UPN ya están seteados abajo.
+# REQUIREMENTS:
+#   az login --tenant <YOUR_TENANT> --scope https://graph.microsoft.com//.default
+#   $TENANT_ID, $APP_OBJECT_ID and $USER_UPN are already set below.
 #
-# Si tu tenant tiene CAE activo y devuelve TokenCreatedWithOutdatedPolicies:
+# If your tenant has CAE enabled and returns TokenCreatedWithOutdatedPolicies:
 #   az logout
 #   az login --tenant 763b21d6-9a2e-4d90-88f9-d3c5cc8dba90
 
 $ErrorActionPreference = 'Stop'
 
-$AZ            = "C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"
-$TENANT_ID     = "763b21d6-9a2e-4d90-88f9-d3c5cc8dba90"
+$AZ = "C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"
+$TENANT_ID = "763b21d6-9a2e-4d90-88f9-d3c5cc8dba90"
 $APP_OBJECT_ID = "d3fd01da-0941-4bfc-b3c4-f8a63a19de91"
-$APP_ID        = "4e593597-088c-404c-984c-203259ff7dbe"
-$USER_UPN      = "admin@MngEnvMCAP135050.onmicrosoft.com"
+$APP_ID = "4e593597-088c-404c-984c-203259ff7dbe"
+$USER_UPN = "admin@MngEnvMCAP135050.onmicrosoft.com"
 $REDIRECT_URIS = @(
     "http://localhost:5173",
     "http://localhost:5173/"
 )
 
-# IDs estables (mismo que app-roles.json) ----------------------------------
+# Stable IDs (same as app-roles.json) ----------------------------------
 $ROLE_CUSTOMER_ID = "11111111-1111-1111-1111-111111111111"
 $ROLE_OPERATOR_ID = "22222222-2222-2222-2222-222222222222"
 
@@ -44,23 +44,23 @@ function Invoke-Graph {
 }
 
 # 1) Update SPA redirect URIs + App Roles ---------------------------------
-Write-Host "1/4  Configurando SPA redirect URIs y App Roles..." -ForegroundColor Cyan
+Write-Host "1/4  Configuring SPA redirect URIs and App Roles..." -ForegroundColor Cyan
 $patchBody = @{
-    spa = @{ redirectUris = $REDIRECT_URIS }
+    spa      = @{ redirectUris = $REDIRECT_URIS }
     appRoles = @(
         @{
             id                 = $ROLE_CUSTOMER_ID
             allowedMemberTypes = @("User")
-            description        = "Puede crear y consultar sus propios siniestros."
-            displayName        = "Customer (cliente)"
+            description        = "Can create and view their own claims."
+            displayName        = "Customer"
             isEnabled          = $true
             value              = "Customer.Submit"
         },
         @{
             id                 = $ROLE_OPERATOR_ID
             allowedMemberTypes = @("User")
-            description        = "Puede ver todos los siniestros, cola de revision humana, estadisticas y panel de seguridad/gobernanza."
-            displayName        = "Operator (operario)"
+            description        = "Can view all claims, the human review queue, statistics and the security/governance panel."
+            displayName        = "Operator"
             isEnabled          = $true
             value              = "Operator.Review"
         }
@@ -69,33 +69,34 @@ $patchBody = @{
 Invoke-Graph -Method PATCH -Path "/applications/$APP_OBJECT_ID" -Body $patchBody | Out-Null
 Write-Host "    OK (redirect + roles)" -ForegroundColor Green
 
-# 2) Garantizar service principal del app (necesario para asignar roles) --
-Write-Host "2/4  Asegurando service principal..." -ForegroundColor Cyan
+# 2) Ensure the app's service principal (needed to assign roles) --
+Write-Host "2/4  Ensuring service principal..." -ForegroundColor Cyan
 $spList = Invoke-Graph -Method GET -Path "/servicePrincipals?`$filter=appId eq '$APP_ID'&`$select=id"
 if ($spList.value.Count -eq 0) {
     $sp = Invoke-Graph -Method POST -Path "/servicePrincipals" -Body @{ appId = $APP_ID }
     $SP_OBJECT_ID = $sp.id
-    Write-Host "    creado SP $SP_OBJECT_ID" -ForegroundColor Green
-} else {
+    Write-Host "    created SP $SP_OBJECT_ID" -ForegroundColor Green
+}
+else {
     $SP_OBJECT_ID = $spList.value[0].id
-    Write-Host "    ya existia SP $SP_OBJECT_ID" -ForegroundColor Green
+    Write-Host "    SP already existed $SP_OBJECT_ID" -ForegroundColor Green
 }
 
-# 3) Resolver objectId del usuario -----------------------------------------
-Write-Host "3/4  Resolviendo usuario $USER_UPN..." -ForegroundColor Cyan
+# 3) Resolve the user's objectId -----------------------------------------
+Write-Host "3/4  Resolving user $USER_UPN..." -ForegroundColor Cyan
 $user = Invoke-Graph -Method GET -Path "/users/$USER_UPN`?`$select=id,displayName"
 $USER_ID = $user.id
 Write-Host "    $($user.displayName) -> $USER_ID" -ForegroundColor Green
 
-# 4) Asignar AMBOS roles al usuario ----------------------------------------
-Write-Host "4/4  Asignando roles al usuario..." -ForegroundColor Cyan
+# 4) Assign BOTH roles to the user ----------------------------------------
+Write-Host "4/4  Assigning roles to the user..." -ForegroundColor Cyan
 $existing = Invoke-Graph -Method GET -Path "/users/$USER_ID/appRoleAssignments?`$select=id,appRoleId,resourceId"
 foreach ($roleId in @($ROLE_CUSTOMER_ID, $ROLE_OPERATOR_ID)) {
     $already = $existing.value | Where-Object {
         $_.resourceId -eq $SP_OBJECT_ID -and $_.appRoleId -eq $roleId
     }
     if ($already) {
-        Write-Host "    role $roleId  ya asignado, skip" -ForegroundColor Yellow
+        Write-Host "    role $roleId  already assigned, skip" -ForegroundColor Yellow
         continue
     }
     Invoke-Graph -Method POST -Path "/users/$USER_ID/appRoleAssignments" -Body @{
@@ -103,15 +104,15 @@ foreach ($roleId in @($ROLE_CUSTOMER_ID, $ROLE_OPERATOR_ID)) {
         resourceId  = $SP_OBJECT_ID
         appRoleId   = $roleId
     } | Out-Null
-    Write-Host "    role $roleId asignado" -ForegroundColor Green
+    Write-Host "    role $roleId assigned" -ForegroundColor Green
 }
 
 Write-Host ""
-Write-Host "Listo. Configura el frontend con:" -ForegroundColor Cyan
+Write-Host "Done. Configure the frontend with:" -ForegroundColor Cyan
 Write-Host "    VITE_AUTH_ENABLED=true"
 Write-Host "    VITE_AUTH_CLIENT_ID=$APP_ID"
 Write-Host "    VITE_AUTH_TENANT_ID=$TENANT_ID"
-Write-Host "Y el backend con:"
+Write-Host "And the backend with:"
 Write-Host "    AUTH_ENABLED=true"
 Write-Host "    AUTH_CLIENT_ID=$APP_ID"
 Write-Host "    AUTH_TENANT_ID=$TENANT_ID"

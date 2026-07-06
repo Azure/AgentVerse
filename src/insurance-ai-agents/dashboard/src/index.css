@@ -10,8 +10,15 @@ body {
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-slide-in {
@@ -19,8 +26,15 @@ body {
 }
 
 @keyframes progressPulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .animate-progress-pulse {
@@ -28,8 +42,15 @@ body {
 }
 
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(24px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .animate-slide-in-right {
@@ -37,9 +58,12 @@ body {
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 rgba(37, 99, 235, 0), 0 0 0 rgba(37, 99, 235, 0), inset 0 1px 0 rgba(0, 0, 0, 0.02);
   }
+
   50% {
     box-shadow: 0 0 28px rgba(37, 99, 235, 0.22), 0 0 56px rgba(37, 99, 235, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
@@ -50,8 +74,17 @@ body {
 }
 
 @keyframes blink {
-  0%, 45%, 100% { opacity: 1; }
-  50%, 95% { opacity: 0; }
+
+  0%,
+  45%,
+  100% {
+    opacity: 1;
+  }
+
+  50%,
+  95% {
+    opacity: 0;
+  }
 }
 
 .animate-blink {
@@ -63,10 +96,12 @@ body {
     opacity: 0;
     transform: scale(0);
   }
+
   70% {
     opacity: 1;
     transform: scale(1.2);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -82,12 +117,15 @@ body {
     opacity: 0;
     transform: translateX(-130%);
   }
+
   15% {
     opacity: 1;
   }
+
   80% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translateX(190%);
@@ -99,10 +137,13 @@ body {
 }
 
 @keyframes pulse-soft {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.65;
     transform: scale(1);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.08);
@@ -118,6 +159,7 @@ body {
     opacity: 0;
     transform: translateY(10px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -133,12 +175,15 @@ body {
     opacity: 0;
     transform: translate(-10%, -50%);
   }
+
   15% {
     opacity: 1;
   }
+
   85% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translate(470%, -50%);
@@ -164,12 +209,15 @@ body {
     opacity: 0;
     transform: translateX(-140%);
   }
+
   12% {
     opacity: 1;
   }
+
   88% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translateX(560%);
@@ -181,11 +229,13 @@ body {
 }
 
 @keyframes agentGlow {
+
   0%,
   100% {
     box-shadow: 0 0 0 rgba(37, 99, 235, 0), 0 0 0 rgba(37, 99, 235, 0);
     transform: scale(1);
   }
+
   50% {
     box-shadow: 0 0 34px rgba(37, 99, 235, 0.28), 0 0 72px rgba(37, 99, 235, 0.16);
     transform: scale(1.03);
@@ -201,9 +251,11 @@ body {
     opacity: 0;
     transform: translate3d(0, -18vh, 0) rotate(0deg) scale(0.92);
   }
+
   12% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translate3d(var(--confetti-drift, 0px), 110vh, 0) rotate(var(--confetti-rotate, 540deg)) scale(1);
@@ -217,8 +269,13 @@ body {
 }
 
 @keyframes toastCountdown {
-  from { transform: scaleX(1); }
-  to { transform: scaleX(0); }
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
 }
 
 .animate-toast-countdown {
@@ -226,8 +283,15 @@ body {
 }
 
 @keyframes fadeInSoft {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
@@ -239,9 +303,11 @@ body {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.38);
   }
+
   20% {
     opacity: 0.58;
   }
+
   100% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(1.55);
@@ -253,22 +319,28 @@ body {
 }
 
 @keyframes shake {
+
   0%,
   100% {
     transform: translate3d(0, 0, 0);
   }
+
   15% {
     transform: translate3d(-8px, 0, 0) rotate(-2deg);
   }
+
   30% {
     transform: translate3d(8px, 0, 0) rotate(2deg);
   }
+
   45% {
     transform: translate3d(-6px, 0, 0) rotate(-1.4deg);
   }
+
   60% {
     transform: translate3d(6px, 0, 0) rotate(1.2deg);
   }
+
   75% {
     transform: translate3d(-3px, 0, 0) rotate(-0.6deg);
   }
@@ -284,6 +356,7 @@ body {
     box-shadow: 0 0 0 rgba(37, 99, 235, 0);
     filter: saturate(0.9);
   }
+
   100% {
     opacity: 1;
     box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15), 0 0 22px rgba(37, 99, 235, 0.14);
@@ -296,29 +369,34 @@ body {
     opacity: 0;
     transform: translateX(-18px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-/* === scrollbar utility (consumido por paneles del autoplay) === */
+/* === scrollbar utility (used by the autoplay panels) === */
 .scrollbar-clean {
   scrollbar-width: thin;
   scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
 }
+
 .scrollbar-clean::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
+
 .scrollbar-clean::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .scrollbar-clean::-webkit-scrollbar-thumb {
   background: rgba(148, 163, 184, 0.35);
   border-radius: 9999px;
   transition: background 0.18s ease;
 }
+
 .scrollbar-clean::-webkit-scrollbar-thumb:hover {
   background: rgba(148, 163, 184, 0.6);
 }
@@ -329,11 +407,13 @@ body {
     filter: brightness(1);
     box-shadow: 0 0 0 rgba(15, 23, 42, 0);
   }
+
   40% {
     transform: translateY(-1px) scale(1.01);
     filter: brightness(1.08);
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 0 26px rgba(59, 130, 246, 0.14);
   }
+
   100% {
     transform: translateY(0) scale(1);
     filter: brightness(1);
@@ -345,70 +425,145 @@ body {
   0% {
     transform: rotate(-180deg);
   }
+
   50% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(-180deg);
   }
 }
 
-/* Pendular suave para la aguja en estado de carga */
+/* Gentle pendulum for the needle in the loading state */
 @keyframes gaugePendulum {
-  0%   { transform: rotate(-130deg); }
-  50%  { transform: rotate(-50deg); }
-  100% { transform: rotate(-130deg); }
+  0% {
+    transform: rotate(-130deg);
+  }
+
+  50% {
+    transform: rotate(-50deg);
+  }
+
+  100% {
+    transform: rotate(-130deg);
+  }
 }
 
-/* Cometa que recorre el arco del gauge */
+/* Comet that travels along the gauge arc */
 @keyframes gaugeCometSweep {
-  0%   { stroke-dashoffset: 0; opacity: 0.0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { stroke-dashoffset: -302; opacity: 0.0; }
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: -302;
+    opacity: 0.0;
+  }
 }
 
-/* Pulso radial para el pivot/bulbo */
+/* Radial pulse for the pivot/bulb */
 @keyframes loadingPulse {
-  0%, 100% { transform: scale(1); opacity: 0.55; }
-  50%      { transform: scale(1.25); opacity: 0.95; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 0.95;
+  }
 }
 
 @keyframes thermoBreathe {
   0% {
     transform: scaleY(0.2);
   }
+
   50% {
     transform: scaleY(0.7);
   }
+
   100% {
     transform: scaleY(0.2);
   }
 }
 
-/* Mercurio que sube y baja con curva suave en estado de carga */
+/* Mercury that rises and falls with a smooth curve in the loading state */
 @keyframes thermoFlow {
-  0%   { transform: scaleY(0.08); }
-  35%  { transform: scaleY(0.85); }
-  65%  { transform: scaleY(0.45); }
-  100% { transform: scaleY(0.08); }
+  0% {
+    transform: scaleY(0.08);
+  }
+
+  35% {
+    transform: scaleY(0.85);
+  }
+
+  65% {
+    transform: scaleY(0.45);
+  }
+
+  100% {
+    transform: scaleY(0.08);
+  }
 }
 
-/* Línea horizontal escáner que viaja arriba/abajo por el tubo */
+/* Horizontal scanner line that travels up/down the tube */
 @keyframes thermoScan {
-  0%   { transform: translateY(0); opacity: 0; }
-  10%  { opacity: 0.9; }
-  50%  { transform: translateY(-160px); opacity: 0.9; }
-  90%  { opacity: 0.9; }
-  100% { transform: translateY(0); opacity: 0; }
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: translateY(-160px);
+    opacity: 0.9;
+  }
+
+  90% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
 }
 
-/* Burbujas que suben por el tubo del termómetro durante carga */
+/* Bubbles that rise up the thermometer tube during loading */
 @keyframes bubbleRise {
-  0%   { transform: translateY(0); opacity: 0; }
-  15%  { opacity: 1; }
-  85%  { opacity: 1; }
-  100% { transform: translateY(-170px); opacity: 0; }
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-170px);
+    opacity: 0;
+  }
 }
 
 @keyframes shimmer {
@@ -416,10 +571,12 @@ body {
     transform: translateX(-100%) scaleX(0.2);
     opacity: 0.35;
   }
+
   50% {
     transform: translateX(0) scaleX(1);
     opacity: 0.95;
   }
+
   100% {
     transform: translateX(100%) scaleX(0.24);
     opacity: 0.35;

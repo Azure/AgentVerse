@@ -48,10 +48,10 @@ type StageStatus = 'pending' | 'running' | 'done';
 
 const STAGE_ORDER: Stage[] = ['intake', 'risk', 'compliance', 'decision'];
 const STAGE_LABEL: Record<Stage, string> = {
-  intake: 'Extracción de datos',
-  risk: 'Análisis de riesgo',
+  intake: 'Data extraction',
+  risk: 'Risk analysis',
   compliance: 'Compliance',
-  decision: 'Decisión',
+  decision: 'Decision',
 };
 const STAGE_ICON: Record<Stage, JSX.Element> = {
   intake: <FileSearch className="h-4 w-4" />,
@@ -85,27 +85,27 @@ function decisionBadge(decision: string | undefined): { label: string; cls: stri
   const norm = (decision || '').toLowerCase();
   if (norm === 'approve' || norm === 'approved') {
     return {
-      label: 'Aprobado automáticamente',
+      label: 'Automatically approved',
       cls: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
       icon: <CheckCircle2 className="h-4 w-4" />,
     };
   }
   if (norm === 'reject' || norm === 'rejected') {
     return {
-      label: 'Rechazado',
+      label: 'Rejected',
       cls: 'bg-red-50 text-red-700 ring-red-200',
       icon: <XCircle className="h-4 w-4" />,
     };
   }
   if (norm === 'human_review' || norm === 'review') {
     return {
-      label: 'Revisión humana requerida',
+      label: 'Human review required',
       cls: 'bg-amber-50 text-amber-700 ring-amber-200',
       icon: <AlertTriangle className="h-4 w-4" />,
     };
   }
   return {
-    label: decision || 'Sin decisión',
+    label: decision || 'No decision',
     cls: 'bg-gray-100 text-gray-700 ring-gray-200',
     icon: <Activity className="h-4 w-4" />,
   };
@@ -196,19 +196,19 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
       setStatus((prev) => (prev === 'error' ? prev : 'ended'));
     };
     ws.onerror = () => {
-      // ws.onerror también se dispara en cierres "anormales" del servidor
-      // (close 1006) al final de una llamada exitosa. Sólo marcamos error
-      // real cuando NUNCA llegamos a abrir la conexión.
+      // ws.onerror also fires on "abnormal" server closes (close 1006) at
+      // the end of a successful call. We only flag a real error when we
+      // never managed to open the connection.
       if (!everOpenedRef.current) {
         setStatus('error');
-        setError('No se pudo conectar al canal de observación.');
+        setError('Could not connect to the observation channel.');
       }
     };
     ws.onmessage = (msg) => {
-      // Cualquier mensaje recibido implica que el canal funciona. Si
-      // teníamos un error transitorio, lo limpiamos.
+      // Any received message means the channel works. If we had a
+      // transient error, clear it.
       setError(null);
-      let event: { type: string; [key: string]: unknown };
+      let event: { type: string;[key: string]: unknown };
       try {
         event = JSON.parse(msg.data as string);
       } catch {
@@ -250,11 +250,11 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
             setCustomer(result as CustomerInfo);
             setLines((p) => [...p, {
               who: 'system',
-              text: `Cliente identificado: ${(result as CustomerInfo).name ?? '—'}`,
+              text: `Customer identified: ${(result as CustomerInfo).name ?? '—'}`,
               ts: Date.now(),
             }]);
           } else {
-            setLines((p) => [...p, { who: 'system', text: 'DNI no encontrado en la base de clientes', ts: Date.now() }]);
+            setLines((p) => [...p, { who: 'system', text: 'ID not found in the customer database', ts: Date.now() }]);
           }
         } else if (name === 'submit_claim' && result && typeof result === 'object') {
           setDecision(result as DecisionInfo);
@@ -262,17 +262,17 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
           setPipelineRunning(false);
           setLines((p) => [...p, {
             who: 'system',
-            text: `Decisión del pipeline: ${(result as DecisionInfo).decision ?? '?'} (${(result as DecisionInfo).claim_id ?? '?'})`,
+            text: `Pipeline decision: ${(result as DecisionInfo).decision ?? '?'} (${(result as DecisionInfo).claim_id ?? '?'})`,
             ts: Date.now(),
           }]);
         } else if (name === 'end_call') {
-          setLines((p) => [...p, { who: 'system', text: `${BRAND.voiceAssistantName} finalizando la llamada…`, ts: Date.now() }]);
+          setLines((p) => [...p, { who: 'system', text: `${BRAND.voiceAssistantName} ending the call…`, ts: Date.now() }]);
         }
         return;
       }
       if (t === 'hold_music_start') {
         setPipelineRunning(true);
-        setLines((p) => [...p, { who: 'system', text: `${BRAND.voiceAssistantName} ha lanzado el pipeline multiagente`, ts: Date.now() }]);
+        setLines((p) => [...p, { who: 'system', text: `${BRAND.voiceAssistantName} launched the multi-agent pipeline`, ts: Date.now() }]);
         return;
       }
       if (t === 'hold_music_stop') {
@@ -281,11 +281,11 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
       }
       if (t === 'hangup' || t === 'session.ended' || t === 'closed') {
         setStatus('ended');
-        setLines((p) => [...p, { who: 'system', text: 'Llamada finalizada', ts: Date.now() }]);
+        setLines((p) => [...p, { who: 'system', text: 'Call ended', ts: Date.now() }]);
         return;
       }
       if (t === 'error') {
-        setError(String(event.message || 'Error en el canal'));
+        setError(String(event.message || 'Channel error'));
         return;
       }
     };
@@ -303,11 +303,11 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
 
   const statusBadge = useMemo(() => {
     if (status === 'connecting')
-      return { label: 'Conectando al canal…', cls: 'bg-primary-50 text-primary-700 ring-primary-200', icon: <Loader2 className="h-4 w-4 animate-spin" /> };
+      return { label: 'Connecting to the channel…', cls: 'bg-primary-50 text-primary-700 ring-primary-200', icon: <Loader2 className="h-4 w-4 animate-spin" /> };
     if (status === 'live')
-      return { label: 'Llamada en directo', cls: 'bg-emerald-50 text-emerald-700 ring-emerald-200', icon: <Activity className="h-4 w-4 animate-pulse" /> };
+      return { label: 'Live call', cls: 'bg-emerald-50 text-emerald-700 ring-emerald-200', icon: <Activity className="h-4 w-4 animate-pulse" /> };
     if (status === 'ended')
-      return { label: 'Llamada finalizada', cls: 'bg-gray-100 text-gray-700 ring-gray-200', icon: <PhoneOff className="h-4 w-4" /> };
+      return { label: 'Call ended', cls: 'bg-gray-100 text-gray-700 ring-gray-200', icon: <PhoneOff className="h-4 w-4" /> };
     return { label: 'Error', cls: 'bg-red-50 text-red-700 ring-red-200', icon: <XCircle className="h-4 w-4" /> };
   }, [status]);
 
@@ -323,8 +323,8 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
               <Headphones className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wide text-gray-500">Vista operador · supervisión en vivo</p>
-              <h1 className="text-lg font-semibold text-gray-900">Llamada de voz · {sessionId}</h1>
+              <p className="text-xs uppercase tracking-wide text-gray-500">Operator view · live supervision</p>
+              <h1 className="text-lg font-semibold text-gray-900">Voice call · {sessionId}</h1>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -346,14 +346,14 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
           <header className="flex items-center justify-between border-b border-gray-200 px-5 py-3">
             <div className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-primary-600" />
-              <h2 className="text-sm font-semibold text-gray-900">Conversación</h2>
+              <h2 className="text-sm font-semibold text-gray-900">Conversation</h2>
             </div>
-            <span className="text-xs text-gray-500">{lines.length} eventos</span>
+            <span className="text-xs text-gray-500">{lines.length} events</span>
           </header>
           <div ref={scrollerRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto p-5">
             {lines.length === 0 && (
               <p className="py-12 text-center text-sm text-gray-500">
-                A la espera del primer turno del asistente…
+                Waiting for the assistant's first turn…
               </p>
             )}
             {lines.map((l, i) => (
@@ -374,33 +374,33 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
           <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
             <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
               <User className="h-4 w-4 text-primary-600" />
-              Cliente
+              Customer
             </h2>
             {customer ? (
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between gap-3">
-                  <dt className="text-gray-500">Nombre</dt>
+                  <dt className="text-gray-500">Name</dt>
                   <dd className="font-medium text-gray-900">{customer.name ?? '—'}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
-                  <dt className="text-gray-500">ID cliente</dt>
+                  <dt className="text-gray-500">Customer ID</dt>
                   <dd className="font-mono text-xs text-gray-700">{customer.customer_id ?? '—'}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
-                  <dt className="text-gray-500">Póliza</dt>
+                  <dt className="text-gray-500">Policy</dt>
                   <dd className="font-mono text-xs text-gray-700">{customer.policy_id ?? '—'}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
-                  <dt className="text-gray-500">Vehículo</dt>
+                  <dt className="text-gray-500">Vehicle</dt>
                   <dd className="text-right text-gray-900">{formatVehicle(customer.vehicle)}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
-                  <dt className="text-gray-500">Cobertura</dt>
+                  <dt className="text-gray-500">Coverage</dt>
                   <dd className="text-right text-gray-900">{customer.coverage_type ?? '—'}</dd>
                 </div>
               </dl>
             ) : (
-              <p className="text-sm text-gray-500">A la espera de identificación por DNI…</p>
+              <p className="text-sm text-gray-500">Waiting for ID identification…</p>
             )}
           </div>
 
@@ -408,27 +408,25 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
           <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
             <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
               <Activity className="h-4 w-4 text-primary-600" />
-              Pipeline multiagente
+              Multi-agent pipeline
             </h2>
             <ol className="space-y-2">
               {STAGE_ORDER.map((stage) => {
                 const s = stageStatuses[stage];
                 return (
                   <li key={stage} className="flex items-center gap-3 rounded-xl bg-gray-50 px-3 py-2 ring-1 ring-inset ring-gray-100">
-                    <span className={`grid h-7 w-7 place-items-center rounded-full ${
-                      s === 'done'
+                    <span className={`grid h-7 w-7 place-items-center rounded-full ${s === 'done'
                         ? 'bg-emerald-100 text-emerald-700'
                         : s === 'running'
                           ? 'bg-primary-100 text-primary-700'
                           : 'bg-gray-200 text-gray-500'
-                    }`}>
+                      }`}>
                       {s === 'running' ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : STAGE_ICON[stage]}
                     </span>
                     <span className="flex-1 text-sm font-medium text-gray-800">{STAGE_LABEL[stage]}</span>
-                    <span className={`text-[11px] font-semibold uppercase tracking-wide ${
-                      s === 'done' ? 'text-emerald-700' : s === 'running' ? 'text-primary-700' : 'text-gray-400'
-                    }`}>
-                      {s === 'done' ? 'Listo' : s === 'running' ? 'En curso' : 'En espera'}
+                    <span className={`text-[11px] font-semibold uppercase tracking-wide ${s === 'done' ? 'text-emerald-700' : s === 'running' ? 'text-primary-700' : 'text-gray-400'
+                      }`}>
+                      {s === 'done' ? 'Done' : s === 'running' ? 'In progress' : 'Waiting'}
                     </span>
                   </li>
                 );
@@ -436,7 +434,7 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
             </ol>
             {pipelineRunning && (
               <p className="mt-3 text-xs text-gray-500">
-                Los agentes están evaluando el caso. El cliente escucha música en espera.
+                The agents are evaluating the case. The customer is listening to hold music.
               </p>
             )}
           </div>
@@ -449,7 +447,7 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
                 <span>{decisionView.label}</span>
               </div>
               {decision?.claim_id && (
-                <p className="mt-2 font-mono text-xs">Parte: {decision.claim_id}</p>
+                <p className="mt-2 font-mono text-xs">Claim: {decision.claim_id}</p>
               )}
               {decision?.reasoning && (
                 <p className="mt-2 text-xs leading-relaxed opacity-80">{decision.reasoning}</p>
@@ -463,7 +461,7 @@ export default function VoiceOperatorView({ sessionId }: { sessionId: string }) 
 }
 
 function Bubble({ line }: { line: Line }) {
-  const time = new Date(line.ts).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const time = new Date(line.ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   if (line.who === 'system') {
     return (
       <div className="mx-auto flex max-w-xl items-center justify-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-center text-[11px] uppercase tracking-wide text-gray-600">
@@ -476,14 +474,12 @@ function Bubble({ line }: { line: Line }) {
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
       <div
-        className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed shadow-sm ${
-          isUser ? 'bg-primary-600 text-white' : 'bg-white text-gray-800 ring-1 ring-gray-200'
-        }`}
+        className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed shadow-sm ${isUser ? 'bg-primary-600 text-white' : 'bg-white text-gray-800 ring-1 ring-gray-200'
+          }`}
       >
-        <p className={`mb-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-          isUser ? 'text-white/70' : 'text-primary-600'
-        }`}>
-          {isUser ? 'Cliente' : BRAND.voiceAssistantName} · {time}
+        <p className={`mb-0.5 text-[10px] font-semibold uppercase tracking-wide ${isUser ? 'text-white/70' : 'text-primary-600'
+          }`}>
+          {isUser ? 'Customer' : BRAND.voiceAssistantName} · {time}
         </p>
         {line.text}
       </div>

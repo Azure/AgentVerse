@@ -30,52 +30,52 @@ const HIGHLIGHT_RULES: Array<{
   className: string;
   dotClassName: string;
 }> = [
-  {
-    tone: 'amount',
-    label: 'Monto',
-    regex: /\d+[.,]?\d*\s*(?:€|euros?)/gi,
-    className: 'bg-emerald-100 text-emerald-800 shadow-[0_0_0_1px_rgba(16,185,129,0.3)]',
-    dotClassName: 'bg-emerald-500',
-  },
-  {
-    tone: 'incident',
-    label: 'Tipo',
-    regex: /\b(?:colisi[oó]n|incendio|robo|inundaci[oó]n|granizo|vandalismo|fire|collision)\b/gi,
-    className: 'bg-amber-100 text-amber-800 shadow-[0_0_0_1px_rgba(245,158,11,0.3)]',
-    dotClassName: 'bg-amber-500',
-  },
-  {
-    tone: 'vehicle',
-    label: 'Vehículo',
-    regex: /\b(?:tesla|bmw|audi|seat|coche|veh[ií]culo|moto)\b/gi,
-    className: 'bg-primary-100 text-primary-800 shadow-[0_0_0_1px_rgba(236,0,0,0.25)]',
-    dotClassName: 'bg-primary-500',
-  },
-  {
-    tone: 'date',
-    label: 'Fecha',
-    regex: /\b\d{1,2}\s+(?:de\s+)?(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\b/gi,
-    className: 'bg-primary-50 text-primary-700 shadow-[0_0_0_1px_rgba(236,0,0,0.25)]',
-    dotClassName: 'bg-primary-400',
-  },
-  {
-    tone: 'location',
-    label: 'Ubicación',
-    regex: /\b(?:Madrid|Barcelona|Valencia|Sevilla|parking|calle|carretera|autopista|A-\d+|M-\d+)\b/gi,
-    className: 'bg-primary-50 text-primary-700 shadow-[0_0_0_1px_rgba(236,0,0,0.2)]',
-    dotClassName: 'bg-primary-300',
-  },
-];
+    {
+      tone: 'amount',
+      label: 'Amount',
+      regex: /\d+[.,]?\d*\s*(?:€|euros?)/gi,
+      className: 'bg-emerald-100 text-emerald-800 shadow-[0_0_0_1px_rgba(16,185,129,0.3)]',
+      dotClassName: 'bg-emerald-500',
+    },
+    {
+      tone: 'incident',
+      label: 'Type',
+      regex: /\b(?:collision|fire|theft|flood|hail|vandalism|natural disaster)\b/gi,
+      className: 'bg-amber-100 text-amber-800 shadow-[0_0_0_1px_rgba(245,158,11,0.3)]',
+      dotClassName: 'bg-amber-500',
+    },
+    {
+      tone: 'vehicle',
+      label: 'Vehicle',
+      regex: /\b(?:tesla|bmw|audi|seat|car|vehicle|motorcycle)\b/gi,
+      className: 'bg-primary-100 text-primary-800 shadow-[0_0_0_1px_rgba(236,0,0,0.25)]',
+      dotClassName: 'bg-primary-500',
+    },
+    {
+      tone: 'date',
+      label: 'Date',
+      regex: /\b\d{1,2}\s+(?:of\s+)?(?:January|February|March|April|May|June|July|August|September|October|November|December)\b/gi,
+      className: 'bg-primary-50 text-primary-700 shadow-[0_0_0_1px_rgba(236,0,0,0.25)]',
+      dotClassName: 'bg-primary-400',
+    },
+    {
+      tone: 'location',
+      label: 'Location',
+      regex: /\b(?:Madrid|Barcelona|Valencia|Sevilla|parking|street|road|highway|A-\d+|M-\d+)\b/gi,
+      className: 'bg-primary-50 text-primary-700 shadow-[0_0_0_1px_rgba(236,0,0,0.2)]',
+      dotClassName: 'bg-primary-300',
+    },
+  ];
 
 const INTAKE_DETECTION_STEPS = [
-  'Detectando tipo de incidente...',
-  'Detectando vehículo...',
-  'Detectando ubicación...',
+  'Detecting incident type...',
+  'Detecting vehicle...',
+  'Detecting location...',
 ] as const;
 
 const INTAKE_VALIDATION_STEPS = [
-  'Validando póliza...',
-  'Comprobando documentación...',
+  'Validating policy...',
+  'Checking documentation...',
 ] as const;
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -142,27 +142,27 @@ export default function IntakeExtractionPanel({
     const items: Array<{ id: string; label: string; value: string }> = [];
 
     if (typeof extractedFields?.incident_type === 'string' && extractedFields.incident_type.trim()) {
-      items.push({ id: 'incident_type', label: 'Tipo de incidente', value: extractedFields.incident_type });
+      items.push({ id: 'incident_type', label: 'Incident type', value: extractedFields.incident_type });
     }
 
     if (typeof extractedFields?.estimated_amount === 'number' && Number.isFinite(extractedFields.estimated_amount)) {
       items.push({
         id: 'estimated_amount',
-        label: 'Monto estimado',
+        label: 'Estimated amount',
         value: `${extractedFields.estimated_amount.toLocaleString('es-ES')}€`,
       });
     }
 
     if (typeof extractedFields?.vehicle === 'string' && extractedFields.vehicle.trim()) {
-      items.push({ id: 'vehicle', label: 'Vehículo', value: extractedFields.vehicle });
+      items.push({ id: 'vehicle', label: 'Vehicle', value: extractedFields.vehicle });
     }
 
     if (typeof extractedFields?.date === 'string' && extractedFields.date.trim()) {
-      items.push({ id: 'date', label: 'Fecha', value: extractedFields.date });
+      items.push({ id: 'date', label: 'Date', value: extractedFields.date });
     }
 
     if (typeof extractedFields?.location === 'string' && extractedFields.location.trim()) {
-      items.push({ id: 'location', label: 'Ubicación', value: extractedFields.location });
+      items.push({ id: 'location', label: 'Location', value: extractedFields.location });
     }
 
     return items;
@@ -288,8 +288,8 @@ export default function IntakeExtractionPanel({
       <div className="grid gap-6 xl:grid-cols-2">
         <div className="space-y-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gray-500">Lectura del parte</p>
-            <h3 className="mt-2 text-lg font-semibold text-gray-900">Texto del siniestro</h3>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gray-500">Report reading</p>
+            <h3 className="mt-2 text-lg font-semibold text-gray-900">Claim text</h3>
           </div>
 
           <div className="flex flex-wrap gap-3 text-xs text-gray-600">
@@ -312,7 +312,7 @@ export default function IntakeExtractionPanel({
               <p className="whitespace-pre-wrap text-sm leading-7 text-gray-800">{renderedScenarioText}</p>
             ) : (
               <div className="flex min-h-[160px] items-center justify-center text-sm text-gray-500">
-                Esperando descripción del siniestro…
+                Waiting for claim description…
               </div>
             )}
           </div>
@@ -325,7 +325,7 @@ export default function IntakeExtractionPanel({
             </div>
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gray-500">Intake agent</p>
-              <h3 className="text-lg font-semibold text-gray-900">Campos extraídos</h3>
+              <h3 className="text-lg font-semibold text-gray-900">Extracted fields</h3>
               {phaseLabel ? <p className="mt-1 text-xs text-gray-500">{phaseLabel}</p> : null}
             </div>
           </div>
@@ -355,7 +355,7 @@ export default function IntakeExtractionPanel({
                       <span className="h-2.5 w-2.5 rounded-full bg-primary-500 animate-pulse" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500">Captura del parte</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500">Report capture</p>
                       <p className="mt-1 text-sm text-gray-700 transition-opacity duration-300">{INTAKE_DETECTION_STEPS[detectionStepIndex]}</p>
                     </div>
                   </div>
@@ -363,7 +363,7 @@ export default function IntakeExtractionPanel({
 
                 <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
                   <div className="mb-2 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500">
-                    <span>Extracción estructurada</span>
+                    <span>Structured extraction</span>
                     <span>streaming</span>
                   </div>
                   <div className="relative h-2.5 overflow-hidden rounded-full bg-gray-200">
@@ -380,7 +380,7 @@ export default function IntakeExtractionPanel({
                       <span className="h-2.5 w-2.5 rounded-full bg-primary-500 animate-pulse" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500">Verificación previa</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500">Preliminary check</p>
                       <p className="mt-1 text-sm text-gray-700 transition-opacity duration-300">{INTAKE_VALIDATION_STEPS[validationStepIndex]}</p>
                     </div>
                   </div>
@@ -388,8 +388,8 @@ export default function IntakeExtractionPanel({
 
                 <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
                   <div className="mb-2 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500">
-                    <span>Cobertura y anexos</span>
-                    <span>verificando</span>
+                    <span>Coverage and attachments</span>
+                    <span>verifying</span>
                   </div>
                   <div className="relative h-2.5 overflow-hidden rounded-full bg-gray-200">
                     <div
@@ -401,7 +401,7 @@ export default function IntakeExtractionPanel({
               </>
             ) : (
               <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-4 text-sm text-gray-500">
-                Esperando extracción estructurada.
+                Waiting for structured extraction.
               </div>
             )}
           </div>

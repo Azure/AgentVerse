@@ -39,19 +39,19 @@ USE_FOUNDRY_AGENT = os.environ.get("USE_FOUNDRY_AGENT", "false").lower() == "tru
 # manipulation phrasings even if the upstream LLM agents fail to flag them.
 # This makes security detection deterministic and CI-friendly.
 _INJECTION_PATTERNS = [
-    re.compile(r"\bnota\s+interna(?:\s+del\s+sistema)?\b", re.IGNORECASE),
+    re.compile(r"\binternal\s+(?:system\s+)?note\b", re.IGNORECASE),
     re.compile(r"\b(internal|system)\s+(note|prompt|message)\b", re.IGNORECASE),
-    re.compile(r"\boverride\s+(autoriza|authoriz)", re.IGNORECASE),
+    re.compile(r"\boverride\s*:?\s*(this|the|claim|approv|authoriz)", re.IGNORECASE),
     re.compile(r"\bauthorization[-\s]?code\b", re.IGNORECASE),
     re.compile(r"\bauth[-_\s]?code\s*[:=]?\s*\w", re.IGNORECASE),
     re.compile(r"\bbypass[-\s]?\d", re.IGNORECASE),
-    re.compile(r"\bpre[-\s]?aprobad", re.IGNORECASE),
-    re.compile(r"\bignor(?:a|ar|e)\b.{0,40}\bvalidaci", re.IGNORECASE),
+    re.compile(r"\bpre[-\s]?approv", re.IGNORECASE),
+    re.compile(r"\bignor\w*\b.{0,40}\bvalidat", re.IGNORECASE),
     re.compile(r"\bignore\s+(all|previous|above|the).{0,30}instruction", re.IGNORECASE),
     re.compile(r"\bdisregard\s+.{0,30}instruction", re.IGNORECASE),
     re.compile(r"\bSUP[-\s]?\d{3,}\b", re.IGNORECASE),
     re.compile(r"\b(jailbreak|DAN\s+mode)\b", re.IGNORECASE),
-    re.compile(r"\bsupervisor\s+ha\s+pre[-\s]?aprobad", re.IGNORECASE),
+    re.compile(r"\bpre[-\s]?approved\s+by\b", re.IGNORECASE),
 ]
 
 
@@ -126,24 +126,24 @@ def _determine_final_decision(
         extracted = intake_result.get("extracted_data", {})
         docs = extracted.get("documentation_provided", [])
         is_manipulation = (
-            "manipulación" in intake_summary.lower()
+            "manipulation" in intake_summary.lower()
             or "prompt_injection_detected" in docs
             or "injection" in intake_summary.lower()
         )
         if is_manipulation:
             return "reject", 0.99, (
-                "🛡️ ALERTA DE SEGURIDAD: Se ha detectado un intento de manipulación del sistema "
-                "en la descripción del siniestro. La reclamación contiene instrucciones falsas "
-                "que intentan evadir los controles de validación. Siniestro rechazado automáticamente "
-                "y registrado como incidente de seguridad para investigación."
+                "🛡️ SECURITY ALERT: A system manipulation attempt has been detected "
+                "in the claim description. The claim contains fake instructions "
+                "that try to evade the validation controls. Claim rejected automatically "
+                "and logged as a security incident for investigation."
             )
-        return "reject", 0.95, "La póliza no es válida o no está activa."
+        return "reject", 0.95, "The policy is not valid or not active."
 
     # High fraud → reject
     if fraud_prob == "high" and risk_score >= 7:
         return "reject", 0.85, (
-            f"Alto riesgo de fraude (probabilidad: {fraud_prob}, "
-            f"risk score: {risk_score}/10). Se recomienda investigación."
+            f"High fraud risk (probability: {fraud_prob}, "
+            f"risk score: {risk_score}/10). Investigation is recommended."
         )
 
     # Use DETERMINISTIC rules for the compliance decision
@@ -151,14 +151,14 @@ def _determine_final_decision(
     deterministic_decision = rules_result["decision"]
     rules_reasons = rules_result["reasons"]
 
-    fraud_label = {"low": "baja", "medium": "media", "high": "alta"}.get(fraud_prob, fraud_prob)
+    fraud_label = {"low": "low", "medium": "medium", "high": "high"}.get(fraud_prob, fraud_prob)
     amount_fmt = f"{amount:,.0f}".replace(",", ".")
 
     if deterministic_decision == "reject":
         return "reject", 0.90, (
-            f"Siniestro rechazado. El análisis combinado de los tres agentes indica "
-            f"un nivel de riesgo inaceptable (score {risk_score}/10, probabilidad de "
-            f"fraude {fraud_label}). No cumple con los umbrales de aprobación vigentes."
+            f"Claim rejected. The combined analysis of the three agents indicates "
+            f"an unacceptable risk level (score {risk_score}/10, fraud "
+            f"probability {fraud_label}). It does not meet the current approval thresholds."
         )
 
     if deterministic_decision == "human_review":
@@ -167,34 +167,34 @@ def _determine_final_decision(
         applied = rules_result.get("rules_applied", {})
         if applied.get("human_review_threshold") and amount > applied["human_review_threshold"]:
             review_reasons.append(
-                f"el monto ({amount_fmt}€) supera el umbral de revisión humana "
-                f"obligatoria ({applied['human_review_threshold']:,.0f}€) establecido por la normativa vigente"
+                f"the amount ({amount_fmt}€) exceeds the mandatory human review "
+                f"threshold ({applied['human_review_threshold']:,.0f}€) set by the current regulations"
             )
         if amount > applied.get("auto_approve_max_amount", float("inf")):
             review_reasons.append(
-                f"el monto ({amount_fmt}€) excede el límite de aprobación automática "
+                f"the amount ({amount_fmt}€) exceeds the automatic approval limit "
                 f"({applied['auto_approve_max_amount']:,.0f}€)"
             )
         if risk_score > applied.get("max_risk_score_auto_approve", 10):
             review_reasons.append(
-                f"el score de riesgo ({risk_score}/10) supera el máximo permitido "
-                f"para aprobación automática"
+                f"the risk score ({risk_score}/10) exceeds the maximum allowed "
+                f"for automatic approval"
             )
         if not review_reasons:
             review_reasons = rules_reasons
 
         return "human_review", 0.80, (
-            f"El siniestro requiere revisión humana: {'; '.join(review_reasons)}. "
-            f"El equipo de siniestros será notificado para validación manual. "
-            f"Risk score: {risk_score}/10 · Probabilidad de fraude: {fraud_label}."
+            f"The claim requires human review: {'; '.join(review_reasons)}. "
+            f"The claims team will be notified for manual validation. "
+            f"Risk score: {risk_score}/10 · Fraud probability: {fraud_label}."
         )
 
     # All checks passed → approve
     return "approve", 0.90, (
-        f"Siniestro aprobado automáticamente tras el análisis de los tres agentes especializados. "
-        f"El monto ({amount_fmt}€) está dentro del límite de aprobación automática, "
-        f"el score de riesgo es aceptable ({risk_score}/10) y la probabilidad de fraude es {fraud_label}. "
-        f"Cumple con todas las regulaciones aplicables (EU Insurance Directive, DGS, EU AI Act)."
+        f"Claim approved automatically after the analysis of the three specialized agents. "
+        f"The amount ({amount_fmt}€) is within the automatic approval limit, "
+        f"the risk score is acceptable ({risk_score}/10) and the fraud probability is {fraud_label}. "
+        f"It complies with all applicable regulations (EU Insurance Directive, DGS, EU AI Act)."
     )
 
 
@@ -292,7 +292,7 @@ async def _process_claim_legacy(claim_input: dict, progress_callback=None) -> di
     # to detect attacks against itself.
     description = claim_input.get("description", "") or ""
     det_injection, det_matches = _detect_prompt_injection(description)
-    llm_flag = "ALERTA DE SEGURIDAD" in reasoning or "manipulación" in reasoning.lower()
+    llm_flag = "SECURITY ALERT" in reasoning or "manipulation" in reasoning.lower()
     security_flagged = llm_flag or det_injection
 
     # If the deterministic guard fired but the LLM cascade missed it, override
@@ -304,11 +304,11 @@ async def _process_claim_legacy(claim_input: dict, progress_callback=None) -> di
         decision = "reject"
         confidence = 0.99
         reasoning = (
-            "🛡️ ALERTA DE SEGURIDAD: La descripción del siniestro contiene patrones "
-            "característicos de intento de manipulación del sistema (prompt injection). "
-            f"Patrones detectados: {', '.join(det_matches)}. Siniestro rechazado "
-            "automáticamente por el guard determinístico del orquestador y registrado "
-            "como incidente de seguridad para investigación."
+            "🛡️ SECURITY ALERT: The claim description contains patterns "
+            "characteristic of a system manipulation attempt (prompt injection). "
+            f"Detected patterns: {', '.join(det_matches)}. Claim rejected "
+            "automatically by the orchestrator's deterministic guard and logged "
+            "as a security incident for investigation."
         )
         audit_trail.append(_make_audit_entry(
             "security_guard",

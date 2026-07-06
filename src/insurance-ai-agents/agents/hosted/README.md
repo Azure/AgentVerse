@@ -19,7 +19,7 @@ WebSocket.
     "policy_id": "POL-1001",
     "customer_id": "CUST-001",
     "incident_type": "collision",
-    "description": "Colisión leve en parking, paragolpes rayado. Hay un testigo.",
+    "description": "Minor collision in the parking lot, scratched bumper. There is a witness.",
     "estimated_amount": 1200,
     "image_b64": "<optional>"
   },
@@ -52,7 +52,7 @@ Smoke test (another shell):
 
 ```powershell
 curl -X POST http://localhost:8088/invocations -H "Content-Type: application/json" `
-  -d '{"claim":{"policy_id":"POL-1001","customer_id":"CUST-001","incident_type":"collision","description":"Colision leve en parking, hay testigo.","estimated_amount":1200}}'
+  -d '{"claim":{"policy_id":"POL-1001","customer_id":"CUST-001","incident_type":"collision","description":"Minor collision in the parking lot, there is a witness.","estimated_amount":1200}}'
 ```
 
 > Without Azure credentials you may get auth errors from the model — that is expected.
@@ -98,7 +98,7 @@ Auth is Entra: get a token for `https://ai.azure.com`. Send the claim as the raw
 ```powershell
 $ep  = "https://ins-ai-demo-ais-jii435hjlwyyc.services.ai.azure.com/api/projects/insurance-agents/agents/insurance-claims-orchestrator/endpoint/protocols/invocations"
 $tok = az account get-access-token --resource https://ai.azure.com --query accessToken -o tsv
-$body = '{"claim":{"policy_id":"POL-1001","customer_id":"CUST-001","incident_type":"collision","description":"Colision leve en parking, hay un testigo.","estimated_amount":1200},"stream":false}'
+$body = '{"claim":{"policy_id":"POL-1001","customer_id":"CUST-001","incident_type":"collision","description":"Minor collision in the parking lot, there is a witness.","estimated_amount":1200},"stream":false}'
 # non-stream → full decision JSON
 curl.exe -s -X POST "$ep?api-version=2025-11-15-preview&agent_session_id=demo-session-1" -H "Authorization: Bearer $tok" -H "Content-Type: application/json" --data $body
 # real-time stages → set "stream":true and use curl.exe -N to see the SSE progress events

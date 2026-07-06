@@ -23,9 +23,9 @@ const DECISION_KEYS = ['approve', 'human_review', 'reject'] as const;
 type DecisionKey = (typeof DECISION_KEYS)[number];
 
 const DECISION_META: Record<DecisionKey, { label: string; color: string }> = {
-  approve: { label: 'Aprobadas', color: '#10B981' },
-  human_review: { label: 'Revisión humana', color: '#F59E0B' },
-  reject: { label: 'Rechazadas', color: '#DC2626' },
+  approve: { label: 'Approved', color: '#10B981' },
+  human_review: { label: 'Human review', color: '#F59E0B' },
+  reject: { label: 'Rejected', color: '#DC2626' },
 };
 
 interface DailyDecisionPoint {
@@ -114,8 +114,8 @@ function buildDailyDecisionPoints(claims: ClaimSummary[]): DailyDecisionPoint[] 
 
     points.push({
       key: getLocalDayKey(date),
-      label: date.toLocaleDateString('es-ES', { weekday: 'short' }).replace('.', ''),
-      fullLabel: capitalize(date.toLocaleDateString('es-ES', { weekday: 'long' })),
+      label: date.toLocaleDateString('en-US', { weekday: 'short' }).replace('.', ''),
+      fullLabel: capitalize(date.toLocaleDateString('en-US', { weekday: 'long' })),
       amount: 0,
       total: 0,
       counts: emptyDecisionCounts(),
@@ -224,9 +224,9 @@ function DecisionDistribution({ counts }: { counts: Record<DecisionKey, number> 
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
       <div className="mb-6">
-        <h3 className="text-sm font-semibold text-gray-900">Distribución de decisiones</h3>
+        <h3 className="text-sm font-semibold text-gray-900">Decision distribution</h3>
         <p className="text-xs text-gray-500">
-          Qué parte del volumen se resuelve al instante y qué parte requiere revisión.
+          How much of the volume is resolved instantly and how much requires review.
         </p>
       </div>
 
@@ -255,7 +255,7 @@ function DecisionDistribution({ counts }: { counts: Record<DecisionKey, number> 
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-3xl font-semibold text-gray-900">{formatNumber(total, 0)}</span>
-            <span className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Casos</span>
+            <span className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Cases</span>
           </div>
         </div>
 
@@ -302,13 +302,13 @@ function DecisionsByDayChart({ days }: { days: DailyDecisionPoint[] }) {
     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
       <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div>
-          <h3 className="text-sm font-semibold text-gray-900">Decisiones por día (últimos 7 días)</h3>
+          <h3 className="text-sm font-semibold text-gray-900">Decisions per day (last 7 days)</h3>
           <p className="text-xs text-gray-500">
-            Evolución diaria del volumen procesado con desglose approve / revisión / reject.
+            Daily evolution of processed volume broken down as approve / review / reject.
           </p>
         </div>
         <div className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Importe 7 días</div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gray-500">7-day amount</div>
           <div className="text-sm font-semibold text-gray-900">{formatCurrency(sevenDayAmount)}</div>
         </div>
       </div>
@@ -430,7 +430,7 @@ export default function StatsView() {
       setStats(statsResult.value);
       setLoadError(null);
     } else if (!stats) {
-      setLoadError('No se pudieron cargar las estadísticas.');
+      setLoadError('Statistics could not be loaded.');
     }
 
     if (claimsResult.status === 'fulfilled') {
@@ -458,7 +458,7 @@ export default function StatsView() {
   if (!stats) {
     return (
       <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 text-center text-sm text-gray-600">
-        {loadError ?? 'Cargando estadísticas…'}
+        {loadError ?? 'Loading statistics…'}
       </div>
     );
   }
@@ -486,7 +486,7 @@ export default function StatsView() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-primary-600" />
-          <h2 className="text-lg font-semibold text-gray-900">Estadísticas</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Statistics</h2>
         </div>
         <button
           type="button"
@@ -494,61 +494,61 @@ export default function StatsView() {
           className="flex items-center gap-1.5 text-xs text-gray-600 transition-colors hover:text-primary-600"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
-          Actualizar
+          Refresh
         </button>
       </div>
 
       <div className="grid gap-3 rounded-2xl border border-primary-200 bg-primary-50 p-4 md:grid-cols-3">
         <div className="rounded-xl border border-gray-200 bg-white p-4">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Antes</div>
-          <div className="mt-1 text-lg font-semibold text-gray-900">45 min/caso</div>
-          <p className="text-xs text-gray-500">Procesamiento manual</p>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Before</div>
+          <div className="mt-1 text-lg font-semibold text-gray-900">45 min/case</div>
+          <p className="text-xs text-gray-500">Manual processing</p>
         </div>
         <div className="rounded-xl border border-gray-200 bg-white p-4">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Ahora</div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Now</div>
           <div className="mt-1 text-lg font-semibold text-gray-900">{aiDurationLabel}</div>
-          <p className="text-xs text-gray-500">Pipeline AI actual</p>
+          <p className="text-xs text-gray-500">Current AI pipeline</p>
         </div>
         <div className="rounded-xl border border-primary-200 bg-white p-4">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-primary-900/70">Impacto</div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-primary-900/70">Impact</div>
           <div className="mt-1 text-3xl font-bold text-primary-600">
-            {speedMultiplier === null ? '—' : `${formatNumber(speedMultiplier, speedMultiplier < 10 ? 1 : 0)}× más rápido`}
+            {speedMultiplier === null ? '—' : `${formatNumber(speedMultiplier, speedMultiplier < 10 ? 1 : 0)}× faster`}
           </div>
-          <p className="text-xs text-primary-900/70">Comparativa calculada en runtime</p>
+          <p className="text-xs text-primary-900/70">Comparison calculated at runtime</p>
         </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <BusinessMetricCard
           icon={DollarSign}
-          label="Ahorro estimado"
+          label="Estimated savings"
           value={estimatedSavings === null ? '—' : formatCurrency(estimatedSavings)}
-          sub={savedHours === null ? 'Sin casos todavía para estimar el ahorro.' : `≈ ${formatNumber(savedHours, 1)} h liberadas al equipo este mes`}
-          tooltip="Calculado como (45 min - tiempo real) × casos × 35€/hora (coste medio analista)."
+          sub={savedHours === null ? 'No cases yet to estimate savings.' : `≈ ${formatNumber(savedHours, 1)} h freed up for the team this month`}
+          tooltip="Calculated as (45 min - actual time) × cases × €35/hour (average analyst cost)."
           valueClass="text-primary-600"
         />
         <BusinessMetricCard
           icon={Zap}
-          label="Tiempo reducido"
-          value={`${formatNumber(timeSavedPerCaseMinutes, 1)} min menos por caso`}
-          sub={`De 45 min/caso a ${aiDurationLabel} con IA gobernada`}
-          tooltip="Baseline: 45 min/caso manual. Actual: tiempo medio del pipeline."
+          label="Time reduced"
+          value={`${formatNumber(timeSavedPerCaseMinutes, 1)} min less per case`}
+          sub={`From 45 min/case to ${aiDurationLabel} with governed AI`}
+          tooltip="Baseline: 45 min/case manual. Current: average pipeline time."
           valueClass="text-gray-900"
         />
         <BusinessMetricCard
           icon={Bot}
-          label="Automatización"
+          label="Automation"
           value={automationRate === null ? '—' : `${formatNumber(automationRate, 1)}%`}
-          sub="Casos resueltos sin intervención humana"
-          tooltip="Casos approve + reject (sin revisión humana) / total de casos."
+          sub="Cases resolved without human intervention"
+          tooltip="Approve + reject cases (without human review) / total cases."
           valueClass="text-gray-900"
         />
         <BusinessMetricCard
           icon={ShieldAlert}
-          label="Fraudes evitados"
+          label="Frauds prevented"
           value={formatNumber(fraudsPrevented, 0)}
-          sub="Rechazos por riesgo + intentos de manipulación detectados"
-          tooltip="Casos rejected por riesgo alto + incidentes de seguridad (prompt injection, manipulación)."
+          sub="Risk rejections + manipulation attempts detected"
+          tooltip="Cases rejected for high risk + security incidents (prompt injection, manipulation)."
           valueClass="text-primary-600"
         />
       </div>
@@ -560,13 +560,13 @@ export default function StatsView() {
       <details className="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">Métricas técnicas</h3>
+            <h3 className="text-sm font-semibold text-gray-900">Technical metrics</h3>
             <p className="text-xs text-gray-500">
-              Cerradas por defecto para que la conversación principal siga enfocada en negocio.
+              Collapsed by default so the main conversation stays focused on business.
             </p>
           </div>
           <span className="flex items-center gap-2 text-xs text-gray-500">
-            Mostrar detalle
+            Show detail
             <ChevronDown className="h-4 w-4" />
           </span>
         </summary>
@@ -576,19 +576,19 @@ export default function StatsView() {
             icon={Clock3}
             label="avg_duration_ms"
             value={`${stats.avg_duration_ms.toLocaleString('es-ES')} ms`}
-            sub="Tiempo medio end-to-end del pipeline."
+            sub="Average end-to-end pipeline time."
           />
           <TechnicalMetricCard
             icon={Gauge}
             label="avg_risk_score"
             value={stats.avg_risk_score.toFixed(2)}
-            sub="Score técnico medio devuelto por el motor de riesgo."
+            sub="Average technical score returned by the risk engine."
           />
           <TechnicalMetricCard
             icon={FileStack}
             label="active_policies"
             value={stats.active_policies.toLocaleString('es-ES')}
-            sub="Pólizas activas disponibles en el entorno de demo."
+            sub="Active policies available in the demo environment."
           />
         </div>
       </details>

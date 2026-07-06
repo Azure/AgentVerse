@@ -135,28 +135,28 @@ export default function LiveStatsTicker({
       <div className="relative grid divide-y divide-gray-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-[repeat(4,minmax(0,1fr))_auto]">
         <TickerStat
           icon={Wallet}
-          label="€ procesados"
+          label="€ processed"
           value={formatCurrency(animatedProcessed)}
           accentClasses="border-primary-200 bg-primary-50 text-primary-700"
           valueClasses="text-primary-700"
         />
         <TickerStat
           icon={CheckCircle2}
-          label="Casos completados"
+          label="Cases completed"
           value={formatFraction(animatedCompleted, totalCases)}
           accentClasses="border-emerald-200 bg-emerald-50 text-emerald-700"
           valueClasses="text-emerald-700"
         />
         <TickerStat
           icon={Cpu}
-          label="% automatización"
+          label="% automation"
           value={formatPercent(animatedAutomation)}
           accentClasses="border-amber-200 bg-amber-50 text-amber-700"
           valueClasses="text-amber-700"
         />
         <TickerStat
           icon={ShieldAlert}
-          label="Fraudes detectados"
+          label="Frauds detected"
           value={Math.max(0, Math.round(animatedFrauds)).toLocaleString('es-ES')}
           accentClasses="border-primary-200 bg-primary-50 text-primary-700"
           valueClasses="text-primary-700"
@@ -168,7 +168,7 @@ export default function LiveStatsTicker({
               <Clock3 className="h-[18px] w-[18px]" />
             </div>
             <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gray-500">Tiempo</div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gray-500">Time</div>
               <div className="mt-1 text-lg font-semibold leading-none text-primary-700 tabular-nums">
                 {formatElapsed(elapsedSeconds)}
               </div>

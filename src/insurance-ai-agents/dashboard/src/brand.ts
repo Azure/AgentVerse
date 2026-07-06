@@ -54,9 +54,9 @@ export const BRAND: BrandConfig = {
   voiceAssistantName: 'Leo',
   logoUrl: '/brand-logo.png',
   logoAlt: 'Helix Insurance',
-  tagline: 'Plataforma comercial para tramitación inteligente de siniestros',
+  tagline: 'Commercial platform for intelligent claims processing',
   caseStudyDescription:
-    'Procesamiento de partes de seguro automatizado con IA gobernada. Resolución de siniestros auditable, trazable y en segundos.',
+    'Automated insurance claim processing with governed AI. Auditable, traceable claim resolution in seconds.',
   partnerBannerName: 'Helix Insurance',
   primaryHex: '#2563EB',
   logoHasWordmark: false,

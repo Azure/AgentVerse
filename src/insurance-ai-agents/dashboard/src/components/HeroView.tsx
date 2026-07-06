@@ -67,53 +67,53 @@ const HERO_BADGES: Array<{ icon: LucideIcon; label: string }> = [
 ];
 
 const FLOW_STEPS: Array<{ icon: LucideIcon; title: string; description: string }> = [
-  { icon: Upload, title: 'Cliente sube parte', description: 'Captura del siniestro y evidencia en un único flujo guiado.' },
-  { icon: FileSearch, title: 'Intake extrae datos', description: 'La IA estructura el expediente y elimina trabajo manual.' },
-  { icon: ShieldAlert, title: 'Risk evalúa fraude', description: 'Cruza señales de riesgo y detecta incoherencias automáticamente.' },
-  { icon: Scale, title: 'Compliance valida regulación', description: 'Aplica reglas de negocio y cumplimiento antes de decidir.' },
-  { icon: Gavel, title: 'Decisión', description: 'Aprueba, rechaza o escala con reasoning y trazabilidad completa.' },
+  { icon: Upload, title: 'Customer uploads claim', description: 'Claim capture and evidence in a single guided flow.' },
+  { icon: FileSearch, title: 'Intake extracts data', description: 'AI structures the case file and removes manual work.' },
+  { icon: ShieldAlert, title: 'Risk evaluates fraud', description: 'Cross-checks risk signals and detects inconsistencies automatically.' },
+  { icon: Scale, title: 'Compliance validates regulation', description: 'Applies business rules and compliance before deciding.' },
+  { icon: Gavel, title: 'Decision', description: 'Approves, rejects or escalates with full reasoning and traceability.' },
 ];
 
 const PLATFORM_STACK: PlatformBadge[] = [
   {
     icon: ShieldCheck,
     name: BRAND.partnerBannerName,
-    description: 'caso de uso de seguros con foco en gobierno, marca y experiencia cliente',
+    description: 'insurance use case focused on governance, brand and customer experience',
     featured: true,
   },
-  { icon: Sparkles, name: 'Microsoft Agent Framework', description: 'orquestación multi-agente gobernada' },
-  { icon: Sparkles, name: 'Azure OpenAI', description: 'razonamiento, extracción y decisión asistida' },
-  { icon: Shield, name: 'Microsoft Entra ID', description: 'identidad, roles y acceso corporativo seguro' },
-  { icon: Database, name: 'Azure Cosmos DB', description: 'persistencia auditable de expedientes y resultados' },
-  { icon: Activity, name: 'Azure API Management', description: 'seguridad, políticas y exposición controlada de APIs' },
+  { icon: Sparkles, name: 'Microsoft Agent Framework', description: 'governed multi-agent orchestration' },
+  { icon: Sparkles, name: 'Azure OpenAI', description: 'reasoning, extraction and assisted decision-making' },
+  { icon: Shield, name: 'Microsoft Entra ID', description: 'identity, roles and secure corporate access' },
+  { icon: Database, name: 'Azure Cosmos DB', description: 'auditable persistence of case files and results' },
+  { icon: Activity, name: 'Azure API Management', description: 'security, policies and controlled API exposure' },
 ];
 
 const DEMO_USE_CASES: DemoUseCase[] = [
   {
     key: 'low_risk',
     icon: CheckCircle2,
-    title: 'Bajo Riesgo',
+    title: 'Low Risk',
     amount: 2500,
-    expected: 'Aprobación automática',
-    description: 'Colisión leve con parte amistoso firmado. Caso típico de alta frecuencia y bajo importe.',
+    expected: 'Automatic approval',
+    description: 'Minor collision with a signed joint report. Typical high-frequency, low-amount case.',
     accent: 'text-emerald-700 bg-emerald-50 border-emerald-200',
   },
   {
     key: 'high_amount',
     icon: Euro,
-    title: 'Alto Monto',
+    title: 'High Amount',
     amount: 15000,
-    expected: 'Aprobación con auditoría',
-    description: 'Daños severos por temporal sobre vehículo de gama alta. Aprobación con trazabilidad reforzada.',
+    expected: 'Approval with audit',
+    description: 'Severe storm damage on a high-end vehicle. Approval with reinforced traceability.',
     accent: 'text-primary-700 bg-primary-50 border-primary-200',
   },
   {
     key: 'human_review',
     icon: UserCheck,
-    title: 'Revisión Humana',
+    title: 'Human Review',
     amount: 32000,
-    expected: 'Escalado a perito',
-    description: 'Siniestro complejo con informe pericial. La IA escala al equipo humano por importe y casuística.',
+    expected: 'Escalated to adjuster',
+    description: 'Complex claim with an expert appraisal report. The AI escalates to the human team by amount and casuistry.',
     accent: 'text-amber-700 bg-amber-50 border-amber-200',
   },
   {
@@ -121,17 +121,17 @@ const DEMO_USE_CASES: DemoUseCase[] = [
     icon: ShieldAlert,
     title: 'Prompt Injection',
     amount: 3000,
-    expected: 'Rechazo + alerta seguridad',
-    description: 'Intento de manipular al agente con instrucciones ocultas. El guardrail lo detecta y bloquea.',
+    expected: 'Rejection + security alert',
+    description: 'Attempt to manipulate the agent with hidden instructions. The guardrail detects and blocks it.',
     accent: 'text-purple-700 bg-purple-50 border-purple-200',
   },
   {
     key: 'fraudulent',
     icon: Siren,
-    title: 'Fraudulento',
+    title: 'Fraudulent',
     amount: 8500,
-    expected: 'Escalado por riesgo alto',
-    description: 'Robo sin testigos ni evidencia. Señales de fraude que disparan revisión humana.',
+    expected: 'Escalated for high risk',
+    description: 'Theft without witnesses or evidence. Fraud signals that trigger human review.',
     accent: 'text-red-700 bg-red-50 border-red-200',
   },
 ];
@@ -207,19 +207,19 @@ function MetricCard({ icon: Icon, label, display, description, valueClass, count
 }
 
 function formatInteger(value: number): string {
-  return value.toLocaleString('es-ES');
+  return value.toLocaleString('en-US');
 }
 
 function formatCurrency(value: number): string {
-  return `€ ${Math.round(value).toLocaleString('es-ES')}`;
+  return `€ ${Math.round(value).toLocaleString('en-US')}`;
 }
 
 function formatPercent(value: number): string {
-  return `${Math.round(value).toLocaleString('es-ES')}%`;
+  return `${Math.round(value).toLocaleString('en-US')}%`;
 }
 
 function formatSeconds(value: number): string {
-  return `${value.toLocaleString('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} s`;
+  return `${value.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} s`;
 }
 
 export default function HeroView({ onCTAClick }: HeroViewProps) {
@@ -267,40 +267,40 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
     return [
       {
         icon: LayoutGrid,
-        label: 'Casos de uso demo',
+        label: 'Demo use cases',
         display: formatInteger(DEMO_USE_CASES.length),
-        description: 'Escenarios reales preparados: aprobación, alto monto, revisión humana, fraude y prompt injection.',
+        description: 'Real prepared scenarios: approval, high amount, human review, fraud and prompt injection.',
         valueClass: 'text-primary-600',
         countTarget: DEMO_USE_CASES.length,
         countFormatter: formatInteger,
       },
       {
         icon: Euro,
-        label: 'Exposición demo',
+        label: 'Demo exposure',
         display: formatCurrency(DEMO_TOTAL_EXPOSURE),
-        description: 'Importe total cubierto por los 5 escenarios de la demo (importe agregado a evaluar).',
+        description: 'Total amount covered by the 5 demo scenarios (aggregate amount to evaluate).',
         valueClass: 'text-gray-900',
         countTarget: DEMO_TOTAL_EXPOSURE,
         countFormatter: formatCurrency,
       },
       {
         icon: Sparkles,
-        label: 'Procesados en esta sesión',
+        label: 'Processed in this session',
         display: hasStatsData ? formatInteger(processedCount) : '—',
         description: automationRate !== null
-          ? `${automationRate}% resueltos automáticamente (approve + reject), el resto escalado a revisión humana.`
-          : 'Lanza la demo o un caso individual para empezar a alimentar las métricas reales.',
+          ? `${automationRate}% resolved automatically (approve + reject), the rest escalated to human review.`
+          : 'Launch the demo or an individual case to start feeding the real metrics.',
         valueClass: 'text-gray-900',
         countTarget: hasStatsData ? processedCount : undefined,
         countFormatter: hasStatsData ? formatInteger : undefined,
       },
       {
         icon: Timer,
-        label: 'Tiempo medio IA',
+        label: 'Average AI time',
         display: avgSeconds !== null ? formatSeconds(avgSeconds) : '—',
         description: securityIncidents > 0
-          ? `Pipeline end-to-end medido en vivo. ${securityIncidents} incidente(s) de seguridad detectado(s).`
-          : 'Tiempo end-to-end del pipeline multi-agente, frente a los 45 min del proceso manual.',
+          ? `End-to-end pipeline measured live. ${securityIncidents} security incident(s) detected.`
+          : 'End-to-end time of the multi-agent pipeline, versus the 45 min of the manual process.',
         valueClass: 'text-primary-600',
       },
     ];
@@ -315,7 +315,7 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
         <div className="relative mx-auto max-w-4xl space-y-6 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-700 shadow-sm">
             <Sparkles className="h-4 w-4 text-primary-500" />
-            Plataforma comercial para tramitación inteligente de siniestros
+            Commercial platform for intelligent claims processing
           </div>
 
           <div className="space-y-4">
@@ -330,7 +330,7 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
               <span className="text-primary-600">{BRAND.productNameAccent}</span>
             </h2>
             <p className="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600 md:text-xl">
-              Caso de uso: {BRAND.name} · {BRAND.caseStudyDescription}
+              Use case: {BRAND.name} · {BRAND.caseStudyDescription}
             </p>
           </div>
 
@@ -352,7 +352,7 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
             className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-primary-700"
           >
             <Play className="h-4 w-4" fill="currentColor" />
-            Probar ahora
+            Try now
           </button>
         </div>
       </section>
@@ -360,10 +360,10 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
       <section className="space-y-4">
         <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.28em] text-gray-500">KPIs que compra negocio</p>
-            <h3 className="text-2xl font-semibold text-gray-900">Resultado económico, eficiencia y control</h3>
+            <p className="text-xs uppercase tracking-[0.28em] text-gray-500">KPIs the business buys</p>
+            <h3 className="text-2xl font-semibold text-gray-900">Economic outcome, efficiency and control</h3>
           </div>
-          <p className="text-sm text-gray-500">Conectado a /api/stats, /api/claims y /api/security/incidents.</p>
+          <p className="text-sm text-gray-500">Connected to /api/stats, /api/claims and /api/security/incidents.</p>
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -375,11 +375,11 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
         <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
           <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-gray-500">Casos de uso incluidos</p>
-              <h4 className="text-xl font-semibold text-gray-900">5 escenarios que cubren el ciclo completo</h4>
+              <p className="text-xs uppercase tracking-[0.28em] text-gray-500">Included use cases</p>
+              <h4 className="text-xl font-semibold text-gray-900">5 scenarios that cover the full cycle</h4>
             </div>
             <p className="text-sm text-gray-500">
-              Exposición agregada: <span className="font-semibold text-gray-900">{formatCurrency(DEMO_TOTAL_EXPOSURE)}</span>
+              Aggregate exposure: <span className="font-semibold text-gray-900">{formatCurrency(DEMO_TOTAL_EXPOSURE)}</span>
             </p>
           </div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
@@ -407,22 +407,22 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
               <Clock className="h-6 w-6" />
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.26em] text-gray-500">Antes</p>
-              <h3 className="text-2xl font-semibold text-gray-900">45 min por caso</h3>
+              <p className="text-xs uppercase tracking-[0.26em] text-gray-500">Before</p>
+              <h3 className="text-2xl font-semibold text-gray-900">45 min per case</h3>
             </div>
           </div>
           <ul className="space-y-3 text-sm text-gray-700">
             <li className="flex items-start gap-3">
               <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
-              <span>Errores humanos al reescribir datos y revisar coberturas.</span>
+              <span>Human errors when re-entering data and reviewing coverage.</span>
             </li>
             <li className="flex items-start gap-3">
               <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
-              <span>Sin audit trail trazable para justificar por qué se aprobó o rechazó.</span>
+              <span>No traceable audit trail to justify why it was approved or rejected.</span>
             </li>
             <li className="flex items-start gap-3">
               <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
-              <span>Fraudes e intentos de manipulación que se cuelan hasta fases tardías.</span>
+              <span>Fraud and manipulation attempts that slip through to late stages.</span>
             </li>
           </ul>
         </div>
@@ -439,22 +439,22 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
               <Zap className="h-6 w-6" />
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.26em] text-primary-600/80">Ahora</p>
-              <h3 className="text-2xl font-semibold text-gray-900">30 segundos por caso</h3>
+              <p className="text-xs uppercase tracking-[0.26em] text-primary-600/80">Now</p>
+              <h3 className="text-2xl font-semibold text-gray-900">30 seconds per case</h3>
             </div>
           </div>
           <ul className="space-y-3 text-sm text-gray-700">
             <li className="flex items-start gap-3">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
-              <span>3 agentes IA colaboran y entregan una decisión lista para negocio.</span>
+              <span>3 AI agents collaborate and deliver a business-ready decision.</span>
             </li>
             <li className="flex items-start gap-3">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
-              <span>Audit trail completo para explicar, revisar y gobernar cada expediente.</span>
+              <span>Complete audit trail to explain, review and govern every case file.</span>
             </li>
             <li className="flex items-start gap-3">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
-              <span>Fraude, prompt injection y anomalías detectadas automáticamente.</span>
+              <span>Fraud, prompt injection and anomalies detected automatically.</span>
             </li>
           </ul>
         </div>
@@ -463,8 +463,8 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
       <section className="rounded-3xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
         <div className="mb-6 flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.28em] text-gray-500">Flujo operativo</p>
-            <h3 className="text-2xl font-semibold text-gray-900">De la carga del parte a la decisión final</h3>
+            <p className="text-xs uppercase tracking-[0.28em] text-gray-500">Operational flow</p>
+            <h3 className="text-2xl font-semibold text-gray-900">From claim upload to final decision</h3>
           </div>
           <div className="hidden rounded-full border border-primary-200 bg-white px-3 py-1 text-xs text-primary-700 md:inline-flex">
             Multi-agent orchestration live
@@ -497,7 +497,7 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
       <section className="space-y-4">
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-gray-500">Powered by</p>
-          <h3 className="text-2xl font-semibold text-gray-900">Stack enterprise listo para producción</h3>
+          <h3 className="text-2xl font-semibold text-gray-900">Enterprise stack ready for production</h3>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {PLATFORM_STACK.map(({ icon: Icon, name, description, featured }) => (
@@ -518,20 +518,20 @@ export default function HeroView({ onCTAClick }: HeroViewProps) {
       </section>
 
       <section className="rounded-3xl border border-primary-200 bg-gradient-to-r from-primary-50 via-white to-primary-50 p-8 text-center shadow-sm">
-        <p className="text-xs uppercase tracking-[0.28em] text-primary-700">Siguiente paso</p>
-        <h3 className="mt-3 text-3xl font-semibold text-gray-900">Ver una demo automática ▶</h3>
+        <p className="text-xs uppercase tracking-[0.28em] text-primary-700">Next step</p>
+        <h3 className="mt-3 text-3xl font-semibold text-gray-900">Watch an automated demo ▶</h3>
         <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-gray-600">
-          Abre el flujo cliente para enseñar en directo cómo los agentes reducen tiempos, detectan fraude y dejan trazabilidad completa.
+          Open the customer flow to show live how the agents reduce times, detect fraud and leave a complete audit trail.
         </p>
         <button
           type="button"
           onClick={() => {
-            // TODO: cuando autoplay-demo esté listo, abrir el modal en lugar de cambiar tab.
+            // TODO: when autoplay-demo is ready, open the modal instead of changing the tab.
             onCTAClick();
           }}
           className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-primary-700"
         >
-          Ver una demo automática
+          Watch an automated demo
           <ArrowRight className="h-4 w-4" />
         </button>
       </section>

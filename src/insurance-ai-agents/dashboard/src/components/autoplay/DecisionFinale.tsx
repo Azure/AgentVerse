@@ -39,8 +39,8 @@ const CONFETTI_COLORS = ['bg-green-400', 'bg-emerald-400', 'bg-teal-400', 'bg-li
 const DECISION_META: Record<DecisionFinaleProps['decision'], DecisionMeta> = {
   approve: {
     icon: CheckCircle2,
-    title: 'APROBADO',
-    subtitle: 'Resolución automática emitida correctamente.',
+    title: 'APPROVED',
+    subtitle: 'Automatic resolution issued successfully.',
     tintClass: 'bg-emerald-500/10',
     cardClass: 'bg-white border-emerald-200 shadow-lg shadow-emerald-100/70',
     badgeClass: 'border-emerald-200 bg-emerald-50 text-emerald-700',
@@ -49,8 +49,8 @@ const DECISION_META: Record<DecisionFinaleProps['decision'], DecisionMeta> = {
   },
   human_review: {
     icon: Users,
-    title: 'REVISIÓN HUMANA',
-    subtitle: 'Supera umbral de aprobación automática.',
+    title: 'HUMAN REVIEW',
+    subtitle: 'Exceeds the automatic approval threshold.',
     tintClass: 'bg-amber-500/10',
     cardClass: 'bg-white border-amber-200 shadow-lg shadow-amber-100/70',
     badgeClass: 'border-amber-200 bg-amber-50 text-amber-800',
@@ -59,8 +59,8 @@ const DECISION_META: Record<DecisionFinaleProps['decision'], DecisionMeta> = {
   },
   reject: {
     icon: XCircle,
-    title: 'RECHAZADO',
-    subtitle: 'Posible fraude detectado.',
+    title: 'REJECTED',
+    subtitle: 'Possible fraud detected.',
     tintClass: 'bg-red-500/10',
     cardClass: 'bg-white border-red-200 shadow-lg shadow-red-100/70',
     badgeClass: 'border-red-200 bg-red-50 text-red-700',

@@ -10,11 +10,11 @@ interface Props {
 }
 
 const SCENARIO_OPTIONS: Array<{ key: string; label: string; Icon: LucideIcon }> = [
-  { key: 'low_risk', label: 'Bajo Riesgo', Icon: CheckCircle2 },
-  { key: 'high_amount', label: 'Alto Monto', Icon: Euro },
-  { key: 'human_review', label: 'Revisión Humana', Icon: UserCheck },
+  { key: 'low_risk', label: 'Low Risk', Icon: CheckCircle2 },
+  { key: 'high_amount', label: 'High Amount', Icon: Euro },
+  { key: 'human_review', label: 'Human Review', Icon: UserCheck },
   { key: 'prompt_injection', label: 'Prompt Injection', Icon: ShieldAlert },
-  { key: 'fraudulent', label: 'Fraudulento', Icon: Siren },
+  { key: 'fraudulent', label: 'Fraudulent', Icon: Siren },
 ];
 
 export default function ClaimForm({ onSubmit, loading }: Props) {
@@ -36,7 +36,7 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
       .then((data) => {
         setScenarios(data);
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setScenariosLoaded(true));
   }, []);
 
@@ -92,13 +92,13 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
       <div className="mb-6 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <FileText className="h-5 w-5 text-primary-600" />
-          <h2 className="text-lg font-semibold text-gray-900">Nuevo Siniestro</h2>
+          <h2 className="text-lg font-semibold text-gray-900">New Claim</h2>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {!scenariosLoaded && (
             <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-gray-400">
               <Loader2 className="h-3 w-3 animate-spin" />
-              Cargando escenarios…
+              Loading scenarios…
             </span>
           )}
           {SCENARIO_OPTIONS.map(({ key, label, Icon }) => {
@@ -111,7 +111,7 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
                 onClick={() => available && loadScenario(key)}
                 disabled={!available}
                 aria-disabled={!available}
-                title={available ? `Cargar caso: ${label}` : 'Disponible cuando el backend responda'}
+                title={available ? `Load case: ${label}` : 'Available when the backend responds'}
                 className={[
                   'inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors',
                   !available
@@ -131,7 +131,7 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
-          <label className={labelClass}>Póliza ID</label>
+          <label className={labelClass}>Policy ID</label>
           <input
             type="text"
             value={form.policy_id}
@@ -143,7 +143,7 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
         </div>
 
         <div>
-          <label className={labelClass}>Cliente ID</label>
+          <label className={labelClass}>Customer ID</label>
           <input
             type="text"
             value={form.customer_id}
@@ -155,23 +155,23 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
         </div>
 
         <div>
-          <label className={labelClass}>Tipo de Incidente</label>
+          <label className={labelClass}>Incident Type</label>
           <select
             value={form.incident_type}
             onChange={(e) => updateForm({ incident_type: e.target.value })}
             className={inputClass}
           >
-            <option value="collision">Colisión</option>
-            <option value="theft">Robo</option>
-            <option value="fire">Incendio</option>
-            <option value="natural_disaster">Desastre Natural</option>
-            <option value="vandalism">Vandalismo</option>
-            <option value="other">Otro</option>
+            <option value="collision">Collision</option>
+            <option value="theft">Theft</option>
+            <option value="fire">Fire</option>
+            <option value="natural_disaster">Natural Disaster</option>
+            <option value="vandalism">Vandalism</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
         <div>
-          <label className={labelClass}>Monto Estimado (€)</label>
+          <label className={labelClass}>Estimated Amount (€)</label>
           <input
             type="number"
             value={form.estimated_amount || ''}
@@ -184,11 +184,11 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
         </div>
 
         <div className="md:col-span-2">
-          <label className={labelClass}>Descripción del Siniestro</label>
+          <label className={labelClass}>Claim Description</label>
           <textarea
             value={form.description}
             onChange={(e) => updateForm({ description: e.target.value })}
-            placeholder="Describe los hechos del siniestro..."
+            placeholder="Describe the facts of the claim..."
             rows={4}
             className={`${inputClass} resize-none`}
             required
@@ -196,7 +196,7 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
         </div>
 
         <div className="md:col-span-2">
-          <label className={labelClass}>Imagen del Siniestro (opcional)</label>
+          <label className={labelClass}>Claim Image (optional)</label>
           <div className="flex items-center gap-4">
             <input
               ref={fileInputRef}
@@ -211,7 +211,7 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
               className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 text-sm text-gray-800 transition-colors hover:border-primary-300 hover:bg-primary-50"
             >
               <ImagePlus className="h-4 w-4" />
-              Adjuntar Imagen
+              Attach Image
             </button>
             {imagePreview && (
               <div className="relative">
@@ -240,11 +240,11 @@ export default function ClaimForm({ onSubmit, loading }: Props) {
           >
             {loading ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" /> Procesando Siniestro...
+                <Loader2 className="h-4 w-4 animate-spin" /> Processing Claim...
               </>
             ) : (
               <>
-                <Send className="h-4 w-4" /> Evaluar Siniestro
+                <Send className="h-4 w-4" /> Evaluate Claim
               </>
             )}
           </button>

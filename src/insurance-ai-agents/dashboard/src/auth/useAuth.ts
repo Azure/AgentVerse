@@ -1,13 +1,13 @@
 /**
- * Hooks y helpers de auth: extracción de roles, viewMode y forzado de cache
- * del access token tras login.
+ * Auth hooks and helpers: role extraction, viewMode and forcing the access
+ * token cache after login.
  */
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { useMsal, useIsAuthenticated } from '@azure/msal-react';
 import type { AccountInfo } from '@azure/msal-browser';
 import { AUTH_ENABLED, API_SCOPES, LOGIN_SCOPES, ROLE_CUSTOMER, ROLE_OPERATOR } from './msalConfig';
 
-// Re-export para compatibilidad con código que ya importa desde aquí.
+// Re-export for compatibility with code that already imports from here.
 export { acquireApiToken } from './msalConfig';
 
 export type ViewMode = 'customer' | 'operator';
@@ -19,12 +19,12 @@ export interface AuthState {
   roles: string[];
   isCustomer: boolean;
   isOperator: boolean;
-  /** Vista activa (cuando el usuario tiene ambos roles puede alternar). */
+  /** Active view (when the user has both roles they can toggle). */
   viewMode: ViewMode;
   setViewMode: (m: ViewMode) => void;
   login: () => Promise<void>;
   logout: () => Promise<void>;
-  /** Identificador del cliente — usamos el UPN/email del token para el demo. */
+  /** Customer identifier — we use the token UPN/email for the demo. */
   customerId: string;
 }
 
@@ -46,7 +46,7 @@ export function useAuth(): AuthState {
   const defaultMode: ViewMode = isOperator ? 'operator' : 'customer';
   const [viewMode, setViewModeState] = useState<ViewMode>(defaultMode);
 
-  // Si cambia el set de roles (login/logout) reseteamos el viewMode.
+  // If the role set changes (login/logout) we reset the viewMode.
   useEffect(() => {
     setViewModeState(isOperator ? 'operator' : 'customer');
   }, [isOperator, isCustomer]);
@@ -58,9 +58,9 @@ export function useAuth(): AuthState {
   }, [isCustomer, isOperator]);
 
   const login = useCallback(async () => {
-    // Pedimos OIDC + el scope de la API en la misma popup. Así el consent
-    // ('access_as_user') se resuelve en el primer login y luego
-    // acquireTokenSilent funcionará sin abrir más popups.
+    // We request OIDC + the API scope in the same popup. This way the consent
+    // ('access_as_user') is resolved on the first login and afterwards
+    // acquireTokenSilent works without opening more popups.
     await instance.loginPopup({ scopes: [...LOGIN_SCOPES, ...API_SCOPES] });
   }, [instance]);
 
@@ -68,8 +68,8 @@ export function useAuth(): AuthState {
     await instance.logoutPopup();
   }, [instance]);
 
-  // Para la demo: usamos el username (UPN/email) como customer_id.
-  // En producción se mapearía email → customer_id en backend.
+  // For the demo: we use the username (UPN/email) as customer_id.
+  // In production, email → customer_id would be mapped in the backend.
   const customerId = AUTH_ENABLED && account
     ? account.username
     : 'CUST-1001';

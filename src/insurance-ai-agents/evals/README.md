@@ -17,7 +17,7 @@ pull request that touches the agents.
   - Posts a markdown table comment on the PR with per-case results.
   - Uploads the report as a build artifact for traceability.
 - The `/api/governance/status` backend endpoint reads `last_report.json`
-  and exposes the metrics live in the **Gobernanza** dashboard tab.
+  and exposes the metrics live in the **Governance** dashboard tab.
 
 ## Run locally
 

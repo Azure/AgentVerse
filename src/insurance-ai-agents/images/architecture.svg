@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 1180" font-family="'Segoe UI', system-ui, sans-serif" role="img" aria-label="Arquitectura de referencia de Insurance AI Agents">
-  <title>Insurance AI Agents — Arquitectura de Referencia</title>
-  <desc>Demo de procesamiento multi-agente de siniestros: dashboard React, backend FastAPI sobre Azure Container Apps, Microsoft Agent Framework orquestando los agentes Intake / Risk / Compliance, Azure OpenAI a través del APIM AI Gateway, Cosmos DB y Blob Storage para estado, Microsoft Entra ID para identidad, Application Insights para observabilidad, GitHub Enterprise (CODEOWNERS, Eval Gate, Actions) para gobernanza.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 1180" font-family="'Segoe UI', system-ui, sans-serif" role="img" aria-label="Insurance AI Agents reference architecture">
+  <title>Insurance AI Agents — Reference Architecture</title>
+  <desc>Multi-agent claims processing demo: React dashboard, FastAPI backend on Azure Container Apps, Microsoft Agent Framework orchestrating Intake / Risk / Compliance agents, Azure OpenAI through APIM AI Gateway, Cosmos DB and Blob Storage for state, Microsoft Entra ID for identity, Application Insights for observability, GitHub Enterprise (CODEOWNERS, Eval Gate, Actions) for governance.</desc>
 
   <defs>
     <linearGradient id="canvas" x1="0" y1="0" x2="0" y2="1">
@@ -167,70 +167,70 @@
   <text x="332" y="60" font-size="22" font-weight="600" fill="#1E40AF">Helix Insurance</text>
 
   <text x="860" y="48" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1F1F">Insurance AI Agents</text>
-  <text x="860" y="76" text-anchor="middle" font-size="12" font-weight="400" letter-spacing="3" fill="#5A5A5A">GESTIÓN DE SINIESTROS MULTI-AGENTE GOBERNADA · ARQUITECTURA DE REFERENCIA</text>
+  <text x="860" y="76" text-anchor="middle" font-size="12" font-weight="400" letter-spacing="3" fill="#5A5A5A">GOVERNED MULTI-AGENT CLAIMS PROCESSING · REFERENCE ARCHITECTURE</text>
 
   <rect x="1610" y="38" width="68" height="28" rx="14" fill="#F0F2F5" stroke="#D6D9E0" stroke-width="1"/>
   <text x="1644" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#1F1F1F">v1.0</text>
 
   <g filter="url(#zoneShadow)"><rect x="40" y="130" width="400" height="830" rx="18" fill="url(#edgeBand)" stroke="#C2C8D4" stroke-width="1.5"/></g>
-  <text x="60" y="160" font-size="11" font-weight="700" fill="#5A5A5A" letter-spacing="3">BORDE · CAPA CLIENTE</text>
+  <text x="60" y="160" font-size="11" font-weight="700" fill="#5A5A5A" letter-spacing="3">EDGE · CLIENT TIER</text>
 
   <g filter="url(#zoneShadow)"><rect x="460" y="130" width="1220" height="830" rx="18" fill="url(#azureBand)" stroke="#74B8E8" stroke-width="1.5" stroke-dasharray="7 5"/></g>
-  <text x="480" y="160" font-size="11" font-weight="700" fill="#0067B8" letter-spacing="3">MICROSOFT AZURE · TENANT EMPRESARIAL</text>
+  <text x="480" y="160" font-size="11" font-weight="700" fill="#0067B8" letter-spacing="3">MICROSOFT AZURE · ENTERPRISE TENANT</text>
 
   <g filter="url(#zoneShadow)"><rect x="40" y="985" width="1640" height="160" rx="18" fill="url(#govBand)" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="7 5"/></g>
-  <text x="60" y="1015" font-size="11" font-weight="700" fill="#1E40AF" letter-spacing="3">GITHUB ENTERPRISE · CAPA DE GOBERNANZA  (PROTEGE Y AUDITA TODO LO DE ARRIBA)</text>
+  <text x="60" y="1015" font-size="11" font-weight="700" fill="#1E40AF" letter-spacing="3">GITHUB ENTERPRISE · GOVERNANCE LANE  (PROTECTS &amp; AUDITS ALL ABOVE)</text>
 
   <g filter="url(#cardShadow)"><rect x="70" y="180" width="340" height="160" rx="12" fill="#FFFFFF" stroke="#D6D9E0" stroke-width="1.5"/></g>
-  <text x="240" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#5A5A5A" letter-spacing="2">USUARIOS FINALES · NAVEGADOR</text>
+  <text x="240" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#5A5A5A" letter-spacing="2">END USERS · BROWSER</text>
   <use href="#iconUser" x="125" y="222" width="56" height="56"/>
-  <text x="153" y="298" text-anchor="middle" font-size="13" font-weight="600" fill="#1F1F1F">Cliente</text>
-  <text x="153" y="316" text-anchor="middle" font-size="10" fill="#5A5A5A">rol: Customer.Submit</text>
+  <text x="153" y="298" text-anchor="middle" font-size="13" font-weight="600" fill="#1F1F1F">Customer</text>
+  <text x="153" y="316" text-anchor="middle" font-size="10" fill="#5A5A5A">role: Customer.Submit</text>
   <use href="#iconUser" x="299" y="222" width="56" height="56"/>
-  <text x="327" y="298" text-anchor="middle" font-size="13" font-weight="600" fill="#1F1F1F">Operario</text>
-  <text x="327" y="316" text-anchor="middle" font-size="10" fill="#5A5A5A">rol: Operator.Review</text>
+  <text x="327" y="298" text-anchor="middle" font-size="13" font-weight="600" fill="#1F1F1F">Operator</text>
+  <text x="327" y="316" text-anchor="middle" font-size="10" fill="#5A5A5A">role: Operator.Review</text>
 
   <g filter="url(#cardShadow)"><rect x="70" y="390" width="340" height="230" rx="12" fill="#FFFFFF" stroke="#D6D9E0" stroke-width="1.5"/></g>
   <use href="#iconReact" x="96" y="412" width="50" height="50"/>
   <text x="162" y="432" font-size="15" font-weight="700" fill="#1F1F1F">Dashboard</text>
   <text x="162" y="452" font-size="11.5" fill="#5A5A5A">React 18 · TypeScript · Vite</text>
   <line x1="96" y1="482" x2="384" y2="482" stroke="#E1E4E8" stroke-width="1"/>
-  <text x="96" y="506" font-size="12" fill="#444">▸ Vistas por rol</text>
-  <text x="96" y="527" font-size="12" fill="#444">▸ Cliente · Operario · Riesgo</text>
-  <text x="96" y="548" font-size="12" fill="#444">▸ Compliance · Demo automática</text>
-  <text x="96" y="569" font-size="12" fill="#444">▸ Streaming WebSocket en vivo</text>
+  <text x="96" y="506" font-size="12" fill="#444">▸ Per-role views</text>
+  <text x="96" y="527" font-size="12" fill="#444">▸ Customer · Operator · Risk</text>
+  <text x="96" y="548" font-size="12" fill="#444">▸ Compliance · Auto-demo</text>
+  <text x="96" y="569" font-size="12" fill="#444">▸ Live WebSocket streaming</text>
   <text x="96" y="603" font-size="10" font-style="italic" fill="#888">dashboard/</text>
 
   <g filter="url(#cardShadow)"><rect x="70" y="655" width="340" height="280" rx="12" fill="#FFFFFF" stroke="#D6D9E0" stroke-width="1"/></g>
-  <text x="90" y="683" font-size="12" font-weight="700" fill="#5A5A5A" letter-spacing="2">LEYENDA</text>
+  <text x="90" y="683" font-size="12" font-weight="700" fill="#5A5A5A" letter-spacing="2">LEGEND</text>
 
   <line x1="90" y1="710" x2="130" y2="710" stroke="#0078D4" stroke-width="2.2" marker-end="url(#arrBlue)"/>
-  <text x="140" y="714" font-size="11.5" fill="#1F1F1F">Petición / identidad</text>
+  <text x="140" y="714" font-size="11.5" fill="#1F1F1F">Request / identity</text>
 
   <line x1="90" y1="734" x2="130" y2="734" stroke="#5C2D91" stroke-width="2.2" marker-end="url(#arrPurple)"/>
-  <text x="140" y="738" font-size="11.5" fill="#1F1F1F">Flujo multi-agente (MAF)</text>
+  <text x="140" y="738" font-size="11.5" fill="#1F1F1F">Multi-agent flow (MAF)</text>
 
   <line x1="90" y1="758" x2="130" y2="758" stroke="#1E40AF" stroke-width="2.2" marker-end="url(#arrRed)"/>
-  <text x="140" y="762" font-size="11.5" fill="#1F1F1F">Inferencia LLM vía APIM</text>
+  <text x="140" y="762" font-size="11.5" fill="#1F1F1F">LLM inference via APIM</text>
 
   <line x1="90" y1="782" x2="130" y2="782" stroke="#5A5A5A" stroke-width="2.2" marker-end="url(#arrGray)"/>
-  <text x="140" y="786" font-size="11.5" fill="#1F1F1F">Persistencia (auditoría)</text>
+  <text x="140" y="786" font-size="11.5" fill="#1F1F1F">Persistence (audit)</text>
 
   <line x1="90" y1="806" x2="130" y2="806" stroke="#5C2D91" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrPurple)"/>
-  <text x="140" y="810" font-size="11.5" fill="#1F1F1F">Observabilidad</text>
+  <text x="140" y="810" font-size="11.5" fill="#1F1F1F">Observability</text>
 
   <line x1="90" y1="830" x2="130" y2="830" stroke="#1E40AF" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="140" y="834" font-size="11.5" fill="#1F1F1F">Gobernanza (protege)</text>
+  <text x="140" y="834" font-size="11.5" fill="#1F1F1F">Governance (protects)</text>
 
-  <text x="90" y="868" font-size="11" font-weight="700" fill="#5A5A5A" letter-spacing="2">PASOS DEL FLUJO</text>
+  <text x="90" y="868" font-size="11" font-weight="700" fill="#5A5A5A" letter-spacing="2">FLOW STEPS</text>
   <circle cx="100" cy="890" r="10" fill="#0078D4"/><text x="100" y="894" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">n</text>
-  <text x="120" y="894" font-size="11" fill="#444">numerados en orden de ejecución (1→9)</text>
-  <text x="90" y="918" font-size="10" font-style="italic" fill="#888">leer arriba→abajo, izq→der</text>
+  <text x="120" y="894" font-size="11" fill="#444">numbered in execution order (1→9)</text>
+  <text x="90" y="918" font-size="10" font-style="italic" fill="#888">read top→bottom, left→right</text>
 
   <g filter="url(#cardShadow)"><rect x="485" y="185" width="310" height="120" rx="12" fill="#FFFFFF" stroke="#0078D4" stroke-width="1.5"/></g>
   <use href="#iconEntra" x="505" y="209" width="54" height="54"/>
   <text x="575" y="222" font-size="14" font-weight="700" fill="#1F1F1F">Microsoft Entra ID</text>
-  <text x="575" y="242" font-size="11" fill="#5A5A5A">Proveedor de identidad (OIDC)</text>
+  <text x="575" y="242" font-size="11" fill="#5A5A5A">Identity provider (OIDC)</text>
   <text x="575" y="262" font-size="11" fill="#444">JWT v2.0 · MSAL</text>
   <text x="505" y="288" font-size="10.5" font-style="italic" fill="#888">Customer.Submit · Operator.Review</text>
 
@@ -241,52 +241,52 @@
   <use href="#iconFastAPI" x="730" y="340" width="22" height="22"/>
   <line x1="505" y1="435" x2="775" y2="435" stroke="#E1E4E8" stroke-width="1"/>
   <text x="505" y="458" font-size="12" fill="#444">▸ /api/claims · WebSocket /ws</text>
-  <text x="505" y="479" font-size="12" fill="#444">▸ Validación JWT (vs Entra)</text>
-  <text x="505" y="500" font-size="12" fill="#444">▸ Protección anti prompt-injection</text>
+  <text x="505" y="479" font-size="12" fill="#444">▸ JWT validation (vs Entra)</text>
+  <text x="505" y="500" font-size="12" fill="#444">▸ Prompt-injection guard</text>
   <text x="505" y="521" font-size="12" fill="#444">▸ Managed Identity → Azure</text>
   <text x="505" y="539" font-size="10" font-style="italic" fill="#888">backend/main.py · auth.py</text>
 
   <g filter="url(#cardShadow)"><rect x="485" y="585" width="310" height="100" rx="12" fill="#FFFFFF" stroke="#0078D4" stroke-width="1.5"/></g>
   <use href="#iconKeyVault" x="505" y="605" width="50" height="50"/>
   <text x="570" y="618" font-size="14" font-weight="700" fill="#1F1F1F">Azure Key Vault</text>
-  <text x="570" y="637" font-size="11" fill="#5A5A5A">Almacén de secretos · accedido vía MI</text>
-  <text x="505" y="668" font-size="11" fill="#444">Clave APIM · clave OpenAI · firma JWT</text>
+  <text x="570" y="637" font-size="11" fill="#5A5A5A">Secret store · accessed via MI</text>
+  <text x="505" y="668" font-size="11" fill="#444">APIM key · OpenAI key · JWT signing</text>
 
   <g filter="url(#zoneShadow)"><rect x="820" y="185" width="410" height="640" rx="14" fill="url(#mafBand)" stroke="#7A52C5" stroke-width="1.5"/></g>
-  <text x="840" y="212" font-size="11" font-weight="700" fill="#5C2D91" letter-spacing="1.5">MICROSOFT AGENT FRAMEWORK · GRAFO SECUENCIAL</text>
+  <text x="840" y="212" font-size="11" font-weight="700" fill="#5C2D91" letter-spacing="1.5">MICROSOFT AGENT FRAMEWORK · SEQUENTIAL GRAPH</text>
 
   <g filter="url(#cardShadow)"><rect x="845" y="232" width="360" height="100" rx="12" fill="#FFFFFF" stroke="#5C2D91" stroke-width="2"/></g>
   <g transform="translate(862, 252)"><circle cx="27" cy="27" r="27" fill="#5C2D91"/><text x="27" y="36" text-anchor="middle" font-size="24" font-weight="700" fill="#FFFFFF">◆</text></g>
-  <text x="932" y="266" font-size="15" font-weight="700" fill="#1F1F1F">Orquestador</text>
-  <text x="932" y="286" font-size="11.5" fill="#5A5A5A">Plan · Stream · Fallback · Auditoría</text>
+  <text x="932" y="266" font-size="15" font-weight="700" fill="#1F1F1F">Orchestrator</text>
+  <text x="932" y="286" font-size="11.5" fill="#5A5A5A">Plan · Stream · Fallback · Audit</text>
   <text x="932" y="307" font-size="10" font-style="italic" fill="#888">agents/orchestrator/agent.py</text>
 
   <g filter="url(#cardShadow)"><rect x="845" y="365" width="360" height="120" rx="12" fill="#FFFFFF" stroke="#7A52C5" stroke-width="1.5"/></g>
   <g transform="translate(862, 388)"><polygon points="28,4 50,15 50,42 28,53 6,42 6,15" fill="#7A52C5"/><text x="28" y="36" text-anchor="middle" font-size="15" font-weight="800" fill="#FFFFFF">IA</text></g>
-  <text x="932" y="398" font-size="15" font-weight="700" fill="#1F1F1F">Agente Intake</text>
-  <text x="932" y="419" font-size="11.5" fill="#5A5A5A">Extrae datos estructurados del siniestro</text>
-  <text x="932" y="440" font-size="11" fill="#444">multilingüe · structured-output (Pydantic)</text>
-  <text x="932" y="460" font-size="11" fill="#444">consulta póliza + cliente</text>
+  <text x="932" y="398" font-size="15" font-weight="700" fill="#1F1F1F">Intake Agent</text>
+  <text x="932" y="419" font-size="11.5" fill="#5A5A5A">Extracts structured claim data</text>
+  <text x="932" y="440" font-size="11" fill="#444">multilingual · structured-output (Pydantic)</text>
+  <text x="932" y="460" font-size="11" fill="#444">policy + customer lookup</text>
   <text x="932" y="478" font-size="10" font-style="italic" fill="#888">agents/claims-intake/agent.py</text>
   <circle cx="1182" cy="388" r="13" fill="#5C2D91"/>
   <text x="1182" y="393" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">4</text>
 
   <g filter="url(#cardShadow)"><rect x="845" y="510" width="360" height="120" rx="12" fill="#FFFFFF" stroke="#7A52C5" stroke-width="1.5"/></g>
   <g transform="translate(862, 533)"><polygon points="28,4 50,15 50,42 28,53 6,42 6,15" fill="#7A52C5"/><text x="28" y="36" text-anchor="middle" font-size="15" font-weight="800" fill="#FFFFFF">RA</text></g>
-  <text x="932" y="543" font-size="15" font-weight="700" fill="#1F1F1F">Agente Risk</text>
-  <text x="932" y="564" font-size="11.5" fill="#5A5A5A">Puntuación de riesgo 0-100 + detección de fraude</text>
-  <text x="932" y="585" font-size="11" fill="#444">cobertura póliza · historial cliente</text>
-  <text x="932" y="605" font-size="11" fill="#444">señal de fraude · explicabilidad</text>
+  <text x="932" y="543" font-size="15" font-weight="700" fill="#1F1F1F">Risk Agent</text>
+  <text x="932" y="564" font-size="11.5" fill="#5A5A5A">Risk score 0-100 + fraud detection</text>
+  <text x="932" y="585" font-size="11" fill="#444">policy coverage · customer history</text>
+  <text x="932" y="605" font-size="11" fill="#444">fraud signal · explainability</text>
   <text x="932" y="623" font-size="10" font-style="italic" fill="#888">agents/risk-assessment/agent.py</text>
   <circle cx="1182" cy="533" r="13" fill="#5C2D91"/>
   <text x="1182" y="538" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">5</text>
 
   <g filter="url(#cardShadow)"><rect x="845" y="655" width="360" height="140" rx="12" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2.5"/></g>
   <g transform="translate(862, 678)"><polygon points="28,4 50,15 50,42 28,53 6,42 6,15" fill="#7A52C5"/><text x="28" y="36" text-anchor="middle" font-size="15" font-weight="800" fill="#FFFFFF">CA</text></g>
-  <text x="932" y="688" font-size="15" font-weight="700" fill="#1F1F1F">Agente Compliance</text>
-  <text x="932" y="709" font-size="11.5" fill="#5A5A5A">Reglas regulatorias + protección anti-injection</text>
-  <text x="932" y="730" font-size="11" fill="#444">regex determinista · veredicto LLM</text>
-  <text x="932" y="750" font-size="11" fill="#444">detección de override · modo DAN</text>
+  <text x="932" y="688" font-size="15" font-weight="700" fill="#1F1F1F">Compliance Agent</text>
+  <text x="932" y="709" font-size="11.5" fill="#5A5A5A">Regulatory rules + injection guard</text>
+  <text x="932" y="730" font-size="11" fill="#444">deterministic regex · LLM verdict</text>
+  <text x="932" y="750" font-size="11" fill="#444">supervisor override detection · DAN mode</text>
   <text x="932" y="768" font-size="10" font-style="italic" fill="#888">agents/compliance/agent.py · rules.py</text>
   <rect x="1065" y="668" width="64" height="18" rx="3" fill="#1E40AF"/>
   <text x="1097" y="681" text-anchor="middle" font-size="10" font-weight="800" fill="#FFFFFF">WOW</text>
@@ -296,11 +296,11 @@
   <g filter="url(#cardShadow)"><rect x="1280" y="345" width="320" height="200" rx="12" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2.5"/></g>
   <use href="#iconAPIM" x="1300" y="368" width="58" height="58"/>
   <text x="1372" y="384" font-size="15" font-weight="700" fill="#1F1F1F">APIM AI Gateway</text>
-  <text x="1372" y="403" font-size="11" font-weight="600" fill="#1E40AF">Punto único de política y auditoría</text>
+  <text x="1372" y="403" font-size="11" font-weight="600" fill="#1E40AF">Single point of policy &amp; audit</text>
   <line x1="1300" y1="435" x2="1580" y2="435" stroke="#E1E4E8" stroke-width="1"/>
-  <text x="1300" y="458" font-size="12" fill="#444">▸ Content Safety · detección jailbreak</text>
-  <text x="1300" y="479" font-size="12" fill="#444">▸ Límite tokens · rate-limit por agente</text>
-  <text x="1300" y="500" font-size="12" fill="#444">▸ Audit logs · cabecera X-Agent-Id</text>
+  <text x="1300" y="458" font-size="12" fill="#444">▸ Content Safety · jailbreak detect</text>
+  <text x="1300" y="479" font-size="12" fill="#444">▸ Token-limit · rate-limit per agent</text>
+  <text x="1300" y="500" font-size="12" fill="#444">▸ Audit logs · X-Agent-Id header</text>
   <text x="1300" y="521" font-size="12" fill="#444">▸ Managed Identity → AOAI</text>
   <text x="1300" y="539" font-size="10" font-style="italic" fill="#888">USE_APIM_GATEWAY=true</text>
   <circle cx="1300" cy="362" r="13" fill="#1E40AF"/>
@@ -310,8 +310,8 @@
   <use href="#iconAOAI" x="1300" y="605" width="56" height="56"/>
   <text x="1370" y="618" font-size="15" font-weight="700" fill="#1F1F1F">Azure OpenAI</text>
   <text x="1370" y="638" font-size="11" fill="#5A5A5A">gpt-5.4-mini · gpt-realtime-mini</text>
-  <text x="1300" y="666" font-size="11" fill="#444">endpoint privado · auth MI · streaming</text>
-  <text x="1300" y="686" font-size="10" font-style="italic" fill="#888">DefaultAzureCredential / fallback az CLI</text>
+  <text x="1300" y="666" font-size="11" fill="#444">private endpoint · MI auth · streaming</text>
+  <text x="1300" y="686" font-size="10" font-style="italic" fill="#888">DefaultAzureCredential / az CLI fallback</text>
   <circle cx="1300" cy="600" r="13" fill="#0078D4"/>
   <text x="1300" y="605" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">8</text>
 
@@ -319,30 +319,30 @@
   <use href="#iconCosmos" x="500" y="875" width="50" height="50"/>
   <text x="560" y="892" font-size="14" font-weight="700" fill="#1F1F1F">Cosmos DB</text>
   <text x="560" y="910" font-size="11" fill="#5A5A5A">NoSQL · audit trail</text>
-  <text x="500" y="940" font-size="10.5" fill="#444">claims · trazas · log de gobernanza</text>
+  <text x="500" y="940" font-size="10.5" fill="#444">claims · traces · governance log</text>
   <circle cx="726" cy="872" r="13" fill="#5A5A5A"/>
   <text x="726" y="877" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">9</text>
 
   <g filter="url(#cardShadow)"><rect x="760" y="855" width="260" height="95" rx="12" fill="#FFFFFF" stroke="#0078D4" stroke-width="1.5"/></g>
   <use href="#iconStorage" x="775" y="875" width="50" height="50"/>
   <text x="836" y="892" font-size="14" font-weight="700" fill="#1F1F1F">Blob Storage</text>
-  <text x="836" y="910" font-size="11" fill="#5A5A5A">Evidencias (PDFs · fotos)</text>
-  <text x="775" y="940" font-size="10.5" fill="#444">partes · daños · documentación</text>
+  <text x="836" y="910" font-size="11" fill="#5A5A5A">Evidence (PDFs · photos)</text>
+  <text x="775" y="940" font-size="10.5" fill="#444">reports · damage · documentation</text>
 
   <g filter="url(#cardShadow)"><rect x="1035" y="855" width="290" height="95" rx="12" fill="#FFFFFF" stroke="#7A52C5" stroke-width="1.5"/></g>
   <use href="#iconAppInsights" x="1050" y="872" width="54" height="54"/>
   <text x="1114" y="890" font-size="14" font-weight="700" fill="#1F1F1F">Application Insights</text>
-  <text x="1114" y="908" font-size="11" fill="#5A5A5A">Telemetría de toda la pila</text>
-  <text x="1050" y="938" font-size="10.5" fill="#444">trazas · latencia · coste tokens · alertas</text>
+  <text x="1114" y="908" font-size="11" fill="#5A5A5A">Telemetry across the stack</text>
+  <text x="1050" y="938" font-size="10.5" fill="#444">trace · latency · token cost · alerts</text>
 
   <g filter="url(#cardShadow)"><rect x="1340" y="855" width="260" height="95" rx="12" fill="#FFFFFF" stroke="#74B8E8" stroke-width="1.5"/></g>
-  <text x="1470" y="884" text-anchor="middle" font-size="14" font-weight="700" fill="#1F1F1F">Hub de telemetría</text>
-  <text x="1470" y="904" text-anchor="middle" font-size="11" fill="#5A5A5A">APIM + agentes emiten trazas</text>
-  <text x="1355" y="934" font-size="10" fill="#444">X-Agent-Id · métricas safety / coste</text>
+  <text x="1470" y="884" text-anchor="middle" font-size="14" font-weight="700" fill="#1F1F1F">Telemetry hub</text>
+  <text x="1470" y="904" text-anchor="middle" font-size="11" fill="#5A5A5A">APIM + agents emit traces</text>
+  <text x="1355" y="934" font-size="10" fill="#444">X-Agent-Id · safety / cost metrics</text>
 
   <g transform="translate(80, 1052)"><use href="#iconGitHub" width="48" height="48"/></g>
   <text x="144" y="1073" font-size="15" font-weight="700" fill="#181717">GitHub Enterprise</text>
-  <text x="144" y="1093" font-size="11" fill="#5A5A5A">fuente de verdad · auditoría</text>
+  <text x="144" y="1093" font-size="11" fill="#5A5A5A">source of truth · audit</text>
   <text x="144" y="1111" font-size="10" font-style="italic" fill="#888">aangell98/insurance-ai-agents</text>
 
   <g filter="url(#cardShadow)"><rect x="360" y="1040" width="290" height="90" rx="10" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.5"/></g>
@@ -352,7 +352,7 @@
     <circle cx="22" cy="26" r="9" fill="#1E40AF" opacity="0.7"/>
   </g>
   <text x="434" y="1065" font-size="13" font-weight="700" fill="#1F1F1F">CODEOWNERS</text>
-  <text x="434" y="1083" font-size="11" fill="#5A5A5A">revisión por dominio</text>
+  <text x="434" y="1083" font-size="11" fill="#5A5A5A">per-domain review</text>
   <text x="380" y="1108" font-size="10.5" fill="#444">agents · backend · evals · dashboard · infra</text>
   <text x="380" y="1123" font-size="9.5" font-style="italic" fill="#888">.github/CODEOWNERS</text>
 
@@ -362,22 +362,22 @@
     <path d="M 11 19 L 16 24 L 25 14" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
   <text x="754" y="1065" font-size="13" font-weight="700" fill="#1F1F1F">Eval Gate</text>
-  <text x="754" y="1083" font-size="11" fill="#5A5A5A">golden dataset en cada PR</text>
-  <text x="700" y="1108" font-size="10.5" fill="#444">bloquea merge si baja el pass-rate</text>
+  <text x="754" y="1083" font-size="11" fill="#5A5A5A">golden dataset on every PR</text>
+  <text x="700" y="1108" font-size="10.5" fill="#444">blocks merge if eval pass-rate drops</text>
   <text x="700" y="1123" font-size="9.5" font-style="italic" fill="#888">evals/ · eval-on-pr.yml</text>
 
   <g filter="url(#cardShadow)"><rect x="1000" y="1040" width="290" height="90" rx="10" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.5"/></g>
   <use href="#iconActions" x="1020" y="1054" width="40" height="40"/>
   <text x="1074" y="1065" font-size="13" font-weight="700" fill="#1F1F1F">GitHub Actions</text>
-  <text x="1074" y="1083" font-size="11" fill="#5A5A5A">OIDC federado → Azure</text>
-  <text x="1020" y="1108" font-size="10.5" fill="#444">build · evals · azd up · aprovisionado</text>
+  <text x="1074" y="1083" font-size="11" fill="#5A5A5A">federated OIDC → Azure</text>
+  <text x="1020" y="1108" font-size="10.5" fill="#444">build · evals · azd up · provision</text>
   <text x="1020" y="1123" font-size="9.5" font-style="italic" fill="#888">.github/workflows/</text>
 
   <g filter="url(#cardShadow)"><rect x="1320" y="1040" width="340" height="90" rx="10" fill="#2563EB" stroke="#1E40AF" stroke-width="1.5"/></g>
-  <text x="1340" y="1067" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">REGULATORIO NIVEL BANCO</text>
-  <text x="1340" y="1087" font-size="10.5" fill="#FFFFFF">Mismo rigor que el software bancario crítico:</text>
-  <text x="1340" y="1104" font-size="10.5" font-weight="700" fill="#FFFFFF">peer review · evals · OIDC · auditoría · PRs firmados</text>
-  <text x="1340" y="1121" font-size="10" fill="#FFFFFF" opacity="0.85">Ningún humano puede hacer merge sin pasar los checks de gobernanza</text>
+  <text x="1340" y="1067" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">BANK-GRADE REGULATORY</text>
+  <text x="1340" y="1087" font-size="10.5" fill="#FFFFFF">Same rigor as critical banking software:</text>
+  <text x="1340" y="1104" font-size="10.5" font-weight="700" fill="#FFFFFF">peer review · evals · OIDC · audit · signed PRs</text>
+  <text x="1340" y="1121" font-size="10" fill="#FFFFFF" opacity="0.85">No human can merge without governance checks passing</text>
 
   <path d="M 410 445 L 485 445" stroke="#0078D4" stroke-width="2.4" fill="none" marker-end="url(#arrBlue)"/>
   <text x="412" y="435" font-size="10" font-weight="600" fill="#0078D4">HTTPS + JWT</text>
@@ -397,16 +397,16 @@
   <text x="808" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">3</text>
 
   <path d="M 1025 332 L 1025 365" stroke="#5C2D91" stroke-width="2.4" fill="none" marker-end="url(#arrPurple)"/>
-  <text x="1035" y="352" font-size="9.5" fill="#5C2D91">paso 1</text>
+  <text x="1035" y="352" font-size="9.5" fill="#5C2D91">step 1</text>
 
   <path d="M 1025 485 L 1025 510" stroke="#5C2D91" stroke-width="2.4" fill="none" marker-end="url(#arrPurple)"/>
-  <text x="1035" y="500" font-size="9.5" fill="#5C2D91">paso 2</text>
+  <text x="1035" y="500" font-size="9.5" fill="#5C2D91">step 2</text>
 
   <path d="M 1025 630 L 1025 655" stroke="#5C2D91" stroke-width="2.4" fill="none" marker-end="url(#arrPurple)"/>
-  <text x="1035" y="645" font-size="9.5" fill="#5C2D91">paso 3</text>
+  <text x="1035" y="645" font-size="9.5" fill="#5C2D91">step 3</text>
 
   <path d="M 1205 425 L 1248 425 L 1248 445 L 1280 445" stroke="#1E40AF" stroke-width="2.4" fill="none" marker-end="url(#arrRed)"/>
-  <text x="1212" y="418" font-size="10" font-weight="600" fill="#1E40AF">inferencia</text>
+  <text x="1212" y="418" font-size="10" font-weight="600" fill="#1E40AF">inference</text>
   <path d="M 1205 570 L 1248 570 L 1248 445" stroke="#1E40AF" stroke-width="2" fill="none" opacity="0.75"/>
   <path d="M 1205 725 L 1248 725 L 1248 445" stroke="#1E40AF" stroke-width="2" fill="none" opacity="0.75"/>
 
@@ -414,11 +414,11 @@
   <text x="1450" y="570" font-size="10" font-weight="600" fill="#0078D4">MI token</text>
 
   <path d="M 795 510 L 810 510 L 810 838 L 615 838 L 615 855" stroke="#5A5A5A" stroke-width="2.2" fill="none" marker-end="url(#arrGray)"/>
-  <text x="700" y="830" font-size="10" font-weight="600" fill="#5A5A5A">auditoría</text>
+  <text x="700" y="830" font-size="10" font-weight="600" fill="#5A5A5A">audit write</text>
 
   <path d="M 795 480 L 802 480 L 802 845 L 890 845 L 890 855" stroke="#5A5A5A" stroke-width="2.2" fill="none" marker-end="url(#arrGray)"/>
-  <text x="815" y="832" font-size="10" font-weight="600" fill="#5A5A5A">evidencias</text>
+  <text x="815" y="832" font-size="10" font-weight="600" fill="#5A5A5A">evidence</text>
 
   <path d="M 1440 705 L 1440 838 L 1180 838 L 1180 855" stroke="#5C2D91" stroke-width="1.8" fill="none" stroke-dasharray="5 3" marker-end="url(#arrPurple)"/>
-  <text x="1290" y="832" font-size="10" font-weight="600" fill="#5C2D91">telemetría</text>
+  <text x="1290" y="832" font-size="10" font-weight="600" fill="#5C2D91">telemetry</text>
 </svg>

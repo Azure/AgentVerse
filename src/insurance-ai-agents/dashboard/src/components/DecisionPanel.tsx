@@ -8,22 +8,22 @@ interface Props {
 const decisionConfig = {
   approve: {
     icon: CheckCircle2,
-    label: 'APROBADO',
-    sublabel: 'Aprobación Automática',
+    label: 'APPROVED',
+    sublabel: 'Automatic Approval',
     badge: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     text: 'text-emerald-700',
   },
   human_review: {
     icon: AlertTriangle,
-    label: 'REVISIÓN HUMANA',
-    sublabel: 'Requiere Validación Manual',
+    label: 'HUMAN REVIEW',
+    sublabel: 'Requires Manual Validation',
     badge: 'bg-amber-50 text-amber-800 border-amber-200',
     text: 'text-amber-800',
   },
   reject: {
     icon: XCircle,
-    label: 'RECHAZADO',
-    sublabel: 'Siniestro Denegado',
+    label: 'REJECTED',
+    sublabel: 'Claim Denied',
     badge: 'bg-red-50 text-red-700 border-red-200',
     text: 'text-red-700',
   },
@@ -63,22 +63,22 @@ export default function DecisionPanel({ result }: Props) {
         <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 text-center">
           <AlertTriangle className="mx-auto mb-1 h-4 w-4 text-gray-400" />
           <p className={`text-sm font-bold ${fraudTone}`}>
-            {fraudProb === 'high' ? 'ALTO' : fraudProb === 'medium' ? 'MEDIO' : 'BAJO'}
+            {fraudProb === 'high' ? 'HIGH' : fraudProb === 'medium' ? 'MEDIUM' : 'LOW'}
           </p>
-          <p className="text-[10px] uppercase text-gray-500">Fraude</p>
+          <p className="text-[10px] uppercase text-gray-500">Fraud</p>
         </div>
         <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 text-center">
           <Clock className="mx-auto mb-1 h-4 w-4 text-gray-400" />
           <p className="text-xl font-bold text-gray-900">
             {(result.total_duration_ms / 1000).toFixed(1)}<span className="text-xs text-gray-500">s</span>
           </p>
-          <p className="text-[10px] uppercase text-gray-500">Duración</p>
+          <p className="text-[10px] uppercase text-gray-500">Duration</p>
         </div>
       </div>
 
       <div>
         <div className="mb-1 flex justify-between text-xs text-gray-500">
-          <span>Confianza</span>
+          <span>Confidence</span>
           <span>{(result.confidence * 100).toFixed(0)}%</span>
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
@@ -91,7 +91,7 @@ export default function DecisionPanel({ result }: Props) {
 
       <div>
         <div className="mb-2 flex items-center justify-between">
-          <h4 className="text-xs font-medium uppercase text-gray-500">Razonamiento</h4>
+          <h4 className="text-xs font-medium uppercase text-gray-500">Reasoning</h4>
           <span className="inline-flex items-center gap-1 rounded-full border border-primary-200 bg-primary-50 px-2 py-0.5 text-[10px] text-primary-700">
             <Sparkles className="h-3 w-3" />
             Generado por GPT-4o · Azure OpenAI

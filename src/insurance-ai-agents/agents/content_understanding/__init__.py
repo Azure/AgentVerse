@@ -3,7 +3,7 @@
 This package wraps the Azure AI Content Understanding REST API
 (/contentunderstanding/analyzers) so the rest of the codebase can:
 
-  1) Lazily create a custom analyzer for the Spanish "parte de siniestro" the
+  1) Lazily create a custom analyzer for the car claim report the
      first time it is needed (`ensure_analyzer()`).
   2) Extract structured fields from a document, image or audio file with a
      single async call (`extract_from_bytes()`).
@@ -22,7 +22,7 @@ from .agent import (
     extract_from_bytes,
     extract_from_text,
     ANALYZER_ID,
-    PARTE_SINIESTRO_SCHEMA,
+    ACCIDENT_REPORT_SCHEMA,
 )
 
 __all__ = [
@@ -30,5 +30,5 @@ __all__ = [
     "extract_from_bytes",
     "extract_from_text",
     "ANALYZER_ID",
-    "PARTE_SINIESTRO_SCHEMA",
+    "ACCIDENT_REPORT_SCHEMA",
 ]

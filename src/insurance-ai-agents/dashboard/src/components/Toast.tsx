@@ -16,8 +16,8 @@ const SEVERITY_STYLES: Record<string, { badge: string; icon: string }> = {
 };
 
 const TYPE_LABEL: Record<string, string> = {
-  prompt_injection: 'Intento de manipulación',
-  fraud_suspected: 'Posible fraude detectado',
+  prompt_injection: 'Manipulation attempt',
+  fraud_suspected: 'Possible fraud detected',
 };
 
 export default function Toast({ incident, onClose, onClick }: ToastProps) {
@@ -61,14 +61,14 @@ export default function Toast({ incident, onClose, onClick }: ToastProps) {
             <button
               onClick={handleClose}
               className="text-gray-400 transition-colors hover:text-gray-700"
-              aria-label="Cerrar"
+              aria-label="Close"
             >
               <X className="h-3.5 w-3.5" />
             </button>
           </div>
           <p className="mb-1 font-mono text-sm text-gray-900">{incident.claim_id}</p>
           <p className="line-clamp-2 text-xs leading-snug text-gray-600">{incident.description}</p>
-          <p className="mt-2 text-[10px] text-gray-500">Click para ver en Seguridad →</p>
+          <p className="mt-2 text-[10px] text-gray-500">Click to view in Security →</p>
         </div>
       </div>
     </div>

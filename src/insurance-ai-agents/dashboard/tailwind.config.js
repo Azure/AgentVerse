@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Paleta whitelabel: azul corporativo neutro como primario.
-        // Editar estos valores para cambiar el color principal de marca.
+        // Whitelabel palette: neutral corporate blue as the primary color.
+        // Edit these values to change the main brand color.
         primary: {
-          50:  '#EFF6FF',
+          50: '#EFF6FF',
           100: '#DBEAFE',
           200: '#BFDBFE',
           300: '#93C5FD',
@@ -18,24 +18,24 @@ export default {
           800: '#1E3A8A',
           900: '#172554',
         },
-        // Alias semánticos para acceso rápido
+        // Semantic aliases for quick access
         brand: {
-          blue:       '#2563EB',
+          blue: '#2563EB',
           'blue-700': '#1E40AF',
-          'blue-50':  '#EFF6FF',
-          dark:      '#0F172A',
-          gray:      '#475569',
+          'blue-50': '#EFF6FF',
+          dark: '#0F172A',
+          gray: '#475569',
           'gray-light': '#F1F5F9',
         },
         accent: { 400: '#FFD24C', 500: '#FFC107', 600: '#E0A800' },
-        // Light surfaces para hero, cards, header
+        // Light surfaces for hero, cards, header
         surface: {
-          0:   '#FFFFFF',
-          50:  '#F8FAFC',
+          0: '#FFFFFF',
+          50: '#F8FAFC',
           100: '#F1F5F9',
           150: '#E5E7EB',
           200: '#CBD5E1',
-          // mantenemos tonos oscuros para zonas tipo "panel de control"
+          // keep dark tones for "control panel"-style areas
           800: '#1F2937',
           850: '#111827',
           900: '#0F172A',

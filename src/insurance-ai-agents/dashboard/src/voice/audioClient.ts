@@ -69,7 +69,7 @@ export class VoiceAudioClient {
   // hallucination filter on the backend catch it.
   private static readonly ECHO_TAIL_S = 0;
 
-  constructor(private readonly sessionId: string, private readonly wsBaseUrl: string) {}
+  constructor(private readonly sessionId: string, private readonly wsBaseUrl: string) { }
 
   on(listener: Listener) {
     this.listeners.push(listener);
@@ -98,7 +98,7 @@ export class VoiceAudioClient {
         video: false,
       });
     } catch (e) {
-      this.emit({ type: 'error', message: `No se ha podido acceder al micrófono: ${(e as Error).message}` });
+      this.emit({ type: 'error', message: `Could not access the microphone: ${(e as Error).message}` });
       throw e;
     }
     // 2) Output sink
@@ -138,7 +138,7 @@ export class VoiceAudioClient {
       }, 8000);
     };
     this.ws.onclose = () => this.emit({ type: 'closed' });
-    this.ws.onerror = () => this.emit({ type: 'error', message: 'Conexión perdida con el asistente' });
+    this.ws.onerror = () => this.emit({ type: 'error', message: 'Connection lost with the assistant' });
     this.ws.onmessage = (msg) => this.handleServerMessage(msg);
   }
 
@@ -233,7 +233,7 @@ export class VoiceAudioClient {
 
   // --------------------------------------------------------------- audio out
   private handleServerMessage(msg: MessageEvent) {
-    let event: { type: string; [k: string]: unknown };
+    let event: { type: string;[k: string]: unknown };
     try {
       event = JSON.parse(typeof msg.data === 'string' ? msg.data : '{}');
     } catch {
@@ -286,7 +286,7 @@ export class VoiceAudioClient {
         this.emit({ type: 'speech_stopped' });
         break;
       case 'error':
-        this.emit({ type: 'error', message: String(event.message || 'Error desconocido') });
+        this.emit({ type: 'error', message: String(event.message || 'Unknown error') });
         break;
       default:
         break;
@@ -510,8 +510,8 @@ class HoldMusicSynth {
 }
 
 // ---------------------------------------------------------------------------
-// Spanish ring tone — plays while we wait for the realtime model to send
-// the first audio chunk. Pattern is the classic Telefónica cadence:
+// European ring tone — plays while we wait for the realtime model to send
+// the first audio chunk. Pattern is the classic European telco cadence:
 // 1.5 s tone on (at 425 Hz, the European reference tone) + 3 s silence,
 // looping until stop() is called.
 // ---------------------------------------------------------------------------

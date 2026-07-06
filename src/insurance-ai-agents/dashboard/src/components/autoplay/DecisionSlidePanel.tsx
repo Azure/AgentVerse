@@ -30,8 +30,8 @@ interface DecisionMeta {
 const DECISION_META: Record<DecisionKind, DecisionMeta> = {
   approve: {
     icon: CheckCircle2,
-    title: 'APROBADO',
-    subtitle: 'Resolución automática emitida correctamente.',
+    title: 'APPROVED',
+    subtitle: 'Automatic resolution issued successfully.',
     cardClass: 'border-emerald-200 bg-gradient-to-br from-white via-emerald-50/60 to-white shadow-md shadow-emerald-100/60',
     badgeClass: 'border-emerald-200 bg-emerald-50 text-emerald-700',
     iconShellClass: 'border-emerald-200 bg-emerald-50 text-emerald-600',
@@ -39,8 +39,8 @@ const DECISION_META: Record<DecisionKind, DecisionMeta> = {
   },
   human_review: {
     icon: Users,
-    title: 'REVISIÓN HUMANA',
-    subtitle: 'Supera umbral de aprobación automática.',
+    title: 'HUMAN REVIEW',
+    subtitle: 'Exceeds the automatic approval threshold.',
     cardClass: 'border-amber-200 bg-gradient-to-br from-white via-amber-50/60 to-white shadow-md shadow-amber-100/60',
     badgeClass: 'border-amber-200 bg-amber-50 text-amber-800',
     iconShellClass: 'border-amber-200 bg-amber-50 text-amber-600',
@@ -48,8 +48,8 @@ const DECISION_META: Record<DecisionKind, DecisionMeta> = {
   },
   reject: {
     icon: XCircle,
-    title: 'RECHAZADO',
-    subtitle: 'Posible fraude detectado.',
+    title: 'REJECTED',
+    subtitle: 'Possible fraud detected.',
     cardClass: 'border-red-200 bg-gradient-to-br from-white via-red-50/60 to-white shadow-md shadow-red-100/60',
     badgeClass: 'border-red-200 bg-red-50 text-red-700',
     iconShellClass: 'border-red-200 bg-red-50 text-red-600',
@@ -82,9 +82,9 @@ function buildParticleStyle(particle: ConfettiParticle): CSSProperties {
 }
 
 const CONSOLIDATION_STEPS = [
-  { label: 'Reconciliando outputs', detail: 'Cruzando salidas de Intake, Risk y Compliance' },
-  { label: 'Calculando confianza', detail: 'Ponderando señales de los 3 agentes' },
-  { label: 'Emitiendo decisión final', detail: 'Generando justificación y audit trail' },
+  { label: 'Reconciling outputs', detail: 'Cross-checking outputs from Intake, Risk and Compliance' },
+  { label: 'Calculating confidence', detail: 'Weighting signals from the 3 agents' },
+  { label: 'Issuing final decision', detail: 'Generating justification and audit trail' },
 ] as const;
 
 function formatAmount(amount: number) {
@@ -138,13 +138,13 @@ export default function DecisionSlidePanel({
           <AlertTriangle className="h-7 w-7" />
         </div>
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-red-700">Error en consolidación</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-red-700">Consolidation error</p>
           <h3 className="mt-2 text-xl font-semibold tracking-tight text-gray-900 xl:text-2xl">
-            No se pudo emitir la decisión
+            The decision could not be issued
           </h3>
           <p className="mt-2 text-sm text-gray-700">{scenarioLabel}</p>
           <p className="mt-3 text-xs text-gray-500">
-            El agente de decisión no pudo finalizar el análisis para este caso.
+            The decision agent could not complete the analysis for this case.
           </p>
         </div>
       </div>
@@ -156,9 +156,9 @@ export default function DecisionSlidePanel({
     return (
       <div className="relative flex h-full min-h-[420px] flex-col gap-4 px-1 py-4">
         <div className="text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-gray-500">Consolidación</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-gray-500">Consolidation</p>
           <h3 className="mt-2 text-2xl font-semibold tracking-tight text-gray-900 xl:text-3xl">
-            Preparando la decisión final
+            Preparing the final decision
           </h3>
           <p className="mt-2 text-sm text-gray-600">{scenarioLabel}</p>
         </div>
@@ -169,21 +169,19 @@ export default function DecisionSlidePanel({
             return (
               <li
                 key={step.label}
-                className={`flex items-start gap-3 rounded-2xl border px-4 py-3 transition-all duration-300 ${
-                  isDone
+                className={`flex items-start gap-3 rounded-2xl border px-4 py-3 transition-all duration-300 ${isDone
                     ? 'border-emerald-200 bg-emerald-50'
                     : isActive
                       ? 'border-primary-200 bg-primary-50'
                       : 'border-gray-200 bg-gray-50 opacity-70'
-                }`}
+                  }`}
               >
-                <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                  isDone
+                <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${isDone
                     ? 'bg-emerald-500 text-white'
                     : isActive
                       ? 'bg-primary-600 text-white'
                       : 'bg-gray-200 text-gray-500'
-                }`}>
+                  }`}>
                   {isDone ? '✓' : isActive ? '•' : idx + 1}
                 </span>
                 <div className="flex-1">
@@ -228,7 +226,7 @@ export default function DecisionSlidePanel({
               <Icon className="h-6 w-6" />
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-500">Decisión final</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-500">Final decision</p>
               <h3 className={`text-2xl font-bold tracking-tight ${meta.accentText}`}>{meta.title}</h3>
             </div>
           </div>
@@ -237,10 +235,10 @@ export default function DecisionSlidePanel({
               type="button"
               onClick={onShowOverlay}
               className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700"
-              title="Mostrar el cierre celebratorio a pantalla completa"
+              title="Show the full-screen celebratory finale"
             >
               <Maximize2 className="h-3.5 w-3.5" />
-              Ver pantalla final
+              View final screen
             </button>
           )}
         </div>
@@ -249,16 +247,16 @@ export default function DecisionSlidePanel({
 
         <div className="grid gap-3 sm:grid-cols-3">
           <div className="rounded-xl border border-gray-200 bg-white px-3 py-2.5">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">Escenario</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">Scenario</p>
             <p className="mt-1 truncate text-sm font-semibold text-gray-900">{scenarioLabel}</p>
           </div>
           <div className="rounded-xl border border-gray-200 bg-white px-3 py-2.5">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">Importe</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">Amount</p>
             <p className={`mt-1 text-sm font-semibold ${meta.accentText}`}>{formatAmount(amount)}</p>
           </div>
           <div className="rounded-xl border border-gray-200 bg-white px-3 py-2.5">
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">
-              {duration ? 'Tiempo IA' : 'Risk score'}
+              {duration ? 'AI time' : 'Risk score'}
             </p>
             <p className="mt-1 text-sm font-semibold text-gray-900">
               {duration ?? (typeof riskScore === 'number' ? `${riskScore}/100` : '—')}
@@ -270,7 +268,7 @@ export default function DecisionSlidePanel({
           <div className="flex-1 overflow-hidden rounded-xl border border-gray-200 bg-white px-4 py-3">
             <div className="mb-2 flex items-center gap-2">
               <Sparkles className="h-3.5 w-3.5 text-primary-600" />
-              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">Razonamiento del orquestador</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">Orchestrator reasoning</p>
             </div>
             <p className="line-clamp-6 text-sm leading-6 text-gray-800">{reasoning}</p>
           </div>
@@ -278,7 +276,7 @@ export default function DecisionSlidePanel({
 
         <div className={`inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${meta.badgeClass}`}>
           <CheckCircle2 className="h-3 w-3" />
-          Audit trail completo
+          Full audit trail
         </div>
       </div>
     </div>

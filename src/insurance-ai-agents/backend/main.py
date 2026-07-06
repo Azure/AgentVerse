@@ -134,9 +134,9 @@ class ClaimRequest(BaseModel):
 
 
 class PolicyRequest(BaseModel):
-    customer_id: str = Field(..., description="ID del cliente al que pertenece la póliza")
+    customer_id: str = Field(..., description="ID of the customer the policy belongs to")
     vehicle: str = Field(..., min_length=2)
-    coverage_type: str = Field(default="Todo Riesgo")
+    coverage_type: str = Field(default="Comprehensive")
     max_coverage: float = Field(default=50000, gt=0)
     start_date: str | None = Field(None, description="YYYY-MM-DD")
     end_date: str | None = Field(None, description="YYYY-MM-DD")
@@ -311,7 +311,7 @@ async def extract_from_document(
 ):
     """Run Azure AI Content Understanding on an uploaded document.
 
-    Accepts a PDF (the European unified parte de siniestro), an image of the
+    Accepts a PDF (the European unified accident report), an image of the
     damage or the bare text the customer typed. Returns the schema-driven
     extraction defined in agents/content_understanding/agent.py so the
     frontend can pre-fill the claim form before the customer submits.
@@ -324,8 +324,8 @@ async def extract_from_document(
         raise HTTPException(
             status_code=503,
             detail=(
-                "Content Understanding no esta configurado. Define "
-                "AZURE_AI_SERVICES_ENDPOINT y reintenta."
+                "Content Understanding is not configured. Set "
+                "AZURE_AI_SERVICES_ENDPOINT and retry."
             ),
         )
     content = await file.read()
@@ -354,7 +354,7 @@ async def extract_from_text(
     """Same as /extract-from-document but for plain text input.
 
     The customer (or a Speech-to-Text intermediate transcript) sends text,
-    Content Understanding extracts the structured parte siniestro fields.
+    Content Understanding extracts the structured accident report fields.
     """
     text = (payload or {}).get("text", "").strip()
     if not text:
@@ -382,8 +382,8 @@ async def evaluate_claim(
     3. Compliance Agent
     4. Final Decision
 
-    Si AUTH_ENABLED y el caller es customer-puro, el `customer_id` del body
-    debe coincidir con el UPN del token (un cliente sólo crea siniestros suyos).
+    If AUTH_ENABLED and the caller is customer-only, the `customer_id` in the body
+    must match the token UPN (a customer can only create their own claims).
     """
     enforce_self_or_operator(principal, request.customer_id)
     claim_id = request.claim_id or f"CLM-{uuid.uuid4().hex[:8].upper()}"
@@ -435,11 +435,11 @@ async def evaluate_claim(
     result["incident_type"] = request.incident_type
     claims_store[claim_id] = result
 
-    # Persist to Cosmos (no-op si COSMOS_ENDPOINT no está configurado)
+    # Persist to Cosmos (no-op if COSMOS_ENDPOINT is not configured)
     try:
         get_repo().save(result)
     except Exception as e:  # noqa: BLE001
-        logger.warning(f"Cosmos persist failó: {e}")
+        logger.warning(f"Cosmos persist failed: {e}")
 
     # Register security incident if the pipeline flagged a manipulation attempt
     if result.get("security_flagged"):
@@ -451,8 +451,8 @@ async def evaluate_claim(
             "severity": "critical",
             "detected_at": result["timestamp"],
             "description": (
-                "Intento de manipulación del sistema detectado en la descripción del siniestro. "
-                "Se identificaron instrucciones falsas que intentaban evadir los controles de validación."
+                "System manipulation attempt detected in the claim description. "
+                "Fake instructions were identified attempting to bypass the validation controls."
             ),
             "raw_payload_excerpt": request.description[:500],
             "status": "open",
@@ -471,10 +471,10 @@ async def evaluate_claim(
         if fraud_prob == "high" or image_mismatch:
             reasons = []
             if fraud_prob == "high":
-                reasons.append(f"Probabilidad de fraude alta (risk_score={risk.get('risk_score', '?')}).")
+                reasons.append(f"High fraud probability (risk_score={risk.get('risk_score', '?')}).")
             if image_mismatch:
-                concerns = intake.get("image_concerns") or "imagen no relacionada con el siniestro descrito"
-                reasons.append(f"Imagen aportada no coherente: {concerns}")
+                concerns = intake.get("image_concerns") or "image unrelated to the described claim"
+                reasons.append(f"Provided image not consistent: {concerns}")
             security_incidents.append({
                 "claim_id": claim_id,
                 "policy_id": request.policy_id,
@@ -538,8 +538,8 @@ async def get_claim_image(claim_id: str, _: Principal = Depends(require_operator
 async def list_claims(_: Principal = Depends(require_operator)):
     """List all processed claims (for demo dashboard).
 
-    Si Cosmos está configurado, lee de la base de datos (persistencia real).
-    Si no, cae en el store en-memoria (fallback dev).
+    If Cosmos is configured, reads from the database (real persistence).
+    If not, falls back to the in-memory store (dev fallback).
     """
     repo = get_repo()
     if repo.is_enabled:
@@ -581,10 +581,10 @@ async def list_claims_by_customer(
     customer_id: str,
     principal: Principal = Depends(require_customer_or_operator),
 ):
-    """Lista siniestros de un cliente concreto (single-partition query).
+    """List claims for a specific customer (single-partition query).
 
-    Customer-puro sólo puede consultar su propio `customer_id` (matched contra UPN).
-    Operator puede consultar cualquiera.
+    Customer-only can query only their own `customer_id` (matched against UPN).
+    Operator can query any.
     """
     enforce_self_or_operator(principal, customer_id)
     repo = get_repo()
@@ -611,7 +611,7 @@ async def list_claims_by_customer(
 
 @app.get("/api/claims/pending-review")
 async def list_pending_review(_: Principal = Depends(require_operator)):
-    """Cola de revisión humana — vista de operario."""
+    """Human review queue — operator view."""
     repo = get_repo()
     if repo.is_enabled:
         items = repo.list_pending_review(limit=100)
@@ -671,7 +671,7 @@ async def governance_status(_: Principal = Depends(require_operator)):
         except Exception:
             apim_url_masked = "***"
     else:
-        apim_url_masked = "(no configurado — modo directo)"
+        apim_url_masked = "(not configured — direct mode)"
 
     # Latest eval report
     eval_path = os.path.join(os.path.dirname(__file__), "..", "evals", "last_report.json")
@@ -829,8 +829,8 @@ async def _voice_submit_claim(args: dict) -> dict:
     """Run the full multi-agent pipeline and return a spoken-friendly result.
 
     Realistic UX: the customer is NOT a loss adjuster, so we don't ask them
-    for a euro figure. Leo collects the subjective severity ("leve /
-    moderado / grave / siniestro total") and we map (incident_type x
+    for a euro figure. Leo collects the subjective severity ("minor /
+    moderate / severe / total loss") and we map (incident_type x
     severity) to a representative reserve amount using a table calibrated
     against Spanish auto-insurance averages. The downstream risk +
     compliance agents then evaluate that estimate the same way they would
@@ -860,8 +860,8 @@ async def _voice_submit_claim(args: dict) -> dict:
             "claim_id": claim_id,
             "decision": "human_review",
             "spoken_response": (
-                "Lo siento, ha ocurrido un problema técnico procesando su parte. "
-                "Un agente humano le contactará pronto para gestionarlo manualmente."
+                "I'm sorry, a technical problem occurred while processing your report. "
+                "A human agent will contact you soon to handle it manually."
             ),
             "error": str(e),
         }
@@ -945,7 +945,7 @@ async def voice_websocket(websocket: WebSocket, session_id: str):
     finally:
         logger.info("[voice/%s] closing bridge", session_id)
         # Notify operator observers BEFORE we tear down the bridge so
-        # they can render "Llamada finalizada" while the WS is still up.
+        # they can render "Call ended" while the WS is still up.
         try:
             await bridge.send_to_client({"type": "session.ended"})
         except Exception:  # noqa: BLE001

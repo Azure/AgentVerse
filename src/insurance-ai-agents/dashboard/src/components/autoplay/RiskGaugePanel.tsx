@@ -15,9 +15,9 @@ const GAUGE_RADIUS = 96;
 const GAUGE_CIRCUMFERENCE = 2 * Math.PI * GAUGE_RADIUS;
 const GAUGE_HALF = Math.PI * GAUGE_RADIUS;
 const GAUGE_SEGMENTS = [
-  { length: GAUGE_HALF * 0.33, color: '#10b981', label: 'Bajo' },
-  { length: GAUGE_HALF * 0.33, color: '#f59e0b', label: 'Medio' },
-  { length: GAUGE_HALF * 0.34, color: '#ef4444', label: 'Alto' },
+  { length: GAUGE_HALF * 0.33, color: '#10b981', label: 'Low' },
+  { length: GAUGE_HALF * 0.33, color: '#f59e0b', label: 'Medium' },
+  { length: GAUGE_HALF * 0.34, color: '#ef4444', label: 'High' },
 ] as const;
 
 const FRAUD_META: Record<FraudProbability, {
@@ -32,7 +32,7 @@ const FRAUD_META: Record<FraudProbability, {
   low: {
     scale: 0.2,
     pct: 12,
-    label: 'BAJA',
+    label: 'LOW',
     color: '#10b981',
     pill: 'border-emerald-200 bg-emerald-50 text-emerald-700',
     glow: 'shadow-emerald-200/60',
@@ -41,7 +41,7 @@ const FRAUD_META: Record<FraudProbability, {
   medium: {
     scale: 0.55,
     pct: 48,
-    label: 'MEDIA',
+    label: 'MEDIUM',
     color: '#f59e0b',
     pill: 'border-amber-200 bg-amber-50 text-amber-800',
     glow: 'shadow-amber-200/60',
@@ -50,7 +50,7 @@ const FRAUD_META: Record<FraudProbability, {
   high: {
     scale: 0.9,
     pct: 86,
-    label: 'ALTA',
+    label: 'HIGH',
     color: '#ef4444',
     pill: 'border-red-200 bg-red-50 text-red-700',
     glow: 'shadow-red-200/60',
@@ -59,22 +59,22 @@ const FRAUD_META: Record<FraudProbability, {
 };
 
 const RISK_WARMING_MESSAGES = [
-  'Calculando risk score…',
-  'Analizando histórico del cliente…',
-  'Cruzando patrones de fraude…',
+  'Calculating risk score…',
+  'Analyzing customer history…',
+  'Cross-referencing fraud patterns…',
 ] as const;
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(' ');
 }
 
-// Ángulo de la aguja en grados de rotación SVG (positivo = horario).
-// Línea base apunta a la derecha (3 o'clock). Queremos:
-//   score=0   → punta a la izquierda → rotación -180° (o 180°)
-//   score=50  → punta arriba        → rotación -90°
-//   score=100 → punta a la derecha  → rotación 0°
+// Needle angle in SVG rotation degrees (positive = clockwise).
+// Baseline points to the right (3 o'clock). We want:
+//   score=0   → tip points left  → rotation -180° (or 180°)
+//   score=50  → tip points up    → rotation -90°
+//   score=100 → tip points right → rotation 0°
 function getNeedleRotation(score: number | null, active: boolean) {
-  if (!active || score === null) return -90; // reposo: centro arriba
+  if (!active || score === null) return -90; // at rest: centered up
   const clamped = Math.max(0, Math.min(100, score));
   return -180 + clamped * 1.8;
 }
@@ -88,9 +88,9 @@ function getScoreTone(score: number | null, active: boolean) {
 
 function getScoreBand(score: number | null) {
   if (score === null) return null;
-  if (score <= 33) return 'Bajo';
-  if (score <= 66) return 'Medio';
-  return 'Alto';
+  if (score <= 33) return 'Low';
+  if (score <= 66) return 'Medium';
+  return 'High';
 }
 
 export default function RiskGaugePanel({
@@ -113,7 +113,7 @@ export default function RiskGaugePanel({
   const fraudMeta = active && fraudProbability ? FRAUD_META[fraudProbability] : null;
   const fillScale = fraudMeta?.scale ?? (fraudPending ? 0.14 : 0);
   const fillColor = fraudMeta?.color ?? (warmingUp ? BRAND.primaryHex : fraudPending ? BRAND.primaryHex : '#94a3b8');
-  const pillLabel = fraudMeta?.label ?? (fraudPending ? 'CALCULANDO' : '—');
+  const pillLabel = fraudMeta?.label ?? (fraudPending ? 'CALCULATING' : '—');
   const pillTone = fraudMeta?.pill ?? (fraudPending
     ? `border-primary-200 bg-primary-50 text-primary-700${warmingUp ? '' : ' animate-pulse'}`
     : 'border-gray-200 bg-gray-50 text-gray-500');
@@ -131,8 +131,8 @@ export default function RiskGaugePanel({
     return () => window.clearInterval(interval);
   }, [warmingUp]);
 
-  // Termómetro: tube y=24..188 (h=164), bulbo cy=212 r=26 (y=186..238).
-  // Rango llenable y=24..238 = 214px. fillScale=1 → topY=24, =0 → topY=238.
+  // Thermometer: tube y=24..188 (h=164), bulb cy=212 r=26 (y=186..238).
+  // Fillable range y=24..238 = 214px. fillScale=1 → topY=24, =0 → topY=238.
   const TH_TOP = 24;
   const TH_BOTTOM = 238;
   const TH_RANGE = TH_BOTTOM - TH_TOP;
@@ -146,7 +146,7 @@ export default function RiskGaugePanel({
         </div>
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gray-500">Risk agent</p>
-          <h3 className="text-lg font-semibold text-gray-900">Scoring y fraude</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Scoring and fraud</h3>
           {phaseLabel ? <p className="mt-1 text-xs text-gray-500">{phaseLabel}</p> : null}
         </div>
       </div>
@@ -159,9 +159,9 @@ export default function RiskGaugePanel({
             {scoreBand ? (
               <span className={cx(
                 'rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em]',
-                scoreBand === 'Bajo' && 'border-emerald-200 bg-emerald-50 text-emerald-700',
-                scoreBand === 'Medio' && 'border-amber-200 bg-amber-50 text-amber-800',
-                scoreBand === 'Alto' && 'border-red-200 bg-red-50 text-red-700',
+                scoreBand === 'Low' && 'border-emerald-200 bg-emerald-50 text-emerald-700',
+                scoreBand === 'Medium' && 'border-amber-200 bg-amber-50 text-amber-800',
+                scoreBand === 'High' && 'border-red-200 bg-red-50 text-red-700',
               )}>
                 {scoreBand}
               </span>
@@ -176,7 +176,7 @@ export default function RiskGaugePanel({
 
           <div className="relative">
             <svg viewBox="0 0 300 180" className="mx-auto h-[180px] w-full max-w-[300px] overflow-visible">
-              {/* Track gris de fondo: butt caps (flat) para empalme limpio */}
+              {/* Gray background track: butt caps (flat) for a clean join */}
               <circle
                 cx="150"
                 cy="150"
@@ -188,7 +188,7 @@ export default function RiskGaugePanel({
                 strokeDasharray={`${GAUGE_HALF} ${GAUGE_CIRCUMFERENCE}`}
                 transform="rotate(180 150 150)"
               />
-              {/* Segmentos de color: butt caps + pequeño gap visual */}
+              {/* Color segments: butt caps + small visual gap */}
               {GAUGE_SEGMENTS.map((segment, index) => {
                 const SEGMENT_GAP = 2.5;
                 const isFirst = index === 0;
@@ -216,7 +216,7 @@ export default function RiskGaugePanel({
                   />
                 );
               })}
-              {/* Pequeños capuchones redondeados sólo en los extremos exteriores */}
+              {/* Small rounded caps only on the outer ends */}
               <circle
                 cx="150" cy="150" r={GAUGE_RADIUS}
                 fill="none"
@@ -239,14 +239,14 @@ export default function RiskGaugePanel({
                 style={{ transition: 'opacity 0.4s ease-out' }}
               />
 
-              {/* Marcas y etiquetas numéricas */}
+              {/* Ticks and numeric labels */}
               <text x="40" y="170" fill="#6b7280" fontSize="11" fontWeight="600" opacity={warmingUp ? 0.4 : 1}>0</text>
               <text x="144" y="40" fill="#6b7280" fontSize="11" fontWeight="600" opacity={warmingUp ? 0.4 : 1}>50</text>
               <text x="245" y="170" fill="#6b7280" fontSize="11" fontWeight="600" opacity={warmingUp ? 0.4 : 1}>100</text>
               <text x="78" y="86" fill="#94a3b8" fontSize="9" fontWeight="600" opacity={warmingUp ? 0.4 : 1}>25</text>
               <text x="208" y="86" fill="#94a3b8" fontSize="9" fontWeight="600" opacity={warmingUp ? 0.4 : 1}>75</text>
 
-              {/* Aguja: sólo si no estamos cargando */}
+              {/* Needle: only when not loading */}
               {!warmingUp ? (
                 <g
                   transform={`rotate(${needleRotation} 150 150)`}
@@ -273,7 +273,7 @@ export default function RiskGaugePanel({
               ) : null}
             </svg>
 
-            {/* Spinner overlay centrado en el hueco superior del semicírculo */}
+            {/* Spinner overlay centered in the upper gap of the semicircle */}
             {warmingUp ? (
               <div className="pointer-events-none absolute inset-x-0 top-[46%] -translate-y-1/2 flex justify-center">
                 <Loader2 className="h-7 w-7 animate-spin text-primary-500/80" />
@@ -320,7 +320,7 @@ export default function RiskGaugePanel({
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Termómetro */}
+            {/* Thermometer */}
             <div className="relative">
               <svg viewBox="0 0 100 260" className="h-[210px] w-[78px] overflow-visible">
                 <defs>
@@ -334,14 +334,14 @@ export default function RiskGaugePanel({
                   </linearGradient>
                 </defs>
 
-                {/* Fondo gris claro dentro de la silueta */}
+                {/* Light gray background inside the silhouette */}
                 <g clipPath={`url(#${clipPathId})`}>
                   <rect x="0" y="0" width="100" height="260" fill="#f3f4f6" />
                 </g>
 
                 {warmingUp ? (
                   <g clipPath={`url(#${clipPathId})`}>
-                    {/* Pequeño "charco" rojo pulsante en la base del bulbo */}
+                    {/* Small pulsing red "pool" at the base of the bulb */}
                     <circle cx="50" cy="220" r="14" fill={BRAND.primaryHex} opacity="0.18">
                       <animate
                         attributeName="opacity"
@@ -356,13 +356,13 @@ export default function RiskGaugePanel({
                         repeatCount="indefinite"
                       />
                     </circle>
-                    {/* Burbujas orgánicas con tamaño, ritmo y oscilación variados */}
+                    {/* Organic bubbles with varied size, rhythm and oscillation */}
                     {[
-                      { delay: '0s',   dur: '2.4s', x: 50, r: 4.5, drift: 4 },
+                      { delay: '0s', dur: '2.4s', x: 50, r: 4.5, drift: 4 },
                       { delay: '0.5s', dur: '2.8s', x: 46, r: 3.2, drift: -3 },
-                      { delay: '1.1s', dur: '2.2s', x: 53, r: 5,   drift: 3 },
+                      { delay: '1.1s', dur: '2.2s', x: 53, r: 5, drift: 3 },
                       { delay: '1.6s', dur: '2.6s', x: 48, r: 3.8, drift: -2 },
-                      { delay: '2.0s', dur: '2.5s', x: 52, r: 3,   drift: 2.5 },
+                      { delay: '2.0s', dur: '2.5s', x: 52, r: 3, drift: 2.5 },
                     ].map((b, i) => (
                       <circle key={i} cx={b.x} cy={210} r={b.r} fill={BRAND.primaryHex} opacity="0">
                         <animate
@@ -415,11 +415,11 @@ export default function RiskGaugePanel({
                   </g>
                 )}
 
-                {/* Contorno por encima */}
+                {/* Outline on top */}
                 <rect x="34" y={TH_TOP} width="32" height="166" rx="16" fill="none" stroke="#cbd5e1" strokeWidth="2.5" />
                 <circle cx="50" cy="212" r="26" fill="none" stroke="#cbd5e1" strokeWidth="2.5" />
 
-                {/* Marcas */}
+                {/* Ticks */}
                 {[0.25, 0.5, 0.75].map((t) => {
                   const y = TH_BOTTOM - t * TH_RANGE;
                   return (
@@ -432,10 +432,10 @@ export default function RiskGaugePanel({
               </svg>
             </div>
 
-            {/* Valor numérico y descripción al lado */}
+            {/* Numeric value and description alongside */}
             <div className="flex-1 space-y-3">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gray-500">Probabilidad</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gray-500">Probability</p>
                 {warmingUp ? (
                   <p className="mt-1 text-4xl font-semibold tracking-tight tabular-nums text-gray-300 animate-pulse">
                     —
@@ -452,21 +452,21 @@ export default function RiskGaugePanel({
                 )}
               </div>
               <div className="rounded-xl border border-gray-200 bg-white/80 p-3">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">Veredicto del modelo</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">Model verdict</p>
                 {warmingUp ? (
                   <p className="mt-1 inline-flex items-center gap-2 text-sm font-medium text-gray-400">
                     <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    Analizando indicios…
+                    Analyzing indicators…
                   </p>
                 ) : (
                   <p className="mt-1 text-sm font-semibold" style={{ color: fraudMeta ? fillColor : '#6b7280' }}>
                     {fraudMeta
                       ? fraudProbability === 'low'
-                        ? 'Sin indicios de fraude'
+                        ? 'No signs of fraud'
                         : fraudProbability === 'medium'
-                          ? 'Algunos indicadores sospechosos'
-                          : 'Múltiples señales de fraude'
-                      : fraudPending ? 'Analizando indicios…' : 'Sin datos'}
+                          ? 'Some suspicious indicators'
+                          : 'Multiple fraud signals'
+                      : fraudPending ? 'Analyzing indicators…' : 'No data'}
                   </p>
                 )}
               </div>

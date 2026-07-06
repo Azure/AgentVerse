@@ -28,9 +28,9 @@ interface SlideMeta {
 
 const SLIDE_META: Record<SlideKey, SlideMeta> = {
   intake: { icon: FileSearch, label: 'Intake Agent', short: 'Intake' },
-  risk_assessment: { icon: ShieldAlert, label: 'Risk Agent', short: 'Riesgo' },
+  risk_assessment: { icon: ShieldAlert, label: 'Risk Agent', short: 'Risk' },
   compliance: { icon: Scale, label: 'Compliance Agent', short: 'Compliance' },
-  decision: { icon: Gavel, label: 'Decision Agent', short: 'Decisión' },
+  decision: { icon: Gavel, label: 'Decision Agent', short: 'Decision' },
 };
 
 interface SlideNavigatorProps {
@@ -63,7 +63,7 @@ function StatusBadge({ status, hasSnapshot }: { status: SlideStatus; hasSnapshot
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-600" />
         </span>
-        Directo
+        Live
       </span>
     );
   }
@@ -71,17 +71,17 @@ function StatusBadge({ status, hasSnapshot }: { status: SlideStatus; hasSnapshot
     return (
       <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
         <CheckCircle2 className="h-3 w-3" />
-        Completado
+        Completed
       </span>
     );
   }
   if (status === 'failed') {
     return (
-      <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-red-700">Fallido</span>
+      <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-red-700">Failed</span>
     );
   }
   return (
-    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">Pendiente</span>
+    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">Pending</span>
   );
 }
 
@@ -97,7 +97,7 @@ export default function SlideNavigator({
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-500">Pipeline de agentes</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-500">Agent pipeline</p>
         {isPinned ? (
           <button
             type="button"
@@ -105,13 +105,13 @@ export default function SlideNavigator({
             className="inline-flex items-center gap-1.5 rounded-full border border-primary-300 bg-primary-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-700 transition hover:bg-primary-100"
           >
             <Radio className="h-3 w-3" />
-            Volver al directo · {liveMeta.short}
+            Back to live · {liveMeta.short}
             <ArrowRight className="h-3 w-3" />
           </button>
         ) : (
           <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
             <Sparkles className="h-3 w-3" />
-            Siguiendo al agente activo
+            Following the active agent
           </span>
         )}
       </div>
@@ -131,15 +131,14 @@ export default function SlideNavigator({
               aria-pressed={isActive}
               className={`relative flex items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition ${classes}`}
             >
-              <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
-                slide.status === 'live'
+              <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${slide.status === 'live'
                   ? 'bg-primary-600 text-white'
                   : slide.status === 'completed' && slide.hasSnapshot
                     ? 'bg-emerald-100 text-emerald-700'
                     : slide.status === 'failed'
                       ? 'bg-red-100 text-red-700'
                       : 'bg-gray-200 text-gray-500'
-              }`}>
+                }`}>
                 <Icon className="h-4 w-4" />
               </div>
               <div className="min-w-0 flex-1">
@@ -148,7 +147,7 @@ export default function SlideNavigator({
               </div>
               {slide.unseen && (
                 <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-primary-600 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white shadow">
-                  Nuevo
+                  New
                 </span>
               )}
             </button>

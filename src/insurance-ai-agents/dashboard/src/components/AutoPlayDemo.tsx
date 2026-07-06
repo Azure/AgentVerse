@@ -73,9 +73,9 @@ interface Notice {
 }
 
 // Slide state =================================================================
-// Cada agente del pipeline se vive como una "slide". Cuando un agente termina,
-// se congela su estado en `snapshots[stage]` y el usuario puede navegar entre
-// slides anteriores mientras los siguientes continúan en directo.
+// Each pipeline agent lives as a "slide". When an agent finishes, its state is
+// frozen in `snapshots[stage]` and the user can navigate between previous
+// slides while the following ones keep running live.
 
 interface AgentSnapshot {
   status: 'completed' | 'failed';
@@ -177,9 +177,9 @@ function slideReducer(state: SlideState, action: SlideAction): SlideState {
 
 const STAGE_DISPLAY_NAMES: Record<Stage, string> = {
   intake: 'Intake',
-  risk_assessment: 'Riesgo',
+  risk_assessment: 'Risk',
   compliance: 'Compliance',
-  decision: 'Decisión',
+  decision: 'Decision',
 };
 
 const EMPTY_STAGE_STATUSES: Record<Stage, StageStatus> = {
@@ -198,26 +198,26 @@ const COMPLETED_STAGE_STATUSES: Record<Stage, StageStatus> = {
 
 const SCENARIO_META: Record<ScenarioKey, { label: string; shortLabel: string; badge: string; glow: string }> = {
   low_risk: {
-    label: 'Bajo Riesgo',
-    shortLabel: 'Bajo Riesgo',
+    label: 'Low Risk',
+    shortLabel: 'Low Risk',
     badge: 'border-emerald-200 bg-emerald-50 text-emerald-700',
     glow: 'shadow-md shadow-emerald-200/50',
   },
   high_amount: {
-    label: 'Alto Monto',
-    shortLabel: 'Alto Monto',
+    label: 'High Amount',
+    shortLabel: 'High Amount',
     badge: 'border-primary-200 bg-primary-50 text-primary-700',
     glow: 'shadow-md shadow-primary-200/50',
   },
   human_review: {
-    label: 'Revisión Humana',
-    shortLabel: 'Revisión Humana',
+    label: 'Human Review',
+    shortLabel: 'Human Review',
     badge: 'border-amber-200 bg-amber-50 text-amber-800',
     glow: 'shadow-md shadow-amber-200/50',
   },
   fraudulent: {
-    label: 'Fraudulento',
-    shortLabel: 'Fraudulento',
+    label: 'Fraudulent',
+    shortLabel: 'Fraudulent',
     badge: 'border-red-200 bg-red-50 text-red-700',
     glow: 'shadow-md shadow-red-200/50',
   },
@@ -231,15 +231,15 @@ const SCENARIO_META: Record<ScenarioKey, { label: string; shortLabel: string; ba
 
 const DECISION_META: Record<ClaimResult['decision'], { label: string; badge: string }> = {
   approve: {
-    label: 'Aprobado',
+    label: 'Approved',
     badge: 'border-emerald-200 bg-emerald-50 text-emerald-700',
   },
   human_review: {
-    label: 'Revisión humana',
+    label: 'Human review',
     badge: 'border-amber-200 bg-amber-50 text-amber-800',
   },
   reject: {
-    label: 'Rechazado',
+    label: 'Rejected',
     badge: 'border-red-200 bg-red-50 text-red-700',
   },
 };
@@ -270,7 +270,7 @@ function formatCaseDuration(durationMs: number) {
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error && error.message) return error.message;
-  return 'Error inesperado';
+  return 'Unexpected error';
 }
 
 function isAbortError(error: unknown) {
@@ -323,9 +323,9 @@ interface ExtractedFieldsView {
 }
 
 // === Streaming JSON parsing helpers ============================================
-// Los tokens del LLM streamean JSON crudo (response_format=PydanticModel). Para
-// no esperar al `executor_completed`, extraemos campos top-level conforme se van
-// cerrando en el JSON parcial. Esto alimenta los paneles viz en vivo.
+// The LLM tokens stream raw JSON (response_format=PydanticModel). To avoid
+// waiting for `executor_completed`, we extract top-level fields as they get
+// closed in the partial JSON. This feeds the live viz panels.
 
 function extractStringField(text: string, key: string): string | undefined {
   const regex = new RegExp(`"${key}"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"`, 'i');
@@ -403,11 +403,11 @@ function getExtractedFields(result: ClaimResult | null): ExtractedFieldsView | u
 
 function buildComplianceRules(result: ClaimResult | null, stageStatuses: Record<Stage, StageStatus>): ComplianceRule[] {
   const base: ComplianceRule[] = [
-    { id: 'policy_valid', label: 'Póliza vigente', status: 'pending' },
-    { id: 'coverage', label: 'Cobertura aplica al incidente', status: 'pending' },
-    { id: 'amount_threshold', label: 'Importe dentro del límite automático', status: 'pending' },
-    { id: 'fraud_indicators', label: 'Sin patrones de fraude detectados', status: 'pending' },
-    { id: 'documentation', label: 'Documentación completa', status: 'pending' },
+    { id: 'policy_valid', label: 'Policy in force', status: 'pending' },
+    { id: 'coverage', label: 'Coverage applies to the incident', status: 'pending' },
+    { id: 'amount_threshold', label: 'Amount within the automatic limit', status: 'pending' },
+    { id: 'fraud_indicators', label: 'No fraud patterns detected', status: 'pending' },
+    { id: 'documentation', label: 'Complete documentation', status: 'pending' },
   ];
 
   const status = stageStatuses.compliance;
@@ -436,33 +436,33 @@ function buildComplianceRules(result: ClaimResult | null, stageStatuses: Record<
   return [
     {
       id: 'policy_valid',
-      label: 'Póliza vigente',
+      label: 'Policy in force',
       status: policyValid ? 'passed' : 'failed',
-      detail: policyValid ? undefined : 'Póliza no encontrada o expirada.',
+      detail: policyValid ? undefined : 'Policy not found or expired.',
     },
     {
       id: 'coverage',
-      label: 'Cobertura aplica al incidente',
+      label: 'Coverage applies to the incident',
       status: coverageOk ? 'passed' : 'failed',
     },
     {
       id: 'amount_threshold',
-      label: 'Importe dentro del límite automático',
+      label: 'Amount within the automatic limit',
       status: numericAmount > threshold ? 'warning' : 'passed',
       detail: numericAmount > threshold
-        ? `${numericAmount.toLocaleString('es-ES')} € supera el umbral de ${threshold.toLocaleString('es-ES')} €`
+        ? `${numericAmount.toLocaleString('es-ES')} € exceeds the threshold of ${threshold.toLocaleString('es-ES')} €`
         : undefined,
     },
     {
       id: 'fraud_indicators',
-      label: 'Sin patrones de fraude detectados',
+      label: 'No fraud patterns detected',
       status: securityFlagged || fraudProb === 'high' || decision === 'reject' ? 'failed' : 'passed',
-      detail: securityFlagged ? 'Intento de manipulación detectado por el guard de seguridad.' : undefined,
+      detail: securityFlagged ? 'Manipulation attempt detected by the security guard.' : undefined,
     },
     {
       id: 'documentation',
-      label: 'Documentación completa',
-      status: reasoning.includes('falta') || reasoning.includes('incompleta') ? 'warning' : 'passed',
+      label: 'Complete documentation',
+      status: reasoning.includes('missing') || reasoning.includes('incomplete') ? 'warning' : 'passed',
     },
   ];
 }
@@ -529,16 +529,16 @@ function buildAgentSnapshot(
     if (result) {
       rules = buildComplianceRules(result, COMPLETED_STAGE_STATUSES);
     } else {
-      // Snapshot provisional sin result: en lugar de mostrar todas las reglas
-      // como 'pending' (lo que se vería como "Completado" pero vacío), inferir
-      // un estado plausible a partir del JSON streamed.
+      // Provisional snapshot without result: instead of showing all rules as
+      // 'pending' (which would look like "Completed" but empty), infer a
+      // plausible state from the streamed JSON.
       const parsedCompliant = parseStreamingCompliance(tokens).compliant;
       const baseRules: ComplianceRule[] = [
-        { id: 'policy_valid',     label: 'Póliza vigente',                       status: 'passed' },
-        { id: 'coverage',          label: 'Cobertura aplica al incidente',        status: 'passed' },
-        { id: 'amount_threshold',  label: 'Importe dentro del límite automático', status: 'passed' },
-        { id: 'fraud_indicators',  label: 'Sin patrones de fraude detectados',   status: parsedCompliant === false ? 'failed' : 'passed' },
-        { id: 'documentation',     label: 'Documentación completa',               status: 'passed' },
+        { id: 'policy_valid', label: 'Policy in force', status: 'passed' },
+        { id: 'coverage', label: 'Coverage applies to the incident', status: 'passed' },
+        { id: 'amount_threshold', label: 'Amount within the automatic limit', status: 'passed' },
+        { id: 'fraud_indicators', label: 'No fraud patterns detected', status: parsedCompliant === false ? 'failed' : 'passed' },
+        { id: 'documentation', label: 'Complete documentation', status: 'passed' },
       ];
       rules = baseRules;
     }
@@ -554,11 +554,11 @@ function buildAgentSnapshot(
         reasoning: result.reasoning,
         riskScore: getRiskScore(result),
       };
-      // Backend MAF no emite un stage 'decision' por WebSocket: la decisión
-      // final es la consolidación de los 3 agentes, y su tiempo real es
-      // result.total_duration_ms (medido end-to-end en el orquestador). Si
-      // la duración medida localmente es 0, usamos esa cifra para que el
-      // panel de Decisión muestre "Tiempo IA" en lugar de 0.0s.
+      // Backend MAF does not emit a 'decision' stage over WebSocket: the final
+      // decision is the consolidation of the 3 agents, and its real time is
+      // result.total_duration_ms (measured end-to-end in the orchestrator). If
+      // the locally measured duration is 0, we use that figure so the Decision
+      // panel shows "AI time" instead of 0.0s.
       if (base.durationMs <= 0 && result.total_duration_ms > 0) {
         base.durationMs = result.total_duration_ms;
       }
@@ -604,14 +604,14 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
     compliance: 0,
     decision: 0,
   }));
-  // Fase visual mostrada en la slide de Decisión mientras se consolida la salida
-  // de los 3 agentes anteriores antes de mostrar el veredicto final.
+  // Visual phase shown on the Decision slide while the outputs of the 3
+  // previous agents are consolidated before showing the final verdict.
   const [consolidationPhase, setConsolidationPhase] = useState<null | 0 | 1 | 2>(null);
-  // Estado del paso final "Llamada de voz con Leo". 'awaiting' = mostrando la
-  // intro y esperando a que el usuario lance la llamada; 'live' = la llamada
-  // está en curso y el modal de voz está abierto; 'closing' = la llamada
-  // terminó y vamos al cierre. La ventana del operador se abre con window.open
-  // y se referencia aquí para enfocarla / cerrarla si hace falta.
+  // State of the final "Voice call with Leo" step. 'awaiting' = showing the
+  // intro and waiting for the user to launch the call; 'live' = the call is
+  // in progress and the voice modal is open; 'closing' = the call ended and
+  // we move to the wrap-up. The operator window is opened with window.open
+  // and referenced here to focus / close it if needed.
   const [voicePhase, setVoicePhase] = useState<'awaiting' | 'live' | 'closing'>('awaiting');
   const [voiceSessionId, setVoiceSessionId] = useState<string | null>(null);
   const operatorWindowRef = useRef<Window | null>(null);
@@ -622,7 +622,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
     decision: 0,
   });
 
-  // --- Slide state (navegación por agentes) ---------------------------------
+  // --- Slide state (agent navigation) ---------------------------------------
   const [slideState, dispatchSlide] = useReducer(slideReducer, INITIAL_SLIDE_STATE);
   const prevStageStatusesRef = useRef<Record<Stage, StageStatus>>({ ...EMPTY_STAGE_STATUSES });
   const viewingSlideRef = useRef<Stage>('intake');
@@ -633,8 +633,8 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
   const snapshotsRef = useRef<Partial<Record<Stage, AgentSnapshot>>>({});
   const currentScenarioAmountRef = useRef<number>(0);
   const finalizedResultRef = useRef<ClaimResult | null>(null);
-  // Dwell mínimo (ms) durante el cual la slide live no se auto-cambia: evita
-  // saltos imperceptibles cuando un agente termina extremadamente rápido.
+  // Minimum dwell (ms) during which the live slide does not auto-change:
+  // avoids imperceptible jumps when an agent finishes extremely fast.
   const MIN_DWELL_MS = 1800;
 
   const clearNoticeTimers = useCallback(() => {
@@ -697,24 +697,24 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
 
   const startVoiceCall = useCallback(() => {
     const sid = `voice-${Math.random().toString(36).slice(2, 10)}-${Date.now().toString(36)}`;
-    // Abrimos la ventana del operador ANTES del modal del cliente para que
-    // el observer pueda enganchar a la sesión incluso si la creación del
-    // bridge se adelanta. El backend buffera los eventos y reintenta el
-    // attach unos segundos si la sesión aún no existe.
+    // We open the operator window BEFORE the customer modal so the observer
+    // can hook into the session even if the bridge creation runs ahead. The
+    // backend buffers the events and retries the attach for a few seconds if
+    // the session does not exist yet.
     let openedWindow: Window | null = null;
     try {
       const url = `${window.location.origin}/?view=voice-operator&session=${encodeURIComponent(sid)}`;
       openedWindow = window.open(url, `operator-${sid}`, 'width=1280,height=820');
     } catch (err) {
-      pushNotice(`No se pudo abrir la ventana del operador: ${getErrorMessage(err)}`, 'error');
+      pushNotice(`The operator window could not be opened: ${getErrorMessage(err)}`, 'error');
       return;
     }
     if (!openedWindow) {
-      // Popup blocked → no avanzamos a 'live': mantenemos al usuario en la
-      // intro para que pueda permitir pop-ups y reintentar. Si arrancamos
-      // la llamada igualmente perdería la vista paralela que es el punto.
+      // Popup blocked → we don't advance to 'live': we keep the user on the
+      // intro so they can allow pop-ups and retry. Starting the call anyway
+      // would lose the parallel view, which is the whole point.
       pushNotice(
-        'El navegador bloqueó la ventana del operador. Permita pop-ups en este sitio y vuelva a pulsar.',
+        'The browser blocked the operator window. Allow pop-ups on this site and press again.',
         'error',
       );
       return;
@@ -727,8 +727,8 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
   const handleVoiceModalClose = useCallback(() => {
     setVoicePhase('closing');
     setStatus('finished');
-    // No cerramos automáticamente la ventana del operador: deja que el
-    // usuario la revise. Se cerrará al cerrar el modal de la demo.
+    // We don't automatically close the operator window: let the user review
+    // it. It will close when the demo modal is closed.
   }, []);
 
   const skipVoiceStep = useCallback(() => {
@@ -742,7 +742,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
     skipRequestedRef.current = false;
     setPaused(false);
     setStatus('error');
-    setFatalError('Sesión caducada, vuelve a iniciar sesión');
+    setFatalError('Session expired, please sign in again');
     cleanupActiveCase(true);
     const timer = window.setTimeout(() => onCloseRef.current(), 1400);
     noticeTimersRef.current.push(timer);
@@ -857,7 +857,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
           return;
         }
         setStatus('error');
-        setFatalError(getErrorMessage(error) || 'No se pudieron cargar los escenarios.');
+        setFatalError(getErrorMessage(error) || 'The scenarios could not be loaded.');
         return;
       }
 
@@ -866,7 +866,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
       const ordered = DEMO_ORDER.flatMap((key) => (scenariosResponse[key] ? [{ key, scenario: scenariosResponse[key] }] : []));
       if (ordered.length === 0) {
         setStatus('error');
-        setFatalError('No se encontraron escenarios preparados para la demo.');
+        setFatalError('No prepared scenarios were found for the demo.');
         return;
       }
 
@@ -890,9 +890,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
         setCurrentResult(null);
         setStageDurations({ intake: 0, risk_assessment: 0, compliance: 0, decision: 0 });
         stageStartsRef.current = { intake: 0, risk_assessment: 0, compliance: 0, decision: 0 };
-        // Reset slide state al iniciar cada caso. Limpia snapshots, pin del
-        // usuario, notificaciones pendientes y toasts visibles para que el
-        // siguiente caso comience completamente "en directo" desde intake.
+        // Reset slide state when starting each case. Clears snapshots, the
+        // user pin, pending notifications and visible toasts so the next case
+        // starts fully "live" from intake.
         dispatchSlide({ type: 'CASE_STARTED' });
         snapshotsRef.current = {};
         prevStageStatusesRef.current = { ...EMPTY_STAGE_STATUSES };
@@ -926,9 +926,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
             setStageStatuses((previous) => nextStageStatuses(previous, stage, nextStatus));
           } else if (update.type === 'token') {
             const agent = update.agent;
-            // Backend MAF emite tokens con agent="risk_assessment" (no "risk").
-            // Aceptamos ambos por compatibilidad y descartamos agentes
-            // desconocidos en lugar de mezclarlos con intake (bug previo).
+            // Backend MAF emits tokens with agent="risk_assessment" (not
+            // "risk"). We accept both for compatibility and discard unknown
+            // agents instead of mixing them with intake (previous bug).
             let stage: Stage | null = null;
             if (agent === 'risk' || agent === 'risk_assessment') stage = 'risk_assessment';
             else if (agent === 'intake' || agent === 'compliance' || agent === 'decision') stage = agent;
@@ -974,9 +974,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
           };
           setFeedItems((previous) => [...previous, item]);
 
-          // Mini-secuencia de consolidación: 3 pasos visibles dentro de la
-          // slide de Decisión. Convierte una transición instantánea en una
-          // mini-experiencia de "trabajo final" antes de mostrar el veredicto.
+          // Consolidation mini-sequence: 3 visible steps inside the Decision
+          // slide. Turns an instant transition into a mini "final work"
+          // experience before showing the verdict.
           const CONSOLIDATION_STEP_MS = 850;
           for (const phase of [0, 1, 2] as const) {
             setConsolidationPhase(phase);
@@ -991,9 +991,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
             }
           }
           setConsolidationPhase(null);
-          // NOTA: ya no se dispara DecisionFinale automáticamente. La slide de
-          // Decisión muestra el veredicto en el panel y el usuario puede abrir
-          // la pantalla final celebratoria con el botón "Ver pantalla final".
+          // NOTE: DecisionFinale is no longer triggered automatically. The
+          // Decision slide shows the verdict in the panel and the user can
+          // open the celebratory final screen with the "View final screen" button.
         } catch (error) {
           if (demoRunRef.current !== runId || closeRequestedRef.current) return;
 
@@ -1007,7 +1007,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
 
           if (!skippedCurrent) {
             setStageStatuses((previous) => ({ ...previous, decision: 'failed' }));
-            pushNotice(`Caso ${index + 1} falló: ${getErrorMessage(error)}`, 'error');
+            pushNotice(`Case ${index + 1} failed: ${getErrorMessage(error)}`, 'error');
           }
         } finally {
           cleanupActiveCase(false);
@@ -1033,9 +1033,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
       setCurrentScenarioKey(null);
       setCurrentClaimId('');
       setStageStatuses({ ...EMPTY_STAGE_STATUSES });
-      // Pasamos a la fase de voz: el usuario decide si lanza la llamada
-      // con Leo (y la ventana del operador) o si salta directamente al
-      // cierre. La transición a 'finished' la dispara ese flujo.
+      // We move to the voice phase: the user decides whether to launch the
+      // call with Leo (and the operator window) or skip straight to the
+      // wrap-up. The transition to 'finished' is triggered by that flow.
       setStatus('voice');
     };
 
@@ -1085,9 +1085,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
     ? 0
     : Math.max(0, Math.round((totalScenarios - finishedCount) * averageCaseSeconds + Math.max(totalScenarios - finishedCount - 1, 0) * 2));
 
-  // backendActiveStage: estado real en el backend. Es el stage que actualmente
-  // procesa el pipeline (o el último completado si todos quietos). Esto es
-  // independiente de qué slide está viendo el usuario.
+  // backendActiveStage: real state in the backend. It's the stage the
+  // pipeline is currently processing (or the last completed one if all are
+  // idle). This is independent of which slide the user is viewing.
   const backendActiveStage: Stage = useMemo(() => {
     const order: Stage[] = ['intake', 'risk_assessment', 'compliance', 'decision'];
     const processing = order.find((s) => stageStatuses[s] === 'processing');
@@ -1103,15 +1103,15 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
   const viewingSlide = slideState.viewingSlide;
   const viewingSnapshot = slideState.snapshots[viewingSlide];
 
-  // Mantener refs sincronizadas para closures (efectos sin re-suscripción).
+  // Keep refs in sync for closures (effects without re-subscription).
   useEffect(() => { viewingSlideRef.current = slideState.viewingSlide; }, [slideState.viewingSlide]);
   useEffect(() => { userPinnedRef.current = slideState.userPinnedSlide; }, [slideState.userPinnedSlide]);
   useEffect(() => { snapshotsRef.current = slideState.snapshots; }, [slideState.snapshots]);
 
-  // --- Auto-follow del agente en vivo ---------------------------------------
-  // Si el usuario no ha clavado una slide, viewingSlide debe seguir al agente
-  // que está procesando en backend. Respetamos un dwell mínimo para no saltar
-  // entre slides imperceptiblemente cuando un agente termina muy rápido.
+  // --- Auto-follow of the live agent ----------------------------------------
+  // If the user hasn't pinned a slide, viewingSlide should follow the agent
+  // currently processing in the backend. We respect a minimum dwell so we
+  // don't jump between slides imperceptibly when an agent finishes very fast.
   useEffect(() => {
     if (status !== 'running') return;
     if (slideState.userPinnedSlide) return;
@@ -1126,14 +1126,14 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
   }, [backendActiveStage, slideState.userPinnedSlide, slideState.viewingSlide, status]);
 
   // --- Snapshot capture (provisional) ---------------------------------------
-  // Cuando un stage transita de processing/pending → completed/failed, congelar
-  // su estado actual como snapshot. Si el usuario no está mirando esa slide,
-  // encolar una notificación agregada (debounce 450ms).
+  // When a stage transitions from processing/pending → completed/failed, freeze
+  // its current state as a snapshot. If the user isn't viewing that slide,
+  // queue an aggregated notification (450ms debounce).
   //
-  // NOTA: la slide de decisión se omite intencionalmente para el caso
-  // 'completed' — su snapshot se construye en SNAPSHOT_FINAL cuando llega
-  // currentResult (evita mostrar "completado" sin veredicto durante los ms
-  // entre el WS event y la resolución HTTP). Sí capturamos 'failed' aquí.
+  // NOTE: the decision slide is intentionally skipped for the 'completed'
+  // case — its snapshot is built in SNAPSHOT_FINAL when currentResult arrives
+  // (avoids showing "completed" without a verdict during the ms between the
+  // WS event and the HTTP resolution). We do capture 'failed' here.
   useEffect(() => {
     if (status !== 'running') return;
     const prev = prevStageStatusesRef.current;
@@ -1171,11 +1171,11 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
           if (filtered.length === 0) return;
           const names = filtered.map((s) => STAGE_DISPLAY_NAMES[s]);
           const text = filtered.length === 1
-            ? `${names[0]} completó su análisis`
-            : `${filtered.length} agentes completaron · ${names.join(' · ')}`;
+            ? `${names[0]} completed its analysis`
+            : `${filtered.length} agents completed · ${names.join(' · ')}`;
           const jumpTo = filtered[filtered.length - 1];
           pushNotice(text, 'info', {
-            actionLabel: 'Ver slide',
+            actionLabel: 'View slide',
             onAction: () => dispatchSlide({ type: 'USER_SELECTED_SLIDE', slide: jumpTo }),
           });
         }, 450);
@@ -1184,10 +1184,10 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
     prevStageStatusesRef.current = { ...stageStatuses };
   }, [stageStatuses, stageTokens, stageDurations, currentResult, status, pushNotice]);
 
-  // --- Snapshot finalization (cuando llega el resultado completo) -----------
-  // Reconcilia todos los snapshots con los datos finales y, en concreto,
-  // crea por primera vez el snapshot de 'decision' (que se omite en el efecto
-  // de captura provisional para evitar mostrar "completed" sin veredicto).
+  // --- Snapshot finalization (when the full result arrives) -----------------
+  // Reconciles all snapshots with the final data and, specifically, creates
+  // the 'decision' snapshot for the first time (which is skipped in the
+  // provisional capture effect to avoid showing "completed" without a verdict).
   useEffect(() => {
     if (!currentResult) return;
     if (finalizedResultRef.current === currentResult) return;
@@ -1206,8 +1206,8 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
       );
     });
     dispatchSlide({ type: 'SNAPSHOT_FINAL', reconciled });
-    // Si el usuario no está viendo la slide de decisión, encolar notificación
-    // específica (la decision se acaba de "completar de verdad").
+    // If the user isn't viewing the decision slide, queue a specific
+    // notification (the decision has just "truly completed").
     if (viewingSlideRef.current !== 'decision') {
       pendingToastStagesRef.current.add('decision');
       if (toastTimerRef.current === null) {
@@ -1220,11 +1220,11 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
           if (filtered.length === 0) return;
           const names = filtered.map((s) => STAGE_DISPLAY_NAMES[s]);
           const text = filtered.length === 1
-            ? `${names[0]} completó su análisis`
-            : `${filtered.length} agentes completaron · ${names.join(' · ')}`;
+            ? `${names[0]} completed its analysis`
+            : `${filtered.length} agents completed · ${names.join(' · ')}`;
           const jumpTo = filtered[filtered.length - 1];
           pushNotice(text, 'info', {
-            actionLabel: 'Ver slide',
+            actionLabel: 'View slide',
             onAction: () => dispatchSlide({ type: 'USER_SELECTED_SLIDE', slide: jumpTo }),
           });
         }, 450);
@@ -1232,14 +1232,14 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
     }
   }, [currentResult, status, stageTokens, stageDurations, pushNotice]);
 
-  // --- Slides descriptor para SlideNavigator --------------------------------
+  // --- Slides descriptor for SlideNavigator ---------------------------------
   const slideDescriptors: SlideDescriptor[] = useMemo(() => {
     const order: Stage[] = ['intake', 'risk_assessment', 'compliance', 'decision'];
     return order.map((stage) => {
       const snapshot = slideState.snapshots[stage];
       let slideStatusValue: SlideStatus;
-      // Caso especial decision: mantener 'live' mientras no llegue el veredicto
-      // final, incluso si ya hay un snapshot provisional generado por el WS.
+      // Special decision case: keep 'live' until the final verdict arrives,
+      // even if a provisional snapshot generated by the WS already exists.
       const decisionLackingFinal = stage === 'decision'
         && (consolidationPhase !== null || (currentResult === null && stageStatuses.decision === 'processing'));
       if (snapshot && !decisionLackingFinal) {
@@ -1273,9 +1273,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
     currentResult,
   ]);
 
-  // --- Datos del panel para la slide visible --------------------------------
-  // AgentThinkingPanel se vincula a la slide visible (no al agente live):
-  // si el usuario revisa Intake, ve los pensamientos congelados de Intake.
+  // --- Panel data for the visible slide -------------------------------------
+  // AgentThinkingPanel binds to the visible slide (not the live agent):
+  // if the user reviews Intake, they see Intake's frozen thoughts.
   const viewingAgentStatus: AgentStatus = useMemo(() => {
     if (viewingSnapshot) return viewingSnapshot.status === 'failed' ? 'failed' : 'completed';
     const s = stageStatuses[viewingSlide];
@@ -1317,11 +1317,11 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
     const tokens = stageTokens.compliance;
     const parsedCompliant = parseStreamingCompliance(tokens).compliant;
     const baseRules: ComplianceRule[] = [
-      { id: 'policy_valid',     label: 'Póliza vigente',                       status: 'pending' },
-      { id: 'coverage',          label: 'Cobertura aplica al incidente',        status: 'pending' },
-      { id: 'amount_threshold',  label: 'Importe dentro del límite automático', status: 'pending' },
-      { id: 'fraud_indicators',  label: 'Sin patrones de fraude detectados',   status: 'pending' },
-      { id: 'documentation',     label: 'Documentación completa',               status: 'pending' },
+      { id: 'policy_valid', label: 'Policy in force', status: 'pending' },
+      { id: 'coverage', label: 'Coverage applies to the incident', status: 'pending' },
+      { id: 'amount_threshold', label: 'Amount within the automatic limit', status: 'pending' },
+      { id: 'fraud_indicators', label: 'No fraud patterns detected', status: 'pending' },
+      { id: 'documentation', label: 'Complete documentation', status: 'pending' },
     ];
     if (stageStatuses.compliance !== 'processing') return baseRules;
     const charsPerRule = 150;
@@ -1338,16 +1338,16 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
   }, [currentResult, stageStatuses, stageTokens.compliance]);
 
   const subtitle = useMemo(() => {
-    if (status === 'loading') return 'Preparando escenarios, agentes y telemetría en tiempo real…';
+    if (status === 'loading') return 'Preparing scenarios, agents and real-time telemetry…';
     if (fatalError) return fatalError;
-    if (status === 'finished') return `Demo completada · ${finishedCount} de ${totalScenarios} casos ejecutados`;
-    if (status === 'voice') return `Paso final · llamada de voz con ${BRAND.voiceAssistantName} (vista cliente + vista operador)`;
+    if (status === 'finished') return `Demo completed · ${finishedCount} of ${totalScenarios} cases executed`;
+    if (status === 'voice') return `Final step · voice call with ${BRAND.voiceAssistantName} (customer view + operator view)`;
     if (currentScenarioKey) {
-      const base = `Procesando caso ${Math.min(currentIndex + 1, totalScenarios)} de ${totalScenarios} · Quedan ~${remainingSeconds} segundos`;
-      if (slideState.userPinnedSlide) return `${base} · Demo en pausa mientras revisas slides`;
-      return paused ? `${base} · pausa activa tras este caso` : base;
+      const base = `Processing case ${Math.min(currentIndex + 1, totalScenarios)} of ${totalScenarios} · ~${remainingSeconds} seconds left`;
+      if (slideState.userPinnedSlide) return `${base} · Demo paused while you review slides`;
+      return paused ? `${base} · pause active after this case` : base;
     }
-    return 'Inicializando la demo automática…';
+    return 'Initializing the automatic demo…';
   }, [
     currentIndex,
     currentScenarioKey,
@@ -1379,7 +1379,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                 <img src={BRAND.logoUrl} alt={BRAND.logoAlt} className="h-6 w-auto" />
               </div>
               <div>
-                <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Demo automática · 5 casos reales</h2>
+                <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Automatic demo · 5 real cases</h2>
                 <p className="mt-1 text-sm text-gray-600">{subtitle}</p>
               </div>
             </div>
@@ -1391,7 +1391,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                 className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
-                {paused ? 'Reanudar' : 'Pausar'}
+                {paused ? 'Resume' : 'Pause'}
               </button>
               <button
                 type="button"
@@ -1400,7 +1400,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                 className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <SkipForward className="h-4 w-4" />
-                Saltar al siguiente
+                Skip to next
               </button>
               <button
                 type="button"
@@ -1408,7 +1408,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                 className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
               >
                 <X className="h-4 w-4" />
-                Cerrar
+                Close
               </button>
             </div>
           </div>
@@ -1420,9 +1420,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
               <div className="flex min-h-[60vh] items-center justify-center">
                 <div className="w-full max-w-xl rounded-[28px] border border-gray-200 bg-white p-10 text-center shadow-xl shadow-gray-200/60">
                   <Loader2 className="mx-auto h-12 w-12 animate-spin text-primary-600" />
-                  <h3 className="mt-5 text-2xl font-semibold text-gray-900">Preparando la demo automática</h3>
+                  <h3 className="mt-5 text-2xl font-semibold text-gray-900">Preparing the automatic demo</h3>
                   <p className="mt-2 text-sm leading-7 text-gray-600">
-                    Cargando los 5 escenarios, conectando el pipeline y preparando el feed en tiempo real.
+                    Loading the 5 scenarios, connecting the pipeline and preparing the real-time feed.
                   </p>
                 </div>
               </div>
@@ -1432,14 +1432,14 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
               <div className="flex min-h-[60vh] items-center justify-center">
                 <div className="w-full max-w-2xl rounded-[28px] border border-red-200 bg-red-50 p-10 text-center shadow-xl shadow-red-100/50">
                   <AlertTriangle className="mx-auto h-12 w-12 text-red-600" />
-                  <h3 className="mt-5 text-2xl font-semibold text-gray-900">No se pudo lanzar la demo</h3>
-                  <p className="mt-3 text-sm leading-7 text-red-700">{fatalError || 'Se produjo un error inesperado al inicializar la demo.'}</p>
+                  <h3 className="mt-5 text-2xl font-semibold text-gray-900">The demo could not be launched</h3>
+                  <p className="mt-3 text-sm leading-7 text-red-700">{fatalError || 'An unexpected error occurred while initializing the demo.'}</p>
                   <button
                     type="button"
                     onClick={closeDemo}
                     className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
                   >
-                    Volver al dashboard
+                    Back to the dashboard
                   </button>
                 </div>
               </div>
@@ -1450,14 +1450,14 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                 <div className="w-full max-w-4xl rounded-[32px] border border-gray-200 bg-gradient-to-br from-white via-primary-50/40 to-primary-100/30 p-10 text-center shadow-xl shadow-gray-200/60 xl:p-14">
                   <div className="mx-auto inline-flex items-center gap-2 rounded-full bg-primary-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-primary-700">
                     <Mic className="h-3.5 w-3.5" />
-                    Paso final · Llamada de voz
+                    Final step · Voice call
                   </div>
                   <h3 className="mt-5 text-3xl font-semibold tracking-tight text-gray-900 xl:text-4xl">
-                    Hable con {BRAND.voiceAssistantName}, el asistente de voz {BRAND.shortName}
+                    Talk to {BRAND.voiceAssistantName}, the {BRAND.shortName} voice assistant
                   </h3>
                   <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-700">
-                    Para cerrar la demo, va a vivir el mismo pipeline desde el otro lado del teléfono.
-                    Al pulsar el botón se abrirán dos ventanas:
+                    To close the demo, you'll experience the same pipeline from the other end of the phone.
+                    Pressing the button opens two windows:
                   </p>
 
                   <div className="mt-8 grid gap-4 text-left md:grid-cols-2">
@@ -1466,11 +1466,11 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                         <span className="grid h-10 w-10 place-items-center rounded-full bg-primary-100 text-primary-700">
                           <Phone className="h-5 w-5" />
                         </span>
-                        <h4 className="text-sm font-semibold text-gray-900">Vista cliente</h4>
+                        <h4 className="text-sm font-semibold text-gray-900">Customer view</h4>
                       </div>
                       <p className="mt-3 text-sm leading-6 text-gray-600">
-                        El modal de llamada con {BRAND.voiceAssistantName}. Hable normal: identifíquese con su DNI,
-                        describa el siniestro y reciba la decisión final por voz.
+                        The call modal with {BRAND.voiceAssistantName}. Speak normally: identify yourself with your ID,
+                        describe the claim and receive the final decision by voice.
                       </p>
                     </div>
                     <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
@@ -1478,19 +1478,19 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                         <span className="grid h-10 w-10 place-items-center rounded-full bg-emerald-100 text-emerald-700">
                           <Headphones className="h-5 w-5" />
                         </span>
-                        <h4 className="text-sm font-semibold text-gray-900">Vista operador</h4>
+                        <h4 className="text-sm font-semibold text-gray-900">Operator view</h4>
                       </div>
                       <p className="mt-3 text-sm leading-6 text-gray-600">
-                        Ventana independiente con la transcripción en vivo, los datos del
-                        cliente identificado y el pipeline multiagente ejecutándose en directo.
+                        Standalone window with the live transcript, the identified
+                        customer's data and the multi-agent pipeline running live.
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-left text-xs leading-6 text-amber-800">
-                    <strong>Tip:</strong> coloque ambas ventanas en paralelo (cliente a la izquierda,
-                    operador a la derecha) para ver cómo cada turno se refleja simultáneamente en las dos.
-                    Si su navegador bloquea pop-ups, permítalos en este sitio antes de pulsar.
+                    <strong>Tip:</strong> place both windows side by side (customer on the left,
+                    operator on the right) to see how each turn is reflected simultaneously in both.
+                    If your browser blocks pop-ups, allow them on this site before pressing.
                   </div>
 
                   <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -1500,7 +1500,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                       className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-600/30 transition hover:bg-primary-700"
                     >
                       <Phone className="h-4 w-4" />
-                      Iniciar llamada con {BRAND.voiceAssistantName} + vista operador
+                      Start call with {BRAND.voiceAssistantName} + operator view
                       <ExternalLink className="h-3.5 w-3.5 opacity-70" />
                     </button>
                     <button
@@ -1509,7 +1509,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                       className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
                     >
                       <SkipForward className="h-4 w-4" />
-                      Saltar al cierre
+                      Skip to the end
                     </button>
                   </div>
                 </div>
@@ -1520,30 +1520,30 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
               <div className="flex min-h-[70vh] items-center justify-center">
                 <div className="w-full max-w-5xl rounded-[32px] border border-gray-200 bg-gradient-to-br from-white via-gray-50 to-primary-50/40 p-10 text-center shadow-xl shadow-gray-200/60 xl:p-14">
                   <div className="mx-auto max-w-3xl">
-                    <p className="text-sm font-semibold uppercase tracking-[0.35em] text-primary-700">Cierre de la demo</p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.35em] text-primary-700">Demo wrap-up</p>
                     <h3 className="mt-4 text-4xl font-semibold tracking-tight text-gray-900 xl:text-5xl">
-                      ✨ {finishedCount} casos procesados en {formatElapsed(elapsedSeconds)}
+                      ✨ {finishedCount} cases processed in {formatElapsed(elapsedSeconds)}
                     </h3>
                     <p className="mt-4 text-lg text-gray-700">
-                      Con análisis manual habría tomado <strong className="text-gray-900">3 horas 45 minutos</strong>
+                      With manual analysis it would have taken <strong className="text-gray-900">3 hours 45 minutes</strong>
                     </p>
                   </div>
 
                   <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                     <div className="rounded-2xl border border-gray-200 bg-white p-5">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Aprobación automática</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Automatic approval</p>
                       <p className="mt-3 text-3xl font-semibold text-emerald-700">{approvalRate}%</p>
                     </div>
                     <div className="rounded-2xl border border-gray-200 bg-white p-5">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Fraudes detectados</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Frauds detected</p>
                       <p className="mt-3 text-3xl font-semibold text-red-700">{fraudDetectedCount}</p>
                     </div>
                     <div className="rounded-2xl border border-gray-200 bg-white p-5">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Decisión automática</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Automatic decision</p>
                       <p className="mt-3 text-3xl font-semibold text-primary-700">{automaticDecisionCount}</p>
                     </div>
                     <div className="rounded-2xl border border-gray-200 bg-white p-5">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Total procesado</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Total processed</p>
                       <p className="mt-3 text-3xl font-semibold text-gray-900">{currencyFormatter.format(totalAmount)}</p>
                     </div>
                   </div>
@@ -1553,7 +1553,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                     onClick={closeDemo}
                     className="mt-10 inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
                   >
-                    Volver al dashboard
+                    Back to the dashboard
                   </button>
                 </div>
               </div>
@@ -1575,7 +1575,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                   <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
                     <div className="flex items-center gap-4">
                       <div className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium ${currentScenarioMeta?.badge ?? 'border-gray-200 bg-gray-50 text-gray-700'}`}>
-                        {currentScenarioMeta?.label ?? 'Preparando escenarios…'}
+                        {currentScenarioMeta?.label ?? 'Preparing scenarios…'}
                       </div>
                       <div className="text-sm text-gray-600">
                         <span className="font-mono text-xs text-gray-500">{currentClaimId || '—'}</span>
@@ -1585,18 +1585,18 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2 xl:min-w-[360px]">
                       <div className="rounded-xl border border-gray-200 bg-white px-3 py-2">
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Cliente</p>
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Customer</p>
                         <p className="mt-0.5 text-sm font-medium text-gray-900">{currentScenario?.customer_id ?? '—'}</p>
                       </div>
                       <div className="rounded-xl border border-gray-200 bg-white px-3 py-2">
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Póliza</p>
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Policy</p>
                         <p className="mt-0.5 text-sm font-medium text-gray-900">{currentScenario?.policy_id ?? '—'}</p>
                       </div>
                     </div>
                   </div>
                 </section>
 
-                {/* Slide navigator: tabs por agente, navegación libre */}
+                {/* Slide navigator: per-agent tabs, free navigation */}
                 <SlideNavigator
                   slides={slideDescriptors}
                   viewingSlide={viewingSlide}
@@ -1623,10 +1623,10 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                         extractedFields={viewingSnapshot?.intake?.extractedFields ?? liveExtractedFields}
                         phaseLabel={
                           viewingSnapshot
-                            ? 'Datos extraídos'
+                            ? 'Extracted data'
                             : stageStatuses.intake === 'completed'
-                              ? 'Datos extraídos'
-                              : 'Leyendo el parte del siniestro'
+                              ? 'Extracted data'
+                              : 'Reading the claim report'
                         }
                       />
                     )}
@@ -1637,10 +1637,10 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                         fraudProbability={viewingSnapshot?.risk?.fraudProbability ?? liveFraudProbability}
                         phaseLabel={
                           viewingSnapshot
-                            ? 'Evaluación de riesgo'
+                            ? 'Risk assessment'
                             : stageStatuses.risk_assessment === 'completed'
-                              ? 'Evaluación de riesgo'
-                              : 'Calculando score y patrones de fraude'
+                              ? 'Risk assessment'
+                              : 'Calculating score and fraud patterns'
                         }
                       />
                     )}
@@ -1650,10 +1650,10 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                         rules={viewingSnapshot?.compliance?.rules ?? liveComplianceRules}
                         phaseLabel={
                           viewingSnapshot
-                            ? 'Validación regulatoria'
+                            ? 'Regulatory validation'
                             : stageStatuses.compliance === 'completed'
-                              ? 'Validación regulatoria'
-                              : 'Aplicando reglas y umbrales'
+                              ? 'Regulatory validation'
+                              : 'Applying rules and thresholds'
                         }
                       />
                     )}
@@ -1697,7 +1697,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                   <div className="flex items-center justify-between border-b border-gray-200 pb-3">
                     <div className="flex items-center gap-3">
                       <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">Feed</p>
-                      <p className="text-sm text-gray-600">{feedItems.length} decisión(es)</p>
+                      <p className="text-sm text-gray-600">{feedItems.length} decision(s)</p>
                     </div>
                   </div>
                   <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -1710,13 +1710,12 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                       return (
                         <div
                           key={demo.key}
-                          className={`rounded-xl border px-3 py-2.5 text-xs transition ${
-                            isActive
+                          className={`rounded-xl border px-3 py-2.5 text-xs transition ${isActive
                               ? 'border-primary-300 bg-primary-50 animate-pulse-glow'
                               : isPending
                                 ? 'border-gray-200 bg-gray-50 opacity-70'
                                 : 'border-gray-200 bg-white'
-                          }`}
+                            }`}
                         >
                           <div className="flex items-center justify-between">
                             {decisionMeta ? (
@@ -1725,7 +1724,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                               </span>
                             ) : (
                               <span className="text-[10px] uppercase tracking-wider text-gray-500">
-                                {isActive ? 'En curso' : isPending ? 'Pendiente' : '—'}
+                                {isActive ? 'In progress' : isPending ? 'Pending' : '—'}
                               </span>
                             )}
                           </div>
@@ -1754,10 +1753,9 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
           />
         )}
 
-        {/* Modal de voz: solo durante la fase final. Se renderiza encima
-            del modal de la demo (z-[150] > z-[140]) y comparte session_id
-            con la ventana del operador para que ambas vean la misma
-            conversación. */}
+        {/* Voice modal: only during the final phase. It renders on top of
+            the demo modal (z-[150] > z-[140]) and shares session_id with the
+            operator window so both see the same conversation. */}
         <VoiceCallModal
           open={voicePhase === 'live' && !!voiceSessionId}
           onClose={handleVoiceModalClose}
@@ -1765,7 +1763,7 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
           zClassName="z-[150]"
         />
 
-        {/* Toast stack: notificaciones flotantes abajo a la derecha */}
+        {/* Toast stack: floating notifications at the bottom right */}
         {notices.length > 0 && (
           <div
             className="pointer-events-none fixed bottom-6 right-6 z-[170] flex w-[360px] max-w-[calc(100vw-3rem)] flex-col gap-3"
@@ -1777,25 +1775,22 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
               return (
                 <div
                   key={notice.id}
-                  className={`pointer-events-auto animate-slide-in-right overflow-hidden rounded-2xl border bg-white/95 shadow-xl shadow-gray-900/10 backdrop-blur-sm ring-1 ring-black/5 ${
-                    isError ? 'border-red-100' : 'border-gray-100'
-                  }`}
+                  className={`pointer-events-auto animate-slide-in-right overflow-hidden rounded-2xl border bg-white/95 shadow-xl shadow-gray-900/10 backdrop-blur-sm ring-1 ring-black/5 ${isError ? 'border-red-100' : 'border-gray-100'
+                    }`}
                 >
                   <div className="flex items-start gap-3 p-4">
                     <div
-                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
-                        isError
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${isError
                           ? 'bg-red-50 text-red-600 ring-1 ring-red-100'
                           : 'bg-primary-50 text-primary-600 ring-1 ring-primary-100'
-                      }`}
+                        }`}
                     >
                       {isError ? <AlertTriangle className="h-4 w-4" /> : <Bell className="h-4 w-4" />}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className={`text-[10px] font-semibold uppercase tracking-[0.22em] ${
-                        isError ? 'text-red-600' : 'text-primary-600'
-                      }`}>
-                        {isError ? 'Aviso' : 'Notificación'}
+                      <p className={`text-[10px] font-semibold uppercase tracking-[0.22em] ${isError ? 'text-red-600' : 'text-primary-600'
+                        }`}>
+                        {isError ? 'Notice' : 'Notification'}
                       </p>
                       <p className="mt-1 break-words text-sm leading-snug text-gray-900">{notice.text}</p>
                       {notice.actionLabel && notice.onAction && (
@@ -1805,11 +1800,10 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                             notice.onAction?.();
                             dismissNotice(notice.id);
                           }}
-                          className={`mt-2 inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
-                            isError
+                          className={`mt-2 inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition ${isError
                               ? 'bg-red-50 text-red-700 hover:bg-red-100'
                               : 'bg-primary-50 text-primary-700 hover:bg-primary-100'
-                          }`}
+                            }`}
                         >
                           {notice.actionLabel}
                         </button>
@@ -1819,15 +1813,14 @@ export default function AutoPlayDemo({ open, onClose }: Props) {
                       type="button"
                       onClick={() => dismissNotice(notice.id)}
                       className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-gray-400 transition hover:bg-gray-100 hover:text-gray-700"
-                      aria-label="Cerrar notificación"
+                      aria-label="Close notification"
                     >
                       <X className="h-3.5 w-3.5" />
                     </button>
                   </div>
                   <div
-                    className={`h-0.5 w-full origin-left ${
-                      isError ? 'bg-red-500/70' : 'bg-primary-500/70'
-                    } animate-toast-countdown`}
+                    className={`h-0.5 w-full origin-left ${isError ? 'bg-red-500/70' : 'bg-primary-500/70'
+                      } animate-toast-countdown`}
                   />
                 </div>
               );

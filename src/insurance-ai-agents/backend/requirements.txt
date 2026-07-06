@@ -9,16 +9,16 @@ httpx>=0.27.0,<1
 azure-identity>=1.17.0
 websockets>=12.0
 aiohttp>=3.9.0
-# Persistencia y autenticación
+# Persistence and authentication
 azure-cosmos>=4.7.0
 PyJWT[crypto]>=2.9.0
-# Observabilidad: trazas distribuidas a Application Insights (FastAPI + httpx)
+# Observability: distributed traces to Application Insights (FastAPI + httpx)
 azure-monitor-opentelemetry>=1.6.0
-# Microsoft Agent Framework — sólo los sub-paquetes que importa el código.
-# Evitamos el meta-paquete `agent-framework[all]` porque arrastra ~25 deps
-# beta cuyas versiones nuevas (foundry 1.5+, etc.) requieren core>=1.5 y
-# rompen la resolución de pip (`ResolutionTooDeep`). Pin exacto de las
-# tres únicas piezas que usamos en agents/orchestrator/maf_agent.py:
+# Microsoft Agent Framework — only the sub-packages the code imports.
+# We avoid the `agent-framework[all]` meta-package because it drags in ~25 beta
+# deps whose newer versions (foundry 1.5+, etc.) require core>=1.5 and
+# break pip resolution (`ResolutionTooDeep`). Exact pin of the
+# three pieces we actually use in agents/orchestrator/maf_agent.py:
 #   from agent_framework import ...
 #   from agent_framework.openai import OpenAIChatCompletionClient
 #   from agent_framework.orchestrations import SequentialBuilder

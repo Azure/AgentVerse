@@ -16,7 +16,7 @@ const stageLabels: Record<string, string> = {
   intake: 'Claims Intake Agent',
   risk_assessment: 'Risk & Fraud Agent',
   compliance: 'Compliance Agent',
-  decision: 'Decisión Final',
+  decision: 'Final Decision',
 };
 
 export default function AuditTrail({ result }: Props) {
@@ -60,7 +60,7 @@ export default function AuditTrail({ result }: Props) {
                   <span className="ml-auto text-[10px] text-gray-500">{entry.duration_ms}ms</span>
                 </div>
                 <p className="mt-1 text-xs text-gray-600">{entry.result_summary}</p>
-                <p className="mt-0.5 text-[10px] text-gray-500">{new Date(entry.timestamp).toLocaleTimeString('es-ES')}</p>
+                <p className="mt-0.5 text-[10px] text-gray-500">{new Date(entry.timestamp).toLocaleTimeString('en-US')}</p>
               </div>
             </div>
           );
@@ -71,7 +71,7 @@ export default function AuditTrail({ result }: Props) {
         <h4 className="mb-2 text-[10px] uppercase text-gray-500">Metadata</h4>
         <div className="grid grid-cols-1 gap-2 text-[11px] text-gray-700 sm:grid-cols-2">
           <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
-            <span className="text-gray-500">Modelo: </span>
+            <span className="text-gray-500">Model: </span>
             <span>{model}</span>
           </div>
           <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
@@ -79,12 +79,12 @@ export default function AuditTrail({ result }: Props) {
             <span>{pipelineVersion}</span>
           </div>
           <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
-            <span className="text-gray-500">Duración total: </span>
+            <span className="text-gray-500">Total duration: </span>
             <span>{result.total_duration_ms}ms</span>
           </div>
           <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
             <span className="text-gray-500">Timestamp: </span>
-            <span>{new Date(result.timestamp).toLocaleString('es-ES')}</span>
+            <span>{new Date(result.timestamp).toLocaleString('en-US')}</span>
           </div>
         </div>
       </div>
