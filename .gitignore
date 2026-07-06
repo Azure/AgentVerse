@@ -428,3 +428,11 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Local AI assistant and editor artifacts — keep local, never upload.
+.claude/
+**/.claude/
+.claude.json
+CLAUDE.md
+**/CLAUDE.md
+CLAUDE.local.md
