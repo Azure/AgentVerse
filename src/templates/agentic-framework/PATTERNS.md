@@ -2,8 +2,6 @@
 
 > How to wire agents together. For each pattern: **what it is · when to use · when NOT to ·
 > MAF construct · shape.** Runnable skeletons live in [`orchestration/`](orchestration/).
->
-> 🇬🇧 English · 🇪🇸 [Español](#-en-español)
 
 **Golden rule:** pick the simplest pattern that solves the problem. Move down this list only
 when a measured limitation forces it. The patterns are ordered from simplest to most
@@ -186,46 +184,3 @@ Persist the decision to the audit trail.
 
 Reference: insurance demo routes low-confidence claims to `human_review` and an operator
 queue.
-
----
----
-
-## 🇪🇸 En español
-
-> Cómo conectar los agentes. Para cada patrón: **qué es · cuándo usarlo · cuándo NO ·
-> construcción MAF · forma.** Los esqueletos ejecutables están en
-> [`orchestration/`](orchestration/).
-
-**Regla de oro:** elige el patrón más simple que resuelva el problema. Baja en esta lista
-solo cuando una limitación *medida* lo obligue.
-
-| # | Patrón | Úsalo cuando | Ejemplo |
-|---|--------|--------------|---------|
-| 1 | Agente único | Un modelo + pocas herramientas bastan | — |
-| 2 | Secuencial | Pasos fijos, cada uno alimenta al siguiente | foundryairlines |
-| 3 | Enrutado (routing) | La entrada cae en clases distintas | — |
-| 4 | Paralelo | Subtareas independientes simultáneas | foundryairlines |
-| 5 | Orquestador–trabajadores | Subtareas desconocidas hasta ejecución | insurance |
-| 6 | Evaluador–optimizador | La salida mejora con crítica iterada | — |
-| 7 | Chat grupal / handoff | Especialistas colaboran/transfieren control | — |
-| 8 | Human-in-the-loop | Una acción errónea es cara o irreversible | insurance |
-
-Notas clave por patrón:
-
-1. **Agente único (LLM aumentado):** la unidad fundamental (instrucciones + herramientas +
-   memoria en bucle). Todo lo demás son agentes únicos compuestos.
-2. **Secuencial:** `WorkflowBuilder(...).add_edge(a, b)...`. Máxima previsibilidad. Ejemplo:
-   foundryairlines encadena vuelos → eventos → banners.
-3. **Enrutado:** un agente clasificador despacha a especialistas. No lo uses si las
-   categorías son difusas.
-4. **Paralelo:** fan-out/fan-in con un agregador o `asyncio.gather`. No lo uses si una
-   subtarea depende de otra.
-5. **Orquestador–trabajadores:** un agente planifica en tiempo de ejecución y delega. No lo
-   uses si los pasos son fijos (un grafo secuencial es más barato). Ejemplo: insurance.
-6. **Evaluador–optimizador:** generar → criticar → revisar, con tope de iteraciones. No lo
-   uses sin criterio objetivo o si rompe el presupuesto de latencia.
-7. **Chat grupal / handoff:** varios especialistas comparten conversación y se ceden el
-   control. Último recurso por coste y previsibilidad; limita los turnos.
-8. **Human-in-the-loop:** control transversal, no alternativo. Inserta aprobación humana
-   antes de acciones críticas o irreversibles. Ejemplo: insurance enruta siniestros de baja
-   confianza a `human_review`.

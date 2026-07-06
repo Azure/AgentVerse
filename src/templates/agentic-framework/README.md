@@ -3,8 +3,6 @@
 > The **standard, best-practice way to build the agents inside an AgentVerse demo.**
 > Opinionated for **Microsoft Agent Framework (MAF)** + **Azure AI Foundry**, with the
 > vendor-neutral principles stated so the ideas travel.
->
-> 🇬🇧 English · 🇪🇸 [Español](#-en-español)
 
 ---
 
@@ -19,7 +17,6 @@ and pointers into each subsystem folder.
 - [The 8 building blocks](#the-8-building-blocks)
 - [How the folders map to the blocks](#how-the-folders-map-to-the-blocks)
 - [Minimal end-to-end example](#minimal-end-to-end-example)
-- [En español](#-en-español)
 
 ---
 
@@ -165,50 +162,3 @@ class SampleExecutor(Executor):
 
 From here, orchestration decides what happens next; evals prove it still behaves. Read the
 [production-readiness checklist](CHECKLIST.md) before calling it done.
-
----
----
-
-## 🇪🇸 En español
-
-> La **forma estándar y recomendada de construir los agentes** dentro de un demo de
-> AgentVerse. Opinionada para **Microsoft Agent Framework (MAF)** + **Azure AI Foundry**,
-> con los principios neutrales enunciados para que las ideas viajen.
-
-Si eres nuevo, lee primero la [guía de inicio del hub](../README.md).
-
-### Primeros principios
-
-1. **Empieza simple. Gánate la complejidad.** Una sola llamada LLM bien diseñada supera a un
-   sistema multi-agente que no puedes depurar. Añade agentes/herramientas/orquestación solo
-   cuando una limitación *medida* lo exija.
-2. **Prefiere flujos de trabajo a agentes libres cuando los pasos se conocen.** Un flujo
-   secuencial/paralelo fijo es predecible y barato. Reserva los bucles de agente abiertos
-   para problemas realmente abiertos.
-3. **Haz los agentes declarativos.** Agente = *modelo + instrucciones versionadas +
-   herramientas tipadas + E/S tipada*. Mantén ese contrato en datos (`agent.yaml` +
-   `instructions.md`), no disperso en el código.
-4. **Toda llamada al modelo pasa por un gateway.** Enruta por Azure APIM con identidad
-   administrada: sin secretos en código, más límites de tokens, content safety y auditoría.
-5. **Trata la entrada no confiable como hostil.** Valida entradas y salidas. Defiéndete de la
-   inyección de prompts explícitamente (ver [`guardrails/`](guardrails/)).
-6. **Observabilidad desde la primera línea.** Emite trazas y métricas desde el inicio.
-7. **Los evals controlan el cambio.** Un ajuste de prompt es un cambio de código: pruébalo
-   con un dataset dorado antes de publicarlo (ver [`evals/`](evals/)).
-8. **Las personas deciden lo crítico.** Añade human-in-the-loop donde un error sea caro o
-   irreversible.
-9. **Presupuesta coste y latencia.** Elige el modelo más pequeño que pase los evals; pon
-   límites de tokens.
-
-### Los 8 bloques de construcción
-
-1. **Spec del agente** — contrato declarativo → [`agent-spec/`](agent-spec/)
-2. **Acceso al modelo** — siempre vía gateway → [`agents/shared/`](agents/shared/)
-3. **Herramientas** — función / MCP / hosted → [`tools/`](tools/)
-4. **Memoria y estado** — thread + almacén de largo plazo → [`agents/shared/`](agents/shared/)
-5. **Orquestación** — elige patrón → [`orchestration/`](orchestration/) · [`PATTERNS.md`](PATTERNS.md)
-6. **Guardrails** — validación E/S, content safety, anti-inyección → [`guardrails/`](guardrails/)
-7. **Observabilidad** — trazas OTel + métricas de tokens → [`observability/`](observability/)
-8. **Evaluación** — dataset dorado + eval gate → [`evals/`](evals/)
-
-Antes de dar un agente por terminado, pasa el [checklist de producción](CHECKLIST.md).

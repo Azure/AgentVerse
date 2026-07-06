@@ -13,7 +13,6 @@
 
 > {{Two or three sentences: the scenario, who it's for, and what it demonstrates.}}
 
-🇬🇧 English · 🇪🇸 [Español](#-en-español)
 
 ---
 
@@ -131,47 +130,3 @@ See [infra/README.md](infra/README.md) for variables and the resources created.
 ## License
 
 MIT — see [LICENSE](LICENSE).
-
----
----
-
-## 🇪🇸 En español
-
-> {{Dos o tres frases: el escenario, para quién es y qué demuestra.}}
-
-### Qué demuestra
-
-{{Tabla de pilares: multi-agente, guardrails, observabilidad, evals, …}}
-
-### Arquitectura
-
-{{Diagrama de los agentes y el flujo de datos. Patrón de orquestación elegido — ver
-[PATTERNS.md](../../templates/agentic-framework/PATTERNS.md).}}
-
-### Requisitos previos
-
-- Python 3.12+ {{y Node 20+ si hay dashboard}}
-- Azure CLI ≥ 2.60 (`az login`)
-- Suscripción de Azure con cuota para {{tus modelos}} en {{tu región}}
-
-### Inicio rápido
-
-1. **Instala:** `python -m venv .venv`, actívalo, `pip install -r requirements.txt`.
-2. **Configura:** `cp .env.example .env`, rellena los endpoints, `az login`.
-3. **{{Bootstrap / aprovisiona}}** si aplica.
-4. **Ejecuta:** {{arranca el backend y abre el frontend}}.
-
-### Estructura del proyecto
-
-Ver el árbol de arriba (`agents/`, `backend/`, `frontend/`, `infra/` (Terraform), `evals/`,
-`scripts/`, `.github/`, `agentverse.yaml`).
-
-### Desplegar en Azure
-
-```bash
-cd infra && terraform init && terraform apply -var 'resource_group={{tu-rg}}' -var 'location={{eastus2}}'
-```
-
-### Licencia
-
-MIT — ver [LICENSE](LICENSE).

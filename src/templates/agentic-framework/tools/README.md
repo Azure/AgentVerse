@@ -60,14 +60,3 @@ tools:
   (placeholder events, direct SQL) so the demo continues if a tool fails.
 - **Least privilege** — a tool should do one narrow thing; don't hand the model a
   "run anything" tool.
-
-## 🇪🇸 En español
-
-Una herramienta es una capacidad que el modelo puede invocar. Tres tipos: **function**
-(función Python tipada — tu propio código, p. ej. consulta a BD), **hosted** (gestionada por
-Foundry, p. ej. Grounding with Bing Search — se declara en `agent.yaml` con `connection`), y
-**mcp** (servidor externo vía Model Context Protocol). Cada herramienta necesita **nombre
-preciso, descripción clara y parámetros tipados** — el modelo solo usa herramientas que
-entiende. Reglas: **describe la herramienta para el modelo** (el nombre/descripción son
-superficie de prompt); **tipa cada parámetro**; **gestiona el fallo** (timeout, reintento,
-fallback); **mínimo privilegio** (una herramienta, una función estrecha).

@@ -64,16 +64,3 @@ gate shows the impact on every case → merge is blocked without approval.
 - **Keep the dataset small and sharp** — a handful of discriminating cases beats hundreds of
   redundant ones.
 - **Version the dataset with the prompts.** They change together.
-
-## 🇪🇸 En español
-
-Un ajuste de prompt es un cambio de código; los evals te dejan publicarlo con confianza: un
-dataset dorado de casos entrada→esperado, ejecutado por un harness y controlado en CI.
-Estructura: `golden_dataset.json` (casos), `run_evals.py` (harness) y `last_report.json`
-(generado). Incluye al menos un caso feliz, uno límite y uno adversarial (intento de
-inyección — verifica `security_flag: true`). El harness carga el dataset, ejecuta el pipeline
-real por caso, verifica contra `expect`, escribe el informe y sale con código ≠0 si baja el
-pass-rate. Conéctalo a `.github/workflows/eval-on-pr.yml` para que cualquier PR que toque
-`agents/**` o `evals/**` ejecute la suite, comente la tabla en el PR y **bloquee el merge**
-ante regresión (el "momento WOW" del demo de seguros). Reglas: **verifica resultados**, no
-"se ejecutó"; **dataset pequeño y afilado**; **versiona el dataset con los prompts**.

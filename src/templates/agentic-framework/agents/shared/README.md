@@ -35,13 +35,3 @@ def get_agent_client(agent_name: str) -> AzureAIAgentClient:
 Why: it gives you central rate limits, content safety, and audit for free (the APIM
 policies), and keeps secrets out of the codebase. See the insurance demo's
 `azure_client.py` switch between direct and gateway paths for a real example.
-
-## 🇪🇸 En español
-
-Fontanería que todos los agentes reutilizan (bloques #2 y #4). `azure_client.py` es el
-**único** cliente de modelo, apunta al **gateway APIM** y se autentica con
-`DefaultAzureCredential` — **sin claves en ningún otro sitio**. `guardrails.py`,
-`telemetry.py`, `memory.py` (almacén de largo plazo; la memoria de corto plazo es el thread
-de MAF entre executors) y `models.py` (enums/dataclasses compartidos). Regla que importa:
-**todo acceso al modelo pasa por `azure_client.py` y este apunta al gateway** — así obtienes
-límites de tokens, content safety y auditoría centralizados, sin secretos en el código.

@@ -2,8 +2,6 @@
 
 > Delete this file if your demo isn't a reskinnable/whitelabel preset. If it is, ship a
 > brand-agnostic default and let presenters swap the brand in minutes.
->
-> 🇬🇧 English · 🇪🇸 [Español](#-en-español)
 
 Keep **one source of truth** per surface so a rebrand is a handful of edits:
 
@@ -42,13 +40,3 @@ If prompts embed the brand name, read it from an env var at startup rather than 
 it, and document the variable in `.env.example`.
 
 > Tip: a second brand can live on a separate git branch — same app, branding only.
-
-## 🇪🇸 En español
-
-Borra este archivo si tu demo no es whitelabel. Si lo es, mantén **una fuente de verdad** por
-superficie: (1) un módulo de config de marca en el frontend (`brand.ts` / `brand.json`) con
-todos los textos y referencias de assets; (2) logo y favicon en `frontend/public/`
-**manteniendo los nombres de archivo**; (3) el color dominante en un solo sitio (escala
-`primary` de Tailwind o una variable CSS); (4) la marca del backend vía variable de entorno
-(documentada en `.env.example`), no hardcodeada. Una segunda marca puede vivir en otra rama
-git: misma app, solo branding distinto.

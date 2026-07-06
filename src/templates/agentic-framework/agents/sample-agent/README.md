@@ -36,13 +36,3 @@ sample-agent/
 
 > The three spec files here are copies of [`../../agent-spec/`](../../agent-spec/). Keep the
 > field names in `schemas.py` and the JSON block in `instructions.md` in sync.
-
-## 🇪🇸 En español
-
-Agente de referencia copiable que muestra la convención de carpeta. Copia esta carpeta,
-renómbrala y reemplaza el contenido. Esta tarjeta es la plantilla del README **de cada
-agente**: nombre, propósito, modelo, entrada/salida (`schemas.py`), herramientas, rol en la
-orquestación y modos de fallo. Uso: `cp -r sample-agent agents/<tu-agente>` → rellena el
-contrato (`agent.yaml`, `instructions.md`, `schemas.py`) → implementa `agent.py` (importa el
-cliente de `../shared/azure_client.py`) → añade tools, guardrails y evals → pasa el
-[checklist](../../CHECKLIST.md).

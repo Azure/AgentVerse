@@ -49,13 +49,3 @@ Create only the ones your demo uses:
   max-iterations / max-turns cap.
 - **Stream events out.** Emit progress (`agent_start`, `agent_log`, `agent_done`) so the UI
   can show the agents working — both existing demos do this.
-
-## 🇪🇸 En español
-
-Conecta agentes con MAF (`Executor` envuelve un agente; `WorkflowBuilder.add_edge(...)` los
-une; `run_stream(trigger)` ejecuta y transmite eventos al backend). Elige el patrón en
-[`../PATTERNS.md`](../PATTERNS.md) e impleméntalo aquí (un esqueleto por patrón:
-`sequential.py`, `parallel.py`, `routing.py`, `orchestrator_workers.py`,
-`evaluator_optimizer.py`, `human_in_the_loop.py`). Reglas: **empieza por `sequential.py`**;
-**acota todo bucle** (tope de iteraciones/turnos); **transmite eventos** (`agent_start`,
-`agent_log`, `agent_done`) para que la UI muestre a los agentes trabajando.

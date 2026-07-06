@@ -2,8 +2,6 @@
 
 > How each independent demo advertises itself so AgentVerse can list them all in one place —
 > **without** any shared, hand-maintained index.
->
-> 🇬🇧 English · 🇪🇸 [Español](#-en-español)
 
 ---
 
@@ -101,26 +99,3 @@ The generator looks for `agentverse.yaml` files in every immediate subfolder of 
 
 > **Dependencies:** `pyyaml` and `jsonschema`. Install with
 > `pip install pyyaml jsonschema`.
-
----
-
-## 🇪🇸 En español
-
-Cada demo publica **un manifiesto** en su raíz (`agentverse.yaml`), validado contra
-[`agentverse.schema.json`](agentverse.schema.json). El script
-[`build_catalog.py`](build_catalog.py) recorre todos los demos, valida cada manifiesto y
-genera un índice único (`catalog.json` / `CATALOG.md`).
-
-Como el índice se **genera**, los demos siguen siendo independientes: nunca editas un
-archivo compartido para añadir un demo — añades el manifiesto y regeneras.
-
-Campos obligatorios: `apiVersion`, `name`, `title`, `tagline`, `status`, `stack`, `agents`.
-Copia la plantilla YAML de arriba en la raíz de tu demo y rellénala. Comandos:
-
-```bash
-python templates/catalog/build_catalog.py --validate mi-demo/agentverse.yaml   # valida uno
-python templates/catalog/build_catalog.py --check                              # valida todos (CI)
-python templates/catalog/build_catalog.py --write                              # regenera el índice
-```
-
-Dependencias: `pip install pyyaml jsonschema`.

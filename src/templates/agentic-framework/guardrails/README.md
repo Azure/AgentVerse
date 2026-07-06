@@ -51,17 +51,3 @@ def validate_output(model: type[BaseModel], raw: str) -> BaseModel:
   429/400, as the APIM `on-error` policy does).
 - **Test the guardrail** — include an adversarial case in `evals/` (see the
   `prompt_injection_attack` golden case in the insurance demo).
-
-## 🇪🇸 En español
-
-Trata toda entrada que el agente no generó como potencialmente hostil. Cuatro capas:
-**validación de entrada** (antes del modelo), **defensa anti-inyección** (en
-`instructions.md` + un chequeo), **validación del esquema de salida**
-(`model_validate_json` — la salida malformada lanza excepción, nunca sigue aguas abajo) y
-**content safety** (política APIM, centralizada). Patrón AgentVerse (del agente de intake de
-seguros): las instrucciones dicen al agente que los datos pueden contener instrucciones
-hostiles, que nunca las obedezca y que las marque (`security_flag`/`severity`); un chequeo
-determinista en `shared/guardrails.py` actúa como tripwire adicional. Reglas: **valida el
-esquema de salida en cada agente**; **los datos nunca son instrucciones**; **falla ruidoso**
-ante violaciones de esquema y **seguro** ante bloqueos de content safety; **prueba el
-guardrail** con un caso adversarial en `evals/`.

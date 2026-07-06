@@ -1,8 +1,6 @@
 # `agents/` — per-agent folder convention
 
 > Blocks #1–#4. Every agent gets its own folder; shared plumbing lives in `shared/`.
->
-> 🇬🇧 English · 🇪🇸 [Español](#es)
 
 ## Convention
 
@@ -45,15 +43,3 @@ agents/
 5. Add `evals/` cases ([`../evals/`](../evals/)).
 6. Write the agent card `README.md`.
 7. Run the [checklist](../CHECKLIST.md).
-
-<a id="es"></a>
-## 🇪🇸 En español
-
-Cada agente tiene su propia carpeta; la fontanería compartida vive en `shared/`
-(`azure_client.py` = el único cliente de modelo, vía gateway APIM; `guardrails.py`,
-`telemetry.py`, `memory.py`, `models.py`). Reglas: **un agente, una carpeta**; el **spec es
-data** (`agent.yaml` + `instructions.md` + `schemas.py`, fuera de `agent.py`); el **cliente
-viene de `shared/`** (nunca lo construyas en línea); **cada agente tiene su README**
-(tarjeta del agente: propósito, E/S, herramientas, fallos). Orden de construcción: copia
-[`../agent-spec/`](../agent-spec/) → implementa `agent.py` → añade tools → añade guardrails →
-añade evals → escribe la tarjeta → pasa el [checklist](../CHECKLIST.md).

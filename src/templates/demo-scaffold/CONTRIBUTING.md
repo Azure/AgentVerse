@@ -2,8 +2,6 @@
 
 > Conventions for this demo. It is a **self-contained** AgentVerse demo — it must run after
 > being cloned on its own, so keep everything it needs inside this folder.
->
-> 🇬🇧 English · 🇪🇸 [Español](#-en-español)
 
 ## Ground rules
 
@@ -35,19 +33,3 @@
 
 Never commit `.env` or keys. Use `DefaultAzureCredential` and the APIM gateway. `.env.example`
 documents every variable the demo reads.
-
-## 🇪🇸 En español
-
-Convenciones de este demo, que es **autocontenido**: debe funcionar tras clonarse por sí
-solo. Reglas: **independencia** (sin dependencias de la raíz del repo; lleva su propio
-`LICENSE`, `.github/`, `.env.example`, `agentverse.yaml`); **construye agentes al estilo
-AgentVerse** (ver [`../../templates/agentic-framework/`](../../templates/agentic-framework/):
-`agent.yaml` declarativo + `instructions.md` versionado + `schemas.py` tipado, acceso al
-modelo vía gateway, guardrails, observabilidad, evals); **pasa el
-[checklist](../../templates/agentic-framework/CHECKLIST.md)** antes del PR. Layout: un agente
-por carpeta en `agents/<nombre>/`, fontanería en `agents/shared/`, prompts en
-`instructions.md` (nunca en código), salida siempre tipada (Pydantic). Flujo: rama
-`feat/<scope>` → cambia (actualiza `instructions.md`/`schemas.py` juntos) → añade/actualiza
-evals y córrelos → rellena la plantilla de PR (el eval gate debe pasar y aprobar el
-CODEOWNER) → actualiza `agentverse.yaml` y regenera el catálogo. Nunca comprometas `.env` ni
-claves.
