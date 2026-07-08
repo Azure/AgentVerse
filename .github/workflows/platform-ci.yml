@@ -1,0 +1,135 @@
+# AgentVerse platform CI — validates the global deploy and builds every image.
+#
+# Runs on changes to the platform (infra), the portal, the catalog manifests or
+# the catalog tooling. It never touches Azure: it validates configuration and
+# proves that every container image builds. The real deployment (terraform
+# apply / az acr build) is run by an operator, not by CI.
+
+name: platform-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "infra/**"
+      - "portal/**"
+      - "src/*/agentverse.yaml"
+      - "src/templates/catalog/**"
+      - ".github/workflows/platform-ci.yml"
+  pull_request:
+    paths:
+      - "infra/**"
+      - "portal/**"
+      - "src/*/agentverse.yaml"
+      - "src/templates/catalog/**"
+      - ".github/workflows/platform-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Validate manifests, (re)build the catalog and check catalog <-> topology
+  #    consistency. Publishes catalog.json for the image job to bake into the
+  #    portal image.
+  # ---------------------------------------------------------------------------
+  catalog:
+    name: Catalog & consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install catalog tooling
+        run: pip install pyyaml jsonschema
+
+      - name: Validate every demo manifest
+        run: python src/templates/catalog/build_catalog.py --check
+
+      - name: Build the catalog index
+        run: python src/templates/catalog/build_catalog.py --write
+
+      - name: Bake the catalog into the portal build context
+        run: cp src/catalog.json portal/public/catalog.json
+
+      - name: Catalog <-> Terraform topology consistency
+        run: python infra/scripts/check-consistency.py
+
+      - name: Upload catalog + portal context
+        uses: actions/upload-artifact@v4
+        with:
+          name: portal-public
+          path: portal/public/catalog.json
+
+  # ---------------------------------------------------------------------------
+  # 2. Terraform format + validate (no backend, no cloud calls).
+  # ---------------------------------------------------------------------------
+  terraform:
+    name: Terraform validate
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.5"
+
+      - name: Format check
+        run: terraform fmt -recursive -check
+
+      - name: Init (no backend)
+        run: terraform init -backend=false -input=false
+
+      - name: Validate
+        run: terraform validate
+
+  # ---------------------------------------------------------------------------
+  # 3. Build every container image (no push) to prove the Dockerfiles compile.
+  # ---------------------------------------------------------------------------
+  images:
+    name: Build image
+    needs: catalog
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: portal
+            context: portal
+            file: portal/Dockerfile
+          - name: foundryairlines-web
+            context: src/foundryairlines-demo
+            file: src/foundryairlines-demo/Dockerfile
+          - name: insurance-backend
+            context: src/insurance-ai-agents
+            file: src/insurance-ai-agents/backend/Dockerfile
+          - name: insurance-dashboard
+            context: src/insurance-ai-agents/dashboard
+            file: src/insurance-ai-agents/dashboard/Dockerfile
+    steps:
+      - uses: actions/checkout@v4
+
+      # The portal bakes catalog.json — pull the version produced by the catalog job.
+      - name: Restore catalog for the portal
+        if: matrix.name == 'portal'
+        uses: actions/download-artifact@v4
+        with:
+          name: portal-public
+          path: portal/public
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build ${{ matrix.name }} image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.file }}
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

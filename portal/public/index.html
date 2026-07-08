@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentVerse · Demo Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Runtime config injected by the container entrypoint from DEMOS_JSON.
+       Falls back to an empty map for local/preview use. -->
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">◆</span>
+      <span class="brand-name">AgentVerse</span>
+      <span class="brand-sub">Demo Portal</span>
+    </div>
+    <div class="topbar-right">
+      <span id="demo-count" class="pill"></span>
+    </div>
+  </header>
+
+  <nav id="tabs" class="tabs" aria-label="Demos"></nav>
+
+  <main id="stage" class="stage">
+    <section id="empty" class="empty hidden">
+      <h1>No demos registered yet</h1>
+      <p>
+        Add an <code>agentverse.yaml</code> to a demo under <code>src/</code>, rebuild the
+        catalog, and deploy. See <code>docs/adding-a-demo.md</code>.
+      </p>
+    </section>
+    <section id="panel" class="panel"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

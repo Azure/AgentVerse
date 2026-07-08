@@ -1,0 +1,119 @@
+# Demo deployment topology. Copy to demos.auto.tfvars (auto-loaded by Terraform).
+#
+# Each key is a stable demo_id that MUST match the demo's `name` in its
+# agentverse.yaml (that is the link between deployment and catalog metadata).
+# Paths are relative to the repo root. See docs/adding-a-demo.md for the full
+# contract. Do NOT put secrets here — this file and the state are not a vault.
+#
+# Two ways to provide a demo's backing AI resources:
+#   1. Shared (unified deploy): leave env largely empty and omit the `iac` hook.
+#      The global stack (module.ai / module.cosmos / module.platform) injects the
+#      endpoints, deployment names and AZURE_CLIENT_ID automatically at apply time
+#      (see infra/locals.tf computed_env). This is what the live unified deploy uses.
+#   2. Per-demo IaC (standalone): add an `iac` hook that runs the demo's own
+#      Terraform/Bicep and fill the resulting endpoints into env yourself.
+# The blocks below show mode 2; the injected values override any static env.
+
+demos = {
+
+  # -------------------------------------------------------------------------
+  # FoundryAirlines — single container: FastAPI serves the UI and the API.
+  # -------------------------------------------------------------------------
+  foundryairlines-demo = {
+    enabled = true
+
+    services = [
+      {
+        name        = "web"
+        context     = "src/foundryairlines-demo"
+        dockerfile  = "src/foundryairlines-demo/Dockerfile"
+        target_port = 8765
+        is_web      = true
+        external    = true
+        min_replicas = 1
+        max_replicas = 1
+        # Non-secret endpoints produced by the demo's own Terraform (infra/main.tf).
+        # Fill these in after the demo IaC has been applied.
+        env = {
+          # PROJECT_ENDPOINT      = "https://<foundry>.services.ai.azure.com/api/projects/<project>"
+          # MODEL_DEPLOYMENT_NAME = "gpt-4.1"
+          # BING_CONNECTION_NAME  = "bing-grounding"
+          # IMAGE_ENDPOINT        = "https://<foundry>.openai.azure.com"
+          # IMAGE_DEPLOYMENT      = "gpt-image-2"
+        }
+      },
+    ]
+
+    # Provisions Foundry account/project + model deployments (its own Terraform).
+    iac = {
+      type    = "terraform"
+      command = "pwsh -NoProfile -Command \"Set-Location src/foundryairlines-demo/infra; terraform init; terraform apply -auto-approve\""
+      notes   = "Bing grounding connection must be created once in the Foundry portal (manual)."
+    }
+
+    # Creates the two persistent prompt agents in the Foundry project. Idempotent.
+    registration = {
+      type                = "python_module"
+      command             = "pwsh -NoProfile -Command \"Set-Location src/foundryairlines-demo; python -m app.backend.bootstrap_agents\""
+      manual_prerequisite = true
+      notes               = "Requires az login + app/.env filled with PROJECT_ENDPOINT. Bing connection is a manual portal step."
+    }
+  }
+
+  # -------------------------------------------------------------------------
+  # Insurance AI — two containers: FastAPI backend + React dashboard (web).
+  # The dashboard's nginx proxies /api and /ws to the backend using
+  # AGENTVERSE_INTERNAL_PREFIX (injected automatically).
+  #
+  # Disabled by default: its Bicep provisions APIM (~30 min) and is costly.
+  # -------------------------------------------------------------------------
+  insurance-ai-agents = {
+    enabled = false
+
+    services = [
+      {
+        name         = "backend"
+        context      = "src/insurance-ai-agents"
+        dockerfile   = "src/insurance-ai-agents/backend/Dockerfile"
+        target_port  = 8000
+        # Internal-only ingress: only the dashboard's nginx calls it (server-side),
+        # never the browser. Keeping it internal also lets the nginx proxy reach it
+        # over plain HTTP. external=true would force TLS and break app-to-app calls.
+        external  = false
+        transport = "http" # HTTP/1.1 so nginx proxy_pass + WebSocket upgrades work
+        min_replicas = 1
+        max_replicas = 2
+        env = {
+          USE_MAF_ORCHESTRATOR = "true"
+          FRONTEND_URL         = "*"
+          # AZURE_OPENAI_ENDPOINT / COSMOS_ENDPOINT / APPLICATIONINSIGHTS_CONNECTION_STRING
+          # are injected by the unified deploy; set them here only for standalone IaC.
+        }
+      },
+      {
+        name         = "web"
+        context      = "src/insurance-ai-agents/dashboard"
+        dockerfile   = "src/insurance-ai-agents/dashboard/Dockerfile"
+        target_port  = 8080
+        is_web       = true
+        external     = true
+        min_replicas = 1
+        max_replicas = 1
+      },
+    ]
+
+    iac = {
+      type    = "bicep"
+      command = "pwsh -NoProfile -File src/insurance-ai-agents/scripts/deploy-infra.ps1"
+      notes   = "Provisions APIM + Azure OpenAI + Cosmos. APIM first run is ~30 min."
+    }
+
+    # The insurance agents run in-process in the backend; the hosted Foundry
+    # agent is optional. No automated registration step by default.
+    registration = {
+      type  = "manual"
+      notes = "Optional hosted agent: src/insurance-ai-agents/agents/hosted/scripts/deploy.ps1"
+    }
+  }
+
+}

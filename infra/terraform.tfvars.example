@@ -1,0 +1,19 @@
+# Copy to terraform.tfvars and adjust. These are global platform settings.
+# The per-demo deployment topology lives in demos.auto.tfvars (see the example).
+
+name_prefix = "agentverse"
+location    = "swedencentral"
+
+# Leave empty to create rg-<name_prefix>, or pin an existing RG name.
+resource_group_name = ""
+
+tags = {
+  project = "AgentVerse"
+  owner   = "your-team"
+  env     = "demo"
+}
+
+# Deploy behaviour. Keep these false for a first, infra-only apply; turn on once
+# each demo's prerequisites (az login, Python env, endpoints) are in place.
+enable_demo_iac           = false
+enable_agent_registration = false

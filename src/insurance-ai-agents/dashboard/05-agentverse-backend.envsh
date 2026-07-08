@@ -1,0 +1,7 @@
+# Derive the backend origin for nginx proxying. The global demo module injects
+# AGENTVERSE_INTERNAL_PREFIX = "http://<prefix>-insurance-ai-agents-", so the
+# backend service ("backend") is reachable at <prefix>backend over the shared
+# Container Apps environment. Sourced (.envsh) so the value is exported before
+# the image's envsubst step renders default.conf.template.
+export BACKEND_ORIGIN="${BACKEND_ORIGIN:-${AGENTVERSE_INTERNAL_PREFIX}backend}"
+echo "agentverse: dashboard proxying /api and /ws to ${BACKEND_ORIGIN}"

@@ -1,0 +1,154 @@
+{
+  "apiVersion": "agentverse/v1",
+  "count": 2,
+  "demos": [
+    {
+      "apiVersion": "agentverse/v1",
+      "name": "foundryairlines-demo",
+      "title": "FoundryAirlines",
+      "tagline": "Three Foundry agents that fill low-occupancy flights with event-aware promo banners.",
+      "description": "A small but realistic demo that orchestrates three Azure AI Foundry agents sequentially with the Microsoft Agent Framework: a flights agent picks the lowest-occupancy flights from a local DB, an events agent uses Bing grounding to find a real upcoming event in each destination, and a gpt-image-2 step generates a promo banner per flight. A FastAPI backend streams progress over SSE to a vanilla HTML/JS front-end.",
+      "status": "beta",
+      "difficulty": "beginner",
+      "tags": [
+        "airline",
+        "marketing",
+        "sequential"
+      ],
+      "stack": {
+        "framework": "Microsoft Agent Framework",
+        "backend": "FastAPI",
+        "frontend": "Vanilla HTML/JS",
+        "iac": "Terraform",
+        "language": [
+          "Python"
+        ]
+      },
+      "orchestration": "sequential",
+      "agents": [
+        {
+          "name": "flights-agent",
+          "role": "Reads the bookings DB and returns the 5 lowest-occupancy flights as strict JSON.",
+          "model": "gpt-4.1",
+          "tools": []
+        },
+        {
+          "name": "events-agent",
+          "role": "Finds one real upcoming event per destination city using Bing grounding.",
+          "model": "gpt-4.1",
+          "tools": [
+            "bing-grounding"
+          ]
+        }
+      ],
+      "models": [
+        "gpt-4.1",
+        "gpt-image-2"
+      ],
+      "azureServices": [
+        "Azure AI Foundry"
+      ],
+      "capabilities": [
+        "tools",
+        "web-grounding",
+        "image-generation",
+        "observability"
+      ],
+      "entrypoints": {
+        "quickstart": "README.md#5--run-the-demo",
+        "backend": "uvicorn app.backend.main:app --port 8765",
+        "frontend": "app/frontend/index.html",
+        "deploy": "infra/main.tf"
+      },
+      "links": {
+        "docs": "https://learn.microsoft.com/agent-framework/workflows/orchestrations/sequential"
+      },
+      "_path": "foundryairlines-demo"
+    },
+    {
+      "apiVersion": "agentverse/v1",
+      "name": "insurance-ai-agents",
+      "title": "Insurance AI Agents",
+      "tagline": "Governed multi-agent claims processing with an AI gateway, evals and audit trail.",
+      "description": "An enterprise-grade demo of the full lifecycle of governed AI agents over a critical process (auto claims). Three specialized agents (Intake, Risk, Compliance) are orchestrated with the Microsoft Agent Framework behind an Azure APIM AI gateway (content safety, token limits, managed identity), with Entra ID auth, Cosmos DB audit persistence, a whitelabel React dashboard, a real-time voice channel and an automated Eval Gate on every PR.",
+      "status": "stable",
+      "difficulty": "advanced",
+      "tags": [
+        "insurance",
+        "governance",
+        "enterprise"
+      ],
+      "stack": {
+        "framework": "Microsoft Agent Framework",
+        "backend": "FastAPI",
+        "frontend": "React + Vite",
+        "iac": "Bicep",
+        "language": [
+          "Python",
+          "TypeScript"
+        ]
+      },
+      "orchestration": "orchestrator-workers",
+      "agents": [
+        {
+          "name": "claims-intake",
+          "role": "Structured extraction of the claim report into a typed schema.",
+          "model": "gpt-5.4-mini",
+          "tools": [
+            "content-understanding"
+          ]
+        },
+        {
+          "name": "risk-assessment",
+          "role": "Risk scoring and fraud probability estimation.",
+          "model": "gpt-5.4-mini",
+          "tools": []
+        },
+        {
+          "name": "compliance",
+          "role": "Applies regulatory rules to produce compliance checks and a decision.",
+          "model": "gpt-5.4-mini",
+          "tools": []
+        },
+        {
+          "name": "orchestrator",
+          "role": "Coordinates the intake, risk and compliance agents and the audit trail.",
+          "model": "gpt-5.4-mini",
+          "tools": []
+        }
+      ],
+      "models": [
+        "gpt-5.4-mini",
+        "gpt-realtime-mini"
+      ],
+      "azureServices": [
+        "Azure AI Foundry",
+        "APIM",
+        "Cosmos DB",
+        "Container Apps",
+        "Static Web Apps"
+      ],
+      "capabilities": [
+        "tools",
+        "voice",
+        "content-safety",
+        "guardrails",
+        "evals",
+        "observability",
+        "governance",
+        "whitelabel",
+        "auth"
+      ],
+      "entrypoints": {
+        "quickstart": "README.md#-quick-start",
+        "backend": "uvicorn main:app --host 0.0.0.0 --port 8000",
+        "frontend": "dashboard",
+        "deploy": "scripts/deploy.ps1"
+      },
+      "links": {
+        "docs": "https://learn.microsoft.com/azure/ai-foundry/agents/"
+      },
+      "_path": "insurance-ai-agents"
+    }
+  ]
+}

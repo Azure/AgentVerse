@@ -48,7 +48,10 @@ from azure.identity import DefaultAzureCredential
 from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(ROOT / ".env", override=True)
+# override=False so explicitly-set environment variables (e.g. those injected by
+# the AgentVerse unified deploy's registration hook) take precedence over a local
+# app/.env. Standalone use is unaffected: it sets values via .env, not the shell.
+load_dotenv(ROOT / ".env", override=False)
 
 PROJECT_ENDPOINT = os.environ["PROJECT_ENDPOINT"]
 MODEL = os.getenv("MODEL_DEPLOYMENT_NAME", "gpt-4.1")
