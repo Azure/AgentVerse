@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![Status](https://img.shields.io/badge/Status-Placeholder%20%2F%20experimental-F59E0B?style=flat-square)](agentverse.yaml)
 
-> Traditional production schedules are optimized overnight and collapse by mid-morning:
+> Traditional production schedules are optimized overnight and by mid-morning:
 > machines go down, materials slip, priority orders land. This demo shows an **agentic
 > orchestration layer** on top of existing ERP/MES systems that works like *an experienced
 > production planner who never sleeps* — it continuously monitors constraints, simulates
