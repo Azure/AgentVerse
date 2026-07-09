@@ -18,7 +18,10 @@ resource "azurerm_cosmosdb_account" "this" {
   offer_type                   = "Standard"
   kind                         = "GlobalDocumentDB"
   local_authentication_enabled = false
-  tags                         = var.tags
+  # A subscription policy enforces private-only network access; pin to match the
+  # deployed reality so plans stay clean and Terraform doesn't fight the policy.
+  public_network_access_enabled = false
+  tags                          = var.tags
 
   capabilities {
     name = "EnableServerless"

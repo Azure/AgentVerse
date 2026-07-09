@@ -199,7 +199,10 @@ resource "azurerm_cognitive_account" "content_safety" {
   kind                  = "ContentSafety"
   sku_name              = "S0"
   custom_subdomain_name = local.content_safety_name
-  tags                  = var.tags
+  # Keyless: Entra-only auth. A subscription policy also enforces disableLocalAuth,
+  # so pin this to match the deployed reality and keep plans clean.
+  local_auth_enabled = false
+  tags               = var.tags
 }
 
 # ---------------------------------------------------------------------------
