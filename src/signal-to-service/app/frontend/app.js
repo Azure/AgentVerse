@@ -11,6 +11,8 @@ class SignalToService {
         this.currentAsset = null;
         this.runId = null;
         this.es = null;
+        this.streamGen = 0;          // increments per run so stale callbacks are ignored
+        this.streamTerminal = false; // true once a terminal event was received
         this.assetSelect = document.getElementById("assetSelect");
         this.toast = document.getElementById("toast");
         this.bindControls();
@@ -103,9 +105,12 @@ class SignalToService {
     runDiagnose(mode) {
         this.resetAll();
         const a = this.assetById(this.currentAsset);
+        const gen = ++this.streamGen; // this run's generation token
+        this.streamTerminal = false;
         fetch(`/api/telemetry?asset=${a.id}&series=${mode}`)
             .then((r) => r.json())
             .then((s) => {
+                if (gen !== this.streamGen) return;
                 this.drawChart(s);
                 const st = document.getElementById("streamStatus");
                 st.className = "stream-status alarm";
@@ -113,21 +118,65 @@ class SignalToService {
             });
         document.getElementById("injectBtn").disabled = true;
         this.es = new EventSource(`/api/diagnose?asset=${a.id}&series=${mode}`);
-        this.wireCommon(this.es);
-        this.es.addEventListener("anomaly_detected", (e) => { this.runId = JSON.parse(e.data).run_id; });
-        this.es.addEventListener("diagnosis", (e) => this.renderDiagnosis(JSON.parse(e.data).data));
-        this.es.addEventListener("knowledge", (e) => this.renderSop(JSON.parse(e.data)));
-        this.es.addEventListener("awaiting_approval", (e) => this.showApproval(JSON.parse(e.data)));
+        this.wireCommon(this.es, gen);
+        this.es.addEventListener("anomaly_detected", (e) => {
+            if (gen !== this.streamGen) return;
+            this.runId = JSON.parse(e.data).run_id;
+        });
+        this.es.addEventListener("diagnosis", (e) => {
+            if (gen !== this.streamGen) return;
+            this.renderDiagnosis(JSON.parse(e.data).data);
+        });
+        this.es.addEventListener("knowledge", (e) => {
+            if (gen !== this.streamGen) return;
+            this.renderSop(JSON.parse(e.data));
+        });
+        this.es.addEventListener("awaiting_approval", (e) => {
+            if (gen !== this.streamGen) return;
+            this.showApproval(JSON.parse(e.data));
+            // Terminal event for Phase A: close the stream so the browser does
+            // NOT auto-reconnect and re-run the whole orchestration.
+            this.streamTerminal = true;
+            this.closeStream();
+        });
     }
 
-    wireCommon(es) {
-        es.addEventListener("agent_start", (e) => this.agent(JSON.parse(e.data), "running"));
-        es.addEventListener("agent_log", (e) => this.log(JSON.parse(e.data)));
-        es.addEventListener("agent_done", (e) => this.agent(JSON.parse(e.data), "done"));
+    // Wire the events shared by both SSE phases (diagnose + dispatch) and make
+    // every failure terminal so a single click triggers exactly one run.
+    wireCommon(es, gen) {
+        es.addEventListener("agent_start", (e) => { if (gen === this.streamGen) this.agent(JSON.parse(e.data), "running"); });
+        es.addEventListener("agent_log", (e) => { if (gen === this.streamGen) this.log(JSON.parse(e.data)); });
+        es.addEventListener("agent_done", (e) => { if (gen === this.streamGen) this.agent(JSON.parse(e.data), "done"); });
         es.addEventListener("error", (e) => {
-            if (e.data) { const d = JSON.parse(e.data); this.showToast(d.message || "error"); }
+            if (gen !== this.streamGen) return;
+            if (e.data) {
+                // Application-level error emitted by the server → terminal.
+                try { this.showToast(JSON.parse(e.data).message || "Agent error."); } catch { this.showToast("Agent error."); }
+                this.streamTerminal = true;
+                this.closeStream();
+                this.recover();
+                return;
+            }
+            // Transport-level error / connection closed. If we already reached a
+            // terminal event this is the normal post-completion close — just
+            // release the handle. Otherwise the connection dropped mid-run:
+            // close it to stop EventSource from auto-reconnecting (which would
+            // start a brand-new orchestration) and let the user retry.
+            if (this.streamTerminal) { this.closeStream(); return; }
+            this.closeStream();
+            this.recover();
+            this.showToast("Stream interrupted — click Inject anomaly to retry.");
         });
-        es.onerror = () => { /* stream closed by server after final event — normal */ };
+    }
+
+    closeStream() {
+        if (this.es) { this.es.close(); this.es = null; }
+    }
+
+    // Re-enable the controls after a non-terminal failure so the operator can
+    // relaunch the review manually (no background retries).
+    recover() {
+        document.getElementById("injectBtn").disabled = false;
     }
 
     agent(d, state) {
@@ -219,10 +268,18 @@ class SignalToService {
 
     dispatch() {
         document.getElementById("approvalSection").classList.add("hidden");
+        const gen = ++this.streamGen;
+        this.streamTerminal = false;
         this.es = new EventSource(`/api/dispatch?run_id=${this.runId}`);
-        this.wireCommon(this.es);
-        this.es.addEventListener("work_order", (e) => this.renderWorkOrder(JSON.parse(e.data).data));
-        this.es.addEventListener("done", () => this.es && this.es.close());
+        this.wireCommon(this.es, gen);
+        this.es.addEventListener("work_order", (e) => {
+            if (gen === this.streamGen) this.renderWorkOrder(JSON.parse(e.data).data);
+        });
+        this.es.addEventListener("done", () => {
+            if (gen !== this.streamGen) return;
+            this.streamTerminal = true;
+            this.closeStream();
+        });
     }
 
     renderWorkOrder(wo) {
@@ -244,7 +301,11 @@ class SignalToService {
 
     // ------------------------------------------------------------- reset
     resetAll() {
-        if (this.es) { this.es.close(); this.es = null; }
+        // Invalidate any in-flight stream (its callbacks become no-ops) and
+        // close the connection so it cannot auto-reconnect.
+        this.streamGen++;
+        this.streamTerminal = true;
+        this.closeStream();
         this.runId = null;
         document.querySelectorAll(".agent-card").forEach((c) => {
             c.removeAttribute("data-status");
