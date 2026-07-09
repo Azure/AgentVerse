@@ -13,7 +13,7 @@ statuses reflect what actually happened.
 | [2](#stage-2--understand-what-you-just-saw) | The mental model | no | ✅ verified |
 | [3](#stage-3--provision-azure-with-terraform) | Foundry account + models in your subscription | yes | ✅ verified |
 | [4](#stage-4--run-the-live-agents) | Real Foundry Agents making the decisions | yes | ✅ verified live |
-| [5](#stage-5--full-cloud-deployment) | The demo hosted in Azure, URL-only | yes | ⚠️ needs App Service quota (see stage 5) |
+| [5](#stage-5--full-cloud-deployment) | The demo hosted in Azure, URL-only | yes | ✅ verified (Container Apps) |
 | [Bonus](#bonus--the-web-dashboard-locally) | The planner dashboard on localhost | no | ✅ verified |
 
 ---
@@ -202,40 +202,61 @@ python -m evals.run_evals            # still green with the re-recorded fixtures
 
 ## Stage 5 — Full cloud deployment
 
-The same `terraform apply` from stage 3 also creates a **Linux App Service and
-ships the application code** via `zip_deploy_file`: Terraform zips the demo,
-deploys it, Oryx installs `requirements.txt` server-side, and the app settings
-(model names, App Insights) are wired automatically. The entire lifecycle from
-a fresh laptop:
+The same `terraform apply` from stage 3 also hosts the demo. The `hosting`
+variable picks the path:
+
+- **`containerapp` (default, verified 2026-07-09)** — Azure Container Registry +
+  **Azure Container Apps**. Terraform stages a clean source context (from the same
+  `app.zip`), builds the image *in Azure* with `az acr build` (no local Docker
+  needed — works on Windows-on-ARM laptops), and runs it with scale-to-zero and
+  HTTPS ingress. Expandable later: sidecars, Dapr, more services in the same
+  environment. One-time prerequisite per subscription:
+  `az provider register --namespace Microsoft.App --wait`.
+- **`appservice`** — Linux App Service via `zip_deploy_file`; Oryx installs
+  `requirements.txt` server-side. Needs App Service VM quota (see the note below).
+- **`none`** — skip hosting; stages 1–4 don't need it.
+
+The entire lifecycle from a fresh laptop:
 
 ```bash
 git clone <repo> && cd agentverse/src/production-scheduling-agents/infra
 az login
+az provider register --namespace Microsoft.App --wait   # once per subscription
 cp terraform.tfvars.example terraform.tfvars   # pick unique foundry_account_name + webapp_name
 terraform init && terraform apply
 terraform output demo_url
 ```
 
-**You should see:** `demo_url = "https://<your-webapp>.azurewebsites.net"`. Open it —
-the Gantt board, the disruption buttons, the agent feed, the escalation inbox.
-(First load can take ~1–2 min while Oryx finishes the pip install.)
+**You should see:** `demo_url = "https://<your-app>...azurecontainerapps.io"`.
+Open it — the Gantt board, the disruption buttons, the agent feed, the escalation
+inbox. (First request cold-starts the scaled-to-zero replica: ~20 s, then fast.)
 
-Two deliberate defaults:
+Deliberate defaults:
 
 - **The hosted demo runs in replay mode** (`PROJECT_ENDPOINT` empty) — deterministic,
   zero model cost, immune to quota hiccups mid-presentation. To go live, set the
-  `webapp_project_endpoint` variable and re-apply; the web app's managed identity
+  `webapp_project_endpoint` variable and re-apply; the app's managed identity
   already has model access (`Cognitive Services User` on the Foundry account).
-- **Code updates are also `terraform apply`** — the zip's hash changes when files
-  change, so infra and code never drift apart.
+- **Code updates are also `terraform apply`** — the source hash drives both the
+  zip deploy and the image tag, so infra and code never drift apart.
+- **`webapp_location`** can host the app in a different region than the AI
+  resources when the main region lacks hosting quota.
 
-> ⚠️ **First real apply, 2026-07-09:** everything except the web app deployed
-> cleanly. The App Service plan failed with a **401 quota error — "Total VMs:
-> limit 0"** because managed/sandbox subscriptions can carry zero App Service
-> quota. This is a subscription policy, not a config bug: the Foundry account,
-> model deployments, and observability stack all applied fine, and stages 1–4 are
-> unaffected. To finish stage 5, request quota (https://aka.ms/antquotahelp) or
-> apply the web-app resources in a subscription that has App Service quota.
+> ✅ **Verified 2026-07-09** on a managed subscription, after two real-world
+> findings (full story in [CHANGELOG.md](CHANGELOG.md)):
+>
+> 1. **App Service quota was 0 "Total VMs"** in eastus2 (all tiers, including F1) —
+>    a managed-subscription policy. That's why `containerapp` is the default: ACA
+>    draws on a different quota bucket and deployed fine in the same region.
+>    (westus2 *did* have App Service quota, so `hosting = "appservice"` +
+>    `webapp_location = "westus2"` is a working fallback.)
+> 2. **`az acr build` must not run from the demo root.** It ignores `.dockerignore`
+>    when packing the upload, so it would ship `infra/` — including
+>    `terraform.tfstate` — into the build context (and it collides with Terraform's
+>    state lock mid-apply). The provisioner therefore stages the context from
+>    `app.zip`, and queues the build with `--no-logs` because the az CLI's Windows
+>    build crashes streaming UTF-8 build logs (the frontend's emoji) through its
+>    cp1252 console layer.
 
 ---
 
@@ -266,7 +287,10 @@ untouched.
 | `DefaultAzureCredential` failures | `az login` again; check you're on the right subscription (`az account show`). |
 | Model deployment quota errors on `terraform apply` | Lower `model_capacity` in `terraform.tfvars`, or switch region/model. |
 | `ServiceModelDeprecating` on `terraform apply` | That model/version no longer accepts new deployments. Pick a current one: `az cognitiveservices model list -l <location> -o table`, update `terraform.tfvars`. |
-| App Service plan fails: 401, "Total VMs ... limit 0" | Your subscription has zero App Service quota (common on managed/sandbox subs). Request an increase (aka.ms/antquotahelp) or deploy the web app in another subscription. Stages 1–4 don't need it. |
+| App Service plan fails: 401, "Total VMs ... limit 0" | Your subscription has zero App Service quota in that region (common on managed/sandbox subs). Use the default `hosting = "containerapp"` (different quota bucket), try `webapp_location = "<other-region>"`, or request an increase (aka.ms/antquotahelp). Stages 1–4 don't need hosting at all. |
+| `MissingSubscriptionRegistration ... namespace 'Microsoft.App'` | One-time: `az provider register --namespace Microsoft.App --wait`, then re-apply. |
+| `az acr build` fails with `UnicodeEncodeError: 'charmap' codec ...` | The az CLI's Windows build crashes streaming UTF-8 build logs. The Terraform provisioner already queues with `--no-logs` and polls; if running `az acr build` by hand, add `--no-logs`. |
+| `az acr build` from the demo root: `Permission denied` / huge upload | It ignores `.dockerignore` when packing and tries to ship `infra/` (locked Terraform state, tfstate secrets). Build from a staged clean context — the provisioner does this from `app.zip`. |
 | Live run: 403 / `PermissionDenied` from the Agents API | Grant your user **Azure AI Developer** on the Foundry account (Owner alone lacks data-plane actions). See stage 4. |
 | `Role 'Azure AI User' doesn't exist` | Older tenants don't have that role yet — use **Azure AI Developer** instead. |
 | `az` errors with `MissingSubscription` in Git Bash | Git Bash rewrote the `/subscriptions/...` scope into a Windows path. Prefix the command with `MSYS_NO_PATHCONV=1`. |

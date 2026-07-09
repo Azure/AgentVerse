@@ -8,7 +8,7 @@
 
 ```
 infra/
-├── main.tf            # resources: Foundry account + project, model deployments, (APIM, etc.)
+├── main.tf            # Foundry account, model deployments, observability, hosting (Container Apps default / App Service)
 ├── variables.tf       # inputs (resource_group, location, names)
 ├── outputs.tf         # endpoints to copy into .env
 └── terraform.tfvars.example   # copy to terraform.tfvars and fill in
@@ -68,13 +68,25 @@ This configuration was applied for real for the first time on 2026-07-09
      --scope "<foundry account resource id>"
    ```
 4. **App Service quota can be zero.** Managed/sandbox subscriptions may carry an App
-   Service limit of **0 Total VMs**, which fails `azurerm_service_plan` with a 401
-   quota error. The Foundry/model resources still apply cleanly — only the hosted
-   web app (stage 5) is blocked. Request quota (https://aka.ms/antquotahelp) or use
-   another subscription for the web app.
+   Service limit of **0 Total VMs** (all tiers, F1 included), which fails
+   `azurerm_service_plan` with a 401 quota error — region-scoped (eastus2 was 0,
+   westus2 had capacity). This is why hosting defaults to **Container Apps**
+   (`hosting = "containerapp"`): ACA draws on a different quota bucket and deployed
+   fine in the same subscription and region. `hosting = "appservice"` +
+   `webapp_location = "<region-with-quota>"` is the fallback.
 5. **Windows on ARM:** the azurerm/archive providers ship no `windows_arm64` builds —
    `terraform init` fails on ARM64 Terraform. Install the `windows_amd64` Terraform
    zip side-by-side and use that binary (it runs fine under x64 emulation).
 6. **Git Bash mangles scopes.** `/subscriptions/...` arguments get rewritten into
    Windows paths (surfacing as `MissingSubscription`). Prefix az commands with
    `MSYS_NO_PATHCONV=1`.
+7. **Container Apps needs a one-time provider registration:**
+   `az provider register --namespace Microsoft.App --wait` — otherwise the managed
+   environment fails with `MissingSubscriptionRegistration`.
+8. **`az acr build` has two Windows traps** (both handled by the `acr_build`
+   provisioner in `main.tf`): it ignores `.dockerignore` when packing the upload —
+   building from the demo root would ship `infra/` incl. `terraform.tfstate` and
+   collide with the state lock mid-apply, so the context is staged from `app.zip` —
+   and its log streaming crashes with `UnicodeEncodeError` on UTF-8 build output
+   (the frontend's emoji) regardless of `PYTHONUTF8`/`PYTHONIOENCODING`, so the
+   build is queued with `--no-logs` and polled via `az acr task show-run`.

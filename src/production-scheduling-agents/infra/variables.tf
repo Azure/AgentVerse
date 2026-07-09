@@ -72,9 +72,25 @@ variable "reasoning_model_capacity" {
 
 # ---- Web app (the hosted demo) ----------------------------------------------------
 
+variable "hosting" {
+  type        = string
+  description = "Where to host the demo UI: 'containerapp' (default; expandable, own quota bucket), 'appservice' (zip deploy, needs App Service VM quota), or 'none' (skip hosting — stages 1-4 don't need it)."
+  default     = "containerapp"
+  validation {
+    condition     = contains(["containerapp", "appservice", "none"], var.hosting)
+    error_message = "hosting must be one of: containerapp, appservice, none."
+  }
+}
+
+variable "webapp_location" {
+  type        = string
+  description = "Region for the hosting resources only (empty = same as location). Useful when the main region lacks hosting quota — e.g. App Service quota was 0 in eastus2 on a managed subscription while westus2 had capacity."
+  default     = ""
+}
+
 variable "webapp_name" {
   type        = string
-  description = "Globally-unique App Service name (becomes <name>.azurewebsites.net)."
+  description = "Globally-unique name for the hosted demo (App Service: <name>.azurewebsites.net; Container Apps: also seeds the ACR name)."
 }
 
 variable "app_service_sku" {

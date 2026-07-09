@@ -1,0 +1,11 @@
+# Mirror the zip-deploy excludes in infra/main.tf (data.archive_file.app).
+infra/
+.venv/
+.git/
+.github/
+__pycache__/
+**/__pycache__/
+.env
+evals/last_report.json
+Dockerfile
+.dockerignore

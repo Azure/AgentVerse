@@ -2,6 +2,53 @@
 
 All notable changes to the production-scheduling demo. Dates are YYYY-MM-DD.
 
+## 2026-07-09 (later the same day) — Stage 5 hosted via Azure Container Apps
+
+Stage 5 was completed with **Azure Container Apps** instead of App Service —
+chosen over a quota request or a region hop because it's expandable (sidecars,
+Dapr, more services in the same environment later) and draws on a different
+quota bucket than App Service, which was hard-blocked at 0 VMs (all tiers, all
+of eastus2) on the test subscription. The hosted dashboard was verified
+end-to-end: cold start from scale-to-zero (~20 s), `/api/state`, a full
+`machine_down` SSE pipeline run, and reset.
+
+### Added
+
+- **`hosting` variable** in `infra/` — `"containerapp"` (new default),
+  `"appservice"` (the original zip-deploy path, now gated), or `"none"`.
+  **`webapp_location`** variable — host the app in a different region than the
+  AI resources (App Service quota proved region-scoped: eastus2 was 0, westus2
+  had capacity).
+- **Container Apps path** (7 resources): Basic ACR (identity-pull only, no admin
+  keys), user-assigned identity (AcrPull on the registry + Cognitive Services
+  User on Foundry; `AZURE_CLIENT_ID` env tells `DefaultAzureCredential` which
+  identity to use), Container Apps environment wired to the existing Log
+  Analytics workspace, the app itself (0.5 vCPU / 1 Gi, scale 0–2, external
+  HTTPS ingress on 8000, same app settings as the App Service path), and a
+  `terraform_data` build step.
+- **`Dockerfile` + `.dockerignore`** at the demo root — python:3.12-slim,
+  deps-first layering, same uvicorn entrypoint as all other run modes. The image
+  is built **in Azure** by `az acr build` (no local Docker; works on
+  Windows-on-ARM), retriggered whenever the source hash changes so
+  `terraform apply` keeps shipping code.
+
+### Hard-won operational knowledge (all documented in infra/README + GETTING_STARTED)
+
+- `Microsoft.App` needs a one-time `az provider register` per subscription
+  (`MissingSubscriptionRegistration` otherwise).
+- **`az acr build` ignores `.dockerignore` when packing its upload.** Building
+  from the demo root shipped a 63 MiB context including `infra/` —
+  `terraform.tfstate` and all — and failed mid-apply on Terraform's state lock
+  (`Permission denied`). The provisioner now stages a clean context from
+  `app.zip` (which already has the right excludes). The one dirty test image was
+  deleted; the state's account keys were inert anyway (`disableLocalAuth=true`
+  is enforced by subscription policy — key regeneration is even rejected).
+- **The az CLI's frozen Windows build crashes streaming UTF-8 build logs**
+  (`UnicodeEncodeError: 'charmap'` — triggered by the frontend's emoji in
+  `COPY` output). It ignores both `PYTHONUTF8` and `PYTHONIOENCODING`. Fix:
+  queue with `--no-logs` and poll `az acr task show-run` until terminal status.
+  The builds themselves succeeded server-side the whole time.
+
 ## 2026-07-09 — First full end-to-end verification (stages 1–4 live)
 
 The entire GETTING_STARTED ladder was executed for the first time against a real
@@ -84,7 +131,9 @@ below was found — and fixed — during that walkthrough.
 
 ### Known issues (open)
 
-- **Stage 5 blocked on App Service quota** in the test subscription (see above).
+- ~~**Stage 5 blocked on App Service quota** in the test subscription~~ —
+  resolved later the same day by switching hosting to Container Apps (see the
+  entry above).
 - **Console mojibake on Windows:** `run_demo.py` prints `�` where em-dashes
   appear when the console is cp1252. Cosmetic; a
   `sys.stdout.reconfigure(encoding="utf-8")` at startup would fix it.

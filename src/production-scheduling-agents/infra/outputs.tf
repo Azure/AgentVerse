@@ -27,6 +27,10 @@ output "foundry_principal_id" {
 }
 
 output "demo_url" {
-  description = "The hosted planner dashboard. Open it."
-  value       = "https://${azurerm_linux_web_app.demo.default_hostname}"
+  description = "The hosted planner dashboard. Open it. (null when hosting = \"none\")"
+  value = (
+    var.hosting == "containerapp" ? "https://${azurerm_container_app.demo[0].ingress[0].fqdn}" :
+    var.hosting == "appservice" ? "https://${azurerm_linux_web_app.demo[0].default_hostname}" :
+    null
+  )
 }
