@@ -1,0 +1,50 @@
+[
+  {
+    "id": "PUMP-014",
+    "model": "Grundfos CR-95 centrifugal pump",
+    "line": "Cooling loop A",
+    "location": "Plant 2 · Hall B",
+    "criticality": "high",
+    "required_skill": "rotating-equipment",
+    "nominal": { "vibration_mm_s": 2.0, "temperature_c": 55.0, "current_a": 42.0 },
+    "warn": { "vibration_mm_s": 4.5, "temperature_c": 72.0, "current_a": 52.0 },
+    "alarm": { "vibration_mm_s": 7.1, "temperature_c": 85.0, "current_a": 60.0 },
+    "failure_hint": "bearing"
+  },
+  {
+    "id": "CONV-207",
+    "model": "Siemens 4kW gearmotor conveyor drive",
+    "line": "Packaging line 3",
+    "location": "Plant 1 · Hall D",
+    "criticality": "medium",
+    "required_skill": "electrical",
+    "nominal": { "vibration_mm_s": 1.5, "temperature_c": 48.0, "current_a": 9.0 },
+    "warn": { "vibration_mm_s": 3.5, "temperature_c": 65.0, "current_a": 12.5 },
+    "alarm": { "vibration_mm_s": 6.0, "temperature_c": 78.0, "current_a": 15.0 },
+    "failure_hint": "overcurrent"
+  },
+  {
+    "id": "CHLR-002",
+    "model": "Carrier 30XA air-cooled chiller",
+    "line": "HVAC central",
+    "location": "Plant 2 · Roof",
+    "criticality": "high",
+    "required_skill": "hvac",
+    "nominal": { "vibration_mm_s": 1.8, "temperature_c": 62.0, "current_a": 70.0 },
+    "warn": { "vibration_mm_s": 3.8, "temperature_c": 80.0, "current_a": 88.0 },
+    "alarm": { "vibration_mm_s": 5.5, "temperature_c": 95.0, "current_a": 100.0 },
+    "failure_hint": "overheating"
+  },
+  {
+    "id": "FAN-118",
+    "model": "Nuaire AXI-900 industrial extraction fan",
+    "line": "Paint booth exhaust",
+    "location": "Plant 1 · Hall A",
+    "criticality": "medium",
+    "required_skill": "rotating-equipment",
+    "nominal": { "vibration_mm_s": 2.2, "temperature_c": 40.0, "current_a": 18.0 },
+    "warn": { "vibration_mm_s": 4.8, "temperature_c": 58.0, "current_a": 24.0 },
+    "alarm": { "vibration_mm_s": 8.0, "temperature_c": 70.0, "current_a": 30.0 },
+    "failure_hint": "imbalance"
+  }
+]

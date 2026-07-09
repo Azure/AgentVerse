@@ -1,0 +1,9 @@
+# Local dev artifacts — never commit
+.venv/
+venv/
+__pycache__/
+*.pyc
+app/.env
+app/agents.json
+app/data/signal_to_service.db
+server.log

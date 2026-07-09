@@ -1,6 +1,6 @@
 {
   "apiVersion": "agentverse/v1",
-  "count": 3,
+  "count": 4,
   "demos": [
     {
       "apiVersion": "agentverse/v1",
@@ -215,6 +215,80 @@
       "media": [],
       "links": {},
       "_path": "production-scheduling-agents"
+    },
+    {
+      "apiVersion": "agentverse/v1",
+      "name": "signal-to-service",
+      "title": "Signal-to-Service",
+      "tagline": "From a telemetry anomaly to a scheduled, SOP-backed work order — with a human in the loop.",
+      "description": "A manufacturing predictive-maintenance demo. A simulated telemetry anomaly triggers an agent pipeline that diagnoses the failure mode and remaining useful life, retrieves and cites the correct SOP from the manuals (RAG), pauses for a human governance approval, then creates the work order, schedules a technician by skill/availability and attaches the SOP. Shows event-triggered orchestration, grounded retrieval with citations, and a human-in-the-loop approval gate.",
+      "status": "experimental",
+      "difficulty": "intermediate",
+      "tags": [
+        "manufacturing",
+        "predictive-maintenance",
+        "field-service",
+        "rag",
+        "human-in-the-loop"
+      ],
+      "owners": [
+        "@heblasco"
+      ],
+      "stack": {
+        "framework": "Microsoft Agent Framework",
+        "backend": "FastAPI",
+        "frontend": "Vanilla HTML/JS",
+        "iac": "Terraform",
+        "language": [
+          "Python"
+        ]
+      },
+      "orchestration": "human-in-the-loop",
+      "agents": [
+        {
+          "name": "signal-to-service-diagnosis-agent",
+          "role": "Classifies the failure mode, criticality and remaining useful life from telemetry.",
+          "model": "gpt-4.1",
+          "tools": []
+        },
+        {
+          "name": "signal-to-service-knowledge-agent",
+          "role": "Summarises and cites the correct SOP from retrieved manual passages (RAG).",
+          "model": "gpt-4.1",
+          "tools": [
+            "retrieve_sop"
+          ]
+        },
+        {
+          "name": "signal-to-service-action-agent",
+          "role": "Drafts the work order; app tools create it in the CMMS and schedule a technician.",
+          "model": "gpt-4.1",
+          "tools": [
+            "create_work_order",
+            "assign_technician"
+          ]
+        }
+      ],
+      "models": [
+        "gpt-4.1"
+      ],
+      "azureServices": [
+        "Azure AI Foundry",
+        "Azure AI Search"
+      ],
+      "capabilities": [
+        "tools",
+        "human-in-the-loop",
+        "governance",
+        "observability"
+      ],
+      "entrypoints": {
+        "quickstart": "README.md#quick-start",
+        "backend": "uvicorn app.backend.main:app --port 8767",
+        "frontend": "app/frontend/index.html",
+        "deploy": "infra/README.md"
+      },
+      "_path": "signal-to-service"
     }
   ]
 }

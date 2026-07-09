@@ -110,6 +110,7 @@ variable "demos" {
       target_port  = number
       is_web       = optional(bool, false)
       external     = optional(bool, true)
+      transport    = optional(string, "auto") # auto | http | tcp (http = HTTP/1.1 for app-to-app + WS)
       cpu          = optional(number, 0.5)
       memory       = optional(string, "1Gi")
       min_replicas = optional(number, 0)

@@ -1,0 +1,12 @@
+.venv
+venv
+__pycache__
+*.pyc
+.git
+.env
+app/.env
+app/agents.json
+app/data/signal_to_service.db
+node_modules
+dist
+.pytest_cache

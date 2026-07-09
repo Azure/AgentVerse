@@ -157,4 +157,35 @@ demos = {
     }
   }
 
+  # -------------------------------------------------------------------------
+  # Signal-to-Service — single container (FastAPI serves UI + SSE API on 8767).
+  # Manufacturing predictive maintenance: telemetry anomaly -> diagnosis ->
+  # SOP retrieval (RAG) -> human-in-the-loop approval -> work order + schedule.
+  # Unified deploy uses the bundled local RAG (no Azure AI Search). Shared
+  # Foundry endpoint + model + identity are injected by infra/locals.tf.
+  # -------------------------------------------------------------------------
+  signal-to-service = {
+    enabled = true
+
+    services = [
+      {
+        name         = "web"
+        context      = "src/signal-to-service"
+        dockerfile   = "src/signal-to-service/Dockerfile"
+        target_port  = 8767
+        is_web       = true
+        external     = true
+        min_replicas = 1
+        max_replicas = 1
+        env          = {}
+      },
+    ]
+
+    registration = {
+      type    = "python_module"
+      command = "pwsh -NoProfile -Command \"Set-Location src/signal-to-service; python -m app.backend.bootstrap_agents\""
+      notes   = "Creates the 3 prompt agents in the shared Foundry project. Needs az login + Azure AI Developer."
+    }
+  }
+
 }

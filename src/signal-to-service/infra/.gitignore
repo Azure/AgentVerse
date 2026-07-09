@@ -1,0 +1,14 @@
+# Terraform working files
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Local variable files (may contain environment-specific, non-secret config)
+terraform.tfvars
+*.auto.tfvars
+!*.auto.tfvars.example
+
+# Keep the provider lock file committed (.terraform.lock.hcl)
