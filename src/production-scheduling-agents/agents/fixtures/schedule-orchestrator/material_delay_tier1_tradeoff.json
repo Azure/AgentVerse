@@ -1,13 +1,13 @@
 {
   "decision": "escalate_to_planner",
   "chosen_scenario_id": null,
-  "confidence": 0.55,
-  "rationale": "The AL-6061 sheet delay of about 6 hours means we cannot serve both the tier-1 order (ORD-8001, SLA in 8 hours) and the three standard orders without cost. Protecting the SLA adds changeovers and slips the standard orders; batching the standard work pushes the tier-1 order past its SLA. Reasonable planners could disagree, so this is your call.",
+  "confidence": 0.6,
+  "rationale": "The aluminium delay forces us to re-plan ORD-8001-TIER1 alongside several standard panel orders. SCN-A prioritizes the tier-1 shipment at the cost of leaving a press idle before material release and pushing lower-priority work later. SCN-B improves throughput and resource use but explicitly allows the tier-1 order to miss its window, which we cannot choose autonomously. SCN-C protects the tier-1 commitment while keeping both presses reasonably loaded, but introduces more changeovers and coordination; this trade-off between simplicity, throughput, and coordination needs your judgment.",
   "escalated": true,
   "options_for_planner": [
-    "SCN-A: protect the tier-1 SLA exactly — ORD-8001 first at material arrival; +2 changeovers, the three standard orders slip into the evening.",
-    "SCN-B: cheapest on changeovers — batch the standard panels first; the tier-1 order finishes ~1.5 h past its SLA.",
-    "SCN-C: middle path — meet the SLA and defer only ORD-8004 to the off-peak night window (still on time, but on the night shift)."
+    "SCN-A: Protect ORD-8001-TIER1 first at material release; one press sits idle before stock arrives and some standard orders are pushed later, but the tier-1 SLA is clearly protected.",
+    "SCN-B: Maximize total panel throughput and machine/labor utilization; both presses run as soon as material arrives, but ORD-8001-TIER1 misses its SLA window.",
+    "SCN-C: Start ORD-8001-TIER1 at material release on one press and clear standard work in parallel on the other; tier-1 is protected and overall utilization is good, at the cost of extra coordination and setup churn."
   ],
   "security_flag": false
 }

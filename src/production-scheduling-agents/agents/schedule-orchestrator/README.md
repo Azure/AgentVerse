@@ -14,7 +14,7 @@ central call of this demo: **adjust autonomously, or escalate to the human plann
 
 | | |
 |---|---|
-| **Model** | `gpt-4.1` |
+| **Model** | `gpt-5.1` |
 | **Input** | `DisruptionEvent` + `ScoredScenario[]` (from the simulator) |
 | **Output** | `SchedulingDecision` — `{ decision: auto_reschedule \| escalate_to_planner \| reject, chosen_scenario?, rationale, confidence, escalated }` |
 | **Tools** | `get_active_schedule` (function) · `apply_escalation_policy` (function, deterministic policy check) |

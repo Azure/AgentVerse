@@ -19,10 +19,14 @@ import time
 from pathlib import Path
 from typing import Iterator, Optional
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
+# .env lives at the demo root; App Service injects the same values as app settings.
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 from agents.shared import foundry
 from agents.shared.models import ScoredScenario

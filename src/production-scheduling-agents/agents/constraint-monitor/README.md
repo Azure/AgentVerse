@@ -16,7 +16,7 @@ event** instead of raw noise.
 
 | | |
 |---|---|
-| **Model** | `gpt-4.1` |
+| **Model** | `gpt-5.1` |
 | **Input** | `TelemetrySnapshot` — machine states, material positions, maintenance windows, plus any free-text operator comments |
 | **Output** | `DisruptionEvent` — `{ type, severity, affected_orders[], hard_constraints_hit[], soft_constraints_hit[], security_flag }` |
 | **Tools** | `get_machine_telemetry` (function, mock MES feed) · `get_material_status` (function) · `get_maintenance_calendar` (function) |

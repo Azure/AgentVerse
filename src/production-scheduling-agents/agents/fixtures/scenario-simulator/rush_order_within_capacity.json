@@ -2,31 +2,96 @@
   "scenarios": [
     {
       "id": "SCN-A",
-      "description": "Insert ORD-9105-RUSH right after the current PRESS-201 queue, grouped with similar panel work.",
+      "description": "Insert the rush panel order into the earliest open panel capacity without moving any existing work.",
       "moves": [
-        { "order_id": "ORD-9105-RUSH", "machine_id": "PRESS-201", "start_hour": 4.0, "end_hour": 5.5 }
+        {
+          "order_id": "ORD-9105-RUSH",
+          "machine_id": "PRESS-201",
+          "start_hour": 4.0,
+          "end_hour": 5.5
+        }
       ],
-      "schedule_delta": ["ORD-9105-RUSH: PRESS-201 @ +4.0h (+1 changeover, nothing else moves)"],
+      "schedule_delta": [
+        "Schedule ORD-9105-RUSH on PRESS-201 from 4.0 to 5.5."
+      ],
       "hard_constraint_violations": 0,
-      "scores": { "changeover_cost": 0.85, "urgency_served": 0.9, "labor_balance": 0.8, "energy": 0.8 },
-      "tradeoff_summary": "Fits the rush order with a single setup by grouping it with similar work; no existing order moves.",
-      "confidence": 0.85
+      "scores": {
+        "changeover_cost": 0.94,
+        "urgency_served": 0.72,
+        "labor_balance": 0.78,
+        "energy": 0.88
+      },
+      "tradeoff_summary": "This keeps the plan stable and cheap to run, but the rush order is handled later than it could be.",
+      "confidence": 0.96
     },
     {
       "id": "SCN-B",
-      "description": "Run ORD-9105-RUSH immediately by displacing ORD-8002 to the evening on PRESS-202.",
+      "description": "Protect rush responsiveness by pulling the new panel order forward and pushing a non-tier1 panel later.",
       "moves": [
-        { "order_id": "ORD-9105-RUSH", "machine_id": "PRESS-201", "start_hour": 0.0, "end_hour": 1.5 },
-        { "order_id": "ORD-8002", "machine_id": "PRESS-202", "start_hour": 7.5, "end_hour": 9.0 }
+        {
+          "order_id": "ORD-8004",
+          "machine_id": "PRESS-202",
+          "start_hour": 4.5,
+          "end_hour": 6.5
+        },
+        {
+          "order_id": "ORD-7801",
+          "machine_id": "PRESS-202",
+          "start_hour": 6.5,
+          "end_hour": 9.5
+        },
+        {
+          "order_id": "ORD-9105-RUSH",
+          "machine_id": "PRESS-202",
+          "start_hour": 2.0,
+          "end_hour": 3.5
+        }
       ],
       "schedule_delta": [
-        "ORD-9105-RUSH: PRESS-201 immediately (+2 changeovers)",
-        "ORD-8002: displaced to PRESS-202 @ +7.5h"
+        "Move ORD-8004 to PRESS-202 from 4.5 to 6.5.",
+        "Move ORD-7801 to PRESS-202 from 6.5 to 9.5.",
+        "Schedule ORD-9105-RUSH on PRESS-202 from 2.0 to 3.5."
       ],
       "hard_constraint_violations": 0,
-      "scores": { "changeover_cost": 0.4, "urgency_served": 0.95, "labor_balance": 0.75, "energy": 0.7 },
-      "tradeoff_summary": "Fastest possible start, but costs two changeovers and pushes ORD-8002 to the evening for no due-date benefit.",
-      "confidence": 0.5
+      "scores": {
+        "changeover_cost": 0.62,
+        "urgency_served": 0.9,
+        "labor_balance": 0.7,
+        "energy": 0.68
+      },
+      "tradeoff_summary": "This gets the rush order done much sooner, but it adds more resequencing and setup burden on the press.",
+      "confidence": 0.87
+    },
+    {
+      "id": "SCN-C",
+      "description": "Use a middle path by inserting the rush order on the second press after current panel work and before housing.",
+      "moves": [
+        {
+          "order_id": "ORD-7801",
+          "machine_id": "PRESS-202",
+          "start_hour": 5.5,
+          "end_hour": 8.5
+        },
+        {
+          "order_id": "ORD-9105-RUSH",
+          "machine_id": "PRESS-202",
+          "start_hour": 4.0,
+          "end_hour": 5.5
+        }
+      ],
+      "schedule_delta": [
+        "Schedule ORD-9105-RUSH on PRESS-202 from 4.0 to 5.5.",
+        "Move ORD-7801 to PRESS-202 from 5.5 to 8.5."
+      ],
+      "hard_constraint_violations": 0,
+      "scores": {
+        "changeover_cost": 0.78,
+        "urgency_served": 0.82,
+        "labor_balance": 0.76,
+        "energy": 0.74
+      },
+      "tradeoff_summary": "This finishes the rush order earlier without disturbing much of the plan, but it still costs one delayed housing run and an extra changeover.",
+      "confidence": 0.93
     }
   ]
 }

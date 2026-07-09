@@ -1,8 +1,8 @@
 {
   "decision": "auto_reschedule",
   "chosen_scenario_id": "SCN-A",
-  "confidence": 0.92,
-  "rationale": "CNC-102 is down for an estimated 45 minutes. Moving ORD-7712 to CNC-104, which is idle and tool-compatible, keeps the order on time at the cost of one extra changeover. Waiting for the repair (SCN-B) would risk the due time for no benefit, so I applied the move.",
+  "confidence": 0.9,
+  "rationale": "CNC-102 is expected to be down for about 45 minutes, directly impacting ORD-7712, which is currently scheduled there. Moving ORD-7712 immediately to CNC-104 (SCN-A) keeps the urgent work fully on time and maintains a strong cushion before its due time, with only a modest increase in changeover usage and no hard constraint issues. Waiting for CNC-102 (SCN-B) or delaying the start on CNC-104 (SCN-C) both reduce urgency coverage and due-date buffer for small gains in simplicity or flexibility that are not critical here.",
   "escalated": false,
   "options_for_planner": [],
   "security_flag": false

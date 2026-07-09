@@ -113,7 +113,7 @@ flowchart TB
     end
 
     subgraph decide["3 · DECIDE — LLM agent + code gate"]
-        ORCH["schedule-orchestrator 🤖<br/>gpt-4.1 · auto / escalate / reject"]
+        ORCH["schedule-orchestrator 🤖<br/>gpt-5.1 · auto / escalate / reject"]
         GATE{{"policy gate<br/>confidence · tier-1 SLA ·<br/>scenario validity"}}
     end
 
@@ -185,7 +185,7 @@ sequenceDiagram
 |---|---|---|
 | [`constraint-monitor`](agents/constraint-monitor/) | ⚙️ deterministic code | Classify raw feed events against hard/soft constraints; injection guardrail on free text ([backend/disruptions.py](backend/disruptions.py)) |
 | [`scenario-simulator`](agents/scenario-simulator/) | ✅ LLM agent (gpt-5.4 reasoning) | Generate & score alternative schedules; every proposal re-validated by the deterministic feasibility checker |
-| [`schedule-orchestrator`](agents/schedule-orchestrator/) | ✅ LLM agent (gpt-4.1) | Decide autonomous adjustment vs. planner escalation; a code policy gate enforces the rules |
+| [`schedule-orchestrator`](agents/schedule-orchestrator/) | ✅ LLM agent (gpt-5.1) | Decide autonomous adjustment vs. planner escalation; a code policy gate enforces the rules |
 | [`schedule-dispatcher`](agents/schedule-dispatcher/) | ⚙️ deterministic code | Re-validate and apply the chosen scenario; notify work centers ([backend/plant.py](backend/plant.py)) |
 
 The LLM agents sit exactly where judgment lives; sensing and acting stay
@@ -207,7 +207,7 @@ deterministic on purpose — no unvalidated schedule can ever be published.
 
 - Python 3.12+ and Node 20+ (React dashboard)
 - Azure CLI ≥ 2.60 (`az login`)
-- An Azure subscription with quota for gpt-4.1 and a gpt-5.x reasoning model in eastus2
+- An Azure subscription with quota for gpt-5.1 and gpt-5.4 in eastus2
   (or your region)
 
 > This demo will fall back to **mock ERP/MES data** when no Azure endpoint is configured,

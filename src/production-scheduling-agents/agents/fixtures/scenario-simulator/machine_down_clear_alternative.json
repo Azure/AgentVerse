@@ -2,27 +2,75 @@
   "scenarios": [
     {
       "id": "SCN-A",
-      "description": "Move ORD-7712 to the idle, tool-compatible CNC-104.",
+      "description": "Move the bracket order immediately to the alternate CNC to protect due time with minimal delay.",
       "moves": [
-        { "order_id": "ORD-7712", "machine_id": "CNC-104", "start_hour": 0.5, "end_hour": 2.5 }
+        {
+          "order_id": "ORD-7712",
+          "machine_id": "CNC-104",
+          "start_hour": 0.0,
+          "end_hour": 2.0
+        }
       ],
-      "schedule_delta": ["ORD-7712: CNC-102 -> CNC-104 @ +0.5h (one extra changeover)"],
+      "schedule_delta": [
+        "Move ORD-7712 from CNC-102 0.0-2.0 to CNC-104 0.0-2.0"
+      ],
       "hard_constraint_violations": 0,
-      "scores": { "changeover_cost": 0.8, "urgency_served": 0.95, "labor_balance": 0.85, "energy": 0.8 },
-      "tradeoff_summary": "Keeps ORD-7712 on time; costs one extra changeover on CNC-104.",
-      "confidence": 0.9
+      "scores": {
+        "changeover_cost": 0.86,
+        "urgency_served": 0.97,
+        "labor_balance": 0.72,
+        "energy": 0.8
+      },
+      "tradeoff_summary": "This keeps the urgent work on time with almost no disruption, but it uses the backup CNC right away and leaves less room for other reroutes.",
+      "confidence": 0.95
     },
     {
       "id": "SCN-B",
-      "description": "Hold ORD-7712 on CNC-102 and wait out the estimated 45-minute repair.",
+      "description": "Wait for CNC-102 to recover and run the bracket order there after downtime.",
       "moves": [
-        { "order_id": "ORD-7712", "machine_id": "CNC-102", "start_hour": 0.75, "end_hour": 2.75 }
+        {
+          "order_id": "ORD-7712",
+          "machine_id": "CNC-102",
+          "start_hour": 0.75,
+          "end_hour": 2.75
+        }
       ],
-      "schedule_delta": ["ORD-7712: start delayed to +0.75h on CNC-102"],
+      "schedule_delta": [
+        "Delay ORD-7712 on CNC-102 from 0.0-2.0 to 0.75-2.75 after machine recovery"
+      ],
       "hard_constraint_violations": 0,
-      "scores": { "changeover_cost": 1.0, "urgency_served": 0.55, "labor_balance": 0.8, "energy": 0.85 },
-      "tradeoff_summary": "No changeover cost, but the order's due time is at risk if the repair overruns.",
-      "confidence": 0.6
+      "scores": {
+        "changeover_cost": 0.94,
+        "urgency_served": 0.78,
+        "labor_balance": 0.84,
+        "energy": 0.88
+      },
+      "tradeoff_summary": "This avoids shifting work across machines and is simplest to run, but it accepts some delay and less schedule cushion before the due time.",
+      "confidence": 0.93
+    },
+    {
+      "id": "SCN-C",
+      "description": "Start the bracket order on the alternate CNC after a short buffer, preserving flexibility on the backup machine.",
+      "moves": [
+        {
+          "order_id": "ORD-7712",
+          "machine_id": "CNC-104",
+          "start_hour": 0.75,
+          "end_hour": 2.75
+        }
+      ],
+      "schedule_delta": [
+        "Move ORD-7712 to CNC-104 and run it at 0.75-2.75 instead of CNC-102 0.0-2.0"
+      ],
+      "hard_constraint_violations": 0,
+      "scores": {
+        "changeover_cost": 0.86,
+        "urgency_served": 0.9,
+        "labor_balance": 0.79,
+        "energy": 0.82
+      },
+      "tradeoff_summary": "This keeps the order safe from the outage while holding the backup machine open briefly, but it gives up some due-date cushion versus starting immediately.",
+      "confidence": 0.89
     }
   ]
 }

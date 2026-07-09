@@ -80,20 +80,24 @@ def record_fixture(agent_name: str, fixture_key: str, output: BaseModel) -> Path
 
 # ---- live (Azure AI Foundry Agent Service) --------------------------------------
 # NOTE: exercised only when PROJECT_ENDPOINT is configured; replay is the default
-# and the path covered by evals. Verify against your azure-ai-projects version on
-# the first live run.
+# and the path covered by evals. First exercised live 2026-07-09 against
+# azure-ai-agents 1.2.0b6 (see CHANGELOG.md); verify here first if an SDK bump
+# breaks a live run.
 
 _agent_id_cache: dict[str, str] = {}
 _client = None
 
 
-def _project_client():
+def _agents_client():
+    # azure-ai-projects >= 2.0 replaced its `.agents` surface with a new
+    # versions/sessions model; the classic threads/messages/runs API this module
+    # uses lives in the azure-ai-agents package, addressed at the same endpoint.
     global _client
     if _client is None:
-        from azure.ai.projects import AIProjectClient
+        from azure.ai.agents import AgentsClient
         from azure.identity import DefaultAzureCredential
 
-        _client = AIProjectClient(
+        _client = AgentsClient(
             endpoint=os.environ["PROJECT_ENDPOINT"],
             credential=DefaultAzureCredential(),
         )
@@ -108,7 +112,7 @@ def _get_or_create_agent(agent_dir: Path) -> str:
     if name in _agent_id_cache:
         return _agent_id_cache[name]
 
-    agents = _project_client().agents
+    agents = _agents_client()
     # agent.yaml may name the env var holding its deployment (model_env), so
     # different agents can use different deployments (chat vs. reasoning).
     model = os.getenv(spec.get("model_env", "MODEL_DEPLOYMENT_NAME"), "") or spec["model"]
@@ -122,7 +126,7 @@ def _get_or_create_agent(agent_dir: Path) -> str:
 
 
 def _run_live(agent_dir: Path, payload: BaseModel, output_model: type[T], fixture_key: str) -> T:
-    agents = _project_client().agents
+    agents = _agents_client()
     agent_id = _get_or_create_agent(agent_dir)
 
     thread = agents.threads.create()
@@ -131,7 +135,7 @@ def _run_live(agent_dir: Path, payload: BaseModel, output_model: type[T], fixtur
     if run.status != "completed":
         raise AgentRunError(f"Agent '{agent_dir.name}' run ended '{run.status}': {run.last_error}")
 
-    for message in agents.messages.list(thread_id=thread.id, order="descending"):
+    for message in agents.messages.list(thread_id=thread.id, order="desc"):
         if message.role == "assistant":
             text = "".join(p.text.value for p in message.content if hasattr(p, "text"))
             output = output_model.model_validate_json(_extract_json(text))

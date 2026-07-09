@@ -42,3 +42,5 @@ Thumbs.db
 .vscode/
 .idea/
 infra/app.zip
+*.tfplan
+tfplan

@@ -20,6 +20,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from dotenv import load_dotenv  # noqa: E402
+
+# .env lives at the demo root; App Service injects the same values as app settings.
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+
 from agents.shared import foundry  # noqa: E402
 from backend.disruptions import RAW_DISRUPTIONS  # noqa: E402
 from backend.pipeline import PipelineResult, run_pipeline  # noqa: E402

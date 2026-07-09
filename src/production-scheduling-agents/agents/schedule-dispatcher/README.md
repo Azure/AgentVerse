@@ -18,7 +18,7 @@ affected work centers what changed and why.
 
 | | |
 |---|---|
-| **Model** | `gpt-4.1` |
+| **Model** | `gpt-5.1` |
 | **Input** | `SchedulingDecision` (with the chosen, solver-validated `ScoredScenario`) |
 | **Output** | `DispatchReport` — `{ published: bool, systems_updated[], notifications_sent[], schedule_version }` |
 | **Tools** | `publish_schedule` (function, writes to mock ERP/MES) · `notify_work_centers` (function) |

@@ -38,6 +38,11 @@ resource "azurerm_cognitive_account" "foundry" {
   sku_name              = "S0"
   custom_subdomain_name = var.foundry_account_name
 
+  # Required before a Foundry *project* can be created under this account
+  # (the project itself is still created outside Terraform — see the note at
+  # the bottom of this file).
+  project_management_enabled = true
+
   identity {
     type = "SystemAssigned"
   }
@@ -164,3 +169,13 @@ resource "azurerm_role_assignment" "webapp_foundry" {
 
 # TODO: add the Foundry *project* (azapi: Microsoft.CognitiveServices/accounts/projects),
 # APIM (AI gateway), and Cosmos DB as the implementation grows.
+#
+# Until the project is Terraform-managed, create it once after apply (this is what
+# the first live deployment did on 2026-07-09 — see ../CHANGELOG.md):
+#
+#   az rest --method put \
+#     --url "https://management.azure.com/subscriptions/<sub-id>/resourceGroups/<rg>/providers/Microsoft.CognitiveServices/accounts/<foundry-account>/projects/<project-name>?api-version=2025-06-01" \
+#     --body '{"location":"<location>","identity":{"type":"SystemAssigned"},"properties":{}}'
+#
+# The project endpoint (for PROJECT_ENDPOINT in .env) is then:
+#   https://<foundry-account>.services.ai.azure.com/api/projects/<project-name>

@@ -37,14 +37,14 @@ orchestration: orchestrator-workers   # + human-in-the-loop escalation (see PATT
 agents:
   - name: schedule-orchestrator
     role: Decides autonomous adjustment vs. escalation to the planner; a deterministic policy gate enforces the rules.
-    model: gpt-4.1
+    model: gpt-5.1
     tools: []
   - name: scenario-simulator
     role: Generates and scores alternative schedules; every proposal re-validated by the deterministic feasibility checker.
     model: gpt-5.4
     tools: []
 
-models: [gpt-4.1, gpt-5.4]
+models: [gpt-5.1, gpt-5.4]
 azureServices: [Azure AI Foundry, Application Insights]
 capabilities: [guardrails, evals, observability, human-in-the-loop]
 

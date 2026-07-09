@@ -3,17 +3,18 @@
 A step-by-step path you can follow top to bottom. Each stage builds on the one
 before, and each one tells you **what you should see** so you know it worked.
 
-Stages 0–3 work **today**. Stages 4–5 are marked with their current status.
+Every stage below was executed end-to-end on **2026-07-09** (first full live run);
+statuses reflect what actually happened.
 
 | Stage | What you get | Needs Azure? | Status |
 |---|---|---|---|
 | [0](#stage-0--prerequisites) | Tools installed | no | ready |
-| [1](#stage-1--run-the-demo-with-zero-azure-5-minutes) | The whole demo running locally (replay mode) | **no** | ✅ works today |
-| [2](#stage-2--understand-what-you-just-saw) | The mental model | no | ✅ works today |
-| [3](#stage-3--provision-azure-with-terraform) | Foundry account + models in your subscription | yes | ✅ works today |
-| [4](#stage-4--run-the-live-agents) | Real Foundry Agents making the decisions | yes | ✅ works today (first-run caveat) |
-| [5](#stage-5--full-cloud-deployment) | The demo hosted in Azure, URL-only | yes | ✅ built (first-apply caveat) |
-| [Bonus](#bonus--the-web-dashboard-locally) | The planner dashboard on localhost | no | ✅ works today |
+| [1](#stage-1--run-the-demo-with-zero-azure-5-minutes) | The whole demo running locally (replay mode) | **no** | ✅ verified |
+| [2](#stage-2--understand-what-you-just-saw) | The mental model | no | ✅ verified |
+| [3](#stage-3--provision-azure-with-terraform) | Foundry account + models in your subscription | yes | ✅ verified |
+| [4](#stage-4--run-the-live-agents) | Real Foundry Agents making the decisions | yes | ✅ verified live |
+| [5](#stage-5--full-cloud-deployment) | The demo hosted in Azure, URL-only | yes | ⚠️ needs App Service quota (see stage 5) |
+| [Bonus](#bonus--the-web-dashboard-locally) | The planner dashboard on localhost | no | ✅ verified |
 
 ---
 
@@ -111,7 +112,7 @@ Deeper reading: [README.md](README.md) (the why), [agents/README.md](agents/READ
 ## Stage 3 — Provision Azure with Terraform
 
 One `terraform apply` creates everything the live agents need: a resource group,
-an Azure AI Foundry account, the two model deployments (gpt-4.1 chat + reasoning),
+an Azure AI Foundry account, the two model deployments (gpt-5.1 chat + gpt-5.4 reasoning),
 and Application Insights.
 
 ```bash
@@ -128,21 +129,48 @@ terraform apply
 terraform output                     # foundry_endpoint, model deployment names, ...
 ```
 
-> Quota note: your subscription needs quota for the models in the region you chose
-> (`eastus2` default). If the reasoning model has no quota, set
-> `reasoning_model_name = "gpt-4.1"` in `terraform.tfvars` — the simulator works on
-> gpt-4.1 too, just with plainer trade-off analysis.
+> **Model availability note (learned on the 2026-07-09 first apply):** model/version
+> pairs age out. Azure refuses **new** deployments of models in "deprecating" state
+> even though they still appear in listings — `gpt-4.1/2025-04-14` failed exactly
+> this way (`ServiceModelDeprecating`). Before applying, check what your region
+> offers and pin versions that exist:
+>
+> ```bash
+> az cognitiveservices model list -l eastus2 -o table
+> ```
+>
+> Current verified defaults: chat `gpt-5.1/2025-11-13`, reasoning `gpt-5.4/2026-03-05`.
+> Your subscription also needs TPM quota for those models in your region
+> (`az cognitiveservices usage list -l eastus2`); lower `model_capacity` if tight.
 
 ---
 
 ## Stage 4 — Run the live agents
+
+Two one-time Azure steps first (Terraform doesn't cover them yet):
+
+```bash
+# 1. Create the Foundry *project* under the account (see the note in infra/main.tf
+#    for the template). Example from the 2026-07-09 run:
+az rest --method put \
+  --url "https://management.azure.com/subscriptions/<sub-id>/resourceGroups/<rg>/providers/Microsoft.CognitiveServices/accounts/<foundry-account>/projects/<project>?api-version=2025-06-01" \
+  --body '{"location":"eastus2","identity":{"type":"SystemAssigned"},"properties":{}}'
+
+# 2. Give YOUR user the Agents data-plane role (subscription Owner is NOT enough):
+MSYS_NO_PATHCONV=1 az role assignment create --role "Azure AI Developer" \
+  --assignee-object-id "$(az ad signed-in-user show --query id -o tsv)" \
+  --assignee-principal-type User \
+  --scope "<foundry account resource id>"
+```
+
+Then wire up the app:
 
 ```bash
 cd ..                                # back to the demo root
 pip install -r requirements.txt      # the full dependency set (Azure SDKs)
 cp .env.example .env
 # In .env set:
-#   PROJECT_ENDPOINT=<foundry_endpoint from terraform output>/api/projects/<your-project>
+#   PROJECT_ENDPOINT=https://<foundry-account>.services.ai.azure.com/api/projects/<project>
 #   MODEL_DEPLOYMENT_NAME / REASONING_MODEL_DEPLOYMENT_NAME if you changed them
 
 python scripts/run_demo.py --disruption machine_down    # now drives real Foundry Agents
@@ -160,9 +188,15 @@ python scripts/run_demo.py --all --record
 python -m evals.run_evals            # still green with the re-recorded fixtures
 ```
 
-> ⚠️ First-run caveat: the live Foundry path (`agents/shared/foundry.py`) was written
-> against the current `azure-ai-projects` SDK but hasn't been exercised yet — if the
-> SDK surface shifted, the fix will be local to that one file.
+> ✅ **First live run completed 2026-07-09** — and the caveat that used to sit here
+> proved correct: the SDK surface *had* shifted, and both fixes were local to
+> `agents/shared/foundry.py`. `azure-ai-projects` 2.x replaced its `.agents` API
+> with a versions/sessions model, so the module now uses `azure.ai.agents.AgentsClient`
+> directly (same project endpoint, same threads/messages/runs surface), and
+> `messages.list(...)` takes `order="desc"`, not `"descending"`. All four disruptions
+> then produced the correct decision class live (auto_reschedule 0.90 / escalate 0.60 /
+> reject 1.00 / auto_reschedule 0.86), fixtures were re-recorded from those runs, and
+> the eval gate stayed at 100%. Details in [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -195,9 +229,13 @@ Two deliberate defaults:
 - **Code updates are also `terraform apply`** — the zip's hash changes when files
   change, so infra and code never drift apart.
 
-> ⚠️ First-apply caveat: this configuration passes `terraform validate`, but a full
-> `apply` hasn't been executed against a real subscription yet — expect at most
-> small tweaks (e.g. SKU/region quirks) on the first run.
+> ⚠️ **First real apply, 2026-07-09:** everything except the web app deployed
+> cleanly. The App Service plan failed with a **401 quota error — "Total VMs:
+> limit 0"** because managed/sandbox subscriptions can carry zero App Service
+> quota. This is a subscription policy, not a config bug: the Foundry account,
+> model deployments, and observability stack all applied fine, and stages 1–4 are
+> unaffected. To finish stage 5, request quota (https://aka.ms/antquotahelp) or
+> apply the web-app resources in a subscription that has App Service quota.
 
 ---
 
@@ -227,4 +265,10 @@ untouched.
 | `Incompatible provider version ... windows_arm64` | Install the amd64 Terraform build (see stage 0). |
 | `DefaultAzureCredential` failures | `az login` again; check you're on the right subscription (`az account show`). |
 | Model deployment quota errors on `terraform apply` | Lower `model_capacity` in `terraform.tfvars`, or switch region/model. |
-| Live run fails inside `foundry.py` | See the stage-4 caveat — verify the `azure-ai-projects` SDK calls. |
+| `ServiceModelDeprecating` on `terraform apply` | That model/version no longer accepts new deployments. Pick a current one: `az cognitiveservices model list -l <location> -o table`, update `terraform.tfvars`. |
+| App Service plan fails: 401, "Total VMs ... limit 0" | Your subscription has zero App Service quota (common on managed/sandbox subs). Request an increase (aka.ms/antquotahelp) or deploy the web app in another subscription. Stages 1–4 don't need it. |
+| Live run: 403 / `PermissionDenied` from the Agents API | Grant your user **Azure AI Developer** on the Foundry account (Owner alone lacks data-plane actions). See stage 4. |
+| `Role 'Azure AI User' doesn't exist` | Older tenants don't have that role yet — use **Azure AI Developer** instead. |
+| `az` errors with `MissingSubscription` in Git Bash | Git Bash rewrote the `/subscriptions/...` scope into a Windows path. Prefix the command with `MSYS_NO_PATHCONV=1`. |
+| Live run: `AttributeError ... 'list_agents'` or bad `order` value | Your `foundry.py` predates the 2026-07-09 SDK fix — it must use `azure.ai.agents.AgentsClient` and `order="desc"`. Pull latest. |
+| `.env` seems ignored when running locally | Fixed 2026-07-09: `scripts/run_demo.py` and `backend/main.py` call `load_dotenv()`. If you see this, pull latest. |

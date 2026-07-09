@@ -1,8 +1,8 @@
 {
   "decision": "auto_reschedule",
-  "chosen_scenario_id": "SCN-A",
-  "confidence": 0.88,
-  "rationale": "Rush order ORD-9105 is due in 24 hours and the line is at 72% utilization, so it fits without displacing anything critical. Inserting it after the current PRESS-201 batch groups it with a similar product, which keeps the added changeover cost to a single setup. No existing order slips.",
+  "chosen_scenario_id": "SCN-C",
+  "confidence": 0.86,
+  "rationale": "A standard-tier rush panel order has arrived with 24 hours of slack, and we have three feasible ways to fit it into the press plan. SCN-C serves the rush order earlier than the baseline option (SCN-A) while keeping changeover and energy costs much lower than the aggressive resequencing in SCN-B. This choice slightly delays one housing run but maintains good labor balance and overall efficiency without impacting any tier-1 commitments.",
   "escalated": false,
   "options_for_planner": [],
   "security_flag": false

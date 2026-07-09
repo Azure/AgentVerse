@@ -4,5 +4,11 @@ resource_group       = "rg-production-scheduling-demo"
 location             = "eastus2"
 foundry_account_name = "prodschedfoundry"   # globally-unique, lowercase, <= 24 chars
 webapp_name          = "prodsched-demo"     # globally-unique -> prodsched-demo.azurewebsites.net
-model_deployment_name = "gpt-4.1"
-reasoning_model_deployment_name = "gpt-5.4"
+
+# Model deployments. Model/version pairs age out of Azure (models in "deprecating"
+# state are refused for NEW deployments even while still listed). Before applying,
+# confirm current versions with:
+#   az cognitiveservices model list -l eastus2 -o table
+# Verified deployable on 2026-07-09:
+model_deployment_name           = "gpt-5.1"   # chat: monitor / orchestrator / dispatcher
+reasoning_model_deployment_name = "gpt-5.4"   # reasoning: scenario-simulator

@@ -16,22 +16,26 @@ variable "foundry_account_name" {
 
 # ---- Chat model (monitor / orchestrator / dispatcher) --------------------------
 
+# Model/version pairs age out: Azure refuses new deployments of models in
+# "deprecating" state (gpt-4.1/2025-04-14 was refused on 2026-07-09 with
+# ServiceModelDeprecating). Check what your region currently offers with:
+#   az cognitiveservices model list -l <location> -o table
 variable "model_deployment_name" {
   type        = string
   description = "Deployment name the app references (MODEL_DEPLOYMENT_NAME in .env)."
-  default     = "gpt-4.1"
+  default     = "gpt-5.1"
 }
 
 variable "model_name" {
   type        = string
   description = "Chat model to deploy."
-  default     = "gpt-4.1"
+  default     = "gpt-5.1"
 }
 
 variable "model_version" {
   type        = string
   description = "Chat model version."
-  default     = "2025-04-14"
+  default     = "2025-11-13"
 }
 
 variable "model_capacity" {
@@ -57,7 +61,7 @@ variable "reasoning_model_name" {
 variable "reasoning_model_version" {
   type        = string
   description = "Reasoning model version."
-  default     = "2026-01-15"
+  default     = "2026-03-05"
 }
 
 variable "reasoning_model_capacity" {

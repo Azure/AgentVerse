@@ -8,7 +8,7 @@ description: >-
   autonomously, escalate an ambiguous trade-off to the human planner, or reject
   a compromised event. Always returns a plain-language rationale.
 
-model: gpt-4.1
+model: gpt-5.1
 
 instructions: instructions.md
 
