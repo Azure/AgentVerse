@@ -14,11 +14,11 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
+    <button class="brand" id="brand" type="button" title="Back to home" aria-label="AgentVerse home">
       <span class="brand-mark">◆</span>
       <span class="brand-name">AgentVerse</span>
       <span class="brand-sub">Demo Portal</span>
-    </div>
+    </button>
     <div class="topbar-right">
       <span id="demo-count" class="pill"></span>
     </div>
@@ -34,7 +34,29 @@
         catalog, and deploy. See <code>docs/adding-a-demo.md</code>.
       </p>
     </section>
-    <section id="panel" class="panel"></section>
+
+    <!-- Landing / home: what AgentVerse is + a card per catalog demo. -->
+    <section id="home" class="home hidden" aria-label="Home">
+      <div class="hero">
+        <p class="hero-eyebrow">Agentic use cases from Microsoft</p>
+        <h1 class="hero-title">One place to explore every AgentVerse demo.</h1>
+        <p class="hero-lede">
+          AgentVerse is a curated collection of agentic use cases built inside Microsoft and
+          packaged to run and deploy in your own Azure subscription. Each demo is a
+          self-contained reference implementation of a real-world pattern — open one below to
+          try it in place, or deploy them together behind this portal.
+        </p>
+      </div>
+      <div class="home-demos">
+        <div class="section-head">
+          <h2 class="section-title">Available demos</h2>
+          <p class="section-sub">Pick a scenario to launch it in the portal.</p>
+        </div>
+        <div id="demo-grid" class="demo-grid"></div>
+      </div>
+    </section>
+
+    <section id="panel" class="panel hidden"></section>
   </main>
 
   <script src="app.js"></script>

@@ -33,7 +33,20 @@ html, body {
   background: var(--bg);
   color: #fff;
 }
-.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  padding: 4px 6px;
+  margin-left: -6px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.brand:hover { background: rgba(255, 255, 255, .06); }
+.brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .brand-mark { color: var(--accent); font-size: 18px; }
 .brand-name { font-weight: 700; font-size: 18px; letter-spacing: .2px; }
 .brand-sub { color: #94a3b8; font-size: 13px; }
@@ -77,8 +90,111 @@ html, body {
 .dot.down { background: var(--muted); }
 
 /* Stage ------------------------------------------------------------------ */
-.stage { padding: 16px; height: calc(100vh - 56px - 49px); }
+.stage { padding: 16px; height: calc(100vh - 56px - 49px); overflow: hidden; }
+.stage.home-mode { overflow-y: auto; }
 .panel { height: 100%; }
+
+/* Landing / home --------------------------------------------------------- */
+.home { max-width: 1120px; margin: 0 auto; padding: 4px 4px 48px; }
+.hero {
+  padding: 28px 4px 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.hero-eyebrow {
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.hero-title {
+  margin: 0 0 14px;
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  max-width: 640px;
+}
+.hero-lede {
+  margin: 0;
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.section-title { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: .01em; }
+.section-sub { margin: 0; color: var(--muted); font-size: 13px; }
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 18px 16px;
+  transition: box-shadow .15s ease, transform .15s ease, border-color .15s ease;
+}
+.demo-card:hover {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .09);
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+}
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.card-title { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+.card-tagline { margin: 0 0 10px; color: var(--text); font-size: 13.5px; font-weight: 500; }
+.card-desc {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.tagpill {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.tagpill.muted { background: #eef2f7; color: var(--muted); font-weight: 500; }
+.card-actions { display: flex; gap: 8px; margin-top: 16px; }
+
+.badge {
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex: none;
+}
+.badge.ok { background: #dcfce7; color: #15803d; }
+.badge.info { background: var(--accent-soft); color: var(--accent); }
+.badge.warn { background: #fef3c7; color: #b45309; }
+.badge.muted { background: #eef2f7; color: var(--muted); }
 
 .demo-head {
   display: flex;
@@ -109,10 +225,17 @@ html, body {
   padding: 8px 14px;
   font-size: 13px;
   font-weight: 500;
+  font-family: inherit;
   cursor: pointer;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn.primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+.btn.ghost { background: #fff; color: var(--accent); border-color: var(--border); }
+.btn.ghost:hover { border-color: var(--accent); }
 
 .frame-wrap {
   position: relative;

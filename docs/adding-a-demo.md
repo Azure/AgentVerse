@@ -14,9 +14,11 @@ AgentVerse is a **growing catalog of independent agent demos** that we can show
 
 - Every demo under `src/` is **self-contained** and runs on its own. We never
   move shared code to the repo root; a demo must still work if cloned alone.
-- One **portal** (an Azure Container App) presents **one tab per demo** and
-  embeds each demo's frontend in an iframe, so a presenter can walk through
-  every demo from a single URL.
+- One **portal** (an Azure Container App) opens on a **landing page** that
+  introduces AgentVerse and lists **every catalog demo as a card** (title,
+  tagline, description, status). It also presents **one tab per demo** and embeds
+  each demo's frontend in an iframe, so a presenter can walk through every demo
+  from a single URL.
 - One **global Terraform deploy** in [`infra/`](../infra/) provisions a shared
   platform, deploys all enabled demos, and (optionally) registers their agents
   — in one place.
@@ -40,8 +42,11 @@ These must match exactly. That single id links “what to show” with “how to
 
 ### Contract 1 — Presentation metadata (`src/<demo_id>/agentverse.yaml`)
 
-Drives the demo's tab in the portal (title, tagline, agents, tags) and its row
-in `catalog.json` / `CATALOG.md`.
+Drives the demo's tab **and its landing-page card** in the portal (title,
+tagline, description, agents, tags) and its row in `catalog.json` / `CATALOG.md`.
+The landing card is generated automatically from this manifest — every demo you
+add appears on the home page with no extra step. Write a clear one-line
+`tagline` and a short-paragraph `description`: those are what the card shows.
 
 - Copy the manifest from
   [`src/templates/catalog/README.md`](../src/templates/catalog/README.md) or

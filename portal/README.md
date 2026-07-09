@@ -1,16 +1,18 @@
 # AgentVerse Portal
 
 A lightweight, **catalog-driven** single-page app that shows every AgentVerse
-demo in one place — **one tab per demo**, each embedding the demo's deployed
-frontend in an iframe. Served by nginx on port **8080** and deployed as an Azure
-Container App by the global Terraform in [`../infra/`](../infra/).
+demo in one place. It opens on a **landing page** that introduces AgentVerse and
+lists every demo as a card, and keeps **one tab per demo**, each embedding the
+demo's deployed frontend in an iframe. Served by nginx on port **8080** and
+deployed as an Azure Container App by the global Terraform in
+[`../infra/`](../infra/).
 
 ## How it works
 
 ```
 catalog.json  (metadata, baked in at build)  ─┐
-                                               ├─►  app.js renders one tab per demo
-config.js     (demo_id → URL, injected at run) ┘
+                                               ├─►  app.js renders the landing
+config.js     (demo_id → URL, injected at run) ┘    cards + one tab per demo
 ```
 
 - **`public/catalog.json`** — generated from every demo's `agentverse.yaml` by
@@ -20,10 +22,17 @@ config.js     (demo_id → URL, injected at run) ┘
   the `DEMOS_JSON` env var (`{demo_id: "https://…"}`), which Terraform sets to
   each demo's deployed web URL. Locally it defaults to an empty map.
 - The two are linked by `demo_id` (catalog `name` === `DEMOS_JSON` key). A demo
-  with metadata but no URL renders a “Not deployed” tab; a deployed demo with no
-  metadata still gets a minimal tab.
+  with metadata but no URL renders a “Not deployed” card/tab; a deployed demo
+  with no metadata still gets a minimal card/tab.
 
-Each tab shows the demo's title, tagline, agents and tags, an **Open in new
+The **landing page** (`Home` tab, also reachable by clicking the brand) shows a
+short "what is AgentVerse" intro and a card per demo built from the catalog:
+title, `tagline`, `description`, a status badge, orchestration/agent/tag chips,
+and an **Open demo** button that launches it in place (plus **Open in new tab**
+when deployed). Every demo added to the catalog appears here automatically — no
+extra step. Deep links are supported via the URL hash (`#home`, `#demo-<id>`).
+
+Each demo tab shows the demo's title, tagline, agents and tags, an **Open in new
 tab** button, and the iframe. If the iframe does not load within a few seconds
 (embedding blocked by `X-Frame-Options`/CSP, or a sign-in flow), a fallback
 prompts the user to open the demo directly.
@@ -62,7 +71,7 @@ portal/
 ├── docker-entrypoint.sh    # writes config.js from DEMOS_JSON at start-up
 └── public/
     ├── index.html
-    ├── app.js              # merges catalog.json + config.js, renders tabs
+    ├── app.js              # merges catalog.json + config.js, renders landing + tabs
     ├── styles.css
     ├── config.js           # local fallback (overwritten in the container)
     └── catalog.json        # generated; baked in at build
