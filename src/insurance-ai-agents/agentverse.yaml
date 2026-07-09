@@ -1,0 +1,56 @@
+apiVersion: agentverse/v1
+
+name: insurance-ai-agents
+title: Insurance AI Agents
+tagline: Governed multi-agent claims processing with an AI gateway, evals and audit trail.
+description: >-
+  An enterprise-grade demo of the full lifecycle of governed AI agents over a
+  critical process (auto claims). Three specialized agents (Intake, Risk,
+  Compliance) are orchestrated with the Microsoft Agent Framework behind an
+  Azure APIM AI gateway (content safety, token limits, managed identity), with
+  Entra ID auth, Cosmos DB audit persistence, a whitelabel React dashboard, a
+  real-time voice channel and an automated Eval Gate on every PR.
+
+status: stable
+difficulty: advanced
+tags: [insurance, governance, enterprise]
+
+stack:
+  framework: Microsoft Agent Framework
+  backend: FastAPI
+  frontend: React + Vite
+  iac: Bicep
+  language: [Python, TypeScript]
+
+orchestration: orchestrator-workers
+
+agents:
+  - name: claims-intake
+    role: Structured extraction of the claim report into a typed schema.
+    model: gpt-5.4-mini
+    tools: [content-understanding]
+  - name: risk-assessment
+    role: Risk scoring and fraud probability estimation.
+    model: gpt-5.4-mini
+    tools: []
+  - name: compliance
+    role: Applies regulatory rules to produce compliance checks and a decision.
+    model: gpt-5.4-mini
+    tools: []
+  - name: orchestrator
+    role: Coordinates the intake, risk and compliance agents and the audit trail.
+    model: gpt-5.4-mini
+    tools: []
+
+models: [gpt-5.4-mini, gpt-realtime-mini]
+azureServices: [Azure AI Foundry, APIM, Cosmos DB, Container Apps, Static Web Apps]
+capabilities: [tools, voice, content-safety, guardrails, evals, observability, governance, whitelabel, auth]
+
+entrypoints:
+  quickstart: README.md#-quick-start
+  backend: uvicorn main:app --host 0.0.0.0 --port 8000
+  frontend: dashboard
+  deploy: scripts/deploy.ps1
+
+links:
+  docs: https://learn.microsoft.com/azure/ai-foundry/agents/

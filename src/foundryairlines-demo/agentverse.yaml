@@ -1,0 +1,48 @@
+apiVersion: agentverse/v1
+
+name: foundryairlines-demo
+title: FoundryAirlines
+tagline: Three Foundry agents that fill low-occupancy flights with event-aware promo banners.
+description: >-
+  A small but realistic demo that orchestrates three Azure AI Foundry agents
+  sequentially with the Microsoft Agent Framework: a flights agent picks the
+  lowest-occupancy flights from a local DB, an events agent uses Bing grounding
+  to find a real upcoming event in each destination, and a gpt-image-2 step
+  generates a promo banner per flight. A FastAPI backend streams progress over
+  SSE to a vanilla HTML/JS front-end.
+
+status: beta
+difficulty: beginner
+tags: [airline, marketing, sequential]
+
+stack:
+  framework: Microsoft Agent Framework
+  backend: FastAPI
+  frontend: Vanilla HTML/JS
+  iac: Terraform
+  language: [Python]
+
+orchestration: sequential
+
+agents:
+  - name: flights-agent
+    role: Reads the bookings DB and returns the 5 lowest-occupancy flights as strict JSON.
+    model: gpt-4.1
+    tools: []
+  - name: events-agent
+    role: Finds one real upcoming event per destination city using Bing grounding.
+    model: gpt-4.1
+    tools: [bing-grounding]
+
+models: [gpt-4.1, gpt-image-2]
+azureServices: [Azure AI Foundry]
+capabilities: [tools, web-grounding, image-generation, observability]
+
+entrypoints:
+  quickstart: README.md#5--run-the-demo
+  backend: uvicorn app.backend.main:app --port 8765
+  frontend: app/frontend/index.html
+  deploy: infra/main.tf
+
+links:
+  docs: https://learn.microsoft.com/agent-framework/workflows/orchestrations/sequential

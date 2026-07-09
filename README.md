@@ -6,6 +6,23 @@ AgentVerse is a curated collection of agentic use cases developed within Microso
 
 This initiative is the result of collaboration across multiple Microsoft teams, bringing together diverse expertise to showcase the breadth of agentic patterns and best practices. The goal is to offer a practical, production-oriented starting point that accelerates the adoption of agentic solutions while remaining flexible enough to fit your specific needs.
 
+## Unified portal & global deploy
+
+Every demo under [`src/`](src/) is fully independent, but they can also be shown
+and deployed **together**:
+
+- **Portal** — a catalog-driven web app ([`portal/`](portal/)) with **one tab
+  per demo**, embedding each demo's frontend. Hosted as an Azure Container App.
+- **Global deploy** — one Terraform configuration ([`infra/`](infra/), outside
+  `src/`) that provisions a shared platform, deploys all enabled demos, and
+  optionally registers their agents. It leans on each demo's own Terraform/Bicep.
+- **Catalog** — each demo ships an `agentverse.yaml`; `catalog.json` is generated
+  from them and drives the portal (see [`src/templates/catalog/`](src/templates/catalog/)).
+
+New use case? Follow the onboarding memory in
+[`docs/adding-a-demo.md`](docs/adding-a-demo.md) — add two files (a manifest and
+a deployment entry) and the demo appears as a new tab.
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
