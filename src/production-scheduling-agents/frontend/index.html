@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Production Scheduling AI Agents</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Production Scheduling <span class="accent">AI Agents</span></h1>
+      <p class="subtitle">Constraint-aware, self-healing scheduling &mdash; watch the agents keep the plant on plan</p>
+    </div>
+    <div class="header-right">
+      <span id="mode-badge" class="badge">&hellip;</span>
+      <button id="reset-btn" class="ghost">Reset plant</button>
+    </div>
+  </header>
+
+  <section id="kpis" class="kpi-strip">
+    <div class="kpi"><span class="kpi-value" id="kpi-version">v1</span><span class="kpi-label">schedule version</span></div>
+    <div class="kpi"><span class="kpi-value" id="kpi-idle">&ndash;</span><span class="kpi-label">idle hours (horizon)</span></div>
+    <div class="kpi"><span class="kpi-value" id="kpi-adherence">&ndash;</span><span class="kpi-label">schedule adherence</span></div>
+    <div class="kpi"><span class="kpi-value" id="kpi-auto">0 / 0</span><span class="kpi-label">auto-applied / escalated</span></div>
+    <div class="kpi"><span class="kpi-value" id="kpi-adjust">&ndash;</span><span class="kpi-label">last time-to-adjust</span></div>
+  </section>
+
+  <section class="disruptions">
+    <span class="section-label">Inject a disruption:</span>
+    <button class="disrupt" data-key="machine_down">🔧 Machine down</button>
+    <button class="disrupt" data-key="material_delay">📦 Material delay</button>
+    <button class="disrupt" data-key="rush_order">⚡ Rush order</button>
+    <button class="disrupt danger" data-key="prompt_injection">🕵️ Injected comment</button>
+  </section>
+
+  <main>
+    <section class="panel gantt-panel">
+      <h2>Schedule board <span id="gantt-version" class="muted"></span></h2>
+      <div id="gantt"></div>
+      <div class="legend">
+        <span><i class="chip tier1"></i> tier-1 order</span>
+        <span><i class="chip standard"></i> standard order</span>
+        <span><i class="chip moved"></i> moved this reflow</span>
+        <span><i class="chip downchip"></i> machine down</span>
+      </div>
+    </section>
+
+    <section class="panel feed-panel">
+      <h2>Agent activity</h2>
+      <div id="feed"><p class="muted">Inject a disruption to watch the agents work.</p></div>
+    </section>
+  </main>
+
+  <div id="escalation" class="card escalation hidden">
+    <h3>👤 Your call, planner</h3>
+    <p id="escalation-rationale"></p>
+    <div id="escalation-options"></div>
+  </div>
+
+  <div id="decision" class="card hidden">
+    <h3 id="decision-title"></h3>
+    <p id="decision-rationale"></p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "decision": "escalate_to_planner",
+  "chosen_scenario_id": null,
+  "confidence": 0.55,
+  "rationale": "The AL-6061 sheet delay of about 6 hours means we cannot serve both the tier-1 order (ORD-8001, SLA in 8 hours) and the three standard orders without cost. Protecting the SLA adds changeovers and slips the standard orders; batching the standard work pushes the tier-1 order past its SLA. Reasonable planners could disagree, so this is your call.",
+  "escalated": true,
+  "options_for_planner": [
+    "SCN-A: protect the tier-1 SLA exactly — ORD-8001 first at material arrival; +2 changeovers, the three standard orders slip into the evening.",
+    "SCN-B: cheapest on changeovers — batch the standard panels first; the tier-1 order finishes ~1.5 h past its SLA.",
+    "SCN-C: middle path — meet the SLA and defer only ORD-8004 to the off-peak night window (still on time, but on the night shift)."
+  ],
+  "security_flag": false
+}

@@ -1,0 +1,9 @@
+{
+  "decision": "auto_reschedule",
+  "chosen_scenario_id": "SCN-A",
+  "confidence": 0.88,
+  "rationale": "Rush order ORD-9105 is due in 24 hours and the line is at 72% utilization, so it fits without displacing anything critical. Inserting it after the current PRESS-201 batch groups it with a similar product, which keeps the added changeover cost to a single setup. No existing order slips.",
+  "escalated": false,
+  "options_for_planner": [],
+  "security_flag": false
+}

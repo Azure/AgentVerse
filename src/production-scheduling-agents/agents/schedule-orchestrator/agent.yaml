@@ -1,0 +1,20 @@
+# Agent spec — the declarative contract for the schedule orchestrator.
+# Shape mirrors Foundry's agent manifest (see templates/agentic-framework/agent-spec/).
+
+name: schedule-orchestrator
+description: >-
+  Coordinates the scheduling workers. Given a classified disruption and the
+  simulator's scored scenarios, it decides: apply the best adjustment
+  autonomously, escalate an ambiguous trade-off to the human planner, or reject
+  a compromised event. Always returns a plain-language rationale.
+
+model: gpt-4.1
+
+instructions: instructions.md
+
+io:
+  input: OrchestratorInput
+  output: SchedulingDecision
+
+# No tools in v1: the deterministic escalation policy runs as a code gate in
+# agent.py (post-LLM), not as a callable tool.

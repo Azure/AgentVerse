@@ -1,0 +1,32 @@
+{
+  "scenarios": [
+    {
+      "id": "SCN-A",
+      "description": "Insert ORD-9105-RUSH right after the current PRESS-201 queue, grouped with similar panel work.",
+      "moves": [
+        { "order_id": "ORD-9105-RUSH", "machine_id": "PRESS-201", "start_hour": 4.0, "end_hour": 5.5 }
+      ],
+      "schedule_delta": ["ORD-9105-RUSH: PRESS-201 @ +4.0h (+1 changeover, nothing else moves)"],
+      "hard_constraint_violations": 0,
+      "scores": { "changeover_cost": 0.85, "urgency_served": 0.9, "labor_balance": 0.8, "energy": 0.8 },
+      "tradeoff_summary": "Fits the rush order with a single setup by grouping it with similar work; no existing order moves.",
+      "confidence": 0.85
+    },
+    {
+      "id": "SCN-B",
+      "description": "Run ORD-9105-RUSH immediately by displacing ORD-8002 to the evening on PRESS-202.",
+      "moves": [
+        { "order_id": "ORD-9105-RUSH", "machine_id": "PRESS-201", "start_hour": 0.0, "end_hour": 1.5 },
+        { "order_id": "ORD-8002", "machine_id": "PRESS-202", "start_hour": 7.5, "end_hour": 9.0 }
+      ],
+      "schedule_delta": [
+        "ORD-9105-RUSH: PRESS-201 immediately (+2 changeovers)",
+        "ORD-8002: displaced to PRESS-202 @ +7.5h"
+      ],
+      "hard_constraint_violations": 0,
+      "scores": { "changeover_cost": 0.4, "urgency_served": 0.95, "labor_balance": 0.75, "energy": 0.7 },
+      "tradeoff_summary": "Fastest possible start, but costs two changeovers and pushes ORD-8002 to the evening for no due-date benefit.",
+      "confidence": 0.5
+    }
+  ]
+}

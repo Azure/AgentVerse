@@ -1,0 +1,22 @@
+# Agent spec — the declarative contract for the scenario simulator.
+# Shape mirrors Foundry's agent manifest (see templates/agentic-framework/agent-spec/).
+
+name: scenario-simulator
+description: >-
+  The what-if engine. Given a disruption and the plant state, it proposes
+  alternative schedules as structured moves and scores each on soft-constraint
+  trade-offs (changeover cost, urgency, labor balance, energy). Every proposal
+  is then validated by the deterministic feasibility checker in code — the
+  simulator proposes, the checker disposes.
+
+model: gpt-5.4
+model_env: REASONING_MODEL_DEPLOYMENT_NAME   # falls back to `model` if unset
+
+instructions: instructions.md
+
+io:
+  input: SimulatorInput
+  output: SimulatorOutput
+
+# No callable tools in v1: the feasibility check runs as a code gate on the
+# output (agent.py), and the plant snapshot arrives in the input payload.

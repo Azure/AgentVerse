@@ -1,0 +1,58 @@
+{
+  "scenarios": [
+    {
+      "id": "SCN-A",
+      "description": "Protect the tier-1 SLA: ORD-8001 first at material arrival, spread the rest across both presses.",
+      "moves": [
+        { "order_id": "ORD-8001-TIER1", "machine_id": "PRESS-201", "start_hour": 6.0, "end_hour": 8.0 },
+        { "order_id": "ORD-8002", "machine_id": "PRESS-201", "start_hour": 8.0, "end_hour": 9.5 },
+        { "order_id": "ORD-8003", "machine_id": "PRESS-202", "start_hour": 7.5, "end_hour": 9.0 },
+        { "order_id": "ORD-8004", "machine_id": "PRESS-202", "start_hour": 9.0, "end_hour": 11.0 }
+      ],
+      "schedule_delta": [
+        "ORD-8001-TIER1: PRESS-201 @ +6.0h (meets the 8h SLA exactly)",
+        "ORD-8002: slips to +8.0h; ORD-8003/8004: move to PRESS-202 evening (+2 changeovers)"
+      ],
+      "hard_constraint_violations": 0,
+      "scores": { "changeover_cost": 0.45, "urgency_served": 0.95, "labor_balance": 0.7, "energy": 0.65 },
+      "tradeoff_summary": "Protects the tier-1 SLA exactly; costs two extra changeovers and slips the three standard orders into the evening.",
+      "confidence": 0.7
+    },
+    {
+      "id": "SCN-B",
+      "description": "Minimize changeovers: batch the standard panels on PRESS-201, ORD-8001 runs after ORD-7801.",
+      "moves": [
+        { "order_id": "ORD-8002", "machine_id": "PRESS-201", "start_hour": 6.0, "end_hour": 7.5 },
+        { "order_id": "ORD-8003", "machine_id": "PRESS-201", "start_hour": 7.5, "end_hour": 9.0 },
+        { "order_id": "ORD-8004", "machine_id": "PRESS-201", "start_hour": 9.0, "end_hour": 11.0 },
+        { "order_id": "ORD-8001-TIER1", "machine_id": "PRESS-202", "start_hour": 7.5, "end_hour": 9.5 }
+      ],
+      "schedule_delta": [
+        "ORD-8002/8003/8004: batched consecutively on PRESS-201 from +6.0h",
+        "ORD-8001-TIER1: PRESS-202 @ +7.5h (misses the 8h SLA by ~1.5h)"
+      ],
+      "hard_constraint_violations": 0,
+      "scores": { "changeover_cost": 0.9, "urgency_served": 0.4, "labor_balance": 0.8, "energy": 0.8 },
+      "tradeoff_summary": "Cheapest on changeovers, but the tier-1 order finishes ~1.5 h past its SLA.",
+      "confidence": 0.65
+    },
+    {
+      "id": "SCN-C",
+      "description": "Middle path: protect the SLA and defer only ORD-8004 to the off-peak night window.",
+      "moves": [
+        { "order_id": "ORD-8001-TIER1", "machine_id": "PRESS-201", "start_hour": 6.0, "end_hour": 8.0 },
+        { "order_id": "ORD-8002", "machine_id": "PRESS-202", "start_hour": 7.5, "end_hour": 9.0 },
+        { "order_id": "ORD-8003", "machine_id": "PRESS-201", "start_hour": 8.0, "end_hour": 9.5 },
+        { "order_id": "ORD-8004", "machine_id": "PRESS-201", "start_hour": 12.0, "end_hour": 14.0 }
+      ],
+      "schedule_delta": [
+        "ORD-8001-TIER1: PRESS-201 @ +6.0h (meets the SLA)",
+        "ORD-8004: deferred to the +12h night window (due +20h, still on time)"
+      ],
+      "hard_constraint_violations": 0,
+      "scores": { "changeover_cost": 0.65, "urgency_served": 0.8, "labor_balance": 0.55, "energy": 0.75 },
+      "tradeoff_summary": "Meets the SLA with only one changeover more than batching, but pushes ORD-8004 onto the night shift.",
+      "confidence": 0.6
+    }
+  ]
+}

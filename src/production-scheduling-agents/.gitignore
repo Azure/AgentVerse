@@ -1,0 +1,44 @@
+# ---- Secrets & local config --------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# ---- Node / frontend ---------------------------------------------------------
+node_modules/
+dist/
+.vite/
+*.local
+
+# ---- Terraform ---------------------------------------------------------------
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+
+# ---- Generated / runtime -----------------------------------------------------
+output/
+last_report.json
+*.log
+
+# ---- OS / editor -------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+infra/app.zip

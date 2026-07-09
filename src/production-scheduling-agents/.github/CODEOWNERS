@@ -1,0 +1,21 @@
+# Code ownership for Production Scheduling AI Agents.
+# Each domain is owned by a team; a PR touching that path needs the team's approval.
+# Replace {{@org/team}} handles with real teams. For a solo demo, point them all at your
+# own handle to allow self-merge.
+#
+# Order matters: the LAST matching pattern wins.
+
+# Default owner for everything.
+*                              {{@your-handle}}
+
+# Per-domain ownership — the governance "wow": a change to constraint classification or
+# the escalation policy needs the plant operations team, and can't merge without them.
+/agents/                       {{@org/platform-team}}
+/agents/constraint-monitor/    {{@org/plant-operations-team}}
+/agents/schedule-orchestrator/ {{@org/plant-operations-team}}
+/agents/scenario-simulator/    {{@org/production-planning-team}}
+/agents/schedule-dispatcher/   {{@org/mes-integration-team}}
+
+# Infra and evals often warrant tighter review.
+/infra/                        {{@org/platform-team}}
+/evals/                        {{@org/qa-team}}

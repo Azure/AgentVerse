@@ -1,0 +1,76 @@
+# Eval gate — runs the golden-dataset suite on every PR that touches the agents or evals,
+# and blocks the merge on regression. Replace {{PLACEHOLDERS}} and wire your Azure auth.
+#
+# NOTE: paths are relative to THIS demo folder. If the demo lives in a subfolder of a larger
+# repo, set `defaults.run.working-directory` and adjust the `paths:` filter accordingly.
+
+name: eval-gate
+
+on:
+  pull_request:
+    paths:
+      - "agents/**"
+      - "evals/**"
+
+permissions:
+  contents: read
+  pull-requests: write        # to comment the results table
+  id-token: write             # federated OIDC login to Azure (no secrets)
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Federated OIDC — configure a service principal + these repo secrets/vars.
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Run evals
+        id: evals
+        env:
+          AZURE_OPENAI_ENDPOINT: ${{ vars.AZURE_OPENAI_ENDPOINT }}
+        run: python -m evals.run_evals    # must exit non-zero if the pass rate drops
+
+      - name: Comment results on PR
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = '### Eval gate\n';
+            try {
+              const report = JSON.parse(fs.readFileSync('evals/last_report.json', 'utf8'));
+              body += `Pass rate: **${report.pass_rate ?? 'n/a'}**\n\n`;
+              body += '| Case | Result |\n|------|--------|\n';
+              for (const c of (report.cases ?? [])) {
+                body += `| ${c.id} | ${c.passed ? '✅' : '❌'} |\n`;
+              }
+            } catch (e) {
+              body += `Could not read report: ${e.message}`;
+            }
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: evals/last_report.json

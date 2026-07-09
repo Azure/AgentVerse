@@ -1,0 +1,39 @@
+{
+  "$comment": "The mock plant: 5 machines, 8 orders, materials, changeover matrix. Hours are relative to 'now'. The three scripted disruptions in disruptions.py reference these ids.",
+  "machines": [
+    { "id": "CNC-102", "name": "CNC mill 102", "capabilities": ["bracket"], "status": "running" },
+    { "id": "CNC-104", "name": "CNC mill 104", "capabilities": ["bracket", "housing"], "status": "idle" },
+    { "id": "PRESS-201", "name": "Stamping press 201", "capabilities": ["panel"], "status": "running" },
+    { "id": "PRESS-202", "name": "Stamping press 202", "capabilities": ["panel", "housing"], "status": "running" },
+    { "id": "ASM-301", "name": "Assembly cell 301", "capabilities": ["assembly"], "status": "running" }
+  ],
+  "orders": [
+    { "id": "ORD-7712", "product": "bracket", "quantity": 40, "run_hours": 2.0, "due_hours": 6, "customer_tier": "standard", "material": "STEEL-01" },
+    { "id": "ORD-7801", "product": "housing", "quantity": 25, "run_hours": 3.0, "due_hours": 12, "customer_tier": "standard", "material": "STEEL-01" },
+    { "id": "ORD-8001-TIER1", "product": "panel", "quantity": 60, "run_hours": 2.0, "due_hours": 8, "customer_tier": "tier1", "material": "AL-6061" },
+    { "id": "ORD-8002", "product": "panel", "quantity": 30, "run_hours": 1.5, "due_hours": 16, "customer_tier": "standard", "material": "AL-6061" },
+    { "id": "ORD-8003", "product": "panel", "quantity": 30, "run_hours": 1.5, "due_hours": 18, "customer_tier": "standard", "material": "AL-6061" },
+    { "id": "ORD-8004", "product": "panel", "quantity": 45, "run_hours": 2.0, "due_hours": 20, "customer_tier": "standard", "material": "AL-6061" },
+    { "id": "ORD-9010", "product": "panel", "quantity": 15, "run_hours": 1.0, "due_hours": 10, "customer_tier": "standard", "material": "STEEL-01" },
+    { "id": "ORD-6120", "product": "assembly", "quantity": 20, "run_hours": 4.0, "due_hours": 22, "customer_tier": "standard", "material": "STEEL-01" }
+  ],
+  "materials": [
+    { "id": "STEEL-01", "available": true, "eta_hours": 0 },
+    { "id": "AL-6061", "available": true, "eta_hours": 0 }
+  ],
+  "changeover_minutes": {
+    "bracket->bracket": 5, "bracket->housing": 25, "housing->bracket": 25,
+    "housing->housing": 5, "panel->panel": 10, "panel->housing": 30,
+    "housing->panel": 30, "assembly->assembly": 5
+  },
+  "initial_schedule": [
+    { "order_id": "ORD-7712", "machine_id": "CNC-102", "start_hour": 0.0, "end_hour": 2.0 },
+    { "order_id": "ORD-7801", "machine_id": "PRESS-202", "start_hour": 4.5, "end_hour": 7.5 },
+    { "order_id": "ORD-8001-TIER1", "machine_id": "PRESS-202", "start_hour": 0.0, "end_hour": 2.0 },
+    { "order_id": "ORD-8002", "machine_id": "PRESS-201", "start_hour": 0.0, "end_hour": 1.5 },
+    { "order_id": "ORD-8003", "machine_id": "PRESS-201", "start_hour": 1.5, "end_hour": 3.0 },
+    { "order_id": "ORD-8004", "machine_id": "PRESS-202", "start_hour": 2.0, "end_hour": 4.0 },
+    { "order_id": "ORD-9010", "machine_id": "PRESS-201", "start_hour": 3.0, "end_hour": 4.0 },
+    { "order_id": "ORD-6120", "machine_id": "ASM-301", "start_hour": 0.0, "end_hour": 4.0 }
+  ]
+}

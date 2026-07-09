@@ -1,0 +1,58 @@
+# AgentVerse catalog manifest for this demo.
+# Validate: python ../templates/catalog/build_catalog.py --validate agentverse.yaml
+# Full field reference: ../templates/catalog/README.md and agentverse.schema.json
+
+apiVersion: agentverse/v1
+
+name: production-scheduling-agents
+title: Production Scheduling AI Agents
+tagline: Constraint-aware, self-healing production scheduling for manufacturing plants.
+description: >-
+  A manufacturing plant's daily schedule collapses every time a machine goes down, a
+  material shipment slips, or a priority order lands. This demo shows an agentic
+  orchestration layer that sits on top of existing ERP/MES systems and behaves like an
+  experienced production planner who never sleeps: it continuously monitors machine
+  telemetry, material flow, and maintenance calendars; classifies disruptions against
+  hard and soft constraints; simulates alternative schedules and their trade-offs
+  (changeovers vs. urgency, labor balancing, energy windows); autonomously applies the
+  best adjustment; and escalates only genuinely ambiguous decisions to a human planner.
+  Aimed at manufacturing/operations audiences evaluating agentic AI beyond chat.
+
+status: experimental
+difficulty: intermediate
+tags: [manufacturing, production-scheduling, constraint-optimization, supply-chain, human-in-the-loop]
+owners: ["@{{your-handle}}"]
+
+stack:
+  framework: Microsoft Agent Framework
+  backend: FastAPI
+  frontend: Vanilla HTML/JS
+  iac: Terraform
+  language: [Python]
+
+orchestration: orchestrator-workers   # + human-in-the-loop escalation (see PATTERNS.md §5, §8)
+
+# Two LLM agents where judgment lives; sensing (constraint monitor) and acting
+# (schedule dispatcher) are deterministic code by design — see agents/README.md.
+agents:
+  - name: schedule-orchestrator
+    role: Decides autonomous adjustment vs. escalation to the planner; a deterministic policy gate enforces the rules.
+    model: gpt-4.1
+    tools: []
+  - name: scenario-simulator
+    role: Generates and scores alternative schedules; every proposal re-validated by the deterministic feasibility checker.
+    model: gpt-5.4
+    tools: []
+
+models: [gpt-4.1, gpt-5.4]
+azureServices: [Azure AI Foundry, Application Insights]
+capabilities: [guardrails, evals, observability, human-in-the-loop]
+
+entrypoints:
+  quickstart: GETTING_STARTED.md
+  backend: python -m uvicorn backend.main:app --port 8000
+  frontend: http://localhost:8000            # served by the backend (same-origin)
+  deploy: cd infra && terraform apply        # provisions Azure AND ships the app code
+
+media: []
+links: {}

@@ -1,0 +1,8 @@
+# Copy to terraform.tfvars and fill in. Do NOT commit terraform.tfvars (it's gitignored).
+
+resource_group       = "rg-production-scheduling-demo"
+location             = "eastus2"
+foundry_account_name = "prodschedfoundry"   # globally-unique, lowercase, <= 24 chars
+webapp_name          = "prodsched-demo"     # globally-unique -> prodsched-demo.azurewebsites.net
+model_deployment_name = "gpt-4.1"
+reasoning_model_deployment_name = "gpt-5.4"

@@ -1,0 +1,9 @@
+{
+  "decision": "auto_reschedule",
+  "chosen_scenario_id": "SCN-A",
+  "confidence": 0.92,
+  "rationale": "CNC-102 is down for an estimated 45 minutes. Moving ORD-7712 to CNC-104, which is idle and tool-compatible, keeps the order on time at the cost of one extra changeover. Waiting for the repair (SCN-B) would risk the due time for no benefit, so I applied the move.",
+  "escalated": false,
+  "options_for_planner": [],
+  "security_flag": false
+}
