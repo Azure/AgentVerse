@@ -1,6 +1,6 @@
 {
   "apiVersion": "agentverse/v1",
-  "count": 2,
+  "count": 4,
   "demos": [
     {
       "apiVersion": "agentverse/v1",
@@ -149,6 +149,146 @@
         "docs": "https://learn.microsoft.com/azure/ai-foundry/agents/"
       },
       "_path": "insurance-ai-agents"
+    },
+    {
+      "apiVersion": "agentverse/v1",
+      "name": "production-scheduling-agents",
+      "title": "Production Scheduling AI Agents",
+      "tagline": "Constraint-aware, self-healing production scheduling for manufacturing plants.",
+      "description": "A manufacturing plant's daily schedule collapses every time a machine goes down, a material shipment slips, or a priority order lands. This demo shows an agentic orchestration layer that sits on top of existing ERP/MES systems and behaves like an experienced production planner who never sleeps: it continuously monitors machine telemetry, material flow, and maintenance calendars; classifies disruptions against hard and soft constraints; simulates alternative schedules and their trade-offs (changeovers vs. urgency, labor balancing, energy windows); autonomously applies the best adjustment; and escalates only genuinely ambiguous decisions to a human planner. Aimed at manufacturing/operations audiences evaluating agentic AI beyond chat.",
+      "status": "experimental",
+      "difficulty": "intermediate",
+      "tags": [
+        "manufacturing",
+        "production-scheduling",
+        "constraint-optimization",
+        "supply-chain",
+        "human-in-the-loop"
+      ],
+      "owners": [
+        "@{{your-handle}}"
+      ],
+      "stack": {
+        "framework": "Microsoft Agent Framework",
+        "backend": "FastAPI",
+        "frontend": "Vanilla HTML/JS",
+        "iac": "Terraform",
+        "language": [
+          "Python"
+        ]
+      },
+      "orchestration": "orchestrator-workers",
+      "agents": [
+        {
+          "name": "schedule-orchestrator",
+          "role": "Decides autonomous adjustment vs. escalation to the planner; a deterministic policy gate enforces the rules.",
+          "model": "gpt-4.1",
+          "tools": []
+        },
+        {
+          "name": "scenario-simulator",
+          "role": "Generates and scores alternative schedules; every proposal re-validated by the deterministic feasibility checker.",
+          "model": "gpt-5.4",
+          "tools": []
+        }
+      ],
+      "models": [
+        "gpt-4.1",
+        "gpt-5.4"
+      ],
+      "azureServices": [
+        "Azure AI Foundry",
+        "Application Insights"
+      ],
+      "capabilities": [
+        "guardrails",
+        "evals",
+        "observability",
+        "human-in-the-loop"
+      ],
+      "entrypoints": {
+        "quickstart": "GETTING_STARTED.md",
+        "backend": "python -m uvicorn backend.main:app --port 8000",
+        "frontend": "http://localhost:8000",
+        "deploy": "cd infra && terraform apply"
+      },
+      "media": [],
+      "links": {},
+      "_path": "production-scheduling-agents"
+    },
+    {
+      "apiVersion": "agentverse/v1",
+      "name": "signal-to-service",
+      "title": "Signal-to-Service",
+      "tagline": "From a telemetry anomaly to a scheduled, SOP-backed work order — with a human in the loop.",
+      "description": "A manufacturing predictive-maintenance demo. A simulated telemetry anomaly triggers an agent pipeline that diagnoses the failure mode and remaining useful life, retrieves and cites the correct SOP from the manuals (RAG), pauses for a human governance approval, then creates the work order, schedules a technician by skill/availability and attaches the SOP. Shows event-triggered orchestration, grounded retrieval with citations, and a human-in-the-loop approval gate.",
+      "status": "experimental",
+      "difficulty": "intermediate",
+      "tags": [
+        "manufacturing",
+        "predictive-maintenance",
+        "field-service",
+        "rag",
+        "human-in-the-loop"
+      ],
+      "owners": [
+        "@heblasco"
+      ],
+      "stack": {
+        "framework": "Microsoft Agent Framework",
+        "backend": "FastAPI",
+        "frontend": "Vanilla HTML/JS",
+        "iac": "Terraform",
+        "language": [
+          "Python"
+        ]
+      },
+      "orchestration": "human-in-the-loop",
+      "agents": [
+        {
+          "name": "signal-to-service-diagnosis-agent",
+          "role": "Classifies the failure mode, criticality and remaining useful life from telemetry.",
+          "model": "gpt-4.1",
+          "tools": []
+        },
+        {
+          "name": "signal-to-service-knowledge-agent",
+          "role": "Summarises and cites the correct SOP from retrieved manual passages (RAG).",
+          "model": "gpt-4.1",
+          "tools": [
+            "retrieve_sop"
+          ]
+        },
+        {
+          "name": "signal-to-service-action-agent",
+          "role": "Drafts the work order; app tools create it in the CMMS and schedule a technician.",
+          "model": "gpt-4.1",
+          "tools": [
+            "create_work_order",
+            "assign_technician"
+          ]
+        }
+      ],
+      "models": [
+        "gpt-4.1"
+      ],
+      "azureServices": [
+        "Azure AI Foundry",
+        "Azure AI Search"
+      ],
+      "capabilities": [
+        "tools",
+        "human-in-the-loop",
+        "governance",
+        "observability"
+      ],
+      "entrypoints": {
+        "quickstart": "README.md#quick-start",
+        "backend": "uvicorn app.backend.main:app --port 8767",
+        "frontend": "app/frontend/index.html",
+        "deploy": "infra/README.md"
+      },
+      "_path": "signal-to-service"
     }
   ]
 }

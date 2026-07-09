@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal-to-Service · Predictive Maintenance Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">Signal<span>-to-</span>Service</h1>
+            <p class="subtitle">Manufacturing · Predictive maintenance + field service · from the signal to the action</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 1. Telemetry ------------------------------------------------- -->
+        <section class="panel">
+            <div class="panel-head">
+                <h2 class="section-title">1 · Telemetry stream</h2>
+                <div class="controls">
+                    <label class="ctl">Asset
+                        <select id="assetSelect"></select>
+                    </label>
+                    <button id="healthyBtn" class="btn btn-ghost">Healthy stream</button>
+                    <button id="injectBtn" class="btn btn-primary">⚠ Inject anomaly</button>
+                </div>
+            </div>
+            <div id="assetMeta" class="asset-meta"></div>
+            <div class="chart-wrap">
+                <svg id="chart" viewBox="0 0 760 260" preserveAspectRatio="none"></svg>
+                <div class="legend">
+                    <span class="lg lg-vib">■ vibration (mm/s)</span>
+                    <span class="lg lg-temp">■ temperature (°C)</span>
+                    <span class="lg lg-cur">■ current (A)</span>
+                </div>
+            </div>
+            <div id="streamStatus" class="stream-status">Select an asset and inject an anomaly to trigger the agent.</div>
+        </section>
+
+        <!-- 2. Agent pipeline ------------------------------------------- -->
+        <section class="panel">
+            <h2 class="section-title">2 · Agent pipeline</h2>
+            <div class="pipeline">
+                <div class="agent-card" data-agent="diagnosis">
+                    <div class="agent-header">
+                        <div class="agent-icon">🩺</div>
+                        <div class="agent-info">
+                            <h3 class="agent-title">Diagnosis</h3>
+                            <div class="agent-status"><span class="status-dot" data-status="idle"></span><span class="status-text">Idle</span></div>
+                        </div>
+                    </div>
+                    <div class="agent-log"></div>
+                </div>
+                <div class="agent-card" data-agent="knowledge">
+                    <div class="agent-header">
+                        <div class="agent-icon">📚</div>
+                        <div class="agent-info">
+                            <h3 class="agent-title">Knowledge (RAG)</h3>
+                            <div class="agent-status"><span class="status-dot" data-status="idle"></span><span class="status-text">Idle</span></div>
+                        </div>
+                    </div>
+                    <div class="agent-log"></div>
+                </div>
+                <div class="agent-card" data-agent="action">
+                    <div class="agent-header">
+                        <div class="agent-icon">🛠️</div>
+                        <div class="agent-info">
+                            <h3 class="agent-title">Action</h3>
+                            <div class="agent-status"><span class="status-dot" data-status="idle"></span><span class="status-text">Idle</span></div>
+                        </div>
+                    </div>
+                    <div class="agent-log"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Findings ------------------------------------------------- -->
+        <section class="panel two-col">
+            <div>
+                <h2 class="section-title">3 · Diagnosis</h2>
+                <div id="diagnosisCard" class="result-card muted">Awaiting diagnosis…</div>
+            </div>
+            <div>
+                <h2 class="section-title">4 · SOP (grounded &amp; cited)</h2>
+                <div id="sopCard" class="result-card muted">Awaiting knowledge retrieval…</div>
+            </div>
+        </section>
+
+        <!-- 4. Governance gate ------------------------------------------ -->
+        <section id="approvalSection" class="panel governance hidden">
+            <h2 class="section-title">5 · Human-in-the-loop approval</h2>
+            <div id="proposalCard" class="proposal"></div>
+            <div class="approval-controls">
+                <input id="reasonInput" class="reason" type="text" placeholder="Optional note (e.g. approved for next maintenance window)…">
+                <button id="approveBtn" class="btn btn-approve">✓ Approve &amp; dispatch</button>
+                <button id="rejectBtn" class="btn btn-reject">✕ Reject</button>
+            </div>
+        </section>
+
+        <!-- 5. Work order ----------------------------------------------- -->
+        <section id="workOrderSection" class="panel hidden">
+            <h2 class="section-title">6 · Work order dispatched</h2>
+            <div id="workOrderCard" class="work-order"></div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+    <script src="/static/app.js"></script>
+</body>
+</html>

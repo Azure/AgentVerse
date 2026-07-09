@@ -46,6 +46,17 @@ locals {
         AZURE_CLIENT_ID                       = module.platform.identity_client_id
       }
     }
+    # Signal-to-Service uses the shared Foundry project + gpt-4.1. The unified
+    # deploy relies on the bundled local RAG (no AZURE_SEARCH_ENDPOINT), so no
+    # extra Azure AI Search is provisioned; the standalone infra/ still can.
+    "signal-to-service" = {
+      "web" = {
+        PROJECT_ENDPOINT                      = module.ai.project_endpoint
+        MODEL_DEPLOYMENT_NAME                 = module.ai.deployment_names.chat
+        APPLICATIONINSIGHTS_CONNECTION_STRING = module.platform.app_insights_connection_string
+        AZURE_CLIENT_ID                       = module.platform.identity_client_id
+      }
+    }
   }
 
   # Environment for each demo's agent-registration hook (runs locally as the
@@ -55,6 +66,10 @@ locals {
       PROJECT_ENDPOINT      = module.ai.project_endpoint
       MODEL_DEPLOYMENT_NAME = module.ai.deployment_names.chat
       BING_CONNECTION_NAME  = module.ai.bing_connection_name
+    }
+    "signal-to-service" = {
+      PROJECT_ENDPOINT      = module.ai.project_endpoint
+      MODEL_DEPLOYMENT_NAME = module.ai.deployment_names.chat
     }
   }
 
