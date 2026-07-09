@@ -1,4 +1,4 @@
-/* AgentVerse portal — catalog-driven tabbed SPA.
+/* AgentVerse portal — catalog-driven SPA with a landing page + one tab per demo.
  *
  * Data sources:
  *   - catalog.json         : presentation metadata generated from each demo's
@@ -6,23 +6,39 @@
  *   - window.__DEMOS__     : demo_id => public web URL, injected at runtime by the
  *                            container entrypoint from the DEMOS_JSON env var.
  * The two are linked by the demo id (catalog `name` === DEMOS_JSON key).
+ *
+ * Views: the landing page (HOME_VIEW) is shown first and lists every catalog demo
+ * as a card; selecting a card or a tab opens that demo's embedded frontend. Any
+ * new demo added to the catalog automatically gets both a card and a tab.
  */
 (function () {
   "use strict";
 
   var DEMO_URLS = window.__DEMOS__ || {};
   var FRAME_TIMEOUT_MS = 7000;
+  var HOME_VIEW = "__home__";
 
   var tabsEl = document.getElementById("tabs");
   var panelEl = document.getElementById("panel");
+  var homeEl = document.getElementById("home");
+  var gridEl = document.getElementById("demo-grid");
   var emptyEl = document.getElementById("empty");
   var countEl = document.getElementById("demo-count");
+  var stageEl = document.getElementById("stage");
+  var brandEl = document.getElementById("brand");
+
+  var demos = [];
+  var active = HOME_VIEW;
 
   function el(tag, cls, text) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
     if (text != null) e.textContent = text;
     return e;
+  }
+
+  function titleCase(s) {
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
   }
 
   // Merge catalog metadata with the injected URL map into one demo list.
@@ -33,18 +49,22 @@
         id: d.name,
         title: d.title || d.name,
         tagline: d.tagline || "",
+        description: d.description || "",
         status: d.status || "",
         orchestration: d.orchestration || "",
-        agents: d.agents || [],
-        tags: d.tags || [],
+        agents: Array.isArray(d.agents) ? d.agents : [],
+        tags: Array.isArray(d.tags) ? d.tags : [],
         stack: d.stack || {},
         url: DEMO_URLS[d.name] || null,
       };
     });
-    // Deployed demos without catalog metadata still get a minimal tab.
+    // Deployed demos without catalog metadata still get a minimal entry.
     Object.keys(DEMO_URLS).forEach(function (id) {
       if (!byId[id]) {
-        byId[id] = { id: id, title: id, tagline: "", agents: [], tags: [], stack: {}, url: DEMO_URLS[id] };
+        byId[id] = {
+          id: id, title: id, tagline: "", description: "", status: "",
+          orchestration: "", agents: [], tags: [], stack: {}, url: DEMO_URLS[id],
+        };
       }
     });
     return Object.keys(byId)
@@ -52,19 +72,95 @@
       .map(function (k) { return byId[k]; });
   }
 
-  function renderTabs(demos, activeId, onSelect) {
+  // A restrained status badge for a demo card.
+  function statusMeta(demo) {
+    if (!demo.url) return { cls: "badge muted", label: "Not deployed" };
+    var s = (demo.status || "").toLowerCase();
+    if (s === "stable") return { cls: "badge ok", label: "Stable" };
+    if (s === "beta") return { cls: "badge info", label: "Beta" };
+    if (s === "experimental") return { cls: "badge warn", label: "Experimental" };
+    return { cls: "badge info", label: s ? titleCase(s) : "Live" };
+  }
+
+  function findDemo(id) {
+    for (var i = 0; i < demos.length; i++) {
+      if (demos[i].id === id) return demos[i];
+    }
+    return null;
+  }
+
+  /* ---- Tabs ------------------------------------------------------------- */
+  function renderTabs() {
     tabsEl.innerHTML = "";
+
+    var homeTab = el("button", "tab" + (active === HOME_VIEW ? " active" : ""), "Home");
+    homeTab.type = "button";
+    if (active === HOME_VIEW) homeTab.setAttribute("aria-current", "page");
+    homeTab.onclick = function () { select(HOME_VIEW); };
+    tabsEl.appendChild(homeTab);
+
     demos.forEach(function (d) {
-      var t = el("button", "tab" + (d.id === activeId ? " active" : ""));
+      var t = el("button", "tab" + (d.id === active ? " active" : ""));
+      t.type = "button";
       var dot = el("span", "dot " + (d.url ? "up" : "down"));
       t.appendChild(dot);
       t.appendChild(document.createTextNode(d.title));
       t.title = d.url ? "Deployed" : "Not deployed";
-      t.onclick = function () { onSelect(d.id); };
+      if (d.id === active) t.setAttribute("aria-current", "page");
+      t.onclick = function () { select(d.id); };
       tabsEl.appendChild(t);
     });
   }
 
+  /* ---- Landing page ----------------------------------------------------- */
+  function renderHome() {
+    gridEl.innerHTML = "";
+    demos.forEach(function (d) {
+      var card = el("article", "demo-card");
+
+      var top = el("div", "card-top");
+      top.appendChild(el("h3", "card-title", d.title));
+      var sm = statusMeta(d);
+      top.appendChild(el("span", sm.cls, sm.label));
+      card.appendChild(top);
+
+      if (d.tagline) card.appendChild(el("p", "card-tagline", d.tagline));
+      card.appendChild(el("p", "card-desc",
+        d.description || d.tagline || "No description available yet."));
+
+      var meta = el("div", "card-meta");
+      if (d.orchestration) meta.appendChild(el("span", "tagpill", d.orchestration));
+      if (d.agents.length) {
+        meta.appendChild(el("span", "tagpill",
+          d.agents.length + " agent" + (d.agents.length === 1 ? "" : "s")));
+      }
+      var orch = (d.orchestration || "").toLowerCase();
+      d.tags.filter(function (tag) { return tag.toLowerCase() !== orch; })
+        .slice(0, 3)
+        .forEach(function (tag) {
+          meta.appendChild(el("span", "tagpill muted", tag));
+        });
+      card.appendChild(meta);
+
+      var actions = el("div", "card-actions");
+      var openBtn = el("button", "btn primary", d.url ? "Open demo" : "View details");
+      openBtn.type = "button";
+      openBtn.onclick = function () { select(d.id); };
+      actions.appendChild(openBtn);
+      if (d.url) {
+        var ext = el("a", "btn ghost", "Open in new tab \u2197");
+        ext.href = d.url;
+        ext.target = "_blank";
+        ext.rel = "noopener";
+        actions.appendChild(ext);
+      }
+      card.appendChild(actions);
+
+      gridEl.appendChild(card);
+    });
+  }
+
+  /* ---- Demo panel (iframe) ---------------------------------------------- */
   function renderPanel(demo) {
     panelEl.innerHTML = "";
 
@@ -104,10 +200,9 @@
 
       var fallback = el("div", "frame-fallback hidden");
       fallback.appendChild(el("h3", null, "Can't display this demo here"));
-      var p = el("p", null,
+      fallback.appendChild(el("p", null,
         "The demo may block embedding (X-Frame-Options / CSP) or require a sign-in " +
-        "flow that doesn't work inside a frame. Open it directly instead.");
-      fallback.appendChild(p);
+        "flow that doesn't work inside a frame. Open it directly instead."));
       var openBtn = el("a", "btn primary", "Open the demo");
       openBtn.href = demo.url;
       openBtn.target = "_blank";
@@ -116,9 +211,11 @@
 
       var loaded = false;
       frame.addEventListener("load", function () { loaded = true; });
-      // If the frame never loads (blocked/slow), reveal the fallback.
+      // If the frame never loads (blocked/slow), reveal the fallback — but only
+      // if this panel is still mounted (guards against a stale timeout firing
+      // after the user switched to another view).
       setTimeout(function () {
-        if (!loaded) fallback.classList.remove("hidden");
+        if (!loaded && document.contains(fallback)) fallback.classList.remove("hidden");
       }, FRAME_TIMEOUT_MS);
 
       wrap.appendChild(frame);
@@ -134,23 +231,61 @@
     panelEl.appendChild(wrap);
   }
 
+  /* ---- Navigation ------------------------------------------------------- */
+  function select(view) {
+    if (view !== HOME_VIEW && !findDemo(view)) view = HOME_VIEW;
+    active = view;
+    renderTabs();
+
+    if (view === HOME_VIEW) {
+      panelEl.classList.add("hidden");
+      homeEl.classList.remove("hidden");
+      stageEl.classList.add("home-mode");
+      renderHome();
+      stageEl.scrollTop = 0;
+    } else {
+      homeEl.classList.add("hidden");
+      panelEl.classList.remove("hidden");
+      stageEl.classList.remove("home-mode");
+      renderPanel(findDemo(view));
+    }
+    setHash(view);
+  }
+
+  /* ---- Minimal hash routing (shareable deep links) ---------------------- */
+  function viewFromHash() {
+    var h = (location.hash || "").replace(/^#/, "");
+    if (!h || h === "home") return HOME_VIEW;
+    if (h.indexOf("demo-") === 0) {
+      var id = decodeURIComponent(h.slice(5));
+      if (findDemo(id)) return id;
+    }
+    return HOME_VIEW;
+  }
+
+  function setHash(view) {
+    var h = view === HOME_VIEW ? "home" : "demo-" + encodeURIComponent(view);
+    if (location.hash !== "#" + h) location.hash = h;
+  }
+
   function main(catalog) {
-    var demos = buildDemos(catalog);
+    demos = buildDemos(catalog);
     countEl.textContent = demos.length + " demo" + (demos.length === 1 ? "" : "s");
 
     if (demos.length === 0) {
+      homeEl.classList.add("hidden");
+      panelEl.classList.add("hidden");
       emptyEl.classList.remove("hidden");
       return;
     }
 
-    var active = demos[0].id;
-    function select(id) {
-      active = id;
-      var demo = demos.filter(function (d) { return d.id === id; })[0];
-      renderTabs(demos, active, select);
-      renderPanel(demo);
-    }
-    select(active);
+    brandEl.addEventListener("click", function () { select(HOME_VIEW); });
+    window.addEventListener("hashchange", function () {
+      var v = viewFromHash();
+      if (v !== active) select(v);
+    });
+
+    select(viewFromHash());
   }
 
   fetch("catalog.json", { cache: "no-store" })
