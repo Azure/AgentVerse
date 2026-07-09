@@ -116,4 +116,45 @@ demos = {
     }
   }
 
+  # -------------------------------------------------------------------------
+  # Production Scheduling AI Agents — single container: FastAPI serves the
+  # planner dashboard (Vanilla HTML/JS) and the API on the same port.
+  #
+  # Disabled by default: provisions an Azure AI Foundry account plus two model
+  # deployments (gpt-4.1 for the orchestrator, gpt-5.4 for the simulator).
+  # Without PROJECT_ENDPOINT the demo runs in deterministic replay mode, which
+  # needs no Azure credentials and is safe for local development.
+  # -------------------------------------------------------------------------
+  production-scheduling-agents = {
+    enabled = false
+
+    services = [
+      {
+        name         = "web"
+        context      = "src/production-scheduling-agents"
+        dockerfile   = "src/production-scheduling-agents/Dockerfile"
+        target_port  = 8000
+        is_web       = true
+        external     = true
+        min_replicas = 1
+        max_replicas = 1
+        env = {
+          # Non-secret endpoints produced by the demo's own Terraform.
+          # Fill these in after the IaC has been applied (or leave unset for
+          # replay/demo mode — the app works without a live Foundry project).
+          # PROJECT_ENDPOINT                = "https://<foundry>.services.ai.azure.com/api/projects/<project>"
+          # MODEL_DEPLOYMENT_NAME           = "gpt-4.1"
+          # REASONING_MODEL_DEPLOYMENT_NAME = "gpt-5.4"
+        }
+      },
+    ]
+
+    # Provisions Azure AI Foundry account + the two model deployments.
+    iac = {
+      type    = "terraform"
+      command = "pwsh -NoProfile -Command \"Set-Location src/production-scheduling-agents/infra; terraform init; terraform apply -auto-approve\""
+      notes   = "Provisions Azure AI Foundry (AIServices) account, gpt-4.1 (chat) and gpt-5.4 (reasoning) deployments, App Insights."
+    }
+  }
+
 }
