@@ -182,7 +182,7 @@
         {
           "name": "schedule-orchestrator",
           "role": "Decides autonomous adjustment vs. escalation to the planner; a deterministic policy gate enforces the rules.",
-          "model": "gpt-4.1",
+          "model": "gpt-5.1",
           "tools": []
         },
         {
@@ -193,7 +193,7 @@
         }
       ],
       "models": [
-        "gpt-4.1",
+        "gpt-5.1",
         "gpt-5.4"
       ],
       "azureServices": [

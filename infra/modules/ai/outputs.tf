@@ -35,10 +35,12 @@ output "bing_connection_name" {
 
 output "deployment_names" {
   value = {
-    chat     = azurerm_cognitive_deployment.gpt41.name
-    image    = azurerm_cognitive_deployment.gpt_image_2.name
-    ins_chat = azurerm_cognitive_deployment.gpt_5_4_mini.name
-    voice    = azurerm_cognitive_deployment.gpt_realtime_mini.name
+    chat         = azurerm_cognitive_deployment.gpt41.name
+    image        = azurerm_cognitive_deployment.gpt_image_2.name
+    ins_chat     = azurerm_cognitive_deployment.gpt_5_4_mini.name
+    voice        = azurerm_cognitive_deployment.gpt_realtime_mini.name
+    ps_chat      = azurerm_cognitive_deployment.gpt_5_1.name
+    ps_reasoning = azurerm_cognitive_deployment.gpt_5_4.name
   }
 }
 
@@ -49,7 +51,9 @@ output "ready_id" {
     [azurerm_cognitive_deployment.gpt41.id,
       azurerm_cognitive_deployment.gpt_image_2.id,
       azurerm_cognitive_deployment.gpt_5_4_mini.id,
-    azurerm_cognitive_deployment.gpt_realtime_mini.id],
+      azurerm_cognitive_deployment.gpt_realtime_mini.id,
+      azurerm_cognitive_deployment.gpt_5_1.id,
+    azurerm_cognitive_deployment.gpt_5_4.id],
     [for r in azurerm_role_assignment.app : r.id],
     [azapi_resource.bing_connection.id],
   )))

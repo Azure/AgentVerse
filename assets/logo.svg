@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 268 64" role="img" aria-label="AgentVerse">
+  <defs>
+    <linearGradient id="av-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="av-word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon: "A" agent constellation inside an orbit ("verse") -->
+  <rect width="64" height="64" rx="15" fill="url(#av-bg)"/>
+  <ellipse cx="32" cy="34" rx="23" ry="9.5" fill="none" stroke="#ffffff" stroke-opacity=".30"
+           stroke-width="2" transform="rotate(-24 32 34)"/>
+  <g stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M20 47 L32 17 L44 47"/>
+    <path d="M24.8 37 L39.2 37"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="20" cy="47" r="4.2"/>
+    <circle cx="44" cy="47" r="4.2"/>
+    <circle cx="24.8" cy="37" r="3"/>
+    <circle cx="39.2" cy="37" r="3"/>
+  </g>
+  <circle cx="32" cy="17" r="4.6" fill="#dbeafe"/>
+
+  <!-- Wordmark (gradient reads on both light and dark backgrounds) -->
+  <text x="80" y="42" font-family="'Segoe UI', Arial, sans-serif" font-size="30"
+        font-weight="700" letter-spacing="-.5" fill="url(#av-word)">AgentVerse</text>
+</svg>

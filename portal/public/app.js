@@ -54,6 +54,7 @@
         orchestration: d.orchestration || "",
         agents: Array.isArray(d.agents) ? d.agents : [],
         tags: Array.isArray(d.tags) ? d.tags : [],
+        models: Array.isArray(d.models) ? d.models : [],
         stack: d.stack || {},
         url: DEMO_URLS[d.name] || null,
       };
@@ -63,7 +64,7 @@
       if (!byId[id]) {
         byId[id] = {
           id: id, title: id, tagline: "", description: "", status: "",
-          orchestration: "", agents: [], tags: [], stack: {}, url: DEMO_URLS[id],
+          orchestration: "", agents: [], tags: [], models: [], stack: {}, url: DEMO_URLS[id],
         };
       }
     });
@@ -116,19 +117,23 @@
   function renderHome() {
     gridEl.innerHTML = "";
     demos.forEach(function (d) {
-      var card = el("article", "demo-card");
+      var row = el("article", "demo-row");
 
-      var top = el("div", "card-top");
-      top.appendChild(el("h3", "card-title", d.title));
+      /* --- main column: identity + full description + metadata --- */
+      var main = el("div", "row-main");
+
+      var head = el("div", "row-head");
+      head.appendChild(el("h3", "row-title", d.title));
       var sm = statusMeta(d);
-      top.appendChild(el("span", sm.cls, sm.label));
-      card.appendChild(top);
+      head.appendChild(el("span", sm.cls, sm.label));
+      main.appendChild(head);
 
-      if (d.tagline) card.appendChild(el("p", "card-tagline", d.tagline));
-      card.appendChild(el("p", "card-desc",
+      if (d.tagline) main.appendChild(el("p", "row-tagline", d.tagline));
+      main.appendChild(el("p", "row-desc",
         d.description || d.tagline || "No description available yet."));
 
-      var meta = el("div", "card-meta");
+      // Meta pills: orchestration, agent count, then a few distinguishing tags.
+      var meta = el("div", "row-meta");
       if (d.orchestration) meta.appendChild(el("span", "tagpill", d.orchestration));
       if (d.agents.length) {
         meta.appendChild(el("span", "tagpill",
@@ -136,13 +141,29 @@
       }
       var orch = (d.orchestration || "").toLowerCase();
       d.tags.filter(function (tag) { return tag.toLowerCase() !== orch; })
-        .slice(0, 3)
+        .slice(0, 4)
         .forEach(function (tag) {
           meta.appendChild(el("span", "tagpill muted", tag));
         });
-      card.appendChild(meta);
+      if (meta.childNodes.length) main.appendChild(meta);
 
-      var actions = el("div", "card-actions");
+      row.appendChild(main);
+
+      /* --- side column: models + launch actions --- */
+      var side = el("div", "row-side");
+
+      if (d.models.length) {
+        var modelsBlock = el("div", "row-models");
+        modelsBlock.appendChild(el("span", "row-models-label", "Models"));
+        var chips = el("div", "model-chips");
+        d.models.forEach(function (m) {
+          chips.appendChild(el("span", "model-chip", m));
+        });
+        modelsBlock.appendChild(chips);
+        side.appendChild(modelsBlock);
+      }
+
+      var actions = el("div", "row-actions");
       var openBtn = el("button", "btn primary", d.url ? "Open demo" : "View details");
       openBtn.type = "button";
       openBtn.onclick = function () { select(d.id); };
@@ -154,9 +175,10 @@
         ext.rel = "noopener";
         actions.appendChild(ext);
       }
-      card.appendChild(actions);
+      side.appendChild(actions);
 
-      gridEl.appendChild(card);
+      row.appendChild(side);
+      gridEl.appendChild(row);
     });
   }
 

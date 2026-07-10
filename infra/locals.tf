@@ -57,6 +57,19 @@ locals {
         AZURE_CLIENT_ID                       = module.platform.identity_client_id
       }
     }
+    # Production-scheduling runs live on the shared Foundry project: gpt-5.1 for
+    # the orchestrator (MODEL_DEPLOYMENT_NAME) and gpt-5.4 for the reasoning
+    # scenario-simulator (REASONING_MODEL_DEPLOYMENT_NAME). Its UAMI already has
+    # the agent + inference roles on the shared account.
+    "production-scheduling-agents" = {
+      "web" = {
+        PROJECT_ENDPOINT                      = module.ai.project_endpoint
+        MODEL_DEPLOYMENT_NAME                 = module.ai.deployment_names.ps_chat
+        REASONING_MODEL_DEPLOYMENT_NAME       = module.ai.deployment_names.ps_reasoning
+        APPLICATIONINSIGHTS_CONNECTION_STRING = module.platform.app_insights_connection_string
+        AZURE_CLIENT_ID                       = module.platform.identity_client_id
+      }
+    }
   }
 
   # Environment for each demo's agent-registration hook (runs locally as the

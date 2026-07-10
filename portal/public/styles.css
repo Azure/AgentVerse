@@ -35,10 +35,11 @@ html, body {
 }
 .brand {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
+  align-items: center;
+  gap: 9px;
   border: 0;
   background: transparent;
+  color: #fff;
   padding: 4px 6px;
   margin-left: -6px;
   border-radius: 8px;
@@ -47,9 +48,19 @@ html, body {
 }
 .brand:hover { background: rgba(255, 255, 255, .06); }
 .brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.brand-mark { color: var(--accent); font-size: 18px; }
-.brand-name { font-weight: 700; font-size: 18px; letter-spacing: .2px; }
-.brand-sub { color: #94a3b8; font-size: 13px; }
+.brand-mark { display: inline-flex; align-items: center; }
+.brand-name { color: #fff; font-weight: 700; font-size: 18px; letter-spacing: .2px; }
+.brand-sub { color: #94a3b8; font-size: 13px; align-self: flex-end; padding-bottom: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 16px; }
+.ms-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, .14);
+}
+.ms-logo svg { display: block; }
+.ms-word { color: #f3f3f3; font-size: 15px; font-weight: 600; letter-spacing: .1px; }
 .pill {
   background: var(--bg-soft);
   color: #cbd5e1;
@@ -133,45 +144,50 @@ html, body {
 .section-title { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: .01em; }
 .section-sub { margin: 0; color: var(--muted); font-size: 13px; }
 
-.demo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-}
-.demo-card {
+.demo-list {
   display: flex;
   flex-direction: column;
+  gap: 14px;
+}
+.demo-row {
+  display: flex;
+  gap: 28px;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px 18px 16px;
-  transition: box-shadow .15s ease, transform .15s ease, border-color .15s ease;
+  border-radius: 16px;
+  padding: 24px 26px;
+  transition: box-shadow .15s ease, border-color .15s ease;
 }
-.demo-card:hover {
-  box-shadow: 0 8px 24px rgba(15, 23, 42, .09);
-  transform: translateY(-2px);
+.demo-row:hover {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .07);
   border-color: #cbd5e1;
 }
-.card-top {
+.row-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.row-head {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 6px;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
 }
-.card-title { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
-.card-tagline { margin: 0 0 10px; color: var(--text); font-size: 13.5px; font-weight: 500; }
-.card-desc {
-  margin: 0 0 14px;
+.row-title { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -.015em; }
+.row-tagline {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 14.5px;
+  font-weight: 500;
+  max-width: 72ch;
+}
+.row-desc {
+  margin: 0 0 16px;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.65;
+  max-width: 72ch;
 }
-.card-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.row-meta { display: flex; flex-wrap: wrap; gap: 6px; }
 .tagpill {
   background: var(--accent-soft);
   color: var(--accent);
@@ -181,7 +197,49 @@ html, body {
   font-weight: 600;
 }
 .tagpill.muted { background: #eef2f7; color: var(--muted); font-weight: 500; }
-.card-actions { display: flex; gap: 8px; margin-top: 16px; }
+
+.row-side {
+  flex: 0 0 216px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-left: 26px;
+  border-left: 1px solid var(--border);
+}
+.row-models { display: flex; flex-direction: column; gap: 8px; }
+.row-models-label {
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.model-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.model-chip {
+  font-family: ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.row-actions { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+.row-actions .btn { width: 100%; justify-content: center; }
+
+@media (max-width: 720px) {
+  .demo-row { flex-direction: column; gap: 18px; }
+  .row-side {
+    flex-basis: auto;
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+  }
+  .ms-word { display: none; }
+  .ms-logo { padding-left: 12px; }
+}
 
 .badge {
   border-radius: 999px;

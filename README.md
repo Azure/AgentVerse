@@ -1,4 +1,10 @@
-# AgentVerse
+<p align="center">
+  <img src="assets/logo.svg" alt="AgentVerse" width="300" />
+</p>
+
+<p align="center">
+  <em>A curated collection of agentic use cases, built within Microsoft and ready to run in your own Azure subscription.</em>
+</p>
 
 ## Introduction
 

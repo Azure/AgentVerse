@@ -142,6 +142,42 @@ resource "azurerm_cognitive_deployment" "gpt_realtime_mini" {
   }
 }
 
+# gpt-5.1 (chat/orchestrator) and gpt-5.4 (reasoning) power the
+# production-scheduling-agents demo running live on the shared project.
+resource "azurerm_cognitive_deployment" "gpt_5_1" {
+  name                 = "gpt-5.1"
+  cognitive_account_id = azapi_resource.account.id
+  depends_on           = [azurerm_cognitive_deployment.gpt_realtime_mini]
+
+  model {
+    format  = "OpenAI"
+    name    = "gpt-5.1"
+    version = "2025-11-13"
+  }
+
+  sku {
+    name     = "GlobalStandard"
+    capacity = var.gpt_5_1_capacity
+  }
+}
+
+resource "azurerm_cognitive_deployment" "gpt_5_4" {
+  name                 = "gpt-5.4"
+  cognitive_account_id = azapi_resource.account.id
+  depends_on           = [azurerm_cognitive_deployment.gpt_5_1]
+
+  model {
+    format  = "OpenAI"
+    name    = "gpt-5.4"
+    version = "2026-03-05"
+  }
+
+  sku {
+    name     = "GlobalStandard"
+    capacity = var.gpt_5_4_capacity
+  }
+}
+
 # ---------------------------------------------------------------------------
 # Bing grounding resource + project connection (foundryairlines events-agent).
 # ---------------------------------------------------------------------------

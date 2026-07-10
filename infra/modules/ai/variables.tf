@@ -51,6 +51,16 @@ variable "gpt_realtime_mini_capacity" {
   default = 1
 }
 
+variable "gpt_5_1_capacity" {
+  type    = number
+  default = 20
+}
+
+variable "gpt_5_4_capacity" {
+  type    = number
+  default = 20
+}
+
 variable "bing_connection_name" {
   description = "Name of the Bing grounding project connection (must match the demo's BING_CONNECTION_NAME)."
   type        = string
