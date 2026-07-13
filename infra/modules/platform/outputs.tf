@@ -29,3 +29,7 @@ output "log_analytics_workspace_id" {
 output "app_insights_connection_string" {
   value = azurerm_application_insights.this.connection_string
 }
+
+output "app_insights_id" {
+  value = azurerm_application_insights.this.id
+}

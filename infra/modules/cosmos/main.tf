@@ -37,6 +37,19 @@ resource "azurerm_cosmosdb_account" "this" {
   }
 }
 
+# ---------------------------------------------------------------------------
+# Azure Monitor: stream Cosmos DB logs (data-plane requests, query runtime) and
+# metrics to the shared workspace.
+# ---------------------------------------------------------------------------
+module "diag_cosmos" {
+  count  = var.log_analytics_workspace_id != "" ? 1 : 0
+  source = "../diagnostics"
+
+  name                       = "cosmos-to-law"
+  target_resource_id         = azurerm_cosmosdb_account.this.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+}
+
 resource "azurerm_cosmosdb_sql_database" "this" {
   name                = var.database_name
   resource_group_name = var.resource_group_name

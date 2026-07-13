@@ -226,6 +226,39 @@ resource "azapi_resource" "bing_connection" {
 }
 
 # ---------------------------------------------------------------------------
+# Application Insights connection on the Foundry project. Powers the portal
+# "Tracing" tab and lets hosted agents export OpenTelemetry traces to the shared
+# App Insights. Isolated behind a flag; credentials are ignored on readback
+# because Azure redacts the key (which would otherwise show a perpetual diff).
+# ---------------------------------------------------------------------------
+resource "azapi_resource" "app_insights_connection" {
+  count = var.enable_foundry_observability && var.app_insights_id != "" ? 1 : 0
+
+  type                      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
+  name                      = "app-insights"
+  parent_id                 = azapi_resource.project.id
+  schema_validation_enabled = false
+
+  body = {
+    properties = {
+      category      = "AppInsights"
+      target        = var.app_insights_id
+      authType      = "ApiKey"
+      isSharedToAll = true
+      credentials   = { key = var.app_insights_connection_string }
+      metadata = {
+        ApiType    = "Azure"
+        ResourceId = var.app_insights_id
+      }
+    }
+  }
+
+  lifecycle {
+    ignore_changes = [body.properties.credentials]
+  }
+}
+
+# ---------------------------------------------------------------------------
 # Shared Content Safety account (insurance governance path).
 # ---------------------------------------------------------------------------
 resource "azurerm_cognitive_account" "content_safety" {
@@ -239,6 +272,28 @@ resource "azurerm_cognitive_account" "content_safety" {
   # so pin this to match the deployed reality and keep plans clean.
   local_auth_enabled = false
   tags               = var.tags
+}
+
+# ---------------------------------------------------------------------------
+# Azure Monitor: stream the Foundry/AIServices account and Content Safety logs
+# and metrics (token usage, request/response, audit) to the shared workspace.
+# ---------------------------------------------------------------------------
+module "diag_ai_account" {
+  count  = var.log_analytics_workspace_id != "" ? 1 : 0
+  source = "../diagnostics"
+
+  name                       = "ai-to-law"
+  target_resource_id         = azapi_resource.account.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+}
+
+module "diag_content_safety" {
+  count  = var.log_analytics_workspace_id != "" ? 1 : 0
+  source = "../diagnostics"
+
+  name                       = "safety-to-law"
+  target_resource_id         = azurerm_cognitive_account.content_safety.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
 }
 
 # ---------------------------------------------------------------------------

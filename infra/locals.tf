@@ -21,13 +21,15 @@ locals {
   computed_env = {
     "foundryairlines-demo" = {
       "web" = {
-        PROJECT_ENDPOINT      = module.ai.project_endpoint
-        MODEL_DEPLOYMENT_NAME = module.ai.deployment_names.chat
-        IMAGE_ENDPOINT        = module.ai.openai_endpoint
-        IMAGE_DEPLOYMENT      = module.ai.deployment_names.image
-        IMAGE_API_VERSION     = "2025-04-01-preview"
-        BING_CONNECTION_NAME  = module.ai.bing_connection_name
-        AZURE_CLIENT_ID       = module.platform.identity_client_id
+        PROJECT_ENDPOINT                      = module.ai.project_endpoint
+        MODEL_DEPLOYMENT_NAME                 = module.ai.deployment_names.chat
+        IMAGE_ENDPOINT                        = module.ai.openai_endpoint
+        IMAGE_DEPLOYMENT                      = module.ai.deployment_names.image
+        IMAGE_API_VERSION                     = "2025-04-01-preview"
+        BING_CONNECTION_NAME                  = module.ai.bing_connection_name
+        APPLICATIONINSIGHTS_CONNECTION_STRING = module.platform.app_insights_connection_string
+        OTEL_SERVICE_NAME                     = "foundryairlines-demo"
+        AZURE_CLIENT_ID                       = module.platform.identity_client_id
       }
     }
     "insurance-ai-agents" = {
@@ -41,6 +43,7 @@ locals {
         COSMOS_DATABASE                       = module.cosmos.database_name
         COSMOS_CONTAINER                      = module.cosmos.container_name
         APPLICATIONINSIGHTS_CONNECTION_STRING = module.platform.app_insights_connection_string
+        OTEL_SERVICE_NAME                     = "insurance-ai-agents"
         USE_APIM_GATEWAY                      = "false"
         AUTH_ENABLED                          = "false"
         AZURE_CLIENT_ID                       = module.platform.identity_client_id
@@ -54,6 +57,7 @@ locals {
         PROJECT_ENDPOINT                      = module.ai.project_endpoint
         MODEL_DEPLOYMENT_NAME                 = module.ai.deployment_names.chat
         APPLICATIONINSIGHTS_CONNECTION_STRING = module.platform.app_insights_connection_string
+        OTEL_SERVICE_NAME                     = "signal-to-service"
         AZURE_CLIENT_ID                       = module.platform.identity_client_id
       }
     }
@@ -67,6 +71,7 @@ locals {
         MODEL_DEPLOYMENT_NAME                 = module.ai.deployment_names.ps_chat
         REASONING_MODEL_DEPLOYMENT_NAME       = module.ai.deployment_names.ps_reasoning
         APPLICATIONINSIGHTS_CONNECTION_STRING = module.platform.app_insights_connection_string
+        OTEL_SERVICE_NAME                     = "production-scheduling-agents"
         AZURE_CLIENT_ID                       = module.platform.identity_client_id
       }
     }

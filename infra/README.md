@@ -176,6 +176,42 @@ The portal embeds each demo's web URL. Embedding is **best-effort**:
 
 ---
 
+## Observability
+
+Every deployed resource reports into a single **Log Analytics workspace**
+(`<name_prefix>-logs`) and a shared, workspace-based **Application Insights**
+(`<name_prefix>-appi`), so all of AgentVerse can be monitored from one place in
+**Azure Monitor**.
+
+**Application-level tracing (App Insights).** Each demo backend receives the
+`APPLICATIONINSIGHTS_CONNECTION_STRING` and calls
+`azure.monitor.opentelemetry.configure_azure_monitor(...)` at startup (guarded —
+a no-op locally when the variable is unset). FastAPI and httpx are
+auto-instrumented, so every run shows up as a distributed trace
+(incoming request → outbound Foundry agent call). This covers the four Python
+backends: `insurance-ai-agents`, `foundryairlines-demo`, `signal-to-service`
+and `production-scheduling-agents`.
+
+**Foundry agent tracing.** The shared Foundry project gets an `AppInsights`
+connection (`enable_foundry_observability`, on by default), which powers the
+**Tracing** tab in the Foundry portal and lets hosted agents export their
+reasoning spans to the same App Insights resource.
+
+**Platform metrics & logs (Azure Monitor).** `azurerm_monitor_diagnostic_setting`
+streams logs and metrics to the workspace for the Foundry/AIServices account
+(token usage, request/response, audit), Content Safety, the Container Registry,
+the Container Apps Environment (metrics only — its console/system logs already
+flow via the environment's built-in workspace link), and Cosmos DB. Categories
+are discovered per-resource by the reusable [`modules/diagnostics`](modules/diagnostics)
+submodule, so no unsupported category is ever hardcoded.
+
+**Known gap.** The portal is a static nginx SPA, so it only produces
+container/nginx logs (via the environment). True front-end telemetry (page
+views, client exceptions, user sessions) would require adding the browser
+Application Insights JavaScript SDK to the SPA — a future enhancement.
+
+---
+
 ## State backend
 
 State is **local** by default (fine for a single operator / prototyping). Once
@@ -197,7 +233,10 @@ infra/
 ├── terraform.tfvars.example
 ├── demos.auto.tfvars.example
 ├── modules/
-│   ├── platform/            # Log Analytics + ACR + Container Apps Env + identity
+│   ├── platform/            # Log Analytics + App Insights + ACR + Container Apps Env + identity
+│   ├── ai/                  # shared Foundry account/project + model deployments + Bing + diag
+│   ├── cosmos/              # shared Cosmos DB (insurance claims store) + diag
+│   ├── diagnostics/         # reusable: resource-aware diagnostic setting → workspace
 │   ├── demo/                # generic: build image(s) + Container App(s) + hooks
 │   └── portal/              # portal Container App (receives demo URL map)
 └── scripts/

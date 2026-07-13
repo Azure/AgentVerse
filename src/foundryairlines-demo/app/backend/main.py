@@ -3,6 +3,8 @@ from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import asyncio
+import logging
+import os
 import sys
 
 # On Windows the default ProactorEventLoop is incompatible with aiohttp,
@@ -16,6 +18,39 @@ from .city_agents import orchestrate_city
 from .sse import format_sse
 
 app = FastAPI()
+
+
+def _setup_observability(fastapi_app) -> None:
+    """Wire distributed tracing to Application Insights when configured.
+
+    No-op unless APPLICATIONINSIGHTS_CONNECTION_STRING is set (local dev stays
+    offline). Auto-instruments FastAPI (incoming requests) and httpx (outbound
+    Foundry agent calls) so each orchestration is a full trace in App Insights.
+    """
+    conn = os.environ.get("APPLICATIONINSIGHTS_CONNECTION_STRING", "").strip()
+    if not conn:
+        return
+    log = logging.getLogger("agentverse.observability")
+    try:
+        from azure.monitor.opentelemetry import configure_azure_monitor
+
+        configure_azure_monitor(connection_string=conn)
+        log.info("Azure Monitor tracing configured (App Insights)")
+    except Exception as exc:  # noqa: BLE001
+        log.warning("Azure Monitor tracing setup failed, continuing: %s", exc)
+        return
+    try:
+        from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+        from opentelemetry.instrumentation.httpx import HTTPXClientInstrumentor
+
+        FastAPIInstrumentor.instrument_app(fastapi_app)
+        HTTPXClientInstrumentor().instrument()
+        log.info("OpenTelemetry instrumentation enabled (FastAPI + httpx)")
+    except Exception as exc:  # noqa: BLE001
+        log.warning("OTel FastAPI/httpx instrumentation failed: %s", exc)
+
+
+_setup_observability(app)
 
 # Get paths
 FRONTEND_PATH = Path(__file__).parent.parent / "frontend"

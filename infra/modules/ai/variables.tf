@@ -27,6 +27,36 @@ variable "deployer_object_id" {
 }
 
 # ---------------------------------------------------------------------------
+# Observability wiring (shared Azure Monitor / Application Insights). Passed in
+# from the platform module so the Foundry project + AI resources report into the
+# same workspace as the rest of AgentVerse.
+# ---------------------------------------------------------------------------
+variable "log_analytics_workspace_id" {
+  description = "Shared Log Analytics workspace id for diagnostic settings."
+  type        = string
+  default     = ""
+}
+
+variable "app_insights_id" {
+  description = "Shared Application Insights resource id (Foundry tracing connection)."
+  type        = string
+  default     = ""
+}
+
+variable "app_insights_connection_string" {
+  description = "Shared Application Insights connection string (Foundry tracing connection)."
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "enable_foundry_observability" {
+  description = "Attach an Application Insights connection to the Foundry project so the portal Tracing tab and agent OTel export work."
+  type        = bool
+  default     = true
+}
+
+# ---------------------------------------------------------------------------
 # Model deployment capacities (thousands of tokens/min for chat models). Kept
 # modest by default so the two demos fit comfortably within GlobalStandard quota.
 # ---------------------------------------------------------------------------

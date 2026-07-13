@@ -7,3 +7,4 @@ azure-identity
 agent-framework>=1.0.0rc3
 httpx
 pydantic
+azure-monitor-opentelemetry>=1.6.0

@@ -63,3 +63,23 @@ resource "azurerm_application_insights" "this" {
   sampling_percentage = 10
   tags                = var.tags
 }
+
+# ---------------------------------------------------------------------------
+# Azure Monitor: stream platform resource metrics/logs to the shared workspace.
+# The CAE already ships app console/system logs via its built-in destination
+# above, so only its metrics are captured here to avoid duplicate ingestion.
+# ---------------------------------------------------------------------------
+module "diag_cae" {
+  source                     = "../diagnostics"
+  name                       = "cae-to-law"
+  target_resource_id         = azurerm_container_app_environment.this.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+  logs_enabled               = false
+}
+
+module "diag_acr" {
+  source                     = "../diagnostics"
+  name                       = "acr-to-law"
+  target_resource_id         = azurerm_container_registry.this.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+}

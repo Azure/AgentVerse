@@ -39,6 +39,12 @@ module "ai" {
   tags                  = local.common_tags
   identity_principal_id = module.platform.identity_principal_id
   deployer_object_id    = data.azurerm_client_config.current.object_id
+
+  # Observability: report the Foundry project + AI resources into the shared
+  # workspace / App Insights created by the platform module.
+  log_analytics_workspace_id     = module.platform.log_analytics_workspace_id
+  app_insights_id                = module.platform.app_insights_id
+  app_insights_connection_string = module.platform.app_insights_connection_string
 }
 
 # ---------------------------------------------------------------------------
@@ -52,6 +58,8 @@ module "cosmos" {
   resource_group_name   = azurerm_resource_group.this.name
   tags                  = local.common_tags
   identity_principal_id = module.platform.identity_principal_id
+
+  log_analytics_workspace_id = module.platform.log_analytics_workspace_id
 }
 
 # ---------------------------------------------------------------------------

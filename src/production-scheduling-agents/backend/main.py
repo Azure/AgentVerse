@@ -14,6 +14,7 @@ Mode: replay (no Azure) unless PROJECT_ENDPOINT is set — same as the CLI.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import time
 from pathlib import Path
@@ -39,6 +40,39 @@ from .plant import Plant
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 
 app = FastAPI(title="Production Scheduling AI Agents")
+
+
+def _setup_observability(fastapi_app) -> None:
+    """Wire distributed tracing to Application Insights when configured.
+
+    No-op unless APPLICATIONINSIGHTS_CONNECTION_STRING is set (local dev stays
+    offline). Auto-instruments FastAPI (incoming requests) and httpx (outbound
+    Foundry agent calls) so each control-loop run is a full trace in App Insights.
+    """
+    conn = os.environ.get("APPLICATIONINSIGHTS_CONNECTION_STRING", "").strip()
+    if not conn:
+        return
+    log = logging.getLogger("agentverse.observability")
+    try:
+        from azure.monitor.opentelemetry import configure_azure_monitor
+
+        configure_azure_monitor(connection_string=conn)
+        log.info("Azure Monitor tracing configured (App Insights)")
+    except Exception as exc:  # noqa: BLE001
+        log.warning("Azure Monitor tracing setup failed, continuing: %s", exc)
+        return
+    try:
+        from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+        from opentelemetry.instrumentation.httpx import HTTPXClientInstrumentor
+
+        FastAPIInstrumentor.instrument_app(fastapi_app)
+        HTTPXClientInstrumentor().instrument()
+        log.info("OpenTelemetry instrumentation enabled (FastAPI + httpx)")
+    except Exception as exc:  # noqa: BLE001
+        log.warning("OTel FastAPI/httpx instrumentation failed: %s", exc)
+
+
+_setup_observability(app)
 
 
 class _State:

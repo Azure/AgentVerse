@@ -29,3 +29,9 @@ variable "container_name" {
   type    = string
   default = "claims"
 }
+
+variable "log_analytics_workspace_id" {
+  description = "Shared Log Analytics workspace id for diagnostic settings."
+  type        = string
+  default     = ""
+}
