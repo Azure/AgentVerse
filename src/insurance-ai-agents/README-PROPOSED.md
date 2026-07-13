@@ -26,7 +26,7 @@
 | **Best suited for** | Governance- and compliance-led conversations; regulated industries (insurance, banking, healthcare); rooms that include IT decision-makers or risk owners |
 | **Duration** | 12–15 minutes |
 | **Presenter effort** | Solo-friendly for the core flow; the governance sequence (step 4) benefits from a technical co-presenter or prepared screenshots |
-| **Demo reliability** | High for the core flow — it runs entirely on built-in sample data with no cloud dependency |
+| **Demo reliability** | High for the core flow — it runs entirely on built-in sample data |
 | **Contingency** | If the live governance walkthrough is not practical, present a previously completed change request with its recorded approvals and quality report |
 
 ### 1.2 The story
@@ -184,7 +184,6 @@ data protection assessment and identity setup.
 | **Models** | gpt-5.4-mini · gpt-realtime-mini (voice) |
 | **Azure services** | Azure AI Foundry · APIM (AI Gateway) · Cosmos DB · Container Apps · Static Web Apps · Entra ID |
 | **Stack** | MAF · FastAPI + WebSocket · React 18 + TypeScript + Tailwind · Bicep |
-| **Runs locally without Azure?** | Yes — the backend falls back to mocks when no Azure OpenAI endpoint is configured |
 | **Author** | @aangell98 |
 
 ### 2.2 The architecture
@@ -234,7 +233,7 @@ WebSocket while the audit trail lands in Cosmos DB.
 | **Rules in code, judgment in the model** | [agents/compliance/rules.py](agents/compliance/rules.py) | Regulatory thresholds stay in reviewable, diffable Python; the LLM never owns the rulebook | The AI reasons; the rulebook stays human-owned and inspectable |
 | **Multichannel, one pipeline** | [agents/voice/](agents/voice/) | Web and real-time voice reuse the same agents | The phone channel and the web channel are the same brain |
 | **Audited persistence** | [backend/claims_repository.py](backend/claims_repository.py) | Every decision replayable for a regulator (Cosmos DB audit trail) | Every decision keeps its receipts |
-| **Graceful degradation to mocks** | backend startup | The full flow can be demonstrated with zero Azure dependencies | The demo works even with no cloud connection |
+| **Graceful degradation to mocks** | backend startup | The full flow keeps working on built-in sample data when no model endpoint is configured | The demo always has a working fallback |
 
 ### 2.4 Technical setup
 

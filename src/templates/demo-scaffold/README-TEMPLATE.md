@@ -130,7 +130,6 @@
 | **Models** | `<e.g. gpt-4.1, gpt-image-2>` |
 | **Azure services** | `<e.g. Azure AI Foundry, APIM, Cosmos DB>` |
 | **Stack** | `<framework · backend · frontend · IaC>` |
-| **Runs locally without Azure?** | `<Yes (how) / No (why)>` |
 | **Author** | `<@handle>` |
 
 ### 2.2 The architecture

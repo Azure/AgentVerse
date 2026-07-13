@@ -161,7 +161,6 @@ product.
 | **Models** | gpt-4.1 · gpt-image-2 |
 | **Azure services** | Azure AI Foundry (agents + Bing Grounding + image deployment) |
 | **Stack** | Microsoft Agent Framework · FastAPI + SSE · vanilla HTML/JS · Terraform |
-| **Runs locally without Azure?** | No — the agents, Bing Grounding and image generation are all cloud calls |
 | **Author** | — |
 
 ### 2.2 The architecture

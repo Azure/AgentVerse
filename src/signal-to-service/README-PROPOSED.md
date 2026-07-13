@@ -26,7 +26,7 @@
 | **Duration** | ~8 minutes |
 | **Presenter effort** | Solo-capable after technical setup; the flow is short and scripted |
 | **Demo reliability** | Good — the machine data, work-order system and technician roster are all built-in; only the three AI agents run in the cloud |
-| **Contingency** | There is no offline mode — verify with a full test run shortly before presenting; if the cloud agents are unreachable, reschedule rather than improvise |
+| **Contingency** | Verify with a full test run shortly before presenting; if the agents are unreachable, reschedule rather than improvise |
 
 ### 1.2 The story
 
@@ -175,7 +175,6 @@ cited procedures, human-gated action — not a finished maintenance product.
 | **Models** | gpt-4.1 (all three agents) |
 | **Azure services** | Azure AI Foundry · Azure AI Search (optional — local TF-IDF is the default retriever) |
 | **Stack** | MAF · FastAPI + SSE · vanilla HTML/JS · Terraform |
-| **Runs locally without Azure?** | Partially — telemetry, CMMS, scheduler and RAG are all local mocks, but the three prompt agents need a Foundry project with `gpt-4.1` |
 | **Author** | @heblasco |
 
 ### 2.2 The architecture
@@ -245,7 +244,7 @@ Run before a session; the end state is what §1.4's presenter verification check
 - [ ] venv + `pip install -r requirements.txt`; `app/.env` from `app/.env.example` with `PROJECT_ENDPOINT` set (leave `AZURE_SEARCH_ENDPOINT` empty → local TF-IDF retriever)
 - [ ] Register the agents once (idempotent): `python -m app.backend.bootstrap_agents`
 - [ ] Run: `python -m uvicorn app.backend.main:app --port 8767` → http://localhost:8767
-- [ ] Execute one full test run (inject anomaly → approve → work order) shortly before the session — there is no offline fallback for the agents
+- [ ] Execute one full test run (inject anomaly → approve → work order) shortly before the session to confirm the agents are reachable
 - [ ] `/healthz` reports health and the active RAG backend
 
 ### 2.5 Additional resources

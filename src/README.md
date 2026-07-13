@@ -19,18 +19,18 @@ written to be understood with no technical background.
 
 ## The demos
 
-| Demo | Industry | Use case | Highlights | Runs without Azure? |
-|---|---|---|---|---|
-| [foundryairlines-demo/](foundryairlines-demo/) | ✈️ Airline | Fill low-occupancy flights: three agents pick the emptiest flights, find a real upcoming event in each destination on the live web, and generate an event-aware promo banner per flight | The recommended **first demo** — beginner-friendly sequential orchestration, web grounding with source links, image generation | No — live cloud demo (cached replay available) |
-| [insurance-ai-agents/](insurance-ai-agents/) | 🏦 Insurance | Governed claims processing: Intake, Risk and Compliance agents decide auto claims in minutes behind an AI gateway, with audit trail, human review queue, real-time voice channel and a whitelabel React dashboard | The **governance showcase** — built to pass an enterprise IT review: gateway policies, eval gate on every change, rules owned by accountable teams | Yes — core flow runs on built-in sample data |
-| [production-scheduling-agents/](production-scheduling-agents/) | 🏭 Manufacturing | Self-healing production scheduling: a Sense → Simulate → Decide → Act loop absorbs disruptions (machine down, material delay, rush order), reschedules autonomously and escalates only ambiguous trade-offs to the planner | The **most presentation-safe demo** — replay mode has zero cloud dependency; business KPIs measured live on the dashboard; deterministic guardrails around the LLMs | **Yes — by default** (replay mode) |
-| [signal-to-service/](signal-to-service/) | 🔧 Manufacturing | Predictive maintenance to field service: a telemetry anomaly is diagnosed, the correct maintenance procedure is retrieved **and cited**, a human approves, and a work order is created and scheduled to the right technician | The **human-in-the-loop** exemplar — event-triggered pipeline, grounded citations from the plant's own manuals, approval gate before any action | Partially — mocks are local, the three agents need a Foundry project |
+| Demo | Industry | Use case | Highlights |
+|---|---|---|---|
+| [foundryairlines-demo/](foundryairlines-demo/) | ✈️ Airline | Fill low-occupancy flights: three agents pick the emptiest flights, find a real upcoming event in each destination on the live web, and generate an event-aware promo banner per flight | The recommended **first demo** — beginner-friendly sequential orchestration, web grounding with source links, image generation |
+| [insurance-ai-agents/](insurance-ai-agents/) | 🏦 Insurance | Governed claims processing: Intake, Risk and Compliance agents decide auto claims in minutes behind an AI gateway, with audit trail, human review queue, real-time voice channel and a whitelabel React dashboard | The **governance showcase** — built to pass an enterprise IT review: gateway policies, eval gate on every change, rules owned by accountable teams |
+| [production-scheduling-agents/](production-scheduling-agents/) | 🏭 Manufacturing | Self-healing production scheduling: a Sense → Simulate → Decide → Act loop absorbs disruptions (machine down, material delay, rush order), reschedules autonomously and escalates only ambiguous trade-offs to the planner | The **most presentation-safe demo** — deterministic replay mode; business KPIs measured live on the dashboard; deterministic guardrails around the LLMs |
+| [signal-to-service/](signal-to-service/) | 🔧 Manufacturing | Predictive maintenance to field service: a telemetry anomaly is diagnosed, the correct maintenance procedure is retrieved **and cited**, a human approves, and a work order is created and scheduled to the right technician | The **human-in-the-loop** exemplar — event-triggered pipeline, grounded citations from the plant's own manuals, approval gate before any action |
 
 ### Choosing a demo for a conversation
 
 - **First conversation about AI agents** → [foundryairlines-demo/](foundryairlines-demo/)
 - **Compliance, governance or regulated-industry audience** → [insurance-ai-agents/](insurance-ai-agents/)
-- **Operations / plant / supply-chain audience, or presenting solo without cloud access** → [production-scheduling-agents/](production-scheduling-agents/)
+- **Operations / plant / supply-chain audience, or presenting solo** → [production-scheduling-agents/](production-scheduling-agents/)
 - **Maintenance / field-service audience, or "can the AI act safely on real systems?"** → [signal-to-service/](signal-to-service/)
 
 ## Shared resources

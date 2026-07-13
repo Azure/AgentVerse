@@ -25,7 +25,7 @@
 | **Best suited for** | Manufacturing / operations leaders evaluating agentic AI beyond chat; plant, supply-chain and OT audiences |
 | **Duration** | 10–12 minutes |
 | **Presenter effort** | **Low — the most solo-friendly demo in this catalog.** Replay mode behaves identically every run |
-| **Demo reliability** | Very high — the default mode has no cloud dependency at all; nothing external can fail mid-session |
+| **Demo reliability** | Very high — the default replay mode is deterministic; nothing external can fail mid-session |
 | **Contingency** | Replay mode *is* the contingency; keep to the four scripted disruptions and every run is deterministic |
 
 ### 1.2 The story
@@ -126,8 +126,7 @@ publication — and validated again at dispatch. The AI reasons about trade-offs
 rulebook is enforced by conventional software.
 
 **"Is our data used to train the AI models?"** — No. Azure OpenAI Service does not use
-customer data to train the underlying models; in this demo's default mode, no data
-leaves the machine at all.
+customer data to train the underlying models.
 
 **"What data would this need from us?"** — Orders and priorities (ERP), machine and
 line telemetry (MES/IoT), and maintenance/inventory calendars. The demo runs these as
@@ -165,7 +164,7 @@ model and systems landscape.
 - **Escalation** — the system handing an ambiguous decision to the human planner, with
   scored options and a rationale.
 - **Replay mode** — the demo re-plays previously recorded AI responses, making every
-  run identical and independent of any cloud service.
+  run identical.
 - **Gantt board** — the schedule visualized as bars per machine over time.
 
 > *To prepare the environment for this demo, share Part 2 with your technical contact.*
@@ -183,7 +182,6 @@ model and systems landscape.
 | **Models** | gpt-5.4 (simulator) · gpt-5.1 (orchestrator) |
 | **Azure services** | Azure AI Foundry · Application Insights · App Service (Terraform) |
 | **Stack** | MAF · FastAPI + SSE · vanilla HTML/JS (Gantt dashboard) · Terraform |
-| **Runs locally without Azure?** | **Yes — by default.** Replay mode uses recorded agent fixtures; zero Azure dependencies, all 4 golden evals pass |
 | **Author** | — |
 
 ### 2.2 The architecture
@@ -264,7 +262,7 @@ flowchart TB
 | **Deterministic guardrails around LLMs** | [backend/plant.py](backend/plant.py) `validate_moves()` + policy gate | LLMs reason and explain; hard constraints are enforced by code, so an infeasible schedule can never ship | The AI suggests; a rulebook it cannot override does the final check |
 | **Prompt-injection defense** | [backend/disruptions.py](backend/disruptions.py) | Malicious free text from ERP/MES is rejected *before any LLM sees it* | Suspicious input is stopped at the door, not argued with |
 | **Eval gate** | [evals/run_evals.py](evals/run_evals.py) + [.github/workflows](.github/workflows/) | Golden disruption cases (incl. the injection case) gate every PR | Every change to the agents must pass an automated exam before it ships |
-| **Replay / record fixtures** | [agents/fixtures/](agents/fixtures/), `--record` | Deterministic, zero-Azure, zero-latency demonstrations | The demo is rehearsable and cannot fail on stage |
+| **Replay / record fixtures** | [agents/fixtures/](agents/fixtures/), `--record` | Deterministic, zero-latency demonstrations | The demo is rehearsable and cannot fail on stage |
 | **Observability as product** | KPI strip ([backend/kpis.py](backend/kpis.py)) + tracing/token metrics | Idle time, adherence, interventions/shift, time-to-adjust measured live | The business impact is on a scoreboard, not in a slide |
 
 ### 2.4 Technical setup
