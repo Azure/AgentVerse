@@ -27,7 +27,7 @@
 | **Best suited for** | A first conversation about AI agents; marketing, revenue-management or innovation audiences |
 | **Duration** | ~10 minutes |
 | **Presenter effort** | A technical co-presenter is recommended for fully live runs; solo presentation is viable using cached mode |
-| **Demo reliability** | Live cloud demo — every run makes real model, web-search and image-generation calls; the image step is the slowest and most variable |
+| **Demo reliability** | Every run makes live model, web-search and image-generation calls; the image step is the slowest and most variable |
 | **Contingency** | Add `?cached=1` to the page address to replay the banners generated during the warm-up run |
 
 ### 1.2 The story
@@ -70,7 +70,7 @@ rooms, event tickets, retail seasonality.
 #### Presenter verification (5 minutes before)
 
 - [ ] The demo page opens at the address provided by your technical contact and shows the FoundryAirlines interface
-- [ ] A complete warm-up run was executed earlier the same day (this also confirms cloud sign-in is current and leaves banners available for cached mode)
+- [ ] A complete warm-up run was executed earlier the same day (this also confirms sign-in is current and leaves banners available for cached mode)
 - [ ] You know the page address variant for cached mode (`?cached=1`)
 
 #### Demonstration sequence

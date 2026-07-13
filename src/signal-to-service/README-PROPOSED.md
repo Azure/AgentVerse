@@ -25,7 +25,7 @@
 | **Best suited for** | Operations, maintenance and field-service leaders; conversations about AI acting on real systems under human control |
 | **Duration** | ~8 minutes |
 | **Presenter effort** | Solo-capable after technical setup; the flow is short and scripted |
-| **Demo reliability** | Good — the machine data, work-order system and technician roster are all built-in; only the three AI agents run in the cloud |
+| **Demo reliability** | Good — the flow is short and scripted, and the machine data, work-order system and technician roster are all built-in |
 | **Contingency** | Verify with a full test run shortly before presenting; if the agents are unreachable, reschedule rather than improvise |
 
 ### 1.2 The story
@@ -72,7 +72,7 @@ make the acceleration acceptable to quality and safety functions.
 #### Presenter verification (5 minutes before)
 
 - [ ] The demo page opens at the address provided by your technical contact and shows the asset dashboard with live telemetry
-- [ ] A full test run (inject anomaly → approve → work order created) was completed shortly before the session — this is the only reliable check that the cloud agents are reachable
+- [ ] A full test run (inject anomaly → approve → work order created) was completed shortly before the session
 - [ ] You have the relevant maintenance procedure document open in a second window, ready to show as the source of the citation
 
 #### Demonstration sequence
@@ -173,7 +173,7 @@ cited procedures, human-gated action — not a finished maintenance product.
 | **Status** | Experimental |
 | **Orchestration** | Event-triggered sequential workflow + human-in-the-loop approval gate |
 | **Models** | gpt-4.1 (all three agents) |
-| **Azure services** | Azure AI Foundry · Azure AI Search (optional — local TF-IDF is the default retriever) |
+| **Azure services** | Azure AI Foundry · Azure AI Search |
 | **Stack** | MAF · FastAPI + SSE · vanilla HTML/JS · Terraform |
 | **Author** | @heblasco |
 
@@ -206,7 +206,7 @@ Telemetry stream (simulated) ──► anomaly crosses threshold ──► trigg
 | Component | Where | Role |
 |---|---|---|
 | Backend + SSE | [app/backend/main.py](app/backend/main.py) | FastAPI single-container app; serves the UI at `/` and streams both phases |
-| RAG layer | [app/backend/rag.py](app/backend/rag.py) | One contract, `retrieve_sop(query, failure_mode)`, two backends: local TF-IDF (default) or Azure AI Search |
+| RAG layer | [app/backend/rag.py](app/backend/rag.py) | One contract, `retrieve_sop(query, failure_mode)`, two interchangeable backends: Azure AI Search or a bundled TF-IDF retriever |
 | Telemetry simulator | [app/backend/telemetry.py](app/backend/telemetry.py) | Healthy and degrading-to-anomaly series for 4 assets |
 | CMMS mock | [app/backend/cmms.py](app/backend/cmms.py) | SQLite work orders + server-side run state, keyed by `run_id` |
 | Scheduler mock | [app/backend/scheduler.py](app/backend/scheduler.py) | 3 technicians assigned by skill and availability |
@@ -231,7 +231,7 @@ All three are persistent Foundry prompt agents on `gpt-4.1`, registered by
 | **Event-triggered orchestration** | Anomaly threshold → pipeline start | The agent chain begins from a machine signal, not a human prompt | The machine raises its hand; nobody has to ask |
 | **Sequential workflow** | Phase A executors in [app/backend/agents.py](app/backend/agents.py) | Diagnosis feeds retrieval; clean structured hand-off | Each specialist finishes the previous one's work |
 | **Human-in-the-loop approval gate** | `POST /api/approval` separating Phase A from Phase B | The agent *proposes*; only an explicit human decision releases the real-world action | The agent prepares everything; your employee signs |
-| **RAG with citations** | [app/backend/rag.py](app/backend/rag.py) + knowledge agent | The SOP is retrieved and cited, not recalled; the single `retrieve_sop` contract guarantees local and cloud paths cite the *same* SOP | The AI quotes your manual and shows the page |
+| **RAG with citations** | [app/backend/rag.py](app/backend/rag.py) + knowledge agent | The SOP is retrieved and cited, not recalled; the single `retrieve_sop` contract guarantees both retrieval backends cite the *same* SOP | The AI quotes your manual and shows the page |
 | **Tool-mediated actions** | `create_work_order`, `assign_technician` | The LLM drafts; deterministic app code performs the side effects | The AI writes the form; the system files it |
 | **Tamper-resistant server-side state** | Run state keyed by `run_id` in [app/backend/cmms.py](app/backend/cmms.py) | The browser only holds an id — what was approved is what gets dispatched; WO creation is idempotent per run | What was signed is what gets executed |
 | **Correlated observability** | `run_id` + monotonic `seq` on every SSE event; App Insights | Each phase of every run is traceable end to end | Every run leaves a complete trace |
@@ -241,7 +241,7 @@ All three are persistent Foundry prompt agents on `gpt-4.1`, registered by
 Run before a session; the end state is what §1.4's presenter verification checks.
 
 - [ ] `az login` with access to a Foundry project that has a `gpt-4.1` deployment (the demo reuses the shared AgentVerse Foundry project by default)
-- [ ] venv + `pip install -r requirements.txt`; `app/.env` from `app/.env.example` with `PROJECT_ENDPOINT` set (leave `AZURE_SEARCH_ENDPOINT` empty → local TF-IDF retriever)
+- [ ] venv + `pip install -r requirements.txt`; `app/.env` from `app/.env.example` with `PROJECT_ENDPOINT` set (and `AZURE_SEARCH_ENDPOINT` to use the Azure AI Search backend)
 - [ ] Register the agents once (idempotent): `python -m app.backend.bootstrap_agents`
 - [ ] Run: `python -m uvicorn app.backend.main:app --port 8767` → http://localhost:8767
 - [ ] Execute one full test run (inject anomaly → approve → work order) shortly before the session to confirm the agents are reachable
@@ -267,7 +267,7 @@ Run before a session; the end state is what §1.4's presenter verification check
   [scripts/seed_search_index.py](scripts/seed_search_index.py) seeds the index).
 - **Unified (AgentVerse portal):** joins the platform via [agentverse.yaml](agentverse.yaml)
   and the root `infra/demos.auto.tfvars`, sharing the platform's Foundry project and using
-  the bundled local RAG. After the first apply, run the registration hook once
+  the bundled retriever. After the first apply, run the registration hook once
   (`terraform output registration_commands`). See [docs/adding-a-demo.md](../../docs/adding-a-demo.md).
 
 #### Observability

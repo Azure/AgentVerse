@@ -148,8 +148,8 @@ connection to live plant systems.
 ### 1.7 What this demo is not
 
 The plant, its orders and its telemetry are simulated, and the default presentation
-mode replays pre-recorded agent responses for reliability. The live cloud path is
-implemented but marked experimental. This is a demonstration of the operating pattern,
+mode replays pre-recorded agent responses for reliability; runs can also be executed
+against live agents in Azure AI Foundry. This is a demonstration of the operating pattern,
 not a scheduling product — a real deployment starts from the customer's constraint
 model and systems landscape.
 
@@ -177,7 +177,7 @@ model and systems landscape.
 
 | | |
 |---|---|
-| **Status** | Experimental (fully implemented; live Foundry path pending its first real-subscription run) |
+| **Status** | Experimental |
 | **Orchestration** | Orchestrator–workers + human-in-the-loop escalation ([PATTERNS.md](../templates/agentic-framework/PATTERNS.md) §5, §8) |
 | **Models** | gpt-5.4 (simulator) · gpt-5.1 (orchestrator) |
 | **Azure services** | Azure AI Foundry · Application Insights · App Service (Terraform) |
@@ -238,7 +238,7 @@ flowchart TB
 | Plant model + feasibility checker | [backend/plant.py](backend/plant.py) | Deterministic validation of every proposed move; applies chosen scenarios |
 | Disruption classifier + guardrail | [backend/disruptions.py](backend/disruptions.py) | Hard/soft constraint classification; injection screen on free text from MES/ERP |
 | LLM agents | [agents/scenario-simulator/](agents/scenario-simulator/), [agents/schedule-orchestrator/](agents/schedule-orchestrator/) | Each a folder of `agent.yaml` · `instructions.md` · `schemas.py` · `agent.py` |
-| Replay fixtures | [agents/fixtures/](agents/fixtures/) | Recorded agent responses — the zero-Azure demo mode |
+| Replay fixtures | [agents/fixtures/](agents/fixtures/) | Recorded agent responses for deterministic replay runs |
 | Dashboard | [frontend/](frontend/) served by [backend/main.py](backend/main.py) | Gantt board, live agent feed, escalation inbox, KPI strip |
 | CLI runner | [scripts/run_demo.py](scripts/run_demo.py) | Same pipeline without a browser; `--record` refreshes fixtures |
 | Evals | [evals/](evals/) | Golden disruption scenarios gate every change |
@@ -274,7 +274,7 @@ checks. Full walkthrough: [GETTING_STARTED.md](GETTING_STARTED.md).
 - [ ] Dashboard: `python -m uvicorn backend.main:app --port 8000` → http://localhost:8000
 - [ ] Verify each scripted disruption once: `python scripts/run_demo.py --disruption machine_down` (also `material_delay`, `rush_order`, `prompt_injection`)
 - [ ] Optional eval display for technical rooms: `python -m evals.run_evals`
-- [ ] Live mode (optional): `pip install -r requirements.txt`; `cd infra && terraform apply`; `.env` from `terraform output`; `az login`. Replay note: only the four scripted disruptions have fixtures — record new ones with `--record`
+- [ ] Live mode: `pip install -r requirements.txt`; `cd infra && terraform apply`; `.env` from `terraform output`; `az login`. Replay note: only the four scripted disruptions have fixtures — record new ones with `--record`
 - [ ] Windows ARM64: install the `windows_amd64` Terraform build (azurerm ships no ARM64 Windows binaries)
 
 ### 2.5 Additional resources

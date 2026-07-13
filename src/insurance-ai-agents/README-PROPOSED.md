@@ -233,18 +233,17 @@ WebSocket while the audit trail lands in Cosmos DB.
 | **Rules in code, judgment in the model** | [agents/compliance/rules.py](agents/compliance/rules.py) | Regulatory thresholds stay in reviewable, diffable Python; the LLM never owns the rulebook | The AI reasons; the rulebook stays human-owned and inspectable |
 | **Multichannel, one pipeline** | [agents/voice/](agents/voice/) | Web and real-time voice reuse the same agents | The phone channel and the web channel are the same brain |
 | **Audited persistence** | [backend/claims_repository.py](backend/claims_repository.py) | Every decision replayable for a regulator (Cosmos DB audit trail) | Every decision keeps its receipts |
-| **Graceful degradation to mocks** | backend startup | The full flow keeps working on built-in sample data when no model endpoint is configured | The demo always has a working fallback |
 
 ### 2.4 Technical setup
 
 Run the day before a session; the end state is what §1.4's presenter verification
 checks.
 
-- [ ] Backend: venv, `pip install -r backend/requirements.txt`, then `uvicorn main:app --port 8000` from `backend/` (uses mocks without an Azure OpenAI endpoint)
+- [ ] Backend: venv, `pip install -r backend/requirements.txt`, then `uvicorn main:app --port 8000` from `backend/`
 - [ ] Dashboard: `npm install && npm run dev` in `dashboard/` → http://localhost:5173
 - [ ] Run the auto demo once end-to-end
 - [ ] Governance sequence (live variant): repository access with a prepared branch editing `HIGH_AMOUNT_THRESHOLD` in [agents/compliance/rules.py](agents/compliance/rules.py); confirm the eval workflow runs on the PR. Alternative: capture screenshots of a merged PR with the eval-gate comment and CODEOWNERS review
-- [ ] Full Azure deployment (optional, for the gateway/security view with live data): `.\scripts\deploy.ps1 -ResourceGroup <rg> -Location <region>`
+- [ ] Full Azure deployment (for the gateway/security view with live data): `.\scripts\deploy.ps1 -ResourceGroup <rg> -Location <region>`
 
 ### 2.5 Additional resources
 

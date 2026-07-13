@@ -43,7 +43,7 @@
 | **Best suited for** | `<which customer conversation / which audience in the room>` |
 | **Duration** | `<X min>` |
 | **Presenter effort** | `<solo-friendly / technical co-presenter recommended — and why>` |
-| **Demo reliability** | `<live cloud calls vs. replay/sample data — how likely it is to behave identically every run>` |
+| **Demo reliability** | `<how likely the demo is to behave identically every run, and which step varies>` |
 | **Contingency** | `<the one sentence to fall back on if something fails live>` |
 
 ### 1.2 The story
