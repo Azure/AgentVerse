@@ -40,7 +40,7 @@ from azure.identity import DefaultAzureCredential
 from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(ROOT / ".env", override=True)
+load_dotenv(ROOT / ".env", override=False)
 
 PROJECT_ENDPOINT = os.environ["PROJECT_ENDPOINT"]
 MODEL = os.getenv("MODEL_DEPLOYMENT_NAME", "gpt-4.1")

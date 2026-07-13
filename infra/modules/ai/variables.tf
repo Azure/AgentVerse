@@ -33,7 +33,7 @@ variable "deployer_object_id" {
 
 variable "gpt41_capacity" {
   type    = number
-  default = 20
+  default = 50
 }
 
 variable "gpt_image_2_capacity" {

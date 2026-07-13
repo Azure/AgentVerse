@@ -51,10 +51,12 @@ demos = {
       notes   = "Bing grounding connection must be created once in the Foundry portal (manual)."
     }
 
-    # Creates the two persistent prompt agents in the Foundry project. Idempotent.
+    # Creates the three persistent prompt agents in the Foundry project
+    # (flights-agent + events-agent via bootstrap_agents; activities-agent via
+    # bootstrap_city_agents). Both bootstraps are idempotent upserts by name.
     registration = {
       type                = "python_module"
-      command             = "pwsh -NoProfile -Command \"Set-Location src/foundryairlines-demo; python -m app.backend.bootstrap_agents\""
+      command             = "pwsh -NoProfile -Command \"Set-Location src/foundryairlines-demo; python -m app.backend.bootstrap_agents; $a=$LASTEXITCODE; python -m app.backend.bootstrap_city_agents; $b=$LASTEXITCODE; if ($a -ne 0) { exit $a }; exit $b\""
       manual_prerequisite = true
       notes               = "Requires az login + app/.env filled with PROJECT_ENDPOINT. Bing connection is a manual portal step."
     }
