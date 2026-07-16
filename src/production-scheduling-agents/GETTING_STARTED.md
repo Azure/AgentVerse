@@ -118,7 +118,7 @@ and Application Insights.
 ```bash
 az login                             # sign in; pick the right subscription
 cd infra
-cp terraform.tfvars.example terraform.tfvars   # edit: pick a globally-unique foundry_account_name
+cp terraform.tfvars.example terraform.tfvars   # edit: pick a foundry_account_name prefix (a random suffix is appended)
 terraform init
 terraform apply
 ```

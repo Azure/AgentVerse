@@ -2,7 +2,7 @@
 
 resource_group       = "rg-production-scheduling-demo"
 location             = "eastus2"
-foundry_account_name = "prodschedfoundry"   # globally-unique, lowercase, <= 24 chars
+foundry_account_name = "prodschedfoundry"   # prefix, lowercase, <= 18 chars (a 6-char random suffix is appended)
 webapp_name          = "prodsched-demo"     # globally-unique -> prodsched-demo.azurewebsites.net
 
 # Model deployments. Model/version pairs age out of Azure (models in "deprecating"

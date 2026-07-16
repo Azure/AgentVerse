@@ -11,7 +11,17 @@ variable "location" {
 
 variable "foundry_account_name" {
   type        = string
-  description = "Globally-unique, lowercase Foundry (AI Services) account name (<= 24 chars)."
+  description = "Lowercase prefix for the Foundry (AI Services) account name (<= 18 chars — a 6-char random suffix is appended for global uniqueness and fast destroy/redeploy cycles)."
+  validation {
+    condition     = can(regex("^[a-z][a-z0-9]{0,17}$", var.foundry_account_name))
+    error_message = "foundry_account_name must be lowercase alphanumeric, start with a letter, and be <= 18 chars (a 6-char suffix is appended; account names max out at 24)."
+  }
+}
+
+variable "foundry_project_name" {
+  type        = string
+  description = "Foundry project name used to compose PROJECT_ENDPOINT for the local .env sync. The project itself is still created outside Terraform — see the closing note in main.tf."
+  default     = "prodsched"
 }
 
 # ---- Chat model (monitor / orchestrator / dispatcher) --------------------------

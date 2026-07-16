@@ -14,13 +14,24 @@ terraform {
       source  = "hashicorp/archive"
       version = "~> 2.4"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.6"
+    }
   }
   # For shared deployments, configure a remote backend (delete for solo/local state):
   # backend "azurerm" {}
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    # Purge AI Services accounts on destroy instead of leaving them soft-deleted,
+    # which otherwise blocks re-creating the same account name for 48 hours
+    # (409 FlagMustBeSetForRestore).
+    cognitive_account {
+      purge_soft_delete_on_destroy = true
+    }
+  }
 }
 
 resource "azurerm_resource_group" "this" {
@@ -28,15 +39,34 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
+# Random suffix for the Foundry account name. Deleted accounts linger in Azure's
+# soft-delete list for 48h and block re-creating the same name (409
+# FlagMustBeSetForRestore), so each deploy cycle gets a fresh name — destroy and
+# re-apply without waiting or purging. Stable within one state; regenerates only
+# when the state is destroyed. Note: the account endpoint (and therefore
+# PROJECT_ENDPOINT) changes with the name — terraform_data.sync_env below keeps
+# the demo's local .env in step automatically.
+resource "random_string" "foundry_suffix" {
+  length  = 6
+  lower   = true
+  upper   = false
+  numeric = true
+  special = false
+}
+
+locals {
+  foundry_account_name = "${var.foundry_account_name}${random_string.foundry_suffix.result}"
+}
+
 # Azure AI Foundry (AI Services) account.
 # Uses azurerm_cognitive_account (azurerm_ai_services is deprecated in azurerm 4.x).
 resource "azurerm_cognitive_account" "foundry" {
-  name                  = var.foundry_account_name
+  name                  = local.foundry_account_name
   resource_group_name   = azurerm_resource_group.this.name
   location              = azurerm_resource_group.this.location
   kind                  = "AIServices"
   sku_name              = "S0"
-  custom_subdomain_name = var.foundry_account_name
+  custom_subdomain_name = local.foundry_account_name
 
   # Required before a Foundry *project* can be created under this account
   # (the project itself is still created outside Terraform — see the note at
@@ -340,6 +370,53 @@ resource "azurerm_container_app" "demo" {
         value = azurerm_user_assigned_identity.demo[0].client_id
       }
     }
+  }
+}
+
+# ---- Local .env sync ---------------------------------------------------------------
+# The account name (and with it PROJECT_ENDPOINT) changes on every fresh deploy because
+# of the random suffix, so hand-copying outputs into ../.env goes stale fast. This
+# patches ONLY the Azure keys in the demo's .env after apply (bootstrapping it from
+# .env.example on first run) and leaves every hand-tuned local setting alone.
+# NOTE: the endpoint answers only once the Foundry *project* exists — see the az rest
+# command in the closing note below.
+# PowerShell for the same reason as acr_build; on macOS/Linux swap the interpreter
+# for bash and rewrite with sed.
+
+locals {
+  project_endpoint = "https://${azurerm_cognitive_account.foundry.name}.services.ai.azure.com/api/projects/${var.foundry_project_name}"
+}
+
+resource "terraform_data" "sync_env" {
+  triggers_replace = [
+    local.project_endpoint,
+    var.model_deployment_name,
+    var.reasoning_model_deployment_name,
+  ]
+
+  provisioner "local-exec" {
+    working_dir = path.module
+    interpreter = ["PowerShell", "-NoProfile", "-Command"]
+    command     = <<-EOT
+      $ErrorActionPreference = "Stop"
+      $envFile = Join-Path (Resolve-Path "..") ".env"
+      if (-not (Test-Path $envFile)) { Copy-Item (Join-Path ".." ".env.example") $envFile }
+      $pairs = [ordered]@{
+        "PROJECT_ENDPOINT"                = "${local.project_endpoint}"
+        "MODEL_DEPLOYMENT_NAME"           = "${var.model_deployment_name}"
+        "REASONING_MODEL_DEPLOYMENT_NAME" = "${var.reasoning_model_deployment_name}"
+      }
+      $lines = @(Get-Content $envFile)
+      foreach ($k in $pairs.Keys) {
+        $line = "$k=$($pairs[$k])"
+        if ($lines -match "^$k=") { $lines = $lines -replace "^$k=.*", $line }
+        else { $lines += $line }
+      }
+      # UTF-8 without BOM — Set-Content utf8 under PS 5.1 writes a BOM, which
+      # python-dotenv would read into the first key name.
+      [IO.File]::WriteAllLines($envFile, $lines)
+      Write-Output "Patched $envFile (PROJECT_ENDPOINT=${local.project_endpoint})"
+    EOT
   }
 }
 

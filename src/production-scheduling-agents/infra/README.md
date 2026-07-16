@@ -23,7 +23,9 @@ terraform plan  -var 'resource_group=rg-production-scheduling-demo' -var 'locati
 terraform apply -var 'resource_group=rg-production-scheduling-demo' -var 'location=eastus2'
 ```
 
-After apply, copy the outputs into your `.env` (`PROJECT_ENDPOINT`, etc.):
+Apply also patches the Azure keys (`PROJECT_ENDPOINT`, deployment names) into the
+demo's local `.env` automatically — the account name carries a random suffix, so the
+endpoint changes on every fresh deploy. To see the values:
 
 ```bash
 terraform output
