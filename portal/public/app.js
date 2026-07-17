@@ -17,10 +17,12 @@
   var DEMO_URLS = window.__DEMOS__ || {};
   var FRAME_TIMEOUT_MS = 7000;
   var HOME_VIEW = "__home__";
+  var SECURITY_VIEW = "__security__";
 
   var tabsEl = document.getElementById("tabs");
   var panelEl = document.getElementById("panel");
   var homeEl = document.getElementById("home");
+  var securityEl = document.getElementById("security");
   var gridEl = document.getElementById("demo-grid");
   var emptyEl = document.getElementById("empty");
   var countEl = document.getElementById("demo-count");
@@ -100,6 +102,16 @@
     homeTab.onclick = function () { select(HOME_VIEW); };
     tabsEl.appendChild(homeTab);
 
+    // Static portal view (not a catalog demo): agent security guidance.
+    var securityTab = el("button", "tab tab-static" + (active === SECURITY_VIEW ? " active" : ""));
+    securityTab.type = "button";
+    securityTab.appendChild(shieldIcon());
+    securityTab.appendChild(document.createTextNode("Security"));
+    securityTab.title = "Agent security guidance";
+    if (active === SECURITY_VIEW) securityTab.setAttribute("aria-current", "page");
+    securityTab.onclick = function () { select(SECURITY_VIEW); };
+    tabsEl.appendChild(securityTab);
+
     demos.forEach(function (d) {
       var t = el("button", "tab" + (d.id === active ? " active" : ""));
       t.type = "button";
@@ -111,6 +123,18 @@
       t.onclick = function () { select(d.id); };
       tabsEl.appendChild(t);
     });
+  }
+
+  // Small inline shield glyph for the Security tab (decorative).
+  function shieldIcon() {
+    var span = el("span", "tab-ico");
+    span.setAttribute("aria-hidden", "true");
+    span.innerHTML =
+      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" ' +
+      'stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
+      'stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3z"/>' +
+      '<path d="M9 12l2 2 4-4"/></svg>';
+    return span;
   }
 
   /* ---- Landing page ----------------------------------------------------- */
@@ -255,18 +279,32 @@
 
   /* ---- Navigation ------------------------------------------------------- */
   function select(view) {
-    if (view !== HOME_VIEW && !findDemo(view)) view = HOME_VIEW;
+    if (view !== HOME_VIEW && view !== SECURITY_VIEW && !findDemo(view)) {
+      view = HOME_VIEW;
+    }
     active = view;
     renderTabs();
 
+    // Hide every view up front so no stale view can remain visible.
+    homeEl.classList.add("hidden");
+    securityEl.classList.add("hidden");
+    panelEl.classList.add("hidden");
+    emptyEl.classList.add("hidden");
+
     if (view === HOME_VIEW) {
-      panelEl.classList.add("hidden");
-      homeEl.classList.remove("hidden");
       stageEl.classList.add("home-mode");
-      renderHome();
+      if (demos.length === 0) {
+        emptyEl.classList.remove("hidden");
+      } else {
+        homeEl.classList.remove("hidden");
+        renderHome();
+      }
+      stageEl.scrollTop = 0;
+    } else if (view === SECURITY_VIEW) {
+      securityEl.classList.remove("hidden");
+      stageEl.classList.add("home-mode");
       stageEl.scrollTop = 0;
     } else {
-      homeEl.classList.add("hidden");
       panelEl.classList.remove("hidden");
       stageEl.classList.remove("home-mode");
       renderPanel(findDemo(view));
@@ -278,15 +316,23 @@
   function viewFromHash() {
     var h = (location.hash || "").replace(/^#/, "");
     if (!h || h === "home") return HOME_VIEW;
+    if (h === "security") return SECURITY_VIEW;
     if (h.indexOf("demo-") === 0) {
-      var id = decodeURIComponent(h.slice(5));
-      if (findDemo(id)) return id;
+      try {
+        var id = decodeURIComponent(h.slice(5));
+        if (findDemo(id)) return id;
+      } catch (e) {
+        return HOME_VIEW;
+      }
     }
     return HOME_VIEW;
   }
 
   function setHash(view) {
-    var h = view === HOME_VIEW ? "home" : "demo-" + encodeURIComponent(view);
+    var h;
+    if (view === HOME_VIEW) h = "home";
+    else if (view === SECURITY_VIEW) h = "security";
+    else h = "demo-" + encodeURIComponent(view);
     if (location.hash !== "#" + h) location.hash = h;
   }
 
@@ -294,13 +340,8 @@
     demos = buildDemos(catalog);
     countEl.textContent = demos.length + " demo" + (demos.length === 1 ? "" : "s");
 
-    if (demos.length === 0) {
-      homeEl.classList.add("hidden");
-      panelEl.classList.add("hidden");
-      emptyEl.classList.remove("hidden");
-      return;
-    }
-
+    // Note: even with zero demos we still wire navigation so the static
+    // portal views (Home hero, Security) remain reachable.
     brandEl.addEventListener("click", function () { select(HOME_VIEW); });
     window.addEventListener("hashchange", function () {
       var v = viewFromHash();

@@ -54,7 +54,7 @@
     </div>
   </header>
 
-  <nav id="tabs" class="tabs" aria-label="Demos"></nav>
+  <nav id="tabs" class="tabs" aria-label="Portal sections"></nav>
 
   <main id="stage" class="stage">
     <section id="empty" class="empty hidden">
@@ -87,6 +87,186 @@
     </section>
 
     <section id="panel" class="panel hidden"></section>
+
+    <!-- Static portal view: introductory, WAF-aligned agent security guidance. -->
+    <section id="security" class="security hidden" aria-labelledby="sec-title">
+      <div class="sec-hero">
+        <p class="sec-eyebrow">Trustworthy AI · Security</p>
+        <h1 class="sec-title" id="sec-title">Securing agents on Azure</h1>
+        <p class="sec-lede">
+          A practical, introductory baseline for building and running agents securely — mapped to
+          the <strong>Azure Well-Architected Framework (WAF)</strong>, the <strong>Cloud Adoption
+          Framework (CAF)</strong> and Microsoft&rsquo;s Zero Trust guidance. Each area links to the
+          official Microsoft documentation to go deeper. This is a starting baseline, not a complete
+          security architecture — always threat-model your own workload.
+        </p>
+        <div class="sec-cta">
+          <a class="btn primary" href="https://learn.microsoft.com/en-us/azure/well-architected/ai/design-principles"
+             target="_blank" rel="noopener">WAF · AI design principles <span class="ext" aria-hidden="true">&#8599;</span></a>
+          <a class="btn ghost" href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/governance-security-across-organization"
+             target="_blank" rel="noopener">CAF · Govern &amp; secure agents <span class="ext" aria-hidden="true">&#8599;</span></a>
+        </div>
+      </div>
+
+      <!-- Defense-in-depth flow -->
+      <figure class="sec-flow">
+        <figcaption class="sec-flow-cap">Defense-in-depth: a request&rsquo;s path through an agent</figcaption>
+        <svg class="flow-svg" viewBox="0 0 960 260" role="img" aria-labelledby="flowTitle flowDesc"
+             preserveAspectRatio="xMidYMid meet">
+          <title id="flowTitle">Agent defense-in-depth data flow</title>
+          <desc id="flowDesc">
+            A user request passes through an AI gateway with prompt shields and content safety, to the
+            agent runtime secured by a Microsoft Entra Agent ID and least-privilege access, which reaches
+            tools and grounding data protected by RBAC and Microsoft Purview. A governance and monitoring
+            band with Microsoft Defender and Application Insights spans every stage.
+          </desc>
+          <defs>
+            <marker id="arw" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0 0 L6 3 L0 6 z" fill="#94a3b8"></path>
+            </marker>
+          </defs>
+          <!-- stages -->
+          <g class="flow-node">
+            <rect x="14" y="40" width="150" height="86" rx="12"></rect>
+            <text x="89" y="72" class="fn-t">User / client</text>
+            <text x="89" y="94" class="fn-s">Authenticated,</text>
+            <text x="89" y="110" class="fn-s">Conditional Access</text>
+          </g>
+          <line x1="164" y1="83" x2="212" y2="83" stroke="#94a3b8" stroke-width="2" marker-end="url(#arw)"></line>
+          <g class="flow-node accent">
+            <rect x="214" y="40" width="164" height="86" rx="12"></rect>
+            <text x="296" y="68" class="fn-t">AI gateway</text>
+            <text x="296" y="90" class="fn-s">Prompt Shields,</text>
+            <text x="296" y="106" class="fn-s">content safety, rate limit</text>
+          </g>
+          <line x1="378" y1="83" x2="426" y2="83" stroke="#94a3b8" stroke-width="2" marker-end="url(#arw)"></line>
+          <g class="flow-node accent">
+            <rect x="428" y="40" width="164" height="86" rx="12"></rect>
+            <text x="510" y="68" class="fn-t">Agent runtime</text>
+            <text x="510" y="90" class="fn-s">Entra Agent ID,</text>
+            <text x="510" y="106" class="fn-s">least privilege</text>
+          </g>
+          <line x1="592" y1="83" x2="640" y2="83" stroke="#94a3b8" stroke-width="2" marker-end="url(#arw)"></line>
+          <g class="flow-node">
+            <rect x="642" y="40" width="164" height="86" rx="12"></rect>
+            <text x="724" y="68" class="fn-t">Tools &amp; data</text>
+            <text x="724" y="90" class="fn-s">RBAC, Purview,</text>
+            <text x="724" y="106" class="fn-s">egress control</text>
+          </g>
+          <!-- governance band -->
+          <g class="flow-band">
+            <rect x="14" y="168" width="792" height="66" rx="12"></rect>
+            <text x="410" y="196" class="fb-t">Governance &amp; monitoring across every stage</text>
+            <text x="410" y="217" class="fb-s">Microsoft Defender · Application Insights · Log Analytics · Microsoft Purview · red-teaming</text>
+          </g>
+          <line x1="89" y1="126" x2="89" y2="166" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"></line>
+          <line x1="296" y1="126" x2="296" y2="166" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"></line>
+          <line x1="510" y1="126" x2="510" y2="166" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"></line>
+          <line x1="724" y1="126" x2="724" y2="166" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"></line>
+        </svg>
+      </figure>
+
+      <!-- Pillar cards -->
+      <div class="sec-grid">
+        <article class="sec-card">
+          <div class="sec-card-head"><span class="sec-ico" aria-hidden="true">&#128273;</span>
+            <h2>Identity &amp; least privilege</h2></div>
+          <ul>
+            <li>Give every agent its own <strong>Microsoft Entra Agent ID</strong> — never share
+              identities between agents (some Agent ID capabilities are in preview).</li>
+            <li>Separate the agent&rsquo;s <em>workload identity</em> from <em>delegated user
+              authorization</em>; grant only the scopes each task needs.</li>
+            <li>Extend Zero Trust: Conditional Access, risk-based policies and periodic access reviews.</li>
+          </ul>
+          <div class="sec-links">
+            <a href="https://learn.microsoft.com/en-us/entra/agent-id/best-practices-agent-id" target="_blank" rel="noopener">Entra Agent ID best practices <span class="ext" aria-hidden="true">&#8599;</span></a>
+            <a href="https://learn.microsoft.com/en-us/entra/agent-id/" target="_blank" rel="noopener">Entra Agent ID docs <span class="ext" aria-hidden="true">&#8599;</span></a>
+          </div>
+        </article>
+
+        <article class="sec-card">
+          <div class="sec-card-head"><span class="sec-ico" aria-hidden="true">&#128220;</span>
+            <h2>Governance &amp; lifecycle</h2></div>
+          <ul>
+            <li>Every agent has a business <strong>sponsor</strong> and a technical owner.</li>
+            <li>Keep a central inventory; standardize deploy, patch and <strong>retire/revoke</strong> flows to avoid orphaned agents.</li>
+            <li>Enforce a single security baseline aligned to Responsible AI (fairness, transparency, accountability).</li>
+          </ul>
+          <div class="sec-links">
+            <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/governance-security-across-organization" target="_blank" rel="noopener">CAF · Govern &amp; secure agents <span class="ext" aria-hidden="true">&#8599;</span></a>
+          </div>
+        </article>
+
+        <article class="sec-card">
+          <div class="sec-card-head"><span class="sec-ico" aria-hidden="true">&#128737;</span>
+            <h2>Prompt &amp; content safety</h2></div>
+          <ul>
+            <li>Screen input with <strong>Prompt Shields</strong> for direct and indirect (cross-prompt)
+              injection — treat it as a detection layer, not a hard security boundary.</li>
+            <li>Keep <em>harmful-content filtering</em> separate from <em>prompt-injection</em>, authorization and data-exfiltration controls.</li>
+            <li>Treat all RAG / grounding documents and tool outputs as <strong>untrusted input</strong>.</li>
+          </ul>
+          <div class="sec-links">
+            <a href="https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection" target="_blank" rel="noopener">Prompt Shields (Content Safety) <span class="ext" aria-hidden="true">&#8599;</span></a>
+          </div>
+        </article>
+
+        <article class="sec-card">
+          <div class="sec-card-head"><span class="sec-ico" aria-hidden="true">&#128274;</span>
+            <h2>Data protection &amp; grounding</h2></div>
+          <ul>
+            <li>Least-privilege data access; encrypt in transit and at rest.</li>
+            <li>Apply DLP and insider-risk controls with <strong>Microsoft Purview</strong>; respect residency and compliance.</li>
+            <li>Protect agent <em>memory</em>, vector stores, caches and embeddings — they can leak sensitive data.</li>
+          </ul>
+          <div class="sec-links">
+            <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/governance-security-across-organization" target="_blank" rel="noopener">CAF · Data governance <span class="ext" aria-hidden="true">&#8599;</span></a>
+          </div>
+        </article>
+
+        <article class="sec-card">
+          <div class="sec-card-head"><span class="sec-ico" aria-hidden="true">&#127959;</span>
+            <h2>Secure application design</h2></div>
+          <ul>
+            <li>Centralize policy at an <strong>AI gateway</strong>; isolate/containerize components.</li>
+            <li>Require <strong>per-action authorization</strong> and human approval for consequential actions.</li>
+            <li>Restrict network egress, manage secrets in Key Vault, and vet tool / MCP / plugin supply chain.</li>
+          </ul>
+          <div class="sec-links">
+            <a href="https://learn.microsoft.com/en-us/azure/well-architected/ai/application-design" target="_blank" rel="noopener">WAF · AI application design <span class="ext" aria-hidden="true">&#8599;</span></a>
+            <a href="https://learn.microsoft.com/en-us/azure/well-architected/ai/design-principles" target="_blank" rel="noopener">WAF · AI design principles <span class="ext" aria-hidden="true">&#8599;</span></a>
+          </div>
+        </article>
+
+        <article class="sec-card">
+          <div class="sec-card-head"><span class="sec-ico" aria-hidden="true">&#128200;</span>
+            <h2>Observability &amp; threat detection</h2></div>
+          <ul>
+            <li>Trace agent decisions and tool calls with <strong>Application Insights</strong> and Log Analytics.</li>
+            <li>Detect threats with <strong>Microsoft Defender</strong>; red-team and evaluate adversarially before and after release.</li>
+            <li>Redact prompts, responses, tool arguments, secrets and retrieved data in logs; set retention controls. Plan incident response and safe shutdown/revocation.</li>
+          </ul>
+          <div class="sec-links">
+            <a href="https://learn.microsoft.com/en-us/security/zero-trust/sfi/secure-agentic-systems" target="_blank" rel="noopener">Zero Trust · Secure agentic systems <span class="ext" aria-hidden="true">&#8599;</span></a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Further reading -->
+      <div class="sec-more">
+        <h2 class="sec-more-title">Further reading — official Microsoft documentation</h2>
+        <ul class="sec-more-list">
+          <li><a href="https://learn.microsoft.com/en-us/azure/well-architected/ai/design-principles" target="_blank" rel="noopener">Azure WAF — Design principles for AI workloads</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/azure/well-architected/ai/application-design" target="_blank" rel="noopener">Azure WAF — Application design for AI workloads</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/governance-security-across-organization" target="_blank" rel="noopener">Cloud Adoption Framework — Govern and secure AI agents</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/security/zero-trust/sfi/secure-agentic-systems" target="_blank" rel="noopener">Zero Trust — Secure autonomous agentic AI systems</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/entra/agent-id/best-practices-agent-id" target="_blank" rel="noopener">Microsoft Entra Agent ID — Best practices</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/entra/agent-id/" target="_blank" rel="noopener">Microsoft Entra Agent ID — Documentation</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection" target="_blank" rel="noopener">Azure AI Content Safety — Prompt Shields</a></li>
+        </ul>
+        <p class="sec-note">Links open on <code>learn.microsoft.com</code> in a new tab.</p>
+      </div>
+    </section>
   </main>
 
   <script src="app.js"></script>

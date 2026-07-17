@@ -330,3 +330,111 @@ html, body {
   color: var(--muted);
 }
 .empty code { background: #e2e8f0; padding: 1px 6px; border-radius: 4px; color: var(--text); }
+
+/* Tab: static portal view (Security) ------------------------------------- */
+.tab .tab-ico { display: inline-flex; vertical-align: middle; margin-right: 6px; }
+.tab .tab-ico svg { display: block; }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* Security view ---------------------------------------------------------- */
+.security { max-width: 1120px; margin: 0 auto; padding: 4px 4px 56px; }
+.sec-hero { padding: 28px 4px 8px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+.sec-eyebrow {
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.sec-title {
+  margin: 0 0 14px;
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+.sec-lede { margin: 0 0 20px; max-width: 760px; color: var(--muted); font-size: 16px; line-height: 1.6; }
+.sec-lede strong { color: var(--text); }
+.sec-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.ext { font-size: .9em; }
+
+/* Flow diagram */
+.sec-flow { margin: 0 0 32px; }
+.sec-flow-cap {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+.flow-svg {
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 8px;
+}
+.flow-node rect { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; }
+.flow-node.accent rect { fill: var(--accent-soft); stroke: #bfdbfe; }
+.flow-node .fn-t { fill: var(--text); font-size: 15px; font-weight: 700; text-anchor: middle; }
+.flow-node .fn-s { fill: var(--muted); font-size: 12px; text-anchor: middle; }
+.flow-band rect { fill: #0f172a; }
+.flow-band .fb-t { fill: #fff; font-size: 14px; font-weight: 700; text-anchor: middle; }
+.flow-band .fb-s { fill: #cbd5e1; font-size: 12px; text-anchor: middle; }
+
+/* Pillar cards */
+.sec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.sec-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 22px;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.sec-card:hover { box-shadow: 0 8px 24px rgba(15, 23, 42, .07); border-color: #cbd5e1; }
+.sec-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.sec-card-head h2 { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+.sec-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  font-size: 15px;
+  flex: none;
+}
+.sec-card ul { margin: 0 0 14px; padding-left: 18px; }
+.sec-card li { color: var(--muted); font-size: 13.5px; line-height: 1.6; margin-bottom: 6px; }
+.sec-card li strong { color: var(--text); }
+.sec-links { display: flex; flex-direction: column; gap: 6px; }
+.sec-links a { color: var(--accent); font-size: 13px; font-weight: 600; text-decoration: none; }
+.sec-links a:hover { text-decoration: underline; }
+
+/* Further reading */
+.sec-more {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 24px;
+}
+.sec-more-title { margin: 0 0 14px; font-size: 15px; font-weight: 700; }
+.sec-more-list { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
+.sec-more-list li { margin-bottom: 8px; break-inside: avoid; }
+.sec-more-list a { color: var(--accent); font-size: 13.5px; text-decoration: none; }
+.sec-more-list a:hover { text-decoration: underline; }
+.sec-note { margin: 14px 0 0; color: var(--muted); font-size: 12.5px; }
+.sec-note code { background: #e2e8f0; padding: 1px 6px; border-radius: 4px; color: var(--text); }
+
+@media (max-width: 720px) {
+  .sec-more-list { columns: 1; }
+  .sec-title { font-size: 24px; }
+}
