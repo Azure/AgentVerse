@@ -190,4 +190,31 @@ demos = {
     }
   }
 
+  # -------------------------------------------------------------------------
+  # Model Evaluator — single container (FastAPI serves UI + JSON/SSE API on 8770).
+  # A/B compares two Foundry-deployed chat models on one prompt in parallel
+  # (latency / TTFT / tokens / throughput) with an optional blind LLM judge. The
+  # model dropdowns are discovered at runtime from the shared Foundry project, so
+  # newly deployed models appear automatically. PROJECT_ENDPOINT (discovery) and
+  # AZURE_OPENAI_ENDPOINT (inference) are injected by infra/locals.tf; no model
+  # name is pinned and there are no persistent agents (no registration block).
+  # -------------------------------------------------------------------------
+  model-evaluator = {
+    enabled = true
+
+    services = [
+      {
+        name         = "web"
+        context      = "src/model-evaluator"
+        dockerfile   = "src/model-evaluator/Dockerfile"
+        target_port  = 8770
+        is_web       = true
+        external     = true
+        min_replicas = 1
+        max_replicas = 1
+        env          = {}
+      },
+    ]
+  }
+
 }

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Model Evaluator — AgentVerse</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <div>
+        <h1>Model Evaluator</h1>
+        <p class="sub">Compare two Foundry model deployments on one prompt — side by side.</p>
+      </div>
+    </div>
+    <div class="src" id="source-badge" title="Discovery source"></div>
+  </header>
+
+  <main class="wrap">
+    <section class="controls card">
+      <div class="pickers">
+        <div class="picker">
+          <label for="model-a">Model A</label>
+          <select id="model-a" aria-label="Model A"></select>
+          <div class="meta" id="meta-a"></div>
+        </div>
+        <div class="vs">vs</div>
+        <div class="picker">
+          <label for="model-b">Model B</label>
+          <select id="model-b" aria-label="Model B"></select>
+          <div class="meta" id="meta-b"></div>
+        </div>
+        <button id="refresh" class="btn ghost" title="Re-discover deployments">↻ Refresh</button>
+      </div>
+
+      <details class="advanced">
+        <summary>Advanced parameters</summary>
+        <div class="params">
+          <label>System prompt (optional)
+            <textarea id="system" rows="2" placeholder="You are a helpful assistant."></textarea>
+          </label>
+          <div class="row">
+            <label class="p-temp">Temperature
+              <input id="temperature" type="number" min="0" max="2" step="0.1" value="0.7" />
+            </label>
+            <label class="p-topp">Top&nbsp;p
+              <input id="top_p" type="number" min="0" max="1" step="0.05" value="1" />
+            </label>
+            <label>Max output tokens
+              <input id="max_tokens" type="number" min="1" step="64" value="512" />
+            </label>
+            <label>Seed (optional)
+              <input id="seed" type="number" step="1" placeholder="—" />
+            </label>
+          </div>
+          <p class="hint" id="param-hint"></p>
+        </div>
+      </details>
+
+      <label class="prompt-label" for="prompt">Prompt</label>
+      <textarea id="prompt" rows="4" placeholder="Ask both models the same question…"></textarea>
+      <div class="actions">
+        <button id="run" class="btn primary">Compare ▶</button>
+        <button id="judge" class="btn" disabled title="Run a blind LLM judge on the two answers">⚖ Judge</button>
+        <span class="spacer"></span>
+        <button id="export-json" class="btn ghost" disabled>Export JSON</button>
+        <button id="export-csv" class="btn ghost" disabled>Export CSV</button>
+        <span id="status" class="status" role="status" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section class="results" id="results">
+      <article class="result card" id="card-a">
+        <header><h2 class="rname" id="name-a">Model A</h2><span class="rver" id="ver-a"></span></header>
+        <div class="metrics" id="metrics-a"></div>
+        <pre class="answer" id="answer-a" tabindex="0"></pre>
+        <div class="filter" id="filter-a"></div>
+      </article>
+      <article class="result card" id="card-b">
+        <header><h2 class="rname" id="name-b">Model B</h2><span class="rver" id="ver-b"></span></header>
+        <div class="metrics" id="metrics-b"></div>
+        <pre class="answer" id="answer-b" tabindex="0"></pre>
+        <div class="filter" id="filter-b"></div>
+      </article>
+    </section>
+
+    <section class="verdict card hidden" id="verdict">
+      <h2>⚖ Blind judge verdict</h2>
+      <div id="verdict-body"></div>
+    </section>
+
+    <section class="history card">
+      <div class="history-head">
+        <h2>History <span class="muted">(this browser only)</span></h2>
+        <button id="clear-history" class="btn ghost">Clear</button>
+      </div>
+      <div id="history-list" class="history-list"></div>
+    </section>
+
+    <footer class="foot">
+      <p>Latency is measured client-side over a streamed request; TTFT = time to first generated token.
+      Token counts come from the model's usage report. A single blind judgement is anecdotal — not a
+      statistical evaluation. For dataset-scale scoring use the Azure AI Evaluation SDK.</p>
+    </footer>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

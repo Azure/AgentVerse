@@ -75,6 +75,19 @@ locals {
         AZURE_CLIENT_ID                       = module.platform.identity_client_id
       }
     }
+    # Model Evaluator — A/B model comparison over the shared Foundry account.
+    # PROJECT_ENDPOINT drives dynamic deployment discovery (the UAMI already has
+    # Azure AI Developer), AZURE_OPENAI_ENDPOINT drives streamed inference. No
+    # model deployment name is pinned: the dropdown discovers them at runtime.
+    "model-evaluator" = {
+      "web" = {
+        PROJECT_ENDPOINT                      = module.ai.project_endpoint
+        AZURE_OPENAI_ENDPOINT                 = module.ai.openai_endpoint
+        APPLICATIONINSIGHTS_CONNECTION_STRING = module.platform.app_insights_connection_string
+        OTEL_SERVICE_NAME                     = "model-evaluator"
+        AZURE_CLIENT_ID                       = module.platform.identity_client_id
+      }
+    }
   }
 
   # Environment for each demo's agent-registration hook (runs locally as the
