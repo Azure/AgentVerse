@@ -1,6 +1,6 @@
 {
   "apiVersion": "agentverse/v1",
-  "count": 4,
+  "count": 5,
   "demos": [
     {
       "apiVersion": "agentverse/v1",
@@ -149,6 +149,76 @@
         "docs": "https://learn.microsoft.com/azure/ai-foundry/agents/"
       },
       "_path": "insurance-ai-agents"
+    },
+    {
+      "apiVersion": "agentverse/v1",
+      "name": "model-evaluator",
+      "title": "Model Evaluator",
+      "tagline": "Send one prompt to two Foundry models in parallel and compare latency, tokens and quality side by side.",
+      "description": "An interactive A/B comparison bench for the models deployed in your shared Azure AI Foundry project. Pick any two chat-capable deployments from a dropdown that is discovered live (a newly deployed model shows up on Refresh), send them the same prompt in parallel, and compare streamed responses with fair, client-measured metrics: total latency, time-to-first-token, prompt/output tokens and throughput (tokens/sec). Parameters adapt to each model's capabilities (reasoning models drop temperature/top-p and use max_completion_tokens). An optional, explicit blind LLM judge scores both answers on a fixed rubric with randomized A/B order to reduce position bias, and results export to JSON/CSV. Runs on a public endpoint over a shared managed identity, so it ships with abuse guardrails (per-IP rate limit, concurrency semaphore, token/output caps, per-model timeouts). This is an interactive comparison, not a statistical evaluation — for dataset-scale scoring use the Azure AI Evaluation SDK.",
+      "status": "experimental",
+      "difficulty": "intermediate",
+      "tags": [
+        "evaluation",
+        "model-comparison",
+        "benchmarking",
+        "foundry",
+        "latency",
+        "tokens",
+        "llm-judge"
+      ],
+      "owners": [
+        "@heblasco"
+      ],
+      "stack": {
+        "framework": "Azure OpenAI (direct inference) + Azure AI Projects (discovery)",
+        "backend": "FastAPI",
+        "frontend": "Vanilla HTML/JS",
+        "iac": "Terraform",
+        "language": [
+          "Python"
+        ]
+      },
+      "orchestration": "parallel",
+      "agents": [
+        {
+          "name": "candidate-model-a",
+          "role": "Streams the shared prompt to the first selected Foundry deployment and reports latency, TTFT and token usage.",
+          "model": "dynamic",
+          "tools": []
+        },
+        {
+          "name": "candidate-model-b",
+          "role": "Streams the same prompt to the second selected deployment in parallel for a fair side-by-side comparison.",
+          "model": "dynamic",
+          "tools": []
+        },
+        {
+          "name": "blind-judge",
+          "role": "Optional, explicit LLM-as-judge that blindly scores both answers on a fixed rubric with randomized A/B order.",
+          "model": "dynamic",
+          "tools": []
+        }
+      ],
+      "models": [
+        "dynamic"
+      ],
+      "azureServices": [
+        "Azure AI Foundry",
+        "Azure OpenAI"
+      ],
+      "capabilities": [
+        "evals",
+        "guardrails",
+        "observability"
+      ],
+      "entrypoints": {
+        "quickstart": "README.md#quick-start",
+        "backend": "uvicorn app.backend.main:app --port 8770",
+        "frontend": "app/frontend/index.html",
+        "deploy": "../../infra/README.md"
+      },
+      "_path": "model-evaluator"
     },
     {
       "apiVersion": "agentverse/v1",
