@@ -60,9 +60,15 @@ RATE_LIMIT_WINDOW_SECONDS = _int("RATE_LIMIT_WINDOW_SECONDS", 60)
 RATE_LIMIT_MAX_REQUESTS = _int("RATE_LIMIT_MAX_REQUESTS", 20)  # per IP per window
 REFRESH_MIN_INTERVAL_SECONDS = _int("REFRESH_MIN_INTERVAL_SECONDS", 15)
 
-# Optional judge model override (else the app picks a chat model distinct from
-# the two candidates at request time).
+# Optional judge model override (else the app picks the strongest chat model
+# distinct from the two candidates at request time). Pinned to a capable model
+# via infra/locals.tf in the unified deploy; left empty for local runs.
 JUDGE_MODEL = os.getenv("JUDGE_MODEL", "").strip()
+# Output budget for the judge. Reasoning judges (gpt-5.x/o*) spend hidden
+# reasoning tokens against this budget, so keep it generous to avoid truncating
+# the JSON verdict; non-reasoning judges use the smaller cap.
+JUDGE_MAX_TOKENS = _int("JUDGE_MAX_TOKENS", 4000)
+JUDGE_MAX_TOKENS_NONREASONING = _int("JUDGE_MAX_TOKENS_NONREASONING", 800)
 
 
 def has_inference() -> bool:

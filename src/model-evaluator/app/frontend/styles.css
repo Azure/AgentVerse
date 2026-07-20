@@ -106,6 +106,8 @@ table.scores { border-collapse: collapse; width: 100%; margin: 8px 0; font-size:
 table.scores th, table.scores td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
 table.scores th { color: var(--muted); font-weight: 600; background: var(--panel-2); }
 .rationale { margin: 10px 0 0; }
+.judge-meta { font-size: 12px; margin: 2px 0 8px; }
+.judge-warn { color: var(--warn); font-size: 12px; margin: 0 0 8px; }
 .muted { color: var(--muted); } .note { font-size: 12px; }
 
 /* history */

@@ -83,6 +83,7 @@ locals {
       "web" = {
         PROJECT_ENDPOINT                      = module.ai.project_endpoint
         AZURE_OPENAI_ENDPOINT                 = module.ai.openai_endpoint
+        JUDGE_MODEL                           = "gpt-5.6-sol"
         APPLICATIONINSIGHTS_CONNECTION_STRING = module.platform.app_insights_connection_string
         OTEL_SERVICE_NAME                     = "model-evaluator"
         AZURE_CLIENT_ID                       = module.platform.identity_client_id

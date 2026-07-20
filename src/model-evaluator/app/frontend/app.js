@@ -283,6 +283,21 @@
     head.textContent = v.winner === "tie" ? "Result: tie" : "Winner: " + v.winner;
     body.appendChild(head);
 
+    const meta = document.createElement("p");
+    meta.className = "muted judge-meta";
+    let mtext = "Judge: " + (v.judge_model || "?") + (v.judge_version ? " (v" + v.judge_version + ")" : "");
+    if (v.selection_reason) mtext += " · " + v.selection_reason;
+    meta.textContent = mtext;
+    body.appendChild(meta);
+
+    if (v.family_overlap && v.family_overlap.length) {
+      const warn = document.createElement("p");
+      warn.className = "judge-warn";
+      warn.textContent = "⚠ Judge shares a model family with: " + v.family_overlap.join(", ") +
+        " — possible self/family preference bias.";
+      body.appendChild(warn);
+    }
+
     const criteria = v.criteria || ["helpfulness", "correctness", "completeness", "coherence"];
     const table = document.createElement("table");
     table.className = "scores";

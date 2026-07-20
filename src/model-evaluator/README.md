@@ -69,7 +69,7 @@ deploy; no secrets baked in):
 | `AZURE_OPENAI_ENDPOINT` | Azure OpenAI endpoint — drives **inference**. |
 | `AZURE_CLIENT_ID` | UAMI client id for `DefaultAzureCredential` in the container. |
 | `OPENAI_API_VERSION` | Data-plane API version (default `2024-10-21`). |
-| `JUDGE_MODEL` | Optional judge deployment; otherwise a chat model distinct from the two candidates is chosen. |
+| `JUDGE_MODEL` | Judge deployment (pinned to `gpt-5.6-sol` in the unified deploy). If unset — or if the pinned model is unavailable or is one of the two candidates — the app picks the **strongest** other discovered chat model; it never self-judges. |
 | `EVALUATOR_MODELS` | Optional comma-separated static fallback list (if discovery is unavailable). |
 | `MAX_OUTPUT_TOKENS`, `MAX_PROMPT_CHARS`, `MAX_MODELS_PER_RUN`, `GLOBAL_CONCURRENCY`, `MAX_SSE_STREAMS`, `RATE_LIMIT_*`, `INFERENCE_TIMEOUT_SECONDS`, `DISCOVERY_CACHE_SECONDS` | Guardrail tuning (sensible defaults). |
 
