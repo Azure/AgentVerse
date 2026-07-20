@@ -1,0 +1,62 @@
+# AgentVerse catalog manifest — Azure SRE Agent.
+# Validate: python ../templates/catalog/build_catalog.py --validate agentverse.yaml
+
+apiVersion: agentverse/v1
+
+name: sre-agent-demo
+title: Azure SRE Agent
+tagline: Watch an AI site-reliability agent investigate a live-style incident, find root cause and propose a human-approved fix.
+description: >-
+  An interactive, guided walkthrough of the Azure SRE Agent — Microsoft's AI
+  site-reliability agent for Azure workloads. Pick a seeded incident (a Container
+  Apps 5xx spike, an AKS CrashLoopBackOff after a secret rotation, or Azure SQL DTU
+  saturation) and step through a deterministic investigation timeline that mirrors
+  how the real agent works: it ingests a signal (Azure Monitor / App Insights),
+  queries telemetry through its connectors (Log Analytics / Kusto), forms and tests
+  a hypothesis, reaches a root cause, and proposes a reversible remediation that a
+  human approves in Review mode. Each scenario is mapped to Well-Architected
+  Framework pillars and links to the official Microsoft documentation. This ships in
+  guided replay mode — deterministic and simulated, with no live Azure calls and no
+  actions taken — so the portal tab always renders at zero cost and zero blast
+  radius. A read-only live path against a dedicated sandbox agent (managed identity,
+  approvals off by default, SSRF and fail-closed guards) is scaffolded for a later
+  step (see README).
+
+status: experimental
+difficulty: intermediate
+tags: [sre, incident-response, observability, reliability, root-cause, well-architected, human-in-the-loop]
+owners: ["@heblasco"]
+
+stack:
+  framework: Azure SRE Agent (control plane ARM + data plane, preview)
+  backend: FastAPI
+  frontend: Vanilla HTML/JS
+  iac: none
+  language: [Python]
+
+orchestration: human-in-the-loop
+
+agents:
+  - name: sre-agent
+    role: Investigates an incident end to end — correlates signals, queries telemetry connectors, determines root cause and proposes a reversible remediation.
+    model: dynamic
+    tools: [azure-monitor, log-analytics, application-insights, azure-resource-manager]
+  - name: approver
+    role: Human-in-the-loop reviewer who approves or rejects the agent's proposed action in Review mode (shown read-only in this demo).
+    model: none
+    tools: []
+
+models: [dynamic]
+azureServices: [Azure SRE Agent, Azure Monitor, Log Analytics, Application Insights]
+capabilities: [observability, human-in-the-loop, governance]
+
+entrypoints:
+  quickstart: README.md#quick-start
+  backend: uvicorn app.backend.main:app --port 8780
+  frontend: app/frontend/index.html
+  deploy: ../../infra/README.md
+
+links:
+  overview: https://learn.microsoft.com/azure/sre-agent/overview
+  api: https://learn.microsoft.com/azure/sre-agent/api-reference
+  well-architected: https://learn.microsoft.com/azure/well-architected/

@@ -217,4 +217,32 @@ demos = {
     ]
   }
 
+  # -------------------------------------------------------------------------
+  # Azure SRE Agent — single container (FastAPI serves UI + JSON API on 8780).
+  # Guided replay of the Azure SRE Agent: deterministic, seeded incident
+  # investigations (root cause + human-approved remediation) with WAF framing
+  # and Microsoft Learn links. Ships in REPLAY mode — no live Azure calls, no
+  # actions, no injected env needed, so the tab always renders at zero cost.
+  # A read-only live path against a dedicated *sandbox* agent is scaffolded in
+  # the backend (set SRE_AGENT_RESOURCE_ID); keep approvals/writes off in any
+  # shared deploy. See src/sre-agent-demo/README.md.
+  # -------------------------------------------------------------------------
+  sre-agent-demo = {
+    enabled = true
+
+    services = [
+      {
+        name         = "web"
+        context      = "src/sre-agent-demo"
+        dockerfile   = "src/sre-agent-demo/Dockerfile"
+        target_port  = 8780
+        is_web       = true
+        external     = true
+        min_replicas = 1
+        max_replicas = 1
+        env          = {}
+      },
+    ]
+  }
+
 }

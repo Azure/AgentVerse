@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Azure SRE Agent — AgentVerse</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <div>
+        <h1>Azure SRE Agent</h1>
+        <p class="sub">Watch an AI site-reliability agent investigate an incident, find root cause and propose a fix — with a human in the loop.</p>
+      </div>
+    </div>
+    <div class="mode-badge" id="mode-badge" title="Run mode">…</div>
+  </header>
+
+  <div class="banner" id="safety-banner">
+    <strong>Guided replay.</strong> These are deterministic, simulated investigations —
+    no live Azure calls and no actions are taken. See how the real agent works, then wire a
+    dedicated <em>sandbox</em> agent to go live (approvals stay off by default).
+  </div>
+
+  <main class="wrap">
+    <!-- left: incident picker -->
+    <section class="col scenarios card">
+      <h2>Incidents</h2>
+      <p class="hint">Pick a signal to replay the agent's investigation.</p>
+      <div id="scenario-list" class="scenario-list"></div>
+    </section>
+
+    <!-- center: investigation timeline -->
+    <section class="col investigation card">
+      <div class="inv-head">
+        <div>
+          <h2 id="inv-title">Select an incident</h2>
+          <p class="sub" id="inv-summary">The investigation timeline will appear here.</p>
+        </div>
+        <div class="inv-meta" id="inv-meta"></div>
+      </div>
+      <div class="controls-row" id="controls-row" hidden>
+        <button id="btn-step" class="btn">Step ▸</button>
+        <button id="btn-play" class="btn btn-primary">Play ▶</button>
+        <button id="btn-all" class="btn">Show all</button>
+        <button id="btn-reset" class="btn btn-ghost">Reset</button>
+        <span class="progress" id="progress"></span>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <!-- right: explainer -->
+    <aside class="col context card">
+      <h2>What the agent can do</h2>
+      <div id="capabilities" class="cap-list"></div>
+      <h2>Well-Architected framing</h2>
+      <div id="waf" class="waf-list"></div>
+      <h2>Documentation</h2>
+      <div id="docs" class="doc-list"></div>
+    </aside>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
