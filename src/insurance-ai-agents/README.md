@@ -1,42 +1,192 @@
-<div align="center">
+> **📐 Proposal.** A self-contained, standardized README following the AgentVerse
+> [template](../templates/demo-scaffold/README-TEMPLATE.md), offered for the demo author
+> to adopt — and adapt — as this demo's README.
 
-<img src="images/brand-banner.svg" alt="Microsoft × Helix Insurance" width="540" />
+---
 
 # Insurance AI Agents
-### Governed Multi-Agent Claims Processing · Whitelabel Demo
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-2563EB?style=flat-square)](LICENSE)
-[![Azure](https://img.shields.io/badge/Azure-AI%20Foundry-0078D4?style=flat-square&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/products/ai-foundry/)
-[![GitHub](https://img.shields.io/badge/GitHub-Enterprise-181717?style=flat-square&logo=github)](https://github.com/enterprise)
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
-[![MAF](https://img.shields.io/badge/Microsoft%20Agent%20Framework-1.4.0-5C2D91?style=flat-square&logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/ai-foundry/agents/)
+> Governed multi-agent claims processing: how an organization builds, governs and
+> operates AI agents over a critical process with the same rigor demanded of
+> enterprise software — packaged as a whitelabel, reskinnable demo.
 
-> **How an organization can build, govern and operate AI agents over critical processes**: end-to-end claims processing, with regulatory control, traceability and the same rigor demanded of enterprise software.
->
-> 🎨 **Whitelabel preset** · This demo is packaged as a reskinnable template. The default brand "Helix Insurance" is a placeholder; replace it with your own in a few minutes. See **[BRANDING.md](BRANDING.md)**. A second brand (Santander) exists on the `santander` branch — same app, only different branding.
-
-</div>
+**Contents:** [Part 1 · Business Brief](#part-1--business-brief) — present the demo ·
+[Part 2 · Technical Brief](#part-2--technical-brief) — prepare and operate it
 
 ---
 
-## 🎯 What this platform demonstrates
+## Part 1 · Business Brief
 
-This demo shows, in a real use case (auto claims), **the complete lifecycle of a governed enterprise AI agent**:
+### 1.1 At a glance
 
-| Pillar | How it materializes in the demo |
+| | |
 |---|---|
-| 🤖 **Multi-agent** | 3 specialized agents (Intake, Risk, Compliance) orchestrated with **Microsoft Agent Framework** |
-| 🎙️ **Multichannel** | Same pipeline over web and **real-time voice** (Azure OpenAI gpt-realtime-mini) |
-| 🛡️ **AI Gateway** | Azure APIM with Content Safety policies, token limits, audit logs and managed identity |
-| 📜 **Governance** | CODEOWNERS per domain + automated Eval Gate on every PR against the golden dataset |
-| 🔐 **Identity** | Entra ID (OIDC) for users and federated identity for CI/CD |
-| 📊 **Audited persistence** | Cosmos DB with a complete audit trail of every decision |
-| 🎨 **Configurable UX** | Whitelabel React dashboard (palette + logo + name via `brand.ts`), slide-based auto demo and role-based views |
+| **Scenario** | Insurance — auto claims processing (whitelabel: the same demo reskins to any regulated decision process) |
+| **Business outcome** | Claims decided in minutes, with the control, traceability and auditability a regulator expects |
+| **Best suited for** | Governance- and compliance-led conversations; regulated industries (insurance, banking, healthcare); rooms that include IT decision-makers or risk owners |
+| **Duration** | 12–15 minutes |
+| **Presenter effort** | Solo-friendly for the core flow; the governance sequence (step 4) benefits from a technical co-presenter or prepared screenshots |
+| **Demo reliability** | High for the core flow — it runs entirely on built-in sample data |
+| **Contingency** | If the live governance walkthrough is not practical, present a previously completed change request with its recorded approvals and quality report |
+
+### 1.2 The story
+
+A customer crashes their car and reports the claim. What happens next inside the insurer
+is a chain of careful, regulated work: extract the facts, score the risk, check for
+fraud, apply the regulatory rules, decide, and leave an audit trail a regulator can
+replay. It is exactly the kind of critical process enterprises *want* to hand to AI
+agents — and exactly the kind their IT and compliance departments will not allow without
+control.
+
+That tension is the story of this demo. It does not merely show three agents (Intake,
+Risk, Compliance) processing a claim end-to-end, over web and real-time voice. It shows
+the **operating model around them**: every AI call forced through a gateway that
+enforces safety and spending policies, users properly authenticated, every decision
+stored with its full reasoning for audit, agent behavior tested against a golden set of
+claims before any change ships, and each agent's logic owned by the team accountable
+for it.
+
+The decisive scene: a regulator lowers a threshold, a developer changes one line of the
+compliance rules, and the *governance machinery* — not a human promise — ensures the
+compliance team must approve the change and the automated quality check must pass
+before it ships. Agents governed like the critical software they are.
+
+Why agents and not a rules engine? The judgment steps (understanding a free-text claim
+report, weighing fraud signals) genuinely need AI. The demo's discipline is keeping the
+AI *inside* a governed lane: rules stay in reviewable form, policies at the gateway, and
+evidence in the audit trail.
+
+### 1.3 The business case
+
+| Business KPI | Without agents | Impact demonstrated |
+|---|---|---|
+| **Claims cycle time (report → decision)** | Days of sequential manual handling across intake, risk and compliance desks | A complete, reasoned decision streamed in minutes; visible live in the auto-demo |
+| **Straight-through processing rate** | Low: most claims touch multiple humans regardless of complexity | Routine claims decided end-to-end by agents; only flagged cases reach the human review queue |
+| **Cost per claim** | Proportional to manual touch time per desk | Human effort shifts from processing every claim to reviewing exceptions |
+| **Fraud leakage** | Fraud signals reviewed inconsistently, under time pressure | Every claim receives a risk score and fraud probability, uniformly and auditable |
+| **Regulatory change lead time** | Threshold changes travel through release cycles and manual test campaigns | A one-line rule change ships through a governed approval + automated quality check, applied without redeployment |
+| **Audit readiness** | Evidence assembled retrospectively for each inspection | Every decision stored with its full reasoning trail; every AI call logged at the gateway |
+
+The KPI that carries the investment decision in a regulated setting is not cycle time —
+it is **regulatory change lead time and audit readiness**. Cost and speed benefits are
+only realizable if compliance signs off, and the governance machinery is what makes that
+signature possible.
+
+### 1.4 Delivering the demo
+
+#### Presenter verification (5 minutes before)
+
+- [ ] The dashboard opens at the address provided by your technical contact and shows the branded home screen
+- [ ] The **"Play auto demo"** button starts the four-stage claim walkthrough (run it once fully as a check)
+- [ ] For the governance sequence: either the live change-request walkthrough is prepared, or you have the screenshots/recorded example at hand
+
+#### Demonstration sequence
+
+1. *(0–5 min)* Start **"Play auto demo"**. The four stages — Intake → Risk → Compliance
+   → Decision — run as slides with the AI's output streaming live. Explain each agent's
+   contribution as it completes: *"three specialists and a coordinator, doing in minutes
+   what crosses three desks today."*
+2. *(5–7 min)* Open the **Operator view**: the human review queue. *"The agents decide
+   the routine cases; your people see only the exceptions — with the AI's full reasoning
+   attached."*
+3. *(7–9 min, technical rooms — shorten for business audiences)* Open the **Security
+   view**: every AI call in the platform passed through a policy gateway that enforces
+   content safety, spending limits and logging.
+4. *(9–13 min)* The governance sequence: a regulator lowers a threshold. Show the
+   one-line rule change and what the machinery does with it — the accountable team is
+   automatically required to approve, and an automated quality check reports the impact
+   on a set of reference claims before the change can ship. *"The system physically
+   cannot ship a compliance change without the compliance team."*
+5. *(13–15 min)* Close on the whitelabel proposition: the same application under a
+   different brand in minutes — this is a template for *your* regulated process, not an
+   insurance product.
+
+#### Key moments
+
+- The **rule-change approval**: governance enforced by machinery, not by promise — the
+  control a bank demands of critical software, applied to AI.
+- The **automated quality report** on the change, including a deliberate attack case
+  (a fraudulent prompt hidden in a claim) that the system flags.
+- **Voice**: the same claims pipeline operating over a real-time conversation.
+
+### 1.5 Anticipated questions
+
+**"Is our data used to train the AI models?"** — No. Azure OpenAI Service does not use
+customer data to train the underlying models; data stays within the customer's tenant,
+and in this design every AI call additionally passes through the customer's own gateway
+where it is logged and policy-checked.
+
+**"Who is accountable for an AI decision?"** — The same people as today. Regulatory
+thresholds live in human-reviewable rules owned by the compliance team; flagged cases
+route to the human review queue; and every decision is stored with its full reasoning
+so it can be examined or appealed.
+
+**"What about AI mistakes or manipulation?"** — Three layers: the gateway blocks unsafe
+content and enforces limits; the reference-claims quality check catches behavioral
+regressions before they ship (including a deliberate manipulation attempt in the test
+set); and exceptions go to humans.
+
+**"Is this only for insurance?"** — No. Claims are the example; the pattern is any
+regulated decision process — lending, onboarding, benefits adjudication. The demo is
+deliberately whitelabel to make that point.
+
+**"What would this cost to run?"** — The demo itself runs on sample data at negligible
+cost. Production economics depend on claim volume and model choice; the gateway's
+spending limits and per-agent metering shown in the demo are precisely the tools used
+to keep that predictable.
+
+**"How long would a pilot take?"** — The honest framing: the technology is the fast
+part; agreeing the governance (who owns which rules, what the quality bar is) is the
+real work. A scoped pilot on one claim type, with the governance model agreed, is
+typically a small number of months.
+
+### 1.6 From demo to next step
+
+Propose a **governance-focused workshop**: map one of the customer's regulated decision
+processes onto this operating model — which team owns which rules, what the reference
+dataset would contain, what the gateway policies should be. Output: a pilot scope for
+one decision type with the governance model agreed up front.
+
+### 1.7 What this demo is not
+
+All claims are sample data; "Helix Insurance" is a fictional placeholder brand. The
+regulatory thresholds and rules are illustrative, not a compliance product. The demo
+shows the operating model; a real deployment starts from the customer's actual rules,
+data protection assessment and identity setup.
+
+### Glossary
+
+- **AI agent** — a model given a role, instructions and tools, able to decide how to
+  complete a task rather than following a fixed script.
+- **AI gateway** — a control point all AI calls must pass through, enforcing safety
+  policies, spending limits and logging (here: Azure API Management).
+- **Audit trail** — the stored record of every decision with its inputs and reasoning,
+  replayable for a regulator.
+- **Golden dataset / quality check** — a fixed set of reference claims with expected
+  outcomes; every change to the agents is automatically tested against it before it
+  can ship.
+- **Whitelabel** — the application is brand-neutral by design and reskins (name, logo,
+  palette) in minutes.
+- **Straight-through processing** — a claim handled end-to-end without human touch.
+
+> *To prepare the environment for this demo, share Part 2 with your technical contact.*
 
 ---
 
-## 🏗️ Architecture
+## Part 2 · Technical Brief
+
+### 2.1 Technical profile
+
+| | |
+|---|---|
+| **Status** | Stable |
+| **Orchestration** | Orchestrator–workers (MAF v1.4, with legacy-orchestrator fallback) |
+| **Models** | gpt-5.4-mini · gpt-realtime-mini (voice) |
+| **Azure services** | Azure AI Foundry · APIM (AI Gateway) · Cosmos DB · Container Apps · Static Web Apps · Entra ID |
+| **Stack** | MAF · FastAPI + WebSocket · React 18 + TypeScript + Tailwind · Bicep |
+| **Author** | @aangell98 |
+
+### 2.2 The architecture
 
 <div align="center">
 
@@ -46,223 +196,75 @@ This demo shows, in a real use case (auto claims), **the complete lifecycle of a
 
 </div>
 
-### Claim flow
+In summary: Dashboard → Backend → Orchestrator → (Intake → Risk → Compliance), with
+**every** model call routed through the APIM gateway, and results streamed back over
+WebSocket while the audit trail lands in Cosmos DB.
 
-```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#2563EB','primaryTextColor':'#fff','lineColor':'#0F172A','actorBkg':'#2563EB','actorTextColor':'#fff','actorBorder':'#1E40AF','signalColor':'#0F172A','signalTextColor':'#0F172A','sequenceNumberColor':'#fff','noteBkgColor':'#DBEAFE','noteTextColor':'#0F172A','noteBorderColor':'#2563EB','fontFamily':'Inter, system-ui, sans-serif'} }}%%
-sequenceDiagram
-    autonumber
-    participant C as 🏦 Customer
-    participant D as 📱 Dashboard
-    participant B as ⚙️ Backend
-    participant O as 🤖 Orchestrator
-    participant I as 📝 Intake
-    participant R as 📊 Risk
-    participant K as ✅ Compliance
-    participant G as 🛡️ APIM Gateway
-    participant M as 🧠 GPT-5.4-mini
+#### Components
 
-    C->>D: Reports claim + evidence
-    D->>B: POST /api/claims (JWT)
-    B->>O: process_claim(payload)
-    O->>I: Extracts structured data
-    I->>G: prompt
-    G->>M: token-limited + safety
-    M-->>I: Structured JSON
-    O->>R: Scoring + fraud
-    R->>G: prompt
-    G-->>R: risk_score, fraud_prob
-    O->>K: Applies regulatory rules
-    K-->>O: compliance_checks
-    O-->>B: Decision + audit trail
-    B-->>D: Stream WebSocket
-    D-->>C: Decision + reasoning
+| Component | Where | Role |
+|---|---|---|
+| React dashboard | [dashboard/](dashboard/) | Whitelabel UI: auto-demo slides, customer / operator / policy / security views |
+| Backend | [backend/main.py](backend/main.py) | FastAPI + WebSocket streaming; Entra ID JWT auth ([backend/auth.py](backend/auth.py)) |
+| Orchestrator | [agents/orchestrator/](agents/orchestrator/) | MAF v1.4 coordination ([maf_agent.py](agents/orchestrator/maf_agent.py)) with a legacy fallback |
+| AI Gateway | [infra/apim-policy.xml](infra/apim-policy.xml) | APIM policies: managed identity, content safety, token limits, token metrics, trace |
+| Persistence | [backend/claims_repository.py](backend/claims_repository.py) | Cosmos DB with the complete audit trail of every decision |
+| Voice channel | [agents/voice/](agents/voice/) | gpt-realtime-mini IVR over the *same* pipeline |
+| Evals | [evals/](evals/) | Golden dataset + harness, wired into CI |
+| Infra | [infra/main.bicep](infra/main.bicep) | APIM + Azure OpenAI + Cosmos + managed identity (Bicep, subscription scope) |
 
-    Note over G,M: Every model call<br/>goes through the Gateway:<br/>policies + audit
-    Note over O,K: Microsoft Agent Framework v1.4<br/>with fallback to the legacy orchestrator
-```
+#### The agents
 
----
+| Agent | Kind | Model | Job |
+|---|---|---|---|
+| `claims-intake` | LLM agent (+ content understanding) | gpt-5.4-mini | Structured extraction of the claim report into a typed schema |
+| `risk-assessment` | LLM agent | gpt-5.4-mini | Risk scoring and fraud-probability estimation |
+| `compliance` | LLM agent + code rules | gpt-5.4-mini | Applies regulatory rules ([rules.py](agents/compliance/rules.py)) to produce checks and a decision |
+| `orchestrator` | LLM agent (MAF) | gpt-5.4-mini | Coordinates the three workers and the audit trail |
 
-## 🚀 Quick Start
+### 2.3 Agentic patterns
 
-### 0. Prerequisites
-- **Python 3.12+** and **Node 20+**
-- **Azure CLI** authenticated (`az login`)
-- (Optional) Azure subscription with quota for OpenAI GPT-5.4-mini + APIM Standard
+| Pattern | Where in this demo | Why it matters here | In business terms |
+|---|---|---|---|
+| **Orchestrator–workers** | [agents/orchestrator/maf_agent.py](agents/orchestrator/maf_agent.py) | Three specialized agents, one coordinator — each worker owns one competence and one team | A case manager delegating to three specialists |
+| **AI Gateway (centralized policy enforcement)** | [infra/apim-policy.xml](infra/apim-policy.xml) | No agent talks to the model directly; safety, quotas, metrics and audit enforced in one place, keyless via managed identity | Every AI call goes through one controlled checkpoint |
+| **Eval gate in CI** | [evals/run_evals.py](evals/run_evals.py) + `.github/workflows/eval-on-pr.yml` | Agent behavior regression-tested like code: golden claims (incl. a prompt-injection case) gate every merge | Every change to the agents must pass an automated exam before it ships |
+| **Governance-as-code** | `.github/CODEOWNERS` | A change to compliance logic cannot merge without the compliance team | The org chart is enforced by the system, not by convention |
+| **Rules in code, judgment in the model** | [agents/compliance/rules.py](agents/compliance/rules.py) | Regulatory thresholds stay in reviewable, diffable Python; the LLM never owns the rulebook | The AI reasons; the rulebook stays human-owned and inspectable |
+| **Multichannel, one pipeline** | [agents/voice/](agents/voice/) | Web and real-time voice reuse the same agents | The phone channel and the web channel are the same brain |
+| **Audited persistence** | [backend/claims_repository.py](backend/claims_repository.py) | Every decision replayable for a regulator (Cosmos DB audit trail) | Every decision keeps its receipts |
 
-### 1. Backend
-```powershell
-# Activate the venv and dependencies
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r backend/requirements.txt
+### 2.4 Technical setup
 
-# Start FastAPI (uses mocks if there is no Azure OpenAI endpoint)
-cd backend
-uvicorn main:app --host 0.0.0.0 --port 8000
-```
+Run the day before a session; the end state is what §1.4's presenter verification
+checks.
 
-### 2. Dashboard
-```powershell
-cd dashboard
-npm install
-npm run dev      # http://localhost:5173
-```
+- [ ] Backend: venv, `pip install -r backend/requirements.txt`, then `uvicorn main:app --port 8000` from `backend/`
+- [ ] Dashboard: `npm install && npm run dev` in `dashboard/` → http://localhost:5173
+- [ ] Run the auto demo once end-to-end
+- [ ] Governance sequence (live variant): repository access with a prepared branch editing `HIGH_AMOUNT_THRESHOLD` in [agents/compliance/rules.py](agents/compliance/rules.py); confirm the eval workflow runs on the PR. Alternative: capture screenshots of a merged PR with the eval-gate comment and CODEOWNERS review
+- [ ] Full Azure deployment (for the gateway/security view with live data): `.\scripts\deploy.ps1 -ResourceGroup <rg> -Location <region>`
 
-### 3. Auto demo
-Open the dashboard and click **"Play auto demo"** from the main screen. You'll see the 4 agents working in slide format:
-- 📝 Intake → 📊 Risk → ✅ Compliance → 🏁 Decision
-- Live token streaming
-- Floating notifications when an agent finishes
-- Ability to revisit previous slides while the others keep running
+### 2.5 Additional resources
 
-### 4. Full Azure deployment (one command)
-Deploys the **entire** platform (infra + backend + dashboard) without local Docker:
-```powershell
-az login
-.\scripts\deploy.ps1 -ResourceGroup rg-helix-demo -Location swedencentral
-```
-The script provisions the infra (Bicep), builds the backend in ACR and publishes it to Container Apps, and compiles the dashboard against that API and uploads it to Static Web Apps. When it finishes it prints the app and API URLs. To reskin, pass `-BrandName "Your Brand"`. Base infra only: `.\scripts\deploy-infra.ps1`.
+#### Whitelabel / reskinning
 
----
+The default "Helix Insurance" brand is a placeholder. Palette, logo and name change via
+`brand.ts` — see [BRANDING.md](BRANDING.md). One-command redeploy with a different
+brand: `.\scripts\deploy.ps1 -BrandName "Your Brand"`. The `santander` branch is a
+complete second-brand example.
 
-## 📂 Project structure
+#### One-command Azure deployment
 
-```
-insurance-ai-agents/
-├── agents/
-│   ├── claims-intake/        # Structured extraction of claim reports
-│   ├── risk-assessment/      # Scoring + fraud detection
-│   ├── compliance/           # Regulatory rules (rules.py ← WOW moment)
-│   ├── orchestrator/         # Multi-agent coordination
-│   │   ├── agent.py          # Legacy orchestrator (fallback)
-│   │   └── maf_agent.py      # Microsoft Agent Framework v1.4
-│   ├── voice/                # Voice channel (gpt-realtime-mini, same pipeline)
-│   ├── content_understanding/# Schema-based extraction from documents
-│   ├── hosted/               # Agent hosted in Azure AI Foundry
-│   └── shared/               # Mock data, schemas, common
-├── backend/
-│   ├── main.py               # FastAPI + WebSocket streaming
-│   ├── auth.py               # Entra ID JWT v2.0
-│   ├── claims_repository.py  # Cosmos DB persistence
-│   └── azure_client.py       # Switch APIM Gateway vs direct
-├── dashboard/
-│   ├── src/components/
-│   │   ├── AutoPlayDemo.tsx          # Slide-based demo with streaming
-│   │   ├── autoplay/                 # Panels per agent (Intake, Risk, Compliance, Decision)
-│   │   ├── CustomerView.tsx          # Customer view with use cases
-│   │   ├── OperatorView.tsx          # Human review queue
-│   │   ├── PolicyView.tsx            # Policy catalog
-│   │   └── SecurityView.tsx          # APIM events + Content Safety
-│   └── public/                       # brand-logo.png, favicon (whitelabel)
-├── infra/
-│   ├── main.bicep            # APIM + AOAI + Cosmos + Managed Identity
-│   └── apim-policy.xml       # AI Gateway policies
-├── evals/
-│   ├── golden_dataset.json   # Golden cases with expected outcomes
-│   └── run_evals.py          # Harness run on every PR
-├── .github/
-│   ├── CODEOWNERS            # Governance per domain
-│   ├── pull_request_template.md
-│   └── workflows/
-│       └── eval-on-pr.yml    # Automated Eval Gate
-└── scripts/
-    ├── deploy-infra.ps1
-    └── run_demo.py
-```
+`.\scripts\deploy.ps1` provisions the Bicep infra, builds the backend into ACR →
+Container Apps, and publishes the dashboard to Static Web Apps; when it finishes it
+prints the app and API URLs.
 
----
+#### Also in the repository
 
-## 🛡️ Enterprise governance
-
-This platform is not just another PoC: it is designed to pass a **banking IT review**:
-
-### CODEOWNERS per domain
-Each agent is under the control of a different team. A change in `agents/compliance/` requires approval from the **compliance team**; it cannot be merged without it.
-
-```
-/agents/compliance/   @insurance-org/compliance-team
-/agents/risk-assessment/  @insurance-org/risk-team
-/agents/orchestrator/    @insurance-org/platform-team
-```
-
-> *In this demo all paths point to `@aangell98` to allow self-merge. In production they are replaced with real teams.*
-
-### Eval Gate on every PR
-The [`.github/workflows/eval-on-pr.yml`](.github/workflows/eval-on-pr.yml) workflow triggers automatically when `agents/**` or `evals/**` are touched. It runs the golden dataset against the real GPT-5.4-mini and posts a comment on the PR with:
-
-| Case | Decision | Confidence | Risk | Security |
-|------|----------|-----------|------|----------|
-| low_risk_collision | approve | 0.90 | 2/10 | ✓ |
-| high_amount_natural_disaster | approve | 0.90 | 5/10 | ✓ |
-| high_risk_theft_no_witnesses | reject | 0.85 | 8/10 | ✓ |
-| prompt_injection_attack | reject | 0.99 | 9/10 | 🛡️ flagged |
-
-If the pass rate drops, the merge is blocked.
-
-### APIM AI Gateway · active policies
-Defined in [`infra/apim-policy.xml`](infra/apim-policy.xml) and applied by Bicep:
-
-| Policy | Function |
-|---|---|
-| `authentication-managed-identity` | APIM authenticates against Azure OpenAI **without secrets** |
-| `llm-content-safety` | Blocks Hate / Sexual / SelfHarm / Violence (threshold 2) |
-| `azure-openai-token-limit` | 50,000 tokens/min per agent (`counter-key`) |
-| `azure-openai-emit-token-metric` | Metrics to Application Insights with dims `Agent`, `ClaimId`, `Model` |
-| `trace` | Audit log of every request/response with correlation ID |
-| `on-error` | Fallback 429 with `Retry-After` and friendly 400 for safety |
-
----
-
-## 🔥 WOW moment
-
-During the live demo, the key moment is editing [`agents/compliance/rules.py`](agents/compliance/rules.py) to change a regulatory threshold:
-
-```python
-# Before
-HIGH_AMOUNT_THRESHOLD = 50_000
-# After a regulatory circular
-HIGH_AMOUNT_THRESHOLD = 25_000
-```
-
-The change:
-1. Opens a PR → **CODEOWNERS** notifies the compliance team
-2. **Eval Gate** runs and comments on the PR with the impact on the dataset cases
-3. Without the team's approval, the merge stays blocked
-4. Once merged, the agent applies it in the next decision without a redeploy
-
-> This is exactly the control a bank demands of its critical software. Applied to AI.
-
----
-
-## 🧰 Technical stack
-
-| Layer | Technology |
-|------|-----------|
-| **Orchestration** | Microsoft Agent Framework v1.4 (with fallback to a custom orchestrator) |
-| **Model** | Azure OpenAI GPT-5.4-mini (via APIM Gateway) |
-| **Voice** | Azure OpenAI gpt-realtime-mini (real-time IVR over the same pipeline) |
-| **Deployment** | Static Web Apps (dashboard) · Container Apps (backend) · Foundry (hosted agent) |
-| **Gateway** | Azure API Management (Standard + custom policies) |
-| **Backend** | FastAPI 0.115 · WebSocket streaming · Pydantic v2 |
-| **Frontend** | React 18 · TypeScript · Tailwind 3 · Vite 6 · Lucide |
-| **Auth** | Entra ID (MSAL) · JWT v2.0 · federated OIDC in CI |
-| **Persistence** | Cosmos DB SQL API · Blob Storage |
-| **IaC** | Bicep (subscription scope) |
-| **CI/CD** | GitHub Actions · Eval Gate · CODEOWNERS |
-
----
-
-## 🤝 Contributing
-
-1. Fork and create a `feat/<scope>` branch
-2. Follow the PR template ([.github/pull_request_template.md](.github/pull_request_template.md))
-3. Make sure the Eval Gate passes
-4. Wait for review from the corresponding CODEOWNER
-
----
-
-<div align="center">
-<sub>Made with ❤️ to show that <strong>governed enterprise AI</strong> is possible today on Azure.</sub>
-</div>
+- [agents/hosted/](agents/hosted/) — the agent variant hosted in Azure AI Foundry.
+- [agents/content_understanding/](agents/content_understanding/) — schema-based document
+  extraction feeding intake.
+- [evals/README.md](evals/README.md) — how the golden dataset and harness work.
+- Identity: Entra ID (MSAL) for users, federated OIDC for CI/CD.
+- Catalog manifest: [agentverse.yaml](agentverse.yaml). License: MIT.

@@ -1,33 +1,171 @@
-# FoundryAirlines — 3-agent demo on Azure AI Foundry
-
-A small but realistic demo showing how to **orchestrate three Foundry agents
-sequentially** with the Microsoft Agent Framework (MAF) `WorkflowBuilder`.
-
-<img width="1496" height="908" alt="image" src="https://github.com/user-attachments/assets/e69bc73e-7af4-45c3-85d0-555937f2388c" />
-
-
-
-| Step | Agent | Foundry asset | What it does |
-|------|-------|---------------|--------------|
-| 1 | `flights-agent` | Foundry **prompt agent** | Reads a local SQLite "bookings" DB, picks the 5 flights with the lowest occupancy, and returns a strict JSON array. |
-| 2 | `events-agent`  | Foundry **prompt agent** + **Bing Grounding** tool | For each flight, searches the live web with Bing Grounding to find one real upcoming event in the destination city around the flight date. |
-| 3 | `gpt-image-2`   | Azure OpenAI deployment | Generates a wide PNG promo banner per flight that mixes the flight's price/date with the event found in step 2. |
-
-The first two agents live in your Foundry project (you can open them in the
-portal and chat with them by hand). The third step is a direct call to the
-`gpt-image-2` deployment — image models are not chat agents, so they don't
-fit the executor pattern.
-
-The orchestration follows the official sequential pattern:
-- https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential
-- https://github.com/dsanchor/agents-observability-tt202/blob/main/from-zero-to-hero/orchestration/demo/sequential_agents.py
-
-A small FastAPI backend streams progress over Server-Sent Events to a vanilla
-HTML/JS front-end styled in yellow / white / grey.
+> **📐 Proposal.** A self-contained, standardized README following the AgentVerse
+> [template](../templates/demo-scaffold/README-TEMPLATE.md), offered for the demo author
+> to adopt — and adapt — as this demo's README.
 
 ---
 
-## Architecture
+# FoundryAirlines
+
+> Three AI agents that fill low-occupancy flights with event-aware promotional
+> banners — an accessible first demonstration of multi-agent orchestration.
+
+<img width="1496" height="908" alt="FoundryAirlines front-end showing the agent run and generated banners" src="https://github.com/user-attachments/assets/e69bc73e-7af4-45c3-85d0-555937f2388c" />
+
+**Contents:** [Part 1 · Business Brief](#part-1--business-brief) — present the demo ·
+[Part 2 · Technical Brief](#part-2--technical-brief) — prepare and operate it
+
+---
+
+## Part 1 · Business Brief
+
+### 1.1 At a glance
+
+| | |
+|---|---|
+| **Scenario** | Airline revenue & marketing — recovering revenue from flights departing with empty seats |
+| **Business outcome** | A targeted, event-aware promotional campaign produced in minutes instead of days |
+| **Best suited for** | A first conversation about AI agents; marketing, revenue-management or innovation audiences |
+| **Duration** | ~10 minutes |
+| **Presenter effort** | A technical co-presenter is recommended for fully live runs; solo presentation is viable using cached mode |
+| **Demo reliability** | Every run makes live model, web-search and image-generation calls; the image step is the slowest and most variable |
+| **Contingency** | Add `?cached=1` to the page address to replay the banners generated during the warm-up run |
+
+### 1.2 The story
+
+An airline is flying half-empty planes. The revenue team can see exactly which flights
+have the lowest occupancy — the data sits in their bookings database — but turning that
+insight into a targeted promotion is slow, manual work: someone has to pick the flights,
+research what is happening in each destination that would attract a traveler, and brief
+a designer for the creative. By the time the campaign ships, the flight has departed.
+
+This demo compresses that whole chain into one click. A **flights agent** queries the
+bookings database and picks the five emptiest flights. An **events agent** then searches
+the live web and finds one *real, upcoming* event in each destination city around the
+flight date — a festival, a match, an exhibition. Finally, an image model generates a
+promotional banner per flight that combines the fare and date with the event it found.
+
+Why agents and not a script? Because two of the three steps require judgment and live
+knowledge a script cannot have: deciding which event a traveler would actually fly for,
+grounded in today's web — and composing marketing creative from it. The deterministic
+part (querying the database) stays deterministic; the agents sit only where reasoning
+lives.
+
+### 1.3 The business case
+
+| Business KPI | Without agents | Impact demonstrated |
+|---|---|---|
+| **Load factor on underperforming flights** | Low-occupancy flights are identified in reports but rarely receive a dedicated, timely campaign | The pipeline targets precisely the 5 lowest-occupancy flights, automatically and on demand |
+| **Campaign time-to-market** | Days: analyst selection → destination research → designer brief → creative review | Minutes: from database rows to finished, event-aware creative in a single run |
+| **Creative production cost per campaign** | A designer round-trip per destination and offer | Generated banners per flight; human review shifts from production to approval |
+| **Offer relevance / expected conversion** | Generic discount messaging per route | Each offer is anchored to a verifiable, upcoming local event found on the live web, with a source link |
+
+The KPI that carries the argument is **time-to-market**: the value of a promotion for a
+flight departing within weeks decays daily, so compressing the campaign cycle from days
+to minutes is what converts existing occupancy insight into recoverable revenue. The
+pattern generalizes to any business with perishable inventory and local context — hotel
+rooms, event tickets, retail seasonality.
+
+### 1.4 Delivering the demo
+
+#### Presenter verification (5 minutes before)
+
+- [ ] The demo page opens at the address provided by your technical contact and shows the FoundryAirlines interface
+- [ ] A complete warm-up run was executed earlier the same day (this also confirms sign-in is current and leaves banners available for cached mode)
+- [ ] You know the page address variant for cached mode (`?cached=1`)
+
+#### Demonstration sequence
+
+1. *(0–2 min, technical rooms only — skip for business audiences)* Show the two agents
+   living in the Azure AI Foundry portal and exchange one message with the events agent:
+   these are persistent cloud agents that can be inspected and tested independently.
+2. *(2–4 min)* Start a run from the demo page. As the first results appear: *"the system
+   has just identified the five flights departing with the most empty seats — the revenue
+   we are currently losing."*
+3. *(4–6 min)* Pause on the events results: each destination has received a *real*
+   upcoming event with a source link. Open one link. *"This was found on the live web
+   seconds ago — it is verifiable, not invented."*
+4. *(6–8 min)* The banner generation takes one to two minutes. Use this window for the
+   business case (§1.3): what a campaign cycle costs today, and what it means to run one
+   per day instead of one per quarter.
+5. *(8–10 min)* Close on the five finished banners combining fare, date and the
+   discovered event: *"from database rows to a ready-to-review campaign, in one click."*
+
+#### Key moments
+
+- The **source link** on each event — grounded, verifiable, and retrieved seconds earlier.
+- The **banners appearing** — the complete campaign cycle, compressed into one run.
+
+### 1.5 Anticipated questions
+
+**"Is our data used to train the AI models?"** — No. Azure OpenAI Service does not use
+customer data to train the underlying models; prompts and outputs stay within the
+customer's Azure tenant boundary.
+
+**"Are those events real?"** — Yes. The events agent searches the live web at run time
+and returns a source link with each result; any of them can be opened and checked during
+the session. If no suitable event is found for a destination, the agent says so and
+falls back to a generic cultural highlight rather than inventing one.
+
+**"What does a run like this cost?"** — Each run makes a handful of language-model calls
+and five image generations — consumption-priced, typically well under a euro per run.
+Production-scale costs depend on volume and are exactly what a pilot scopes.
+
+**"Would this work with our inventory and our brand?"** — The pattern — perishable
+inventory + live local context + generated creative — transfers directly. Brand control
+(templates, tone, review workflows) is one of the first things a real deployment adds;
+see §1.7.
+
+**"How long would a pilot take?"** — This demo was built in days. A scoped pilot against
+one real data source is typically a matter of weeks, not months — the discovery workshop
+(§1.6) is where that gets sized honestly.
+
+### 1.6 From demo to next step
+
+Propose a short **envisioning session**: identify the customer's perishable inventory,
+the data source that already knows what is underperforming, and the local context that
+would make an offer compelling. Output: one candidate use case and the data access
+needed for a scoped pilot.
+
+### 1.7 What this demo is not
+
+The bookings database is simulated (a local sample database, not a real reservation
+system). Generated banners go straight to screen — a real deployment would add brand
+templates, content review and approval workflows before anything reaches a customer.
+The demo status is beta: it is a teaching and demonstration asset, not a campaign
+product.
+
+### Glossary
+
+- **AI agent** — a model given a role, instructions and tools, able to decide how to
+  complete a task rather than following a fixed script.
+- **Azure AI Foundry** — the Azure platform where the agents are created, hosted and
+  can be individually tested.
+- **Grounding** — connecting an agent to a live source (here: web search) so its answers
+  come from current, citable data rather than the model's memory.
+- **Orchestration** — coordinating several agents so each one's output feeds the next.
+- **Cached mode** — replaying the banners from an earlier run instead of generating new
+  ones; used for time-constrained or contingency presentations.
+
+> *To prepare the environment for this demo, share Part 2 with your technical contact.*
+
+---
+
+## Part 2 · Technical Brief
+
+### 2.1 Technical profile
+
+| | |
+|---|---|
+| **Status** | Beta |
+| **Orchestration** | Sequential (MAF `WorkflowBuilder`) |
+| **Models** | gpt-4.1 · gpt-image-2 |
+| **Azure services** | Azure AI Foundry (agents + Bing Grounding + image deployment) |
+| **Stack** | Microsoft Agent Framework · FastAPI + SSE · vanilla HTML/JS · Terraform |
+| **Author** | — |
+
+### 2.2 The architecture
+
+The workflow end to end:
 
 ```
 ┌────────────────────── MAF WorkflowBuilder (sequential) ──────────────────────┐
@@ -52,313 +190,81 @@ HTML/JS front-end styled in yellow / white / grey.
                    └──────────────────────┘
 ```
 
----
-
-## Prerequisites
-
-- An Azure subscription with permission to create resources (Owner or
-  Contributor + User Access Administrator).
-- Azure CLI ≥ 2.60 (`az login`).
-- Python 3.11+.
-- Quota for `gpt-4.1` and `gpt-image-2` in your Foundry region. **eastus2**
-  is the safest pick today — it has both.
-
-The whole demo lives in **one** Foundry account / project so there's nothing
-to wire across regions.
-
----
-
-## 1 · Create the Azure resources
-
-Pick names you like. The values below are placeholders — replace `<…>` with
-your own.
-
-```bash
-LOCATION=eastus2
-RG=<your-resource-group>
-FOUNDRY_ACCOUNT=<your-foundry-account>     # globally-unique, lowercase, ≤ 24 chars
-PROJECT=<your-project-name>
-BING_RESOURCE=<your-bing-resource>          # globally-unique, lowercase
-
-# 1. Resource group
-az group create -n "$RG" -l "$LOCATION"
-
-# 2. Foundry (AI Services) account — single account, kind=AIServices
-#    Reference: https://learn.microsoft.com/en-us/azure/foundry/tutorials/quickstart-create-foundry-resources
-az cognitiveservices account create \
-  -n "$FOUNDRY_ACCOUNT" -g "$RG" -l "$LOCATION" \
-  --kind AIServices --sku S0 \
-  --custom-domain "$FOUNDRY_ACCOUNT" \
-  --assign-identity --yes
-
-# 3. Foundry project (created via the data plane)
-ENDPOINT="https://${FOUNDRY_ACCOUNT}.services.ai.azure.com"
-TOKEN=$(az account get-access-token --resource https://ai.azure.com --query accessToken -o tsv)
-curl -s -X PUT \
-  "${ENDPOINT}/api/projects/${PROJECT}?api-version=2025-05-15-preview" \
-  -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" \
-  -d '{"properties":{"displayName":"'"${PROJECT}"'"}}'
-
-# 4. Deploy the chat model used by both prompt agents
-az cognitiveservices account deployment create \
-  -n "$FOUNDRY_ACCOUNT" -g "$RG" \
-  --deployment-name gpt-4.1 \
-  --model-name gpt-4.1 --model-version "2025-04-14" --model-format OpenAI \
-  --sku-capacity 50 --sku-name GlobalStandard
-
-# 5. Deploy gpt-image-2 (used by the banner step)
-az cognitiveservices account deployment create \
-  -n "$FOUNDRY_ACCOUNT" -g "$RG" \
-  --deployment-name gpt-image-2 \
-  --model-name gpt-image-2 --model-version "2025-09-15" --model-format OpenAI \
-  --sku-capacity 1 --sku-name GlobalStandard
-
-# 6. Bing Grounding resource (used by Agent 2)
-az resource create -g "$RG" -n "$BING_RESOURCE" \
-  --resource-type "Microsoft.Bing/accounts" --location global \
-  --is-full-object \
-  --properties '{"sku":{"name":"G1"},"kind":"Bing.Grounding"}'
-```
-
-> If `gpt-image-2` is not available in your subscription/region, request
-> access in the [Foundry catalog](https://ai.azure.com/catalog/models/gpt-image-2)
-> and pick a region that lists it.
-
----
-
-## 2 · Connect Bing Grounding to your project (one-time portal step)
-
-> **Known platform issue.** Creating this connection through the management
-> API currently returns **HTTP 500** from `credential.vienna-eastus2.svc/...:putbatch`
-> for new Foundry projects. The portal works fine. Do this step once in the
-> UI and you're done.
-
-1. Open https://ai.azure.com → select your project.
-2. **Management center** (bottom-left) → **Connected resources** → **+ New connection**.
-3. Choose **Grounding with Bing Search**.
-4. Pick the Bing resource you created in step 6 above.
-5. Name the connection **`bing-grounding`** (or whatever you set in
-   `BING_CONNECTION_NAME`, see below).
-
-The bootstrap script reads this connection by name and attaches it as a
-**persistent tool** on the events-agent. Once attached, the tool is visible
-in the Foundry portal under **Agents → events-agent → Tools** and you can
-chat with the agent by hand to test it.
-
-Reference: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools
-
----
-
-## 3 · Configure and install the app
-
-```bash
-git clone <this-repo>
-cd <repo-folder>
-
-# Python deps
-python -m venv .venv
-. .venv/bin/activate                     # PowerShell: .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-
-# Azure auth — DefaultAzureCredential picks up your `az login` identity
-az login
-
-# App config
-cp app/.env.example app/.env
-# Edit app/.env and fill in PROJECT_ENDPOINT, IMAGE_ENDPOINT, etc.
-```
-
-`app/.env` template:
-
-```
-PROJECT_ENDPOINT=https://<your-foundry-account>.services.ai.azure.com/api/projects/<your-project>
-MODEL_DEPLOYMENT_NAME=gpt-4.1
-BING_CONNECTION_NAME=bing-grounding
-IMAGE_ENDPOINT=https://<your-foundry-account>.openai.azure.com
-IMAGE_DEPLOYMENT=gpt-image-2
-IMAGE_API_VERSION=2025-04-01-preview
-```
-
----
-
-## 4 · Bootstrap the two persistent prompt agents
-
-```bash
-python -m app.backend.bootstrap_agents          # idempotent
-python -m app.backend.bootstrap_agents --reset  # delete and recreate
-```
-
-This creates two `PromptAgentDefinition` agents in your Foundry project. They
-**persist** server-side and are visible in the portal at **Agents**.
-
-You can:
-- chat with each agent in the portal to test it,
-- call them from any other client (their names live in `app/agents.json`),
-- delete them with `--reset` and recreate them.
-
----
-
-## 5 · Run the demo
-
-```bash
-# Backend (SSE on http://127.0.0.1:8765)
-uvicorn app.backend.main:app --port 8765
-
-# Front-end — just open the page; it points at the backend on the same host
-open app/frontend/index.html
-```
-
-`?cached=1` reuses any banners already present in `app/output/` — useful for
-back-to-back demos. Drop the flag for a fresh end-to-end run (~60–120 s for
-the banner step).
-
----
-
-## How the agents are orchestrated (MAF, sequential)
-
-```python
-# app/backend/agents.py — abridged
-from agent_framework import (
-    ChatMessage, Executor, Role, WorkflowBuilder, WorkflowContext,
-    WorkflowOutputEvent, handler,
-)
-from agent_framework.azure import AzureAIAgentClient
-
-class FlightsExecutor(Executor):
-    @handler
-    async def handle(self, msg: ChatMessage,
-                     ctx: WorkflowContext[list[ChatMessage]]) -> None:
-        rows = query_low_occupancy_flights(5)
-        resp = await self._agent.run(ChatMessage(role=Role.USER,
-                                                 text=json.dumps(rows)))
-        await ctx.send_message([msg, *resp.messages])
-
-class EventsExecutor(Executor):
-    @handler
-    async def handle(self, history: list[ChatMessage],
-                     ctx: WorkflowContext[None, list[ChatMessage]]) -> None:
-        ask = ChatMessage(role=Role.USER, text="Find one real event per flight…")
-        resp = await self._agent.run([*history, ask])
-        await ctx.yield_output([*history, ask, *resp.messages])
-
-workflow = (
-    WorkflowBuilder(name="FoundryAirlinesSequential",
-                    start_executor=flights_exec)
-        .add_edge(flights_exec, events_exec)
-        .build()
-)
-async for event in workflow.run_stream(trigger):
-    ...
-```
-
-`AzureAIAgentClient` wraps the **persistent** Foundry prompt agent created
-by `bootstrap_agents.py`, so the executors run server-side prompt agents —
-not local-only ones.
-
----
-
-## Reproduce Agent 1 (`flights-agent`) standalone
-
-In the Foundry portal, create a Prompt Agent with model `gpt-4.1` and these
-exact instructions (also in `app/backend/bootstrap_agents.py`):
-
-```
-You are a revenue analyst for an airline. The user message contains a JSON
-array of raw flight rows from the internal flights database.
-
-Return ONLY a JSON array (no prose, no code fences) preserving each row and
-exposing exactly these fields per flight:
-
-  - id                  (integer, original row id)
-  - code                (flight code, e.g. "VY1234")
-  - origin              (IATA code)
-  - destination         (IATA code)
-  - destination_city    (string)
-  - destination_country (string)
-  - date                (YYYY-MM-DD)
-  - occupancy_pct       (one decimal)
-  - price_eur           (integer euros)
-
-Order the array by occupancy_pct ascending (lowest occupancy first).
-```
-
-Test it by pasting any JSON array of flight-shaped rows into the chat.
-
-You can also run it from the CLI:
-
-```bash
-python -m app.scripts.run_flights_agent
-```
-
----
-
-## Reproduce Agent 2 (`events-agent`) standalone
-
-Same procedure as Agent 1 but **attach the Bing Grounding tool** in the
-portal (Agents → + Tool → Grounding with Bing Search → pick `bing-grounding`).
-
-Instructions:
-
-```
-You are a cultural concierge for an airline. The conversation history contains
-a JSON array of flights with destination_city, destination_country and date.
-
-For EACH flight, use the Bing Grounding tool to search the live web for ONE
-real, public, upcoming event in that city around that date — for example
-festivals, concerts, sports matches, exhibitions, conferences. Prefer events
-that are well-documented and that a traveler could actually attend.
-
-Return ONLY a JSON array (no prose, no code fences) with the same length and
-ordering as the input flights. Each element must have:
-
-  - flight_id         (integer matching the input)
-  - title             (max 8 words, the event name)
-  - short_description (max 14 words, what it is and when)
-  - source_url        (the Bing search result URL you trusted)
-
-If you cannot find a real event for a flight, set title to "Local highlights"
-and short_description to a generic one-line cultural pitch for that city, and
-set source_url to an empty string.
-```
-
-CLI run:
-
-```bash
-python -m app.scripts.run_events_agent
-```
-
----
-
-## Repository layout
-
-```
-app/
-  backend/
-    main.py                # FastAPI + SSE
-    agents.py              # MAF WorkflowBuilder + executors
-    bootstrap_agents.py    # creates the two persistent prompt agents
-  frontend/
-    index.html             # vanilla HTML + JS, yellow/white/grey theme
-  data/
-    flights.db             # SQLite "bookings" DB used by Agent 1
-  output/                  # generated banners land here
-  .env.example             # copy to .env and fill in
-requirements.txt
-```
-
----
-
-## Troubleshooting
-
-- **`No Foundry connection named 'bing-grounding'`** — finish step 2 (portal).
-- **Image step fails with 429 / 503** — `gpt-image-2` is rate-limited; the
-  code retries 6× with backoff. Re-run, or pre-warm with `?cached=0`.
-- **`PROJECT_ENDPOINT` not set** — copy `.env.example` to `.env` and fill it
-  in.
-- **`DefaultAzureCredential` errors** — `az login` again, then re-run.
-
----
-
-## License
-
-MIT.
+#### Components
+
+| Component | Where | Role |
+|---|---|---|
+| MAF sequential workflow | [app/backend/agents.py](app/backend/agents.py) | Two `Executor`s wrapping the persistent Foundry agents, chained with `WorkflowBuilder.add_edge` |
+| Agent bootstrap | [app/backend/bootstrap_agents.py](app/backend/bootstrap_agents.py) | Idempotently creates the two persistent prompt agents in the Foundry project |
+| Backend | [app/backend/main.py](app/backend/main.py) | FastAPI; streams workflow progress over Server-Sent Events |
+| Front-end | [app/frontend/](app/frontend/) | Vanilla HTML/JS, yellow/white/grey; renders the stream and the banners |
+| Bookings DB | SQLite (seeded by [app/backend/seed_db.py](app/backend/seed_db.py)) | The "internal system" the flights agent reads |
+| Infra | [infra/main.tf](infra/main.tf) | Terraform for the Foundry account, project, model deployments and Bing resource |
+
+#### The agents
+
+| Agent | Kind | Model | Job |
+|---|---|---|---|
+| `flights-agent` | Foundry prompt agent (persistent) | gpt-4.1 | Turns raw bookings rows into the 5 lowest-occupancy flights as strict JSON |
+| `events-agent` | Foundry prompt agent + Bing Grounding tool | gpt-4.1 | Finds one real upcoming event per destination city, with a source URL |
+| Banner step | Direct Azure OpenAI call (not an agent) | gpt-image-2 | Generates a wide promotional PNG per flight — image models do not fit the executor pattern, so this is a deliberate direct call |
+
+### 2.3 Agentic patterns
+
+| Pattern | Where in this demo | Why it matters here | In business terms |
+|---|---|---|---|
+| **Sequential orchestration** | `WorkflowBuilder(...).add_edge(...)` in [app/backend/agents.py](app/backend/agents.py) | The canonical first pattern: each agent's output is the next agent's input | An assembly line of specialists, each finishing the previous one's work |
+| **Persistent (server-side) agents** | [app/backend/bootstrap_agents.py](app/backend/bootstrap_agents.py) | The agents live in the Foundry project and can be opened and tested in the portal | The specialists exist in the cloud and can be interviewed individually |
+| **Tool use / web grounding** | Bing Grounding attached as a persistent tool on `events-agent` | The events are real — the agent cites the live web, not its training data | The agent looks things up and shows its sources |
+| **Structured JSON contracts** | Both agents' instructions demand "ONLY a JSON array" | Reliable machine-to-machine hand-off; no prose parsing | The specialists exchange forms, not conversations |
+| **Streaming progress (SSE)** | `ctx.add_event` → [app/backend/sse.py](app/backend/sse.py) | The audience observes each agent's contribution as it happens | You watch the work happen instead of waiting for a result |
+| **Combining agents with non-agent model calls** | The gpt-image-2 banner step | Shows precisely where the agent abstraction ends | Not everything needs to be an agent — some steps are simply a service call |
+
+### 2.4 Technical setup
+
+Run the day before a session; the end state is what §1.4's presenter verification
+checks.
+
+- [ ] Azure resources in place: a Foundry (AI Services) account + project, `gpt-4.1` and
+      `gpt-image-2` deployments, and a Bing Grounding resource — provisioned via
+      [infra/](infra/) (Terraform) or the Azure CLI. Pick a region with quota for both
+      models (**eastus2** is the safest choice today)
+- [ ] One-time portal step: connect the Bing resource to the Foundry project as a
+      **Grounding with Bing Search** connection named `bing-grounding` (Management
+      center → Connected resources → + New connection). The management API currently
+      returns HTTP 500 for new projects; the portal works
+- [ ] `az login`; copy `app/.env.example` to `app/.env` and fill in `PROJECT_ENDPOINT`,
+      `IMAGE_ENDPOINT`, `IMAGE_DEPLOYMENT`, `BING_CONNECTION_NAME`
+- [ ] `pip install -r requirements.txt`; then `python -m app.backend.bootstrap_agents`
+      (idempotent; `--reset` deletes and recreates the two prompt agents)
+- [ ] `uvicorn app.backend.main:app --port 8765`; open `app/frontend/index.html`
+- [ ] Execute one full warm-up run — warms gpt-image-2, confirms credentials, and populates `app/output/` for cached mode
+
+Known failure modes: *`No Foundry connection named 'bing-grounding'`* → the portal
+connection step above was skipped; *image step returns 429/503* → gpt-image-2 is
+rate-limited, the code retries 6× with backoff — re-run or fall back to cached mode;
+*`DefaultAzureCredential` errors* → `az login` again.
+
+### 2.5 Additional resources
+
+#### A second variant: City Activities Poster
+
+The repository also ships an undocumented variant: [app/backend/city_agents.py](app/backend/city_agents.py)
+plus [app/frontend_city/](app/frontend_city/) and its own bootstrap
+([app/backend/bootstrap_city_agents.py](app/backend/bootstrap_city_agents.py)). Given a
+city name, a Bing-grounded `activities-agent` finds real attractions and gpt-image-2
+renders a travel poster. Same patterns, single-agent — suitable as an additional
+demonstration if time allows.
+
+#### Reproduce the agents by hand
+
+Each prompt agent can be recreated standalone in the Foundry portal: create a Prompt
+Agent on `gpt-4.1` with the exact instructions found in
+[app/backend/bootstrap_agents.py](app/backend/bootstrap_agents.py) (for the events
+agent, additionally attach the Bing Grounding tool). CLI runners exercise each agent in
+isolation: `python -m app.scripts.run_flights_agent` and
+`python -m app.scripts.run_events_agent` — useful as a workshop exercise.
+
+#### Manifest and license
+
+Catalog manifest: [agentverse.yaml](agentverse.yaml). License: MIT.
