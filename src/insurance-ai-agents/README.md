@@ -1,9 +1,3 @@
-> **📐 Proposal.** A self-contained, standardized README following the AgentVerse
-> [template](../templates/demo-scaffold/README-TEMPLATE.md), offered for the demo author
-> to adopt — and adapt — as this demo's README.
-
----
-
 # Insurance AI Agents
 
 > Governed multi-agent claims processing: how an organization builds, governs and

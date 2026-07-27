@@ -1,9 +1,3 @@
-> **📐 Proposal.** A self-contained, standardized README following the AgentVerse
-> [template](../templates/demo-scaffold/README-TEMPLATE.md), offered for the demo author
-> to adopt — and adapt — as this demo's README.
-
----
-
 # Signal-to-Service
 
 > From a telemetry anomaly to a scheduled, procedure-backed work order — with a human
