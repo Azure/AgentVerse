@@ -1,6 +1,6 @@
 # AgentVerse — use cases
 
-This folder contains every scenario that feeds the AgentVerse portfolio: four
+This folder contains every scenario that feeds the AgentVerse portfolio: six
 independent, self-contained agentic AI demos, plus the shared templates and tooling
 used to build and catalog them.
 
@@ -10,12 +10,12 @@ Every demo carries the same documents:
 
 | Document | What it gives you |
 |---|---|
-| `README.md` | The author's current documentation — full setup and reference detail |
-| `README-PROPOSED.md` | The proposed standardized README — fully self-contained, offered for each author to adopt (and adapt) as the demo's README. Two parts: **Part 1 · Business Brief** (story, business case, KPI impact, and a minute-by-minute guide to presenting it to a business audience — no commands, no jargon) and **Part 2 · Technical Brief** (architecture, agentic patterns, and the setup that prepares the environment) |
+| `README.md` | The demo's documentation — fully self-contained, in two parts: **Part 1 · Business Brief** (story, business case, KPI impact, and a minute-by-minute guide to presenting it to a business audience — no commands, no jargon) and **Part 2 · Technical Brief** (architecture, agentic patterns, and the setup that prepares the environment) |
+| `README_previous.md` | The demo's prior documentation, kept for reference where a demo has since adopted the standardized README above |
 | `agentverse.yaml` | The catalog manifest — machine-readable facts (status, models, Azure services, entry points) that generate [CATALOG.md](CATALOG.md) |
 
-New to the portfolio? Open a demo's `README-PROPOSED.md` and read Part 1 — it is
-written to be understood with no technical background.
+New to the portfolio? Open a demo's `README.md` and read Part 1 — it is written to
+be understood with no technical background.
 
 ## The demos
 
@@ -25,6 +25,8 @@ written to be understood with no technical background.
 | [insurance-ai-agents/](insurance-ai-agents/) | 🏦 Insurance | Governed claims processing: Intake, Risk and Compliance agents decide auto claims in minutes behind an AI gateway, with audit trail, human review queue, real-time voice channel and a whitelabel React dashboard | The **governance showcase** — built to pass an enterprise IT review: gateway policies, eval gate on every change, rules owned by accountable teams |
 | [production-scheduling-agents/](production-scheduling-agents/) | 🏭 Manufacturing | Self-healing production scheduling: a Sense → Simulate → Decide → Act loop absorbs disruptions (machine down, material delay, rush order), reschedules autonomously and escalates only ambiguous trade-offs to the planner | The **most presentation-safe demo** — deterministic replay mode; business KPIs measured live on the dashboard; deterministic guardrails around the LLMs |
 | [signal-to-service/](signal-to-service/) | 🔧 Manufacturing | Predictive maintenance to field service: a telemetry anomaly is diagnosed, the correct maintenance procedure is retrieved **and cited**, a human approves, and a work order is created and scheduled to the right technician | The **human-in-the-loop** exemplar — event-triggered pipeline, grounded citations from the plant's own manuals, approval gate before any action |
+| [model-evaluator/](model-evaluator/) | 🛠️ AI platform engineering | A/B comparison bench: send one prompt to two live Azure AI Foundry models in parallel and compare latency, tokens and throughput, with an optional blind LLM judge | The **model-selection tool** — live model discovery, fair parallel measurement, a judge designed against its own position/self-preference bias |
+| [sre-agent-demo/](sre-agent-demo/) | ☁️ Cloud operations / SRE | Guided, zero-risk replay of the [Azure SRE Agent](https://learn.microsoft.com/azure/sre-agent/overview): six seeded incidents stepped through signal → root cause → human-approved fix, mapped to Well-Architected pillars | The **safest demo to run** — deterministic replay, no live Azure calls, no credentials needed; approval gate shown read-only |
 
 ### Choosing a demo for a conversation
 
@@ -32,6 +34,8 @@ written to be understood with no technical background.
 - **Compliance, governance or regulated-industry audience** → [insurance-ai-agents/](insurance-ai-agents/)
 - **Operations / plant / supply-chain audience, or presenting solo** → [production-scheduling-agents/](production-scheduling-agents/)
 - **Maintenance / field-service audience, or "can the AI act safely on real systems?"** → [signal-to-service/](signal-to-service/)
+- **AI platform engineering audience, or "how do we choose a model?"** → [model-evaluator/](model-evaluator/)
+- **Site reliability / incident response audience, or "can AI investigate incidents safely?"** → [sre-agent-demo/](sre-agent-demo/)
 
 ## Shared resources
 
