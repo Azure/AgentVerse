@@ -1,0 +1,133 @@
+{
+  "foundryairlines-demo": {
+    "industry": "Travel",
+    "headline": "Turn empty seats into event-aware promotion ideas",
+    "summary": "Follow two agents as they select low-occupancy flights and find destination events. An image model turns those results into promotional banners for review.",
+    "problem": "Flight occupancy data does not become a campaign on its own. Revenue and marketing teams must identify underfilled flights, research relevant destination events, and prepare creative before the opportunity passes.",
+    "outcome": "See how a sequential workflow connects sample bookings, web-grounded event research, and image generation, with source links and visible progress at each stage.",
+    "steps": [
+      "Select the five lowest-occupancy flights from sample bookings.",
+      "Search the live web for an upcoming event near each flight date.",
+      "Generate a banner combining each flight offer with its destination event.",
+      "Review the source links and banners before considering a campaign."
+    ],
+    "reality": "Bookings come from a seeded local SQLite database, not an airline reservation system. Normal runs use live Foundry agents, Bing-grounded search, and a direct image-model call; the banner step is not a third agent. Cached mode displays banners from an earlier run. Events can fall back to a cultural highlight when no suitable event is found. Real campaigns need verified offers, brand controls, content review, and approval before publication.",
+    "prerequisites": [
+      "Have Python and install this scenario's requirements.txt dependencies.",
+      "Provide a Foundry account and project with gpt-4.1 and gpt-image-2 deployments and sufficient regional quota.",
+      "Create a Bing Grounding resource and connect it in the Foundry portal as bing-grounding.",
+      "Sign in with Azure CLI, fill in app/.env from its example, and run the agent bootstrap command.",
+      "Start the backend, open the frontend, and complete a warm-up run to populate cached banners."
+    ],
+    "start_path": "src/foundryairlines-demo/README.md#24-technical-setup"
+  },
+  "insurance-ai-agents": {
+    "industry": "Insurance",
+    "headline": "Explore claims decisions with review and audit controls",
+    "summary": "Follow a sample auto claim through intake, risk assessment, compliance checks, and a decision. Explore how human review, gateway policies, and change approvals fit around that workflow.",
+    "problem": "Claims cross several teams, each responsible for different facts, risks, and rules. Introducing AI into that process also requires clear ownership of decisions, review of exceptions, and evidence of how rules and agent behavior change.",
+    "outcome": "Learn how specialized agents, reviewable rules, a human review queue, and an audit trail can work together. See the difference between a sample claim walkthrough and the Azure-backed gateway and governance setup.",
+    "steps": [
+      "Extract structured facts from a sample claim report.",
+      "Assess risk and fraud signals, then apply illustrative compliance rules.",
+      "Inspect the decision and review flagged cases in the operator queue.",
+      "Explore the audit trail, gateway policies, and rule-change review process."
+    ],
+    "reality": "Claims are built-in sample data and Helix Insurance is a fictional brand. Regulatory rules and thresholds are illustrative, not legal or compliance guidance. The documented Azure architecture uses model calls, an API Management gateway, and Cosmos DB audit storage; live gateway data requires the full Azure deployment. A local walkthrough does not establish that those cloud controls or repository approval requirements are configured. Real use needs validated rules, identity setup, data protection assessment, and appropriate human oversight.",
+    "prerequisites": [
+      "Have Python, create a virtual environment, and install backend/requirements.txt.",
+      "Have Node.js and npm, install dashboard dependencies, and start its development server.",
+      "Start the backend from its directory and verify the sample auto demo end to end.",
+      "For live gateway and security data, provision the full Azure environment with scripts/deploy.ps1.",
+      "For the live governance walkthrough, prepare repository access, a compliance-rule change, and the evaluation workflow on a pull request."
+    ],
+    "start_path": "src/insurance-ai-agents/README.md#24-technical-setup"
+  },
+  "model-evaluator": {
+    "industry": "AI Platform Engineering",
+    "headline": "Compare two models on the same prompt",
+    "summary": "Send the same prompt to two deployed models and compare their streamed answers, response times, and token use. Optionally ask a different model to judge the answers without seeing their identities.",
+    "problem": "Choosing a model from a few informal impressions makes trade-offs hard to explain. Teams need a shared view of answer quality and responsiveness, while recognizing that one prompt cannot represent an entire workload.",
+    "outcome": "Learn how parallel model calls, consistent timing, and a blind judge support an initial comparison. Export a run as JSON or CSV, and understand why repeated, workload-specific evaluations are still needed.",
+    "steps": [
+      "Choose two chat-capable deployments from the available model list.",
+      "Send one prompt to both models and watch their answers stream.",
+      "Compare response times, token counts, and generation throughput.",
+      "Optionally request a blind verdict from another model and export the run."
+    ],
+    "reality": "Comparisons make real, billable calls to the configured Azure models; answers and timings vary between runs. Model discovery can fall back to a configured list if live discovery is unavailable. The optional judge cannot be either candidate, but its verdict can still be biased. This is an interactive single-run comparison, not a statistical benchmark or validated quality assessment. It reports tokens, not dollar costs; broader use needs workload evaluations and a review of access and spending controls.",
+    "prerequisites": [
+      "Have Python and install this scenario's requirements.txt dependencies.",
+      "Provide a Foundry project and Azure OpenAI endpoint with at least two chat-capable model deployments.",
+      "Sign in with Azure CLI using Azure AI Developer for discovery and Cognitive Services OpenAI User for inference.",
+      "Set PROJECT_ENDPOINT and AZURE_OPENAI_ENDPOINT, start the backend, and check model discovery and inference health.",
+      "For the optional blind judge, make a third suitable deployment available that is distinct from both candidates."
+    ],
+    "start_path": "src/model-evaluator/README.md#24-technical-setup"
+  },
+  "production-scheduling-agents": {
+    "industry": "Manufacturing",
+    "headline": "Explore schedule changes when production is disrupted",
+    "summary": "See how a scheduling loop responds to machine failures, delayed materials, and rush orders. It checks proposed changes against plant constraints and asks a planner to resolve ambiguous trade-offs.",
+    "problem": "A schedule can become outdated as soon as a machine stops or a shipment slips. Planners must work out which orders are affected, compare alternatives, and update the schedule without violating capacity, material, or safety constraints.",
+    "outcome": "Learn the sense, simulate, decide, and act pattern on a sample plant. Observe how deterministic validation and policy checks surround agent proposals, including automatic changes, human escalation, and rejection of a scripted injection attempt.",
+    "steps": [
+      "Introduce a scripted disruption into the simulated plant schedule.",
+      "Compare proposed alternatives and discard moves that violate constraints.",
+      "Apply a clear choice or ask the planner to select a feasible alternative.",
+      "Revalidate the chosen schedule and inspect the updated board and metrics."
+    ],
+    "reality": "The plant, orders, telemetry, and system integrations are simulated. Local and hosted demos default to recorded agent responses when PROJECT_ENDPOINT is unset; replay fixtures cover four scripted disruptions. Live Foundry agents are optional, but they still operate on the sample plant. The validator and policy gates execute as code in both modes. This is an operating-pattern demonstration, not a scheduling product or proof of production savings; real use requires plant-specific constraints, integrations, and safety validation.",
+    "prerequisites": [
+      "Have Python 3.12 or later and a recent Git installation.",
+      "For local replay, create a virtual environment and install pydantic and pyyaml; no Azure access is needed.",
+      "Keep PROJECT_ENDPOINT unset for replay and use the four scripted disruptions.",
+      "For the local dashboard, also install FastAPI and uvicorn with its standard extras.",
+      "For live mode, follow the guide for Azure CLI, Terraform, model quota, a Foundry project, Azure AI Developer access, and the full dependencies."
+    ],
+    "start_path": "src/production-scheduling-agents/GETTING_STARTED.md"
+  },
+  "signal-to-service": {
+    "industry": "Manufacturing",
+    "headline": "Turn a machine alert into a reviewed service plan",
+    "summary": "Follow a simulated machine anomaly through diagnosis and a cited maintenance procedure. A human approval releases the next stage: drafting a work order and assigning a technician in the demo system.",
+    "problem": "Maintenance alerts often lead to separate rounds of diagnosis, manual lookup, work-order entry, and technician scheduling. Those hand-offs make it harder to connect an alert to a reviewed action with the right procedure attached.",
+    "outcome": "See how a signal-triggered workflow combines model-based diagnosis, retrieval with citations, and an explicit approval gate. Learn where agents prepare information and conventional application code creates and schedules the work order.",
+    "steps": [
+      "Inject an anomaly into a simulated asset's telemetry.",
+      "Diagnose the issue and retrieve a cited maintenance procedure.",
+      "Review the diagnosis and approve or reject the proposed action.",
+      "After approval, draft a work order and assign a mock technician."
+    ],
+    "reality": "The agents make live Foundry calls, but telemetry is simulated, the SQLite work-order system is a stand-in, and the scheduler uses three sample technicians. Retrieval uses four sample manuals through Azure AI Search or a bundled local retriever. Human approval is required before dispatch, with approved run state held on the server. This experimental demo does not connect to a real maintenance system or establish diagnostic accuracy; real use needs validated procedures, asset data, integrations, and safety review.",
+    "prerequisites": [
+      "Have Python, create a virtual environment, and install this scenario's requirements.txt dependencies.",
+      "Sign in with Azure CLI and have access to a Foundry project with a gpt-4.1 deployment.",
+      "Create app/.env from its example and set PROJECT_ENDPOINT.",
+      "Register the three agents with the bootstrap command; configure Azure AI Search only if not using the bundled retriever.",
+      "Start the backend and verify a full anomaly-to-approved-work-order run with reachable agents."
+    ],
+    "start_path": "src/signal-to-service/README.md#24-technical-setup"
+  },
+  "sre-agent-demo": {
+    "industry": "Cloud Operations",
+    "headline": "Replay an incident investigation before proposing a fix",
+    "summary": "Explore six scripted incident timelines showing alerts, evidence, root causes, and proposed fixes. Read-only approval cards illustrate where a human decision belongs without changing any Azure resource.",
+    "problem": "Incident investigation often means moving between alerts, logs, configuration changes, and team knowledge. Reliability teams need a way to explain the evidence behind a proposed fix and define who may approve action.",
+    "outcome": "Learn the structure of a signal-to-root-cause investigation and a human-reviewed remediation proposal. Explore example failures across compute, data, and networking, with links to Azure SRE Agent capabilities and Well-Architected guidance.",
+    "steps": [
+      "Select one of six seeded incidents in the guided replay.",
+      "Read the scripted alert, telemetry queries, and investigation evidence.",
+      "Review the replayed root cause and read-only approval card.",
+      "Inspect the scripted resolution and related Well-Architected guidance."
+    ],
+    "reality": "Every investigation is a hand-authored, deterministic replay, including query results, reasoning, approvals, and resolutions. No live Azure or model calls are made and no remediation executes. Replay is the only fully supported mode; a future read-only live path is scaffolded, not a ready integration. Any future live use must target a dedicated non-production sandbox, with scoped identity and connectors, and writes and approvals disabled in shared or public deployments.",
+    "prerequisites": [
+      "Have Python and install this scenario's requirements.txt dependencies.",
+      "Start the FastAPI backend and open the local page on port 8780.",
+      "Use the default replay mode; no Azure credentials or environment configuration are needed.",
+      "Confirm health reports replay mode and configuration reports writes and approvals disabled."
+    ],
+    "start_path": "src/sre-agent-demo/README.md#24-technical-setup"
+  }
+}

@@ -48,6 +48,13 @@ The landing card is generated automatically from this manifest — every demo yo
 add appears on the home page with no extra step. Write a clear one-line
 `tagline` and a short-paragraph `description`: those are what the card shows.
 
+The separate **public GitHub Pages website** also uses this manifest for
+technical metadata. Add an entry keyed by the same `demo_id` in
+[`website/scenarios.json`](../website/scenarios.json) for its business context,
+workflow, simulation boundaries, prerequisites, and quickstart path. This
+editorial copy is required for public publication, not for the Azure portal.
+See the [website content contract](../website/README.md#content-contract).
+
 - Copy the manifest from
   [`src/templates/catalog/README.md`](../src/templates/catalog/README.md) or
   from an existing demo.
