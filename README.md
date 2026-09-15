@@ -14,6 +14,16 @@ This initiative is the result of collaboration across multiple Microsoft teams, 
 
 ## Unified portal & global deploy
 
+### Public discovery website
+
+The [public website source](website/) provides a GitHub Pages-ready introduction
+to AgentVerse: business-focused scenario pages, a searchable catalog, reusable
+building blocks, and guidance for running your first example. It is separate
+from the live Azure demo portal and can be browsed without an Azure subscription.
+See [preview and publication instructions](website/README.md).
+
+### Live demos on Azure
+
 Every demo under [`src/`](src/) is fully independent, but they can also be shown
 and deployed **together**:
 
