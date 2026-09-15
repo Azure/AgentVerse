@@ -185,7 +185,8 @@ def home(entries: list[dict], stories: dict) -> str:
       <div class="hero-copy"><p class="eyebrow">Real problems. Agentic possibilities.</p>
       <h1>Start building<br>with <em>AI agents.</em></h1>
       <p class="lede">Go from &ldquo;what could agents do?&rdquo; to &ldquo;here&rsquo;s how we could build it.&rdquo;
-      Explore practical examples, understand how they work, and make them your own.</p>
+      Explore examples based on real customer use cases being used or deployed in large enterprises,
+      understand how they work, and make them your own.</p>
       <div class="actions"><a class="button primary" href="explore.html">Explore scenarios <span aria-hidden="true">&#8599;</span></a>
       <a class="button secondary" href="get-started.html">Find your starting point</a></div>
       <p class="hero-note">Open source &middot; Built within Microsoft &middot; Yours to adapt</p></div>
@@ -199,7 +200,13 @@ def home(entries: list[dict], stories: dict) -> str:
     <section class="section wrap intro-grid"><div><p class="eyebrow">Beyond a chatbot</p><h2>Agents do more than answer.<br>They help get work done.</h2></div>
       <div><p class="lede small">An AI agent combines a model with instructions and tools to work toward a goal.
       Several agents can share a task, bring in relevant information, and involve a person when a decision needs review.</p>
-      <p>AgentVerse makes those ideas concrete. Each scenario connects a business problem to an implementation you can inspect and adapt.</p>
+      <p>AgentVerse makes those ideas concrete. The public demos make real customer scenarios accessible
+      through reference code, sample data, and, where noted, simulated or replayed workflows.</p>
+      <p>Microsoft Agent Framework brings reusable agent, tool, and workflow building blocks to the
+      Framework-based examples, so teams can spend less time wiring components together and more time
+      adapting the business process.</p>
+      <p>All examples can be co-built with Microsoft staff if you need help getting started or adapting
+      them to your enterprise. <a href="get-started.html#co-build">Explore co-building with Microsoft</a>.</p>
       <a class="text-link" href="about.html">Who it&rsquo;s for and why we built it &#8594;</a></div></section>
     <section class="section wrap"><div class="section-heading"><div><p class="eyebrow">A few places to begin</p>
       <h2>Real scenarios.<br>Reusable ideas.</h2></div><a class="text-link" href="explore.html">View all {len(entries)} scenarios &#8594;</a></div>
@@ -215,7 +222,8 @@ def home(entries: list[dict], stories: dict) -> str:
 def about() -> str:
     return f"""<section class="page-hero wrap"><p class="eyebrow">About AgentVerse</p>
       <h1>A shared starting point.<br><em>Built for you to build on.</em></h1>
-      <p class="lede">Practical examples developed across Microsoft teams, brought together to help you
+      <p class="lede">Examples based on real customer use cases being used or deployed in large enterprises,
+      developed with Microsoft teams to help you
       understand what AI agents can do&mdash;and start creating your own solutions.</p>
       <div class="actions"><a class="button secondary" href="#who-is-this-for">Who is this for? &#8595;</a>
       <a class="button secondary" href="#why-agentverse">Why did we build it? &#8595;</a></div></section>
@@ -253,8 +261,12 @@ def about() -> str:
       <p class="lede small">Understanding the promise of AI agents is one thing.
       Knowing where to start building is another.</p></div>
       <div><p>AgentVerse brings together agentic use cases developed through collaboration across
-      Microsoft teams. It makes that practical work available as examples you can explore, run in your
-      own Azure environment, and adapt.</p>
+      Microsoft teams and customers. The examples are based on real customer use cases being used or
+      deployed in large enterprises, not just hypothetical business problems.</p>
+      <p>We make those scenarios accessible through public reference implementations you can explore,
+      run in your own environment, and adapt. Sample data, simulations, and replay modes let you
+      understand a workflow without accessing a customer&rsquo;s systems. The public code is not a
+      representation of every component in a customer deployment.</p>
       <p>The aim is to shorten the distance between an idea and a working starting point:
       connect technology to a real business problem, show how the solution fits together, and share
       reusable code rather than leave you with a concept alone.</p>
@@ -262,7 +274,17 @@ def about() -> str:
       These examples are not finished products or a substitute for your own security review,
       evaluation, and production design.</p>
       <a class="text-link" href="{REPO}#contributing">Build on it. Share what you learn. &#8599;</a></div></div>
-    </section>"""
+    </section>
+    <section class="wrap section"><div class="start-grid">
+      <article class="setup-panel"><p class="eyebrow">Build together</p><h2>Microsoft staff can help you co-build.</h2>
+      <p>All examples can be co-built with Microsoft staff if needed. Bring your business problem and
+      work with your Microsoft team to discuss the scenario, integration needs, and next steps.</p>
+      <a class="text-link" href="get-started.html#co-build">How to start a co-build conversation &#8594;</a></article>
+      <article class="setup-panel"><p class="eyebrow">A reusable foundation</p><h2>Microsoft Agent Framework</h2>
+      <p>The Framework-based demos use a common foundation for agents, tools, and multi-agent workflows.
+      This helps make coordination explicit and components easier to reuse as you adapt a scenario.</p>
+      <a class="text-link" href="building-blocks.html#agent-framework">See the value of the Framework &#8594;</a></article>
+    </div></section>"""
 
 
 def explore(entries: list[dict], stories: dict) -> str:
@@ -272,7 +294,10 @@ def explore(entries: list[dict], stories: dict) -> str:
     return f"""<section class="page-hero wrap"><p class="eyebrow">The scenario collection</p>
       <h1>Find your<br><em>starting point.</em></h1>
       <p class="lede">Start with a business need, not a technology. Each example shows what agents can do,
-      how they work, and what it takes to build on them.</p></section>
+      how they work, and what it takes to build on them.</p>
+      <p>Based on real customer use cases being used or deployed in large enterprises.
+      Public demos retain the sample data and simulation boundaries described on each scenario page.</p>
+      <a class="text-link" href="get-started.html#co-build">All examples can be co-built with Microsoft staff &#8594;</a></section>
     <section class="wrap catalog-section" aria-label="Scenario catalog">
       <form class="filters" role="search" hidden>
       <div class="filter-field search-field"><label for="scenario-search">Search scenarios</label><input id="scenario-search" type="search" name="q" placeholder="Try maintenance, voice, or governance"></div>
@@ -300,6 +325,13 @@ def scenario(entry: dict, story: dict) -> str:
     prerequisites = "".join(f"<li>{text(item)}</li>" for item in story["prerequisites"])
     services = "".join(f'<span class="chip">{text(service)}</span>' for service in entry.get("azureServices", []))
     stack = entry["stack"]
+    framework_note = ""
+    if stack.get("framework") == "Microsoft Agent Framework":
+        framework_note = """<p><strong>Why Microsoft Agent Framework?</strong> Its reusable agent and
+          workflow abstractions provide a common way to connect models, tools, and specialist agents.
+          This gives teams a clearer structure to inspect and adapt instead of rebuilding coordination
+          from scratch. The demo&rsquo;s own code determines which capabilities are implemented.</p>
+          <a class="text-link" href="../building-blocks.html#agent-framework">Explore the Framework building blocks &#8594;</a>"""
     return f"""<section class="page-hero wrap scenario-hero">
       <a class="back-link" href="../explore.html">&#8592; All scenarios</a>
       <p class="eyebrow">{text(story['industry'])} / {text(entry['title'])}</p>
@@ -317,6 +349,9 @@ def scenario(entry: dict, story: dict) -> str:
       {workflow(story['steps'])}<p class="caption">A simplified view. The source documentation contains implementation details.</p></section>
     <section class="wrap section"><div class="reality-panel"><p class="eyebrow">Before you build</p>
       <h2>What&rsquo;s real. What&rsquo;s simulated.</h2><p>{text(story['reality'])}</p>
+      <p><strong>Customer context:</strong> AgentVerse examples are based on real customer use cases
+      being used or deployed in large enterprises. The public version illustrates that work;
+      its sample data and simulation modes are not the customer&rsquo;s production environment.</p>
       <p>Use a test environment and non-sensitive data. Review identity, permissions, safety, evaluation,
       and operating costs before adapting this for a real business process.</p></div></section>
     <section class="wrap section detail-grid"><div><p class="eyebrow">Under the hood</p>
@@ -324,14 +359,16 @@ def scenario(entry: dict, story: dict) -> str:
       <dt>Coordination pattern</dt><dd>{text(entry.get('orchestration', 'See source'))}</dd>
       <dt>Framework</dt><dd>{text(stack.get('framework', 'See source'))}</dd>
       <dt>Application</dt><dd>{text(stack.get('backend', ''))} / {text(stack.get('frontend', ''))}</dd>
-      </dl><div class="chips">{services}</div>
+      </dl>{framework_note}<div class="chips">{services}</div>
       <details><summary>Explore the agents and participants</summary><ul class="agent-list">{agents}</ul></details></div>
       <aside class="setup-panel"><p class="eyebrow">Make it your own</p><h2>Ready to try it?</h2>
       <ul class="check-list">{prerequisites}</ul>
       <p><strong>Costs:</strong> Browsing this site is free. Azure-backed examples can incur model,
       hosting, and other resource charges; check the setup guide and remove resources when finished.</p>
       <a class="button primary" href="{quickstart}">Open setup guide &#8599;</a>
-      <a class="text-link" href="../get-started.html">New to AgentVerse? Start here &#8594;</a></aside></section>"""
+      <a class="text-link" href="../get-started.html">New to AgentVerse? Start here &#8594;</a>
+      <p>All examples can be co-built with Microsoft staff if needed.</p>
+      <a class="text-link" href="../get-started.html#co-build">Discuss co-building this example &#8594;</a></aside></section>"""
 
 
 def get_started() -> str:
@@ -350,6 +387,19 @@ def get_started() -> str:
       you don&rsquo;t need to deploy the entire collection.</p>
       <a class="text-link" href="scenarios/foundryairlines-demo.html">Explore the beginner-level airline example &#8594;</a></article>
     </div></section>
+    <section class="wrap section" id="co-build" aria-labelledby="co-build-title">
+      <div class="purpose-panel"><div><p class="eyebrow">You don&rsquo;t have to build alone</p>
+      <h2 id="co-build-title">Co-build with Microsoft.</h2>
+      <p class="lede small">All examples can be co-built with Microsoft staff if needed.</p></div>
+      <div><p>These examples are based on real customer use cases being used or deployed in large
+      enterprises. Your Microsoft team can work with you to explore how a scenario could fit your
+      organization, rather than treating the public demo as a finished deployment.</p>
+      <p>To start, share the scenario link with your Microsoft account team or technical contact.
+      Describe the business outcome, the systems you want to connect, and your security and deployment
+      requirements. Agree the scope, staff availability, and engagement arrangements together.</p>
+      <p>You can also start independently with the source code and bring questions to that conversation.
+      Co-building does not replace your organization&rsquo;s production review or operating responsibilities.</p></div></div>
+    </section>
     <section class="wrap section reading-width"><p class="eyebrow">Your route to a first build</p><h2>Small steps. A useful starting point.</h2>
       <ol class="guide-steps">
       <li><h3>Choose a scenario and check its boundaries</h3><p>Read the business need, workflow, maturity status,
@@ -375,6 +425,10 @@ def get_started() -> str:
 
 
 def building_blocks(entries: list[dict]) -> str:
+    framework_links = "".join(
+        f'<li><a href="scenarios/{text(entry["name"])}.html">{text(entry["title"])} &#8594;</a></li>'
+        for entry in entries if entry["stack"].get("framework") == "Microsoft Agent Framework"
+    )
     blocks = [
         ("Coordination", "Give each participant a clear job.",
          "One agent can hand work to the next, or an orchestrator can coordinate specialists. The application controls how their outputs fit together.",
@@ -403,6 +457,26 @@ def building_blocks(entries: list[dict]) -> str:
       <h1>Different scenarios.<br><em>Shared building blocks.</em></h1>
       <p class="lede">You may not be building an airline or a factory application.
       The patterns behind them can still help you get started.</p></section>
+      <section class="wrap section" id="agent-framework" aria-labelledby="framework-title">
+      <div class="reality-panel"><p class="eyebrow">The foundation behind the Framework-based demos</p>
+      <h2 id="framework-title">Why Microsoft Agent Framework?</h2>
+      <p>Microsoft Agent Framework provides building blocks for agents and multi-agent workflows:
+      connections to model providers, tool integration, state management, and explicit execution paths.
+      Instead of assembling each integration from scratch, teams can use a shared programming model
+      and focus on the business logic that makes their scenario useful.</p>
+      <div class="journey-grid"><div><h3>Connect the pieces</h3>
+      <p>Bring models, instructions, and tools together through reusable abstractions.</p></div>
+      <div><h3>Make coordination explicit</h3>
+      <p>Structure how agents and functions pass work and data through a multi-step process.</p></div>
+      <div><h3>Adapt with less rework</h3>
+      <p>Reuse components and integration patterns as you change tools, models, or the business workflow.</p></div></div>
+      <p>These are Framework capabilities, not a claim that every demo uses every feature. Application-level
+      authorization, approvals, evaluation, and production readiness still need to be designed and verified.</p>
+      <p><strong>Framework-based examples in this collection:</strong></p><ul>{framework_links}</ul>
+      <p>Model Evaluator uses direct inference and model discovery; the Azure SRE Agent example is a guided
+      replay of a separate service. Neither is presented here as a Microsoft Agent Framework implementation.</p>
+      <a class="text-link" href="https://learn.microsoft.com/agent-framework/overview/">Read the Microsoft Agent Framework overview &#8599;</a>
+      </div></section>
       <section class="wrap section block-grid" aria-label="Agent building blocks">{cards}</section>"""
 
 

@@ -145,6 +145,28 @@ class SiteTests(unittest.TestCase):
         self.assertIn("&lt;img", rendered)
         self.assertIn("&quot;", rendered)
 
+    def test_customer_context_and_cobuild_guidance(self):
+        for name in ("index.html", "about.html", "explore.html", "get-started.html"):
+            html = " ".join((self.output / name).read_text(encoding="utf-8").split())
+            self.assertIn("large enterprises", html)
+            self.assertIn("co-built with Microsoft staff", html)
+        for entry in self.entries:
+            html = (self.output / "scenarios" / f'{entry["name"]}.html').read_text(encoding="utf-8")
+            self.assertIn("Customer context:", html)
+            self.assertIn('href="../get-started.html#co-build"', html)
+            self.assertIn(build.text(self.stories[entry["name"]]["reality"]), html)
+
+    def test_framework_value_is_scoped_to_actual_implementations(self):
+        for entry in self.entries:
+            html = (self.output / "scenarios" / f'{entry["name"]}.html').read_text(encoding="utf-8")
+            self.assertEqual(
+                "Why Microsoft Agent Framework?" in html,
+                entry["stack"].get("framework") == "Microsoft Agent Framework",
+            )
+        html = (self.output / "building-blocks.html").read_text(encoding="utf-8")
+        self.assertIn('id="agent-framework"', html)
+        self.assertIn("Neither is presented here as a Microsoft Agent Framework implementation", html)
+
     def test_source_link_encoding(self):
         self.assertEqual(
             build.source_link("src/example/README.md#quick-start"),
