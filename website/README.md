@@ -88,3 +88,11 @@ capabilities. The homepage has a small editorial selection, not a second catalog
 Do not add deployment URLs automatically from private operator configuration.
 Only link a live demo after its owner confirms it is intended for public access.
 Never describe experimental examples or replay modes as production-ready.
+
+Public messaging distinguishes real customer use cases being used or deployed
+in large enterprises from the sample data and simulations in the published code.
+All examples can be co-built with Microsoft staff; the getting-started page
+directs visitors to their Microsoft account team or technical contact to agree
+scope and engagement arrangements. Microsoft Agent Framework benefits are
+explained on the building-blocks page, with scenario-level attribution derived
+from each manifest rather than applied to every example.
