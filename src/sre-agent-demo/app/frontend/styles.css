@@ -111,6 +111,18 @@ body {
 .turn.tool { border-left: 3px solid var(--accent-2); } .turn.tool .role { color: var(--accent-2); }
 .turn.approval { border-left: 3px solid var(--err); } .turn.approval .role { color: var(--err); }
 .turn.resolution { border-left: 3px solid var(--ok); } .turn.resolution .role { color: var(--ok); }
+.turn.repository { border-left: 3px solid var(--accent); }
+.turn.repository .role { color: var(--accent); }
+.investigation { min-width: 0; }
+.repository-card h3 { margin: 8px 0; font-size: 15px; }
+.repository-card p { font-size: 13px; overflow-wrap: anywhere; }
+.repository-card details { margin: 12px 0; }
+.repository-card summary { cursor: pointer; color: var(--accent); }
+.draft-preview {
+  max-height: 420px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere;
+  padding: 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); font: 12px/1.5 ui-monospace, Consolas, monospace;
+}
 
 .kql { margin: 8px 0; padding: 10px; border-radius: 8px; background: #0a0e18;
   border: 1px solid var(--border); font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;

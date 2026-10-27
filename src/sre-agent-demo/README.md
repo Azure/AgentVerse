@@ -1,7 +1,7 @@
 # Azure SRE Agent — AgentVerse demo
 
 > A guided, zero-risk walkthrough of the Azure SRE Agent turning an incident signal into
-> a root cause and a human-approved fix.
+> a root cause, a proposed human-approved fix, and an exportable repository follow-up.
 
 **Contents:** [Part 1 · Business Brief](#part-1--business-brief) — present the demo ·
 [Part 2 · Technical Brief](#part-2--technical-brief) — prepare and operate it
@@ -84,7 +84,11 @@ to show at all.
 3. *(3–4 min)* Pause on the **approval card**. *"The agent proposes rolling back to the
    last healthy revision — it does not do it. That decision belongs to your engineer."*
    Point out the stated risk level next to the action.
-4. *(4–5 min)* Show the **resolution** step to close the loop, then point at the
+4. *(4–5 min)* Show the **expected resolution**, then the **repository follow-up**.
+   Preview and download its Markdown: a PR proposal or issue draft with simulated
+   evidence, validation criteria, rollback and prevention. Nothing is published or
+   approved, and PR proposals are specifications, not applicable patches.
+   Point at the
    Well-Architected pillar tags on the scenario. *"This isn't just 'AI fixed it' — it's
    tied back to the framework your team already reports against."*
 5. *(5–7 min, technical rooms)* Open the right-hand panel: connectors, agent modes,
@@ -102,6 +106,39 @@ to show at all.
   chat answer pulled from nowhere.
 - **Well-Architected mapping** — every incident ties back to a framework the audience
   likely already uses to score its own environment.
+- **Back to the repository** — the mitigation is followed by a durable change proposal
+  or tracked investigation, with incident memory, a runbook and a regression check.
+
+#### Repository loops: correct, stabilize, prevent
+
+Every existing incident ends with a local, exportable **illustrative draft**. The
+repository names below, branch names and file paths are fictional examples, not
+configured destinations. No repository is inspected and no GitHub credentials are needed.
+
+| Incident | Repository example | Outcome | Durable follow-up |
+|---|---|---|---|
+| Container App OOM / 5xx | `example-org/checkout-api` | PR proposal | Restore the memory declaration and test the working-set budget |
+| AKS secret rotation | `example-org/payments-svc` | PR proposal | Review the stale CSI version pin and validate secret rotation |
+| SQL latency | `example-org/orders-api` | PR proposal | Review an index migration and query-plan/load regression |
+| Cosmos hot partition | `example-org/cart-api` | Issue draft | Investigate partition skew and caching before proposing a migration |
+| TLS certificate expiry | `example-org/www-portal` | Issue draft | Assign renewal ownership and scheduled expiry checks |
+| Private endpoint DNS drift | `example-org/orders-worker` | PR proposal | Manage the DNS zone group in IaC and add a private-resolution probe |
+
+Use **Step**, **Play** or **Show all** to reach the final repository card. Expand
+**Preview exported Markdown**, then choose **Download draft (.md)**. Preview and download
+use the same content. Reset or select another incident to restart the replay.
+
+The export carries its own simulation disclaimer and pending-review status. Acceptance
+criteria are **not run**, suggested runbooks/tests are **not created**, and expected
+recovery is **not observed**. A maintainer must select the actual repository, replace
+the evidence, implement/test any change and review publication. Downloading does not
+create an issue, branch, PR, approval, merge or deployment. The PR specification deliberately
+contains no invented code diff against an uninspected repository.
+
+These client-agnostic examples cover the six existing investigations. DR drills,
+dependency vulnerability remediation and usage/cost estimates are outside this
+replay's scope. Use fictional organizations and generic services in demo content;
+do not include customer names, branding or identifying details.
 
 ### 1.5 Anticipated questions
 
@@ -189,7 +226,9 @@ agent is scaffolded in the code but stays off unless deliberately configured (§
 Guided replay (default, always on — no Azure credentials needed):
 Browser ── GET /api/scenarios ──────► scenarios.list_scenarios()   (6 seeded incidents)
 Browser ── GET /api/scenarios/{id} ─► full investigation timeline
-                                       (signal → tool query → agent reasoning → approval → resolution)
+                                       (signal → tool query → agent reasoning → approval
+                                        → expected resolution → repository draft)
+Browser ── local Blob download ────► Markdown issue draft / PR specification (no GitHub calls)
 Browser ── GET /api/context ────────► capabilities + WAF notes + Microsoft Learn links
 Browser ── GET /api/config ─────────► mode + rails (writes/approvals always false here) → drives the UI banner
 
@@ -206,6 +245,7 @@ Browser ── same API shape ──► read-only proxy ──► dedicated SAND
 |---|---|---|
 | Backend | [app/backend/main.py](app/backend/main.py) | FastAPI single container; serves the UI at `/` and the JSON API; reports `mode: replay` unless a live resource is configured |
 | Scenario data | [app/backend/scenarios.py](app/backend/scenarios.py) | Six hand-authored, deterministic incident transcripts, plus the capabilities/WAF/doc-link content for the explainer panel |
+| Repository drafts | [app/backend/repository.py](app/backend/repository.py) | Scenario-specific follow-ups and shared Markdown rendering; simulated evidence is reused from the transcript, with no GitHub client |
 | Config / live-path switches | [app/backend/config.py](app/backend/config.py) | Holds the (currently inactive) live-path settings and hard safety rails; replay mode needs none of them |
 | Frontend | [app/frontend/](app/frontend/) | Vanilla HTML/JS — scenario picker, investigation timeline, capabilities panel |
 
@@ -235,7 +275,20 @@ Run before a session; the end state is what §1.4's presenter verification check
 - [ ] No Azure credentials or environment variables are required — replay mode is the
   default and the only fully-supported mode today
 - [ ] Confirm `/healthz` reports `mode: replay` and `/api/config` shows
-  `writes_enabled: false`, `approvals_enabled: false`
+  `writes_enabled: false`, `approvals_enabled: false`, `github_writes_enabled: false`
+
+#### Focused checks
+
+From `src/sre-agent-demo`, after installing the existing requirements:
+
+```powershell
+python -m unittest discover -s tests -v
+node --test tests/frontend.test.cjs
+```
+
+The Python checks exercise all six drafts, preservation of the seeded transcripts,
+the HTTP API contract, rejected writes and read-only flags. The dependency-free Node
+checks cover timeline reveal/reset, selection races and local export content/errors.
 
 ### 2.5 Additional resources
 
@@ -245,8 +298,8 @@ Run before a session; the end state is what §1.4's presenter verification check
 |---|---|---|
 | GET | `/healthz` | Liveness + current mode |
 | GET | `/api/config` | Mode + rails (writes/approvals off) — drives the UI banner |
-| GET | `/api/scenarios` | List the six seeded incidents |
-| GET | `/api/scenarios/{id}` | Full investigation timeline for one incident |
+| GET | `/api/scenarios` | Six incidents with `repository_outcome` (`pr` or `issue`) |
+| GET | `/api/scenarios/{id}` | Full timeline, ending in a `repository` turn with `draft` metadata, `filename` and `markdown` |
 | GET | `/api/context` | Capabilities + WAF notes + doc links |
 
 #### Deployment

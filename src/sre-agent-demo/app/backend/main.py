@@ -47,9 +47,11 @@ async def api_config():
         "live_configured": config.live_configured(),
         "writes_enabled": False,          # replay never writes; live path is read-only for now
         "approvals_enabled": False,       # approvals are shown read-only, never executed
+        "github_writes_enabled": False,
         "api_version": config.SRE_API_VERSION,
         "note": "Guided replay — deterministic, simulated investigations. No live "
-                "Azure calls, no actions taken.",
+                "Azure calls, no actions taken. Repository follow-ups are illustrative "
+                "drafts downloaded locally; no GitHub writes.",
     }
 
 
