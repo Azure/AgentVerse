@@ -8,7 +8,7 @@ const el = (tag, cls, text) => {
   return n;
 };
 
-const state = { scenario: null, revealed: 0, timer: null };
+const state = { scenario: null, revealed: 0, timer: null, selection: 0 };
 
 async function j(url) {
   const r = await fetch(url);
@@ -56,6 +56,8 @@ function renderScenarioList(scenarios) {
     b.appendChild(el("div", "s-sub", s.service));
     const tags = el("div", "tags");
     tags.appendChild(el("span", "tag sev", s.severity));
+    tags.appendChild(el("span", "tag",
+      s.repository_outcome === "pr" ? "PR proposal" : "Issue draft"));
     (s.waf || []).forEach((w) => tags.appendChild(el("span", "tag", w)));
     b.appendChild(tags);
     b.addEventListener("click", () => selectScenario(s.id));
@@ -64,10 +66,29 @@ function renderScenarioList(scenarios) {
 }
 
 async function selectScenario(id) {
+  const selection = ++state.selection;
   document.querySelectorAll(".scenario").forEach((n) =>
     n.classList.toggle("active", n.dataset.id === id));
   stopPlay();
-  const s = await j(`/api/scenarios/${id}`);
+  state.scenario = null;
+  state.revealed = 0;
+  $("timeline").replaceChildren();
+  $("controls-row").hidden = true;
+  $("inv-title").textContent = "Loading incident...";
+  $("inv-summary").textContent = "";
+  $("inv-meta").replaceChildren();
+  updateProgress();
+  let s;
+  try {
+    s = await j(`/api/scenarios/${encodeURIComponent(id)}`);
+  } catch (error) {
+    if (selection === state.selection) {
+      $("inv-title").textContent = "Failed to load incident.";
+      $("inv-summary").textContent = error.message;
+    }
+    return;
+  }
+  if (selection !== state.selection) return;
   state.scenario = s;
   state.revealed = 0;
 
@@ -112,7 +133,47 @@ function turnNode(t) {
       "Approvals are shown read-only in this demo and are never executed."));
     li.appendChild(c);
   }
+  if (t.role === "repository") li.appendChild(repositoryNode(t.draft));
   return li;
+}
+
+function repositoryNode(draft) {
+  const card = el("div", "repository-card");
+  card.appendChild(el("div", "tags",
+    draft.kind === "pr" ? "PR proposal - not a code patch" : "Issue draft"));
+  card.appendChild(el("h3", null, draft.title));
+  card.appendChild(el("p", "hint", `Fictional repository: ${draft.repository}`));
+  card.appendChild(el("p", null, draft.disclaimer));
+  card.appendChild(el("p", null, `Review required from: ${draft.reviewer}`));
+  card.appendChild(el("p", "hint", `Approval: ${draft.approval_status}`));
+  const preview = el("details");
+  preview.appendChild(el("summary", null, "Preview exported Markdown"));
+  preview.appendChild(el("pre", "draft-preview", draft.markdown));
+  card.appendChild(preview);
+  const download = el("button", "btn", "Download draft (.md)");
+  const status = el("div", "hint");
+  status.setAttribute("role", "status");
+  download.addEventListener("click", () => {
+    let url;
+    let link;
+    try {
+      url = URL.createObjectURL(new Blob([draft.markdown], { type: "text/markdown;charset=utf-8" }));
+      link = el("a");
+      link.href = url;
+      link.download = draft.filename;
+      document.body.appendChild(link);
+      link.click();
+      status.textContent = "Local download requested. Nothing was published to GitHub.";
+    } catch (error) {
+      status.textContent = `Unable to download draft: ${error.message}`;
+    } finally {
+      if (link) link.remove();
+      if (url) setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+  });
+  card.appendChild(download);
+  card.appendChild(status);
+  return card;
 }
 
 function revealNext() {

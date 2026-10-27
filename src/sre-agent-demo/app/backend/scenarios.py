@@ -6,12 +6,17 @@ Log Analytics / Application Insights, surfaced as Kusto), form and test a
 hypothesis, reach a root cause, and propose a remediation that a human approves in
 Review mode. Nothing here calls Azure; it is illustrative content for the demo.
 
-Each "turn" has a `role` (signal | agent | tool | approval | resolution) so the UI
-can render an investigation timeline. Doc links are official Microsoft Learn pages.
+Each "turn" has a `role` (signal | agent | tool | approval | resolution |
+repository) so the UI can render an investigation timeline. Repository drafts
+are appended on retrieval; seeded transcripts stay unchanged.
+Doc links are official Microsoft Learn pages.
 """
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Any, Dict, List
+
+from .repository import FOLLOW_UPS, build_draft
 
 DOCS: Dict[str, str] = {
     "overview": "https://learn.microsoft.com/azure/sre-agent/overview",
@@ -418,7 +423,7 @@ def list_scenarios() -> List[Dict[str, Any]]:
     return [
         {"id": s["id"], "title": s["title"], "summary": s["summary"],
          "service": s["service"], "severity": s["severity"], "mode": s["mode"],
-         "waf": s["waf"]}
+         "waf": s["waf"], "repository_outcome": FOLLOW_UPS[s["id"]]["kind"]}
         for s in SCENARIOS
     ]
 
@@ -426,5 +431,13 @@ def list_scenarios() -> List[Dict[str, Any]]:
 def get_scenario(scenario_id: str) -> Dict[str, Any] | None:
     for s in SCENARIOS:
         if s["id"] == scenario_id:
-            return s
+            result = deepcopy(s)
+            result["turns"].append({
+                "role": "repository",
+                "title": "Close the loop in the repository (illustrative draft)",
+                "text": "The expected mitigation is not the end of the story. Prepare "
+                        "a durable follow-up for maintainers; nothing is published or approved.",
+                "draft": build_draft(s),
+            })
+            return result
     return None
