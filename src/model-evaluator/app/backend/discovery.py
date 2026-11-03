@@ -27,10 +27,10 @@ _NON_CHAT_HINTS = ("image", "realtime", "embedding", "embed", "whisper",
 
 
 def _is_reasoning(model_name: str) -> bool:
-    """gpt-5.x / o1 / o3 / o4 style models: no temperature/top_p, and they use
-    max_completion_tokens instead of max_tokens (verified against gpt-5.1)."""
+    """GPT-5 / GPT-6 (including Astra) / o1 / o3 / o4 use reasoning parameters:
+    max_completion_tokens instead of max_tokens, without temperature/top_p."""
     n = (model_name or "").lower()
-    return n.startswith(("gpt-5", "o1", "o3", "o4"))
+    return n.startswith(("gpt-5", "gpt-6", "o1", "o3", "o4"))
 
 
 def _classify(name: str, model_name: str, capabilities: Dict[str, Any]) -> Tuple[bool, str]:

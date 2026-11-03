@@ -41,7 +41,7 @@ def build_params(model_meta: Dict[str, Any], prompt: str, system: str,
     }
     params[model_meta.get("token_param", "max_tokens")] = out_tokens
     if not model_meta.get("reasoning"):
-        # Reasoning models (gpt-5.x/o*) reject these; only send for others.
+        # Reasoning models (gpt-5/gpt-6/o*) omit these; only send for others.
         if temperature is not None:
             params["temperature"] = float(temperature)
         if top_p is not None:

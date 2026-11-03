@@ -148,7 +148,7 @@ metric.
 - **Throughput** — completion tokens generated per second, once generation has started.
 - **LLM-as-judge** — using a model to score or compare other models' outputs against a
   rubric, instead of (or alongside) a human reviewer.
-- **Reasoning model** — a model family (e.g. `gpt-5.x`, `o1`/`o3`) that spends hidden
+- **Reasoning model** — a model family (e.g. `gpt-5.x`, `gpt-6-astra`, `o1`/`o3`) that spends hidden
   "thinking" tokens and does not accept `temperature`/`top_p`.
 - **Managed identity** — an Azure AD identity assigned to the app itself, used here to
   call Foundry/Azure OpenAI without a stored secret.
@@ -256,6 +256,24 @@ deploy; no secrets baked in):
 
 Optional ARM fallback discovery (needs a management-plane read role, off by default):
 `AZURE_SUBSCRIPTION_ID`, `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME`.
+
+Discovery recognizes GPT-5, GPT-6 (including Astra), and o1/o3/o4 as reasoning
+families using the underlying model name, or the deployment name when model
+metadata is unavailable. Both comparisons and the judge use
+`max_completion_tokens` for these families and omit sampling parameters; other
+models retain `max_tokens`. The UI uses the same metadata to disable temperature
+and top-p. Static fallback deployments therefore need recognizable model names.
+
+#### Regression tests
+
+After installing `requirements.txt`, run from `src/model-evaluator`:
+
+```shell
+python -m unittest discover -s tests -v
+```
+
+These tests cover discovery metadata, comparison parameters, output caps, and
+judge parameters without Azure credentials or live model calls.
 
 #### API surface
 
